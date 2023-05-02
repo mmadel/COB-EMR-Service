@@ -8,8 +8,8 @@
 		<version>2.7.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.emr</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.cob</groupId>
+	<artifactId>emr</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ElectronicMedicalRecords</name>
 	<description>Electronic Medical Records</description>
@@ -44,6 +44,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.vladmihalcea</groupId>
+			<artifactId>hibernate-types-52</artifactId>
+			<version>2.9.7</version>
 		</dependency>
 	</dependencies>
 
