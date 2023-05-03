@@ -1,9 +1,12 @@
 package com.cob.emr.entity.organization;
 
+import com.cob.emr.entity.clinic.Clinic;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -23,4 +26,7 @@ public class Organization {
 
     @Column(name = "organization_tax_id")
     private String taxID;
+
+    @OneToMany(mappedBy = "organization")
+    private List<Clinic> clinics = new ArrayList<>();
 }

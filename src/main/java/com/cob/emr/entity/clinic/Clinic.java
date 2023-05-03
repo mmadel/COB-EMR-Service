@@ -1,6 +1,7 @@
 package com.cob.emr.entity.clinic;
 
 import com.cob.emr.entity.insurance.InsuranceCompany;
+import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.patient.AddressModel;
 import lombok.Getter;
@@ -38,5 +39,8 @@ public class Clinic {
             inverseJoinColumns = {@JoinColumn(name = "fk_insurance_company")})
     private Set<InsuranceCompany> insuranceCompanies = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
 }
