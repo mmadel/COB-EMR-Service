@@ -38,7 +38,12 @@ public class PatientInsurance {
     @Column(name = "expiration_date")
     private Long expirationDate;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="insurance_company_id")
     private InsuranceCompany insuranceCompany;
+
+    @ManyToOne
+    @JoinColumn(name="patient_id")
+    private Patient patient;
+
 }

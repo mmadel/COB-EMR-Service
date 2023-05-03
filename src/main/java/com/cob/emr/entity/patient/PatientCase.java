@@ -2,11 +2,7 @@ package com.cob.emr.entity.patient;
 
 import com.cob.emr.enums.InjuryCase;
 import com.cob.emr.enums.PlaceOfService;
-import com.cob.emr.model.patient.cases.TreatingDoctorModel;
-import com.cob.emr.model.patient.cases.CaseDiagnosis;
-import com.cob.emr.model.patient.cases.CaseInsuranceInformationModel;
-import com.cob.emr.model.patient.cases.CaseOtherInformation;
-import com.cob.emr.model.patient.cases.ReferralCase;
+import com.cob.emr.model.patient.cases.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -55,5 +51,8 @@ public class PatientCase {
     @Type(type = "json")
     private CaseOtherInformation caseOtherInformation;
 
+    @ManyToOne
+    @JoinColumn(name="patient_id")
+    private Patient patient;
 
 }
