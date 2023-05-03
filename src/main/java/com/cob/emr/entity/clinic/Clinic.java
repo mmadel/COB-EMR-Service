@@ -3,7 +3,7 @@ package com.cob.emr.entity.clinic;
 import com.cob.emr.entity.insurance.InsuranceCompany;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.model.patient.AddressModel;
+import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;

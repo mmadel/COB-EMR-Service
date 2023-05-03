@@ -1,4 +1,4 @@
-package com.cob.emr.model.patient;
+package com.cob.emr.model.patient.cases;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,7 +2,7 @@ package com.cob.emr.entity.patient;
 
 import com.cob.emr.enums.InjuryCase;
 import com.cob.emr.enums.PlaceOfService;
-import com.cob.emr.model.patient.TreatingDoctorModel;
+import com.cob.emr.model.patient.cases.TreatingDoctorModel;
 import com.cob.emr.model.patient.cases.CaseDiagnosis;
 import com.cob.emr.model.patient.cases.CaseInsuranceInformationModel;
 import com.cob.emr.model.patient.cases.CaseOtherInformation;

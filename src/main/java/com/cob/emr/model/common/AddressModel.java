@@ -1,4 +1,4 @@
-package com.cob.emr.model.patient;
+package com.cob.emr.model.common;
 
 import com.cob.emr.enums.AddressType;
 import lombok.Getter;
