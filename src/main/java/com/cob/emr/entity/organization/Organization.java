@@ -32,6 +32,10 @@ public class Organization {
     @Column(name = "billing_address", columnDefinition = "json")
     @Type(type = "json")
     private AddressModel billingAddress;
-    @OneToMany(mappedBy = "organization")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "organization")
     private List<Clinic> clinics = new ArrayList<>();
+
+    public void assignClinicsToOrganization() {
+        clinics.forEach(clinic -> clinic.setOrganization(this));
+    }
 }
