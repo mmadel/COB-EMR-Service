@@ -20,6 +20,7 @@ public class Clinic {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "clinic_name")
     private String name;
 
     @Column(name = "clinic_address", columnDefinition = "json")
