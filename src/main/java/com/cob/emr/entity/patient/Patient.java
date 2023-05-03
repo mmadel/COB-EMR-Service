@@ -5,8 +5,8 @@ import com.cob.emr.enums.IdType;
 import com.cob.emr.enums.MaritalStatus;
 import com.cob.emr.enums.Suffix;
 import com.cob.emr.enums.Title;
-import com.cob.emr.model.patient.AddressModel;
-import com.cob.emr.model.patient.ContactModel;
+import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.ContactModel;
 import com.cob.emr.model.patient.PatientDependentModel;
 import com.cob.emr.model.patient.PatientEmergencyModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
@@ -18,6 +18,7 @@ import org.hibernate.annotations.TypeDefs;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,7 +42,7 @@ public class Patient {
     private String lastName;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column
-    private Long birthDate;
+    private Date birthDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "marital_status")
     private MaritalStatus maritalStatus;

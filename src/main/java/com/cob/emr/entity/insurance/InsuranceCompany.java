@@ -2,15 +2,13 @@ package com.cob.emr.entity.insurance;
 
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.enums.InsuranceCompanyType;
-import com.cob.emr.model.patient.AddressModel;
+import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "insurance_company")
 @Getter
@@ -33,6 +31,7 @@ public class InsuranceCompany {
     @Type(type = "json")
     private List<AddressModel> addresses;
 
-    @ManyToMany(mappedBy = "insuranceCompanies")
-    private Set<Clinic> clinics = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "fk_clinic_id")
+    private Clinic clinic;
 }

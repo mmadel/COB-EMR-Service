@@ -1,9 +1,8 @@
 package com.cob.emr.entity.clinic;
 
-import com.cob.emr.entity.insurance.InsuranceCompany;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.model.patient.AddressModel;
+import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -21,6 +20,7 @@ public class Clinic {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "clinic_name")
     private String name;
 
     @Column(name = "clinic_address", columnDefinition = "json")
@@ -33,11 +33,6 @@ public class Clinic {
             inverseJoinColumns = {@JoinColumn(name = "fk_patient")})
     private Set<Patient> patients = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "clinic_insurance_company",
-            joinColumns = {@JoinColumn(name = "fk_clinic")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_insurance_company")})
-    private Set<InsuranceCompany> insuranceCompanies = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
