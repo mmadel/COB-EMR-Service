@@ -8,9 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "insurance_company")
 @Getter
@@ -33,6 +31,7 @@ public class InsuranceCompany {
     @Type(type = "json")
     private List<AddressModel> addresses;
 
-    @ManyToMany(mappedBy = "insuranceCompanies")
-    private Set<Clinic> clinics = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "fk_clinic_id")
+    private Clinic clinic;
 }

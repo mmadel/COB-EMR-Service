@@ -5,9 +5,7 @@ import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Setter
 @Getter
@@ -25,5 +23,5 @@ public class InsuranceCompanyModel {
 
     private List<AddressModel> addresses;
 
-    private Set<Long> clinicsId = new HashSet<>();
+    private Long clinicId;
 }

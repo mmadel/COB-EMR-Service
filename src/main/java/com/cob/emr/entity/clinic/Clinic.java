@@ -1,6 +1,5 @@
 package com.cob.emr.entity.clinic;
 
-import com.cob.emr.entity.insurance.InsuranceCompany;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.common.AddressModel;
@@ -33,11 +32,6 @@ public class Clinic {
             inverseJoinColumns = {@JoinColumn(name = "fk_patient")})
     private Set<Patient> patients = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "clinic_insurance_company",
-            joinColumns = {@JoinColumn(name = "fk_clinic")},
-            inverseJoinColumns = {@JoinColumn(name = "fk_insurance_company")})
-    private Set<InsuranceCompany> insuranceCompanies = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
