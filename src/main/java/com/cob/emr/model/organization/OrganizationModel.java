@@ -1,6 +1,7 @@
 package com.cob.emr.model.organization;
 
 import com.cob.emr.model.clinic.ClinicModel;
+import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,6 +21,7 @@ public class OrganizationModel {
     private String groupNPI;
 
     private String taxID;
+    private AddressModel billingAddress;
 
     private List<ClinicModel> clinics = new ArrayList<>();
 }

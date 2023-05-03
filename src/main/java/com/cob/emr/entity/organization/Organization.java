@@ -1,8 +1,10 @@
 package com.cob.emr.entity.organization;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class Organization {
     @Column(name = "organization_tax_id")
     private String taxID;
 
+    @Column(name = "billing_address", columnDefinition = "json")
+    @Type(type = "json")
+    private AddressModel billingAddress;
     @OneToMany(mappedBy = "organization")
     private List<Clinic> clinics = new ArrayList<>();
 }
