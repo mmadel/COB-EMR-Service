@@ -32,6 +32,6 @@ public class InsuranceCompany {
     private List<AddressModel> addresses;
 
     @ManyToOne
-    @JoinColumn(name = "fk_clinic_id")
+    @JoinColumn(name = "clinic_id")
     private Clinic clinic;
 }
