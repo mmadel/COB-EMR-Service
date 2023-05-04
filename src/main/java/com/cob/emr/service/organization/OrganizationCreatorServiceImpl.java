@@ -19,9 +19,10 @@ public class OrganizationCreatorServiceImpl implements OrganizationCreatorServic
     ModelMapper mapper;
 
     @Override
-    public void create(OrganizationModel model) {
+    public OrganizationModel create(OrganizationModel model) {
         Organization toBeCreated = mapper.map(model, Organization.class);
         toBeCreated.assignClinicsToOrganization();
         Organization created = repository.save(toBeCreated);
+        return mapper.map(created, OrganizationModel.class);
     }
 }
