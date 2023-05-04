@@ -1,6 +1,5 @@
 package com.cob.emr.entity.patient;
 
-import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.enums.IdType;
 import com.cob.emr.enums.MaritalStatus;
 import com.cob.emr.enums.Suffix;
@@ -15,13 +14,9 @@ import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "patient")
 @TypeDefs({
@@ -40,9 +35,9 @@ public class Patient {
     private String middleName;
     @Column(name = "last_name")
     private String lastName;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
+
     @Column
-    private Date birthDate;
+    private Long birthDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "marital_status")
     private MaritalStatus maritalStatus;
@@ -83,6 +78,4 @@ public class Patient {
     @Type(type = "json")
     private PatientDependentModel dependent;
 
-    @ManyToMany(mappedBy = "patients")
-    private Set<Clinic> clinics = new HashSet<>();
 }

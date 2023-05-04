@@ -1,12 +1,9 @@
 package com.cob.emr.model.patient.insurance;
 
-import com.cob.emr.entity.insurance.InsuranceCompany;
 import com.cob.emr.enums.PaymentType;
+import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Setter
 @Getter
@@ -35,8 +32,6 @@ public class PatientInsuranceModel {
 
     private Long expirationDate;
 
-    @OneToOne
-    @JoinColumn(name = "insurance_company_id")
-    private InsuranceCompany insuranceCompany;
+    private InsuranceCompanyModel insuranceCompany;
 
 }
