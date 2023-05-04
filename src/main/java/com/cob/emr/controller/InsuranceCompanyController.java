@@ -24,4 +24,10 @@ public class InsuranceCompanyController {
     public ResponseEntity<Object> update(@RequestBody InsuranceCompanyModel model) {
         return ResponseHandler.generateResponse("Successfully updated Insurance Company!", HttpStatus.OK, insuranceCompanyCreatorService.createOrUpdate(model));
     }
+
+    @DeleteMapping("delete/id/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
+        insuranceCompanyCreatorService.delete(id);
+        return ResponseHandler.generateResponse("Successfully deleted Insurance Company!", HttpStatus.OK, id);
+    }
 }

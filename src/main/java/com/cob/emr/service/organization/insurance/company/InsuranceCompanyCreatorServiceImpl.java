@@ -24,4 +24,12 @@ public class InsuranceCompanyCreatorServiceImpl implements InsuranceCompanyCreat
         InsuranceCompany created = repository.save(toBeCreated);
         return mapper.map(created, InsuranceCompanyModel.class);
     }
+
+    @Override
+    public void delete(Long id) {
+        InsuranceCompany toBeDeleted = repository
+                .findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(id.toString()));
+        repository.delete(toBeDeleted);
+    }
 }
