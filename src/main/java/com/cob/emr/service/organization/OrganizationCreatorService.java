@@ -4,5 +4,6 @@ import com.cob.emr.model.organization.OrganizationModel;
 
 public interface OrganizationCreatorService {
 
-    OrganizationModel create(OrganizationModel model);
+    OrganizationModel createOrUpdate(OrganizationModel model);
+
 }
