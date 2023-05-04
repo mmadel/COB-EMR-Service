@@ -2,7 +2,7 @@ package com.cob.emr.controller;
 
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.service.organization.insurance.company.InsuranceCompanyCreatorService;
+import com.cob.emr.service.insurance.company.InsuranceCompanyCreatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
