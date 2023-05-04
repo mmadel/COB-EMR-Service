@@ -27,7 +27,7 @@ public class Clinic {
     @Type(type = "json")
     private AddressModel address;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "clinic_patient",
             joinColumns = {@JoinColumn(name = "clinic_id")},
             inverseJoinColumns = {@JoinColumn(name = "patient_id")})

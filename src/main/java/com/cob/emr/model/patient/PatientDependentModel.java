@@ -1,8 +1,14 @@
 package com.cob.emr.model.patient;
 
 import com.cob.emr.model.common.AddressModel;
+import lombok.Getter;
+import lombok.Setter;
 
-public class PatientDependentModel {
+import java.io.Serializable;
+
+@Getter
+@Setter
+public class PatientDependentModel implements Serializable {
 
     private Boolean isDependent;
 

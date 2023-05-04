@@ -4,9 +4,11 @@ import com.cob.emr.enums.AddressType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
+
 @Setter
 @Getter
-public class AddressModel {
+public class AddressModel implements Serializable {
 
     private AddressType addressType;
     private String firstAddress;

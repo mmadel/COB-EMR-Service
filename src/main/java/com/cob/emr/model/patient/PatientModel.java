@@ -6,10 +6,12 @@ import com.cob.emr.enums.Suffix;
 import com.cob.emr.enums.Title;
 import com.cob.emr.model.common.AddressModel;
 import com.cob.emr.model.common.ContactModel;
+import com.cob.emr.model.patient.cases.PatientCaseModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,7 +28,7 @@ public class PatientModel {
 
     private String lastName;
 
-    private Date birthDate;
+    private Long birthDate;
 
     private MaritalStatus maritalStatus;
 
@@ -41,7 +43,7 @@ public class PatientModel {
 
     private IdType idType;
 
-    private String PatientId;
+    private String patientId;
 
 
     private Long effectiveFromDate;
@@ -60,4 +62,8 @@ public class PatientModel {
 
 
     private Set<Long> clinicsId = new HashSet<>();
+
+    private List<PatientCaseModel> patientCaseModels = new ArrayList<>();
+
+    private List<PatientInsuranceModel> patientInsuranceModels = new ArrayList<>();
 }
