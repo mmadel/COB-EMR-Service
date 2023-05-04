@@ -6,4 +6,7 @@ public interface OrganizationCreatorService {
 
     OrganizationModel createOrUpdate(OrganizationModel model);
 
+    void delete(Long organizationId);
+
+
 }

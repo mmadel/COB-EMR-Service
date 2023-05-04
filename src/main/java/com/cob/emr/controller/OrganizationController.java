@@ -19,8 +19,15 @@ public class OrganizationController {
     public ResponseEntity<Object> create(@RequestBody OrganizationModel model) {
         return ResponseHandler.generateResponse("Successfully added Organization!", HttpStatus.OK, creatorService.createOrUpdate(model));
     }
+
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody OrganizationModel model){
+    public ResponseEntity<Object> update(@RequestBody OrganizationModel model) {
         return ResponseHandler.generateResponse("Successfully updated Organization!", HttpStatus.OK, creatorService.createOrUpdate(model));
+    }
+
+    @DeleteMapping("/delete/id/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
+        creatorService.delete(id);
+        return ResponseHandler.generateResponse("Successfully deleted Organization!", HttpStatus.OK);
     }
 }
