@@ -1,4 +1,4 @@
-package com.cob.emr.service.insurance.company;
+package com.cob.emr.service.insurance.company.creator;
 
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 

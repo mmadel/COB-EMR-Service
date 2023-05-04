@@ -1,4 +1,4 @@
-package com.cob.emr.service.organization;
+package com.cob.emr.service.organization.creator;
 
 import com.cob.emr.model.organization.OrganizationModel;
 
