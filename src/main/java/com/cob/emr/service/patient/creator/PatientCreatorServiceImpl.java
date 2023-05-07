@@ -1,7 +1,9 @@
 package com.cob.emr.service.patient.creator;
 
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.model.patient.PatientModel;
+import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -48,6 +51,9 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
                 .stream(clinicRepository.findAllById(model.getClinicsId()).spliterator(), false)
                 .forEach(clinic -> clinic.addPatient(toBeCreated));
         Patient created = patientRepository.save(toBeCreated);
+
+        persistPatientCases(created, model.getPatientCaseModels());
+
         return mapper.map(created, PatientModel.class);
     }
 
@@ -55,7 +61,11 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
     }
 
-    private void persistPatientCases() {
-
+    private void persistPatientCases(Patient created, List<PatientCaseModel> models) {
+        models.forEach(patientCaseModel -> {
+            PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
+            patientCase.setPatient(created);
+            patientCaseRepository.save(patientCase);
+        });
     }
 }
