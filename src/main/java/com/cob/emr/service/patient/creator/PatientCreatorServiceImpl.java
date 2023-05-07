@@ -41,12 +41,12 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
         return persistPatient(model);
     }
 
+
     private PatientModel persistPatient(PatientModel model) {
         Patient toBeCreated = mapper.map(model, Patient.class);
         StreamSupport
                 .stream(clinicRepository.findAllById(model.getClinicsId()).spliterator(), false)
-                .forEach(clinic -> clinic.getPatients().add(toBeCreated));
-
+                .forEach(clinic -> clinic.addPatient(toBeCreated));
         Patient created = patientRepository.save(toBeCreated);
         return mapper.map(created, PatientModel.class);
     }

@@ -27,7 +27,7 @@ public class Clinic {
     @Type(type = "json")
     private AddressModel address;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "clinic_patient",
             joinColumns = {@JoinColumn(name = "clinic_id")},
             inverseJoinColumns = {@JoinColumn(name = "patient_id")})
@@ -37,5 +37,10 @@ public class Clinic {
     @ManyToOne
     @JoinColumn(name = "organization_id")
     private Organization organization;
+
+    public void addPatient(Patient patient) {
+        this.patients.add(patient);
+        patient.getClinics().add(this);
+    }
 
 }

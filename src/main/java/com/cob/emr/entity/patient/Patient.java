@@ -1,5 +1,6 @@
 package com.cob.emr.entity.patient;
 
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.enums.IdType;
 import com.cob.emr.enums.MaritalStatus;
 import com.cob.emr.enums.Suffix;
@@ -11,12 +12,16 @@ import com.cob.emr.model.patient.PatientEmergencyModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity(name = "patient")
 @TypeDefs({
@@ -78,4 +83,20 @@ public class Patient {
     @Type(type = "json")
     private PatientDependentModel dependent;
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "patients")
+    private Set<Clinic> clinics = new HashSet<>();
+
+    public void addClinic(Clinic clinic) {
+        this.clinics.add(clinic);
+        clinic.getPatients().add(this);
+    }
+
+    public void removeClinic(Clinic clinic) {
+        this.clinics.remove(clinic);
+        clinic.getPatients().remove(this);
+    }
+
+    public List<Long> clinicDifferences(List<Long> original, List<Long> submitted) {
+        return new ArrayList<>((CollectionUtils.removeAll(original, submitted)));
+    }
 }
