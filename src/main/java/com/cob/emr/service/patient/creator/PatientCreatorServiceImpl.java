@@ -2,8 +2,10 @@ package com.cob.emr.service.patient.creator;
 
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.entity.patient.PatientInsurance;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
@@ -54,11 +56,17 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
         persistPatientCases(created, model.getPatientCaseModels());
 
+        persistPatientInsurances(created , model.getPatientInsuranceModels());
+
         return mapper.map(created, PatientModel.class);
     }
 
-    private void persistPatientInsurances() {
-
+    private void persistPatientInsurances(Patient created, List<PatientInsuranceModel> models) {
+        models.forEach(patientInsuranceModel -> {
+            PatientInsurance patientInsurance = mapper.map(patientInsuranceModel, PatientInsurance.class);
+            patientInsurance.setPatient(created);
+            patientInsuranceRepository.save(patientInsurance);
+        });
     }
 
     private void persistPatientCases(Patient created, List<PatientCaseModel> models) {
