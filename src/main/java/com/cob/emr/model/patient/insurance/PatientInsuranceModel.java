@@ -11,7 +11,6 @@ public class PatientInsuranceModel {
 
     private Long id;
 
-
     private String insuranceNumber;
 
 

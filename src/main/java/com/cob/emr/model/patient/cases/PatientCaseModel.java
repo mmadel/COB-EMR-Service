@@ -9,10 +9,9 @@ import java.util.List;
 
 @Setter
 @Getter
-public class PatientCaseModel {
+public class PatientCaseModel  {
 
     private Long id;
-
 
     private String title;
 
