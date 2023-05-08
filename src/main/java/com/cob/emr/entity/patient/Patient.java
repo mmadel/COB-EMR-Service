@@ -12,13 +12,11 @@ import com.cob.emr.model.patient.PatientEmergencyModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.collections4.CollectionUtils;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,7 +94,4 @@ public class Patient {
         clinic.getPatients().remove(this);
     }
 
-    public List<Long> clinicDifferences(List<Long> original, List<Long> submitted) {
-        return new ArrayList<>((CollectionUtils.removeAll(original, submitted)));
-    }
 }
