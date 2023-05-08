@@ -3,6 +3,7 @@ package com.cob.emr.controller;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
+import com.cob.emr.service.patient.finder.PatientFinderService;
 import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class PatientController {
     @Autowired
     PatientUpdaterService updaterService;
 
+    @Autowired
+    PatientFinderService finderService;
+
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
         return ResponseHandler
@@ -33,5 +37,22 @@ public class PatientController {
                 .generateResponse("Successfully updated Patient!",
                         HttpStatus.OK,
                         updaterService.update(model));
+    }
+
+    @GetMapping("/find/clinicId/{clinicId}")
+    public ResponseEntity<Object> findAll(@PathVariable("clinicId") Long clinicId) {
+        return ResponseHandler
+                .generateResponse("Successfully Find All Patients!",
+                        HttpStatus.OK,
+                        finderService.findAll(clinicId));
+    }
+
+    @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
+    public ResponseEntity<Object> findById(@PathVariable("clinicId") Long clinicId,
+                                           @PathVariable("patientId") Long patientId) {
+        return ResponseHandler
+                .generateResponse("Successfully Find Patient!",
+                        HttpStatus.OK,
+                        finderService.findById(clinicId, patientId));
     }
 }
