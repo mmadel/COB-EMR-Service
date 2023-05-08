@@ -1,7 +1,7 @@
 package com.cob.emr.entity.appointment;
 
 import com.cob.emr.enums.AppointmentStatus;
-import com.cob.emr.model.appointment.StatusHistoryValue;
+import com.cob.emr.model.appointment.StatusHistoryValueModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -26,7 +26,7 @@ public class AppointmentStatusHistory {
 
     @Column(name = "status_history_value", columnDefinition = "json")
     @Type(type = "json")
-    private StatusHistoryValue statusHistoryValue;
+    private StatusHistoryValueModel statusHistoryValueModel;
 
     @ManyToOne
     @JoinColumn(name = "appointment_id")

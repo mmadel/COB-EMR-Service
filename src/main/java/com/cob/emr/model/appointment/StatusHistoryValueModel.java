@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class StatusHistoryValue {
+public class StatusHistoryValueModel {
 
     private Long cancelDate;
 
