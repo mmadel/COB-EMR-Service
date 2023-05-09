@@ -23,4 +23,6 @@ public class AppointmentModel {
     private Long patientCaseId;
 
     private Long appointmentTypeId;
+
+    private StatusHistoryValueModel statusHistoryValueModel;
 }

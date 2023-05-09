@@ -5,6 +5,7 @@ import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentCreatorService;
 import com.cob.emr.service.appointment.AppointmentFinderService;
+import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,9 @@ public class AppointmentController {
 
     @Autowired
     AppointmentFinderService finderService;
+
+    @Autowired
+    AppointmentHistoryFinderService historyFinderService;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
@@ -55,5 +59,13 @@ public class AppointmentController {
                         HttpStatus.OK,
                         null);
 
+    }
+
+    @GetMapping("/history/id/{appointmentId}")
+    public ResponseEntity<Object> ListAppointmentHistory(@PathVariable Long appointmentId) {
+        return ResponseHandler
+                .generateResponse("Successfully filter appointment by filters inputs",
+                        HttpStatus.OK,
+                        historyFinderService.find(appointmentId));
     }
 }
