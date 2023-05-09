@@ -7,9 +7,9 @@ import lombok.Setter;
 @Getter
 public class StatusHistoryValueModel {
 
-    private Long cancelDate;
+    private Long dateValue;
 
-    private String cancelReason;
+    private String reason;
 
     private String comment;
 }
