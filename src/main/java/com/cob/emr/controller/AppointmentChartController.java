@@ -41,7 +41,7 @@ public class AppointmentChartController {
         return ResponseHandler
                 .generateResponse("Successfully find All Incoming Appointments By Case  ",
                         HttpStatus.OK,
-                        finderService.findIncomingAppointmentsByCase(patientId, clinicId, patientCaseId,paging));
+                        finderService.findIncomingAppointmentsByCase(patientId, clinicId, patientCaseId, paging));
 
     }
 
@@ -50,10 +50,11 @@ public class AppointmentChartController {
                                                               @PathVariable Long clinicId,
                                                               @PathVariable() int page,
                                                               @PathVariable() int size) {
+        Pageable paging = PageRequest.of(page, size, Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find All Previous Appointments",
                         HttpStatus.OK,
-                        null);
+                        finderService.findAllPreviousAppointments(patientId, clinicId, paging));
     }
 
     @GetMapping(path = "/find/previous/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}/page/{page}/size/{size}")
@@ -61,10 +62,11 @@ public class AppointmentChartController {
                                                                  @PathVariable Long patientCaseId,
                                                                  @PathVariable() int page,
                                                                  @PathVariable() int size) {
+        Pageable paging = PageRequest.of(page, size, Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find Previous Appointments By Case",
                         HttpStatus.OK,
-                        null);
+                        finderService.findPreviousAppointmentsByCase(patientId, clinicId, patientCaseId, paging));
     }
 
     @GetMapping(path = "/find/cancel/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}/page/{page}/size/{size}")

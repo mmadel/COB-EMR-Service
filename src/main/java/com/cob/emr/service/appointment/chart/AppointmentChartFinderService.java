@@ -23,23 +23,36 @@ public class AppointmentChartFinderService {
     @Autowired
     ModelMapper mapper;
 
-    /*
-        Appointments that will start in the future
-     */
+
+    /* Appointments that will start in the future  */
     public PageImpl<AppointmentModel> findAllIncomingAppointments(Long patientId, Long clinicId,
                                                                   Pageable pageable) {
         final long currentDate = (new Date().getTime());
         Page<List<Appointment>> page = appointmentRepository.findAllIncomingAppointments(patientId, clinicId, currentDate, pageable);
         return getAppointmentPageContent(page);
     }
-        /*
-        Appointments that will start in the future by patient case
-     */
+    /* Appointments that will start in the future by patient case */
 
     public PageImpl<AppointmentModel> findIncomingAppointmentsByCase(Long patientId, Long clinicId, Long patientCaseId,
                                                                      Pageable pageable) {
         final long currentDate = (new Date().getTime());
         Page<List<Appointment>> page = appointmentRepository.findIncomingAppointmentsByCase(patientId, clinicId, patientCaseId, currentDate, pageable);
+        return getAppointmentPageContent(page);
+    }
+
+    /* Appointments have been started */
+    public PageImpl<AppointmentModel> findAllPreviousAppointments(Long patientId, Long clinicId,
+                                                                  Pageable pageable) {
+        final long currentDate = (new Date().getTime());
+        Page<List<Appointment>> page = appointmentRepository.findAllPreviousAppointments(patientId, clinicId, currentDate, pageable);
+        return getAppointmentPageContent(page);
+    }
+
+    /* Appointments have been started by case */
+    public PageImpl<AppointmentModel> findPreviousAppointmentsByCase(Long patientId, Long clinicId, Long patientCaseId,
+                                                                     Pageable pageable) {
+        final long currentDate = (new Date().getTime());
+        Page<List<Appointment>> page = appointmentRepository.findPreviousAppointmentsByCase(patientId, clinicId, patientCaseId, currentDate, pageable);
         return getAppointmentPageContent(page);
     }
 

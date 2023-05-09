@@ -36,4 +36,24 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     Page<List<Appointment>> findAllIncomingAppointments(@Param(value = "patientId") long patientId,
                                                      @Param(value = "clinicId") long clinicId,
                                                      @Param(value = "currentDate") long currentDate, Pageable paging);
+
+    @Query("select a from Appointment a where " +
+            "a.patient.id = :patientId " +
+            "AND a.clinic.id = :clinicId " +
+            "AND a.startDate  < :currentDate " +
+            "OR  a.appointmentStatus = 'noshow'" +
+            "OR  a.appointmentStatus = 'cancel'")
+    Page<List<Appointment>> findAllPreviousAppointments(@Param(value = "patientId") long patientId,
+                                                     @Param(value = "clinicId") long clinicId,
+                                                     @Param(value = "currentDate") long currentDate, Pageable paging);
+
+    @Query("select a from Appointment a where " +
+            "a.patient.id = :patientId " +
+            "AND a.clinic.id = :clinicId " +
+            "AND a.patientCase.id = :patientCaseId " +
+            "AND a.startDate  < :currentDate ")
+    Page<List<Appointment>> findPreviousAppointmentsByCase(@Param(value = "patientId") long patientId,
+                                                            @Param(value = "clinicId") long clinicId,
+                                                            @Param(value = "patientCaseId") long patientCaseId,
+                                                            @Param(value = "currentDate") long currentDate, Pageable paging);
 }
