@@ -1,5 +1,6 @@
 package com.cob.emr.controller;
 
+import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentCreatorService;
@@ -39,9 +40,20 @@ public class AppointmentController {
     public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
                                        @PathVariable Long clinicId) {
         return ResponseHandler
-                .generateResponse("Successfully update Appointment",
+                .generateResponse("Successfully find Appointment by date range",
                         HttpStatus.OK,
-                        finderService.find(startDate,endDate,clinicId));
+                        finderService.find(startDate, endDate, clinicId));
+
+    }
+
+    @PostMapping(path = "/filter/{startDate}/{endDate}/{clinicId}")
+    public ResponseEntity<Object> filter(@PathVariable long startDate, @PathVariable long endDate,
+                                         @PathVariable long clinicId,
+                                         @RequestBody AppointmentFilterModel filters) {
+        return ResponseHandler
+                .generateResponse("Successfully filter appointment by filters inputs",
+                        HttpStatus.OK,
+                        null);
 
     }
 }
