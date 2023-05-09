@@ -12,4 +12,8 @@ public enum AppointmentStatus {
     AppointmentStatus(String label) {
         this.label = label;
     }
+    @Override
+    public String toString() {
+        return this.label;
+    }
 }
