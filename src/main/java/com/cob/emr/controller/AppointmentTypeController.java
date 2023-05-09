@@ -1,6 +1,10 @@
 package com.cob.emr.controller;
 
 import com.cob.emr.model.appointment.AppointmentTypeModel;
+import com.cob.emr.response.ResponseHandler;
+import com.cob.emr.service.appointment.AppointmentCreatorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -8,14 +12,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/appointment/type")
 public class AppointmentTypeController {
 
+    @Autowired
+    AppointmentCreatorService creatorService;
+
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentTypeModel model) {
-        return null;
+        return ResponseHandler
+                .generateResponse("Successfully added AppointmentType",
+                        HttpStatus.OK,
+                        creatorService.createOrUpdate(model));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody AppointmentTypeModel model) {
-        return null;
+        return ResponseHandler
+                .generateResponse("Successfully updated AppointmentType",
+                        HttpStatus.OK,
+                        creatorService.createOrUpdate(model));
     }
 
     @GetMapping("/find/clinic/{clinicId}")
