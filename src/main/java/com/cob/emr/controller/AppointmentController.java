@@ -6,10 +6,7 @@ import com.cob.emr.service.appointment.AppointmentCreatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/appointment")
@@ -23,14 +20,14 @@ public class AppointmentController {
         return ResponseHandler
                 .generateResponse("Successfully added Appointment",
                         HttpStatus.OK,
-                        creatorService.create(model));
+                        creatorService.createOrUpdate(model));
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
         return ResponseHandler
-                .generateResponse("Successfully added Appointment",
+                .generateResponse("Successfully update Appointment",
                         HttpStatus.OK,
-                        null);
+                        creatorService.createOrUpdate(model));
     }
 }

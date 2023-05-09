@@ -19,7 +19,7 @@ public class AppointmentCreatorService {
     @Autowired
     ModelMapper mapper;
 
-    public AppointmentModel create(AppointmentModel model) {
+    public AppointmentModel createOrUpdate(AppointmentModel model) {
         Appointment toBeCreated = mapper.map(model, Appointment.class);
         fillAppointmentAssociation(toBeCreated, model);
         appointmentRepository.save(toBeCreated);
