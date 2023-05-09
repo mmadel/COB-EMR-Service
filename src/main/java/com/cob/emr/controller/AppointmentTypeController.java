@@ -33,12 +33,18 @@ public class AppointmentTypeController {
 
     @GetMapping("/find/clinic/{clinicId}")
     public ResponseEntity<Object> findAll(@PathVariable("clinicId") Long clinicId) {
-        return null;
+        return ResponseHandler
+                .generateResponse("Successfully Find all AppointmentTypes",
+                        HttpStatus.OK,
+                        creatorService.findAll(clinicId));
     }
 
     @GetMapping("/find/clinic/{clinicId}/id/{id}")
     public ResponseEntity<Object> findById(@PathVariable("clinicId") Long clinicId
             , @PathVariable("id") Long id) {
-        return null;
+        return ResponseHandler
+                .generateResponse("Successfully Find all AppointmentTypes",
+                        HttpStatus.OK,
+                        creatorService.findById(id, clinicId));
     }
 }
