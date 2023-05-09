@@ -29,7 +29,7 @@ public class AppointmentFinderService {
     }
 
     public List<AppointmentModel> filter(Long startDate, Long endDate, Long clinicId, AppointmentFilterModel filterModel) {
-        /// TODO: 5/9/2023 implements filter appointment by filter inputs and start,end and clinic
+
         return null;
     }
 }
