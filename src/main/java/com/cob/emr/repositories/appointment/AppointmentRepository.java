@@ -76,4 +76,13 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
                                                       @Param(value = "clinicId") long clinicId,
                                                       @Param(value = "patientCaseId") long patientCaseId,
                                                       Pageable paging);
+
+    @Query("select a from Appointment a where " +
+            "a.patient.id = :patientId " +
+            "AND a.clinic.id = :clinicId " +
+            "AND a.patientCase.id = :patientCaseId " +
+            "AND  (a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.NoShow OR a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.Cancel)")
+    Page<List<Appointment>> findCancelNoShowAppointments(@Param(value = "patientId") long patientId,
+                                                         @Param(value = "clinicId") long clinicId,
+                                                         @Param(value = "patientCaseId") long patientCaseId, Pageable paging);
 }

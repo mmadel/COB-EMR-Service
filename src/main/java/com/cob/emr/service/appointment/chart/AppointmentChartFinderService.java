@@ -68,6 +68,12 @@ public class AppointmentChartFinderService {
         return getAppointmentPageContent(page);
     }
 
+    public PageImpl<AppointmentModel> findCancelNoShowAppointments(Long patientId, Long clinicId, Long patientCaseId, Pageable pageable) {
+        final long currentDate = (new Date().getTime());
+        Page<List<Appointment>> page = appointmentRepository.findCancelNoShowAppointments(patientId, clinicId, patientCaseId, pageable);
+        return getAppointmentPageContent(page);
+    }
+
     private PageImpl<AppointmentModel> getAppointmentPageContent(Page<List<Appointment>> page) {
         List<AppointmentModel> result = new ArrayList<>();
 

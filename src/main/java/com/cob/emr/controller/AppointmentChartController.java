@@ -79,7 +79,7 @@ public class AppointmentChartController {
         return ResponseHandler
                 .generateResponse("Successfully find Cancel Appointments",
                         HttpStatus.OK,
-                        finderService.findCancelAppointments(patientId,clinicId,clinicId,paging));
+                        finderService.findCancelAppointments(patientId, clinicId, clinicId, paging));
     }
 
     @GetMapping(path = "/find/noshow/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}/page/{page}/size/{size}")
@@ -91,7 +91,7 @@ public class AppointmentChartController {
         return ResponseHandler
                 .generateResponse("Successfully find No-Show Appointments",
                         HttpStatus.OK,
-                        finderService.findNoShowAppointments(patientId,clinicId,clinicId,paging));
+                        finderService.findNoShowAppointments(patientId, clinicId, clinicId, paging));
     }
 
     @GetMapping(path = "/find/cancel/noshow/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}/page/{page}/size/{size}")
@@ -99,10 +99,11 @@ public class AppointmentChartController {
                                                                @PathVariable Long patientCaseId,
                                                                @PathVariable() int page,
                                                                @PathVariable() int size) {
+        Pageable paging = PageRequest.of(page, size, Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find Cancel No-Show Appointments",
                         HttpStatus.OK,
-                        null);
+                        finderService.findCancelNoShowAppointments(patientId, clinicId, clinicId, paging));
     }
 
 }
