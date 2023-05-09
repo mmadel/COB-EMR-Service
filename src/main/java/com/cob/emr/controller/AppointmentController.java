@@ -3,6 +3,7 @@ package com.cob.emr.controller;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentCreatorService;
+import com.cob.emr.service.appointment.AppointmentFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,9 @@ public class AppointmentController {
 
     @Autowired
     AppointmentCreatorService creatorService;
+
+    @Autowired
+    AppointmentFinderService finderService;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
@@ -29,5 +33,15 @@ public class AppointmentController {
                 .generateResponse("Successfully update Appointment",
                         HttpStatus.OK,
                         creatorService.createOrUpdate(model));
+    }
+
+    @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}")
+    public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
+                                       @PathVariable Long clinicId) {
+        return ResponseHandler
+                .generateResponse("Successfully update Appointment",
+                        HttpStatus.OK,
+                        finderService.find(startDate,endDate,clinicId));
+
     }
 }
