@@ -2,7 +2,8 @@ package com.cob.emr.controller;
 
 import com.cob.emr.model.appointment.AppointmentTypeModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.service.appointment.AppointmentCreatorService;
+import com.cob.emr.service.appointment.type.AppointmentTypeCreatorService;
+import com.cob.emr.service.appointment.type.AppointmentTypeFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +14,10 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentTypeController {
 
     @Autowired
-    AppointmentCreatorService creatorService;
+    AppointmentTypeCreatorService creatorService;
+
+    @Autowired
+    AppointmentTypeFinderService finderService;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentTypeModel model) {
@@ -36,7 +40,7 @@ public class AppointmentTypeController {
         return ResponseHandler
                 .generateResponse("Successfully Find all AppointmentTypes",
                         HttpStatus.OK,
-                        creatorService.findAll(clinicId));
+                        finderService.findAll(clinicId));
     }
 
     @GetMapping("/find/clinic/{clinicId}/id/{id}")
@@ -45,6 +49,6 @@ public class AppointmentTypeController {
         return ResponseHandler
                 .generateResponse("Successfully Find all AppointmentTypes",
                         HttpStatus.OK,
-                        creatorService.findById(id, clinicId));
+                        finderService.findById(id, clinicId));
     }
 }
