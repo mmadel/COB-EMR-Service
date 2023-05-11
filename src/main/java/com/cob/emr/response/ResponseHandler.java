@@ -17,7 +17,7 @@ public class ResponseHandler {
         map.put("message", message);
         map.put("status", status.value());
         if (responseObj != null)
-            map.put("data", responseObj);
+            map.put("records", responseObj);
         map.put("time-stamp", new Date().getTime());
 
         return new ResponseEntity<>(map, status);

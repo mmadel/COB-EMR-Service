@@ -1,9 +1,9 @@
 package com.cob.emr.enums;
 
 public enum AddressType {
-    HOME("Home"),
-    WORK("Work"),
-    OTHER("Other");
+    Home("Home"),
+    Work("Work"),
+    Other("Other");
 
     public final String label;
 
