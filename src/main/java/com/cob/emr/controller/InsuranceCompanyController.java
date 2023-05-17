@@ -5,6 +5,8 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.insurance.company.creator.InsuranceCompanyCreatorService;
 import com.cob.emr.service.insurance.company.finder.InsuranceCompanyFinderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,11 +45,14 @@ public class InsuranceCompanyController {
     }
 
     @GetMapping("/find/clinicId/{clinicId}")
-    public ResponseEntity<Object> findAll(@PathVariable("clinicId") Long clinicId) {
+    public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
+                                          @RequestParam(name = "limit") String limit,
+            @PathVariable("clinicId") Long clinicId) {
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully Find All Insurance Companies!",
-                        HttpStatus.OK,
-                        insuranceCompanyFinderService.findAll(clinicId));
+                        HttpStatus.OK,null,
+                        insuranceCompanyFinderService.findAll(paging, clinicId));
     }
 
     @GetMapping("/find/clinicId/{clinicId}/company/{companyId}")

@@ -2,9 +2,12 @@ package com.cob.emr.service.insurance.company.finder;
 
 import com.cob.emr.entity.insurance.InsuranceCompany;
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
+import com.cob.emr.model.response.InsuranceCompanyResponse;
 import com.cob.emr.repositories.insurance.company.InsuranceCompanyRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +22,16 @@ public class InsuranceCompanyFinderServiceImpl implements InsuranceCompanyFinder
     ModelMapper mapper;
 
     @Override
-    public List<InsuranceCompanyModel> findAll(Long clinicId) {
-        List<InsuranceCompany> entities = repository.findByClinicId(clinicId)
-                .orElseThrow(() -> new IllegalArgumentException(clinicId.toString()));
-        return entities
-                .stream()
-                .map(insuranceCompany -> mapper.map(insuranceCompany, InsuranceCompanyModel.class))
+    public InsuranceCompanyResponse findAll(Pageable pageable,Long clinicId) {
+        Page<InsuranceCompany> pages = repository.findByClinicId(pageable, clinicId);
+        long total = (pages).getTotalElements();
+        List<InsuranceCompanyModel> records = pages.stream().map(insuranceCompany -> mapper.map(insuranceCompany , InsuranceCompanyModel.class))
                 .collect(Collectors.toList());
+        return InsuranceCompanyResponse.builder()
+                .number_of_records(records.size())
+                .number_of_matching_records((int) total)
+                .records(records)
+                .build();
     }
 
     @Override

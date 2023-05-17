@@ -1,5 +1,6 @@
 package com.cob.emr.response;
 
+import com.cob.emr.model.response.InsuranceCompanyResponse;
 import com.cob.emr.model.response.PatientResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +25,32 @@ public class ResponseHandler {
         return new ResponseEntity<>(map, status);
     }
 
-    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,Object responseObj, PatientResponse response) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("message", message);
-        map.put("number_of_records", response.getNumber_of_records());
-        map.put("number_of_matching_records", response.getNumber_of_matching_records());
-        map.put("status", status.value());
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
+                                                          Object responseObj, PatientResponse response) {
+        Map<String, Object> map = populateResponseMap(message, status,
+                response.getNumber_of_records(), response.getNumber_of_matching_records());
         map.put("records", response.getRecords());
-        map.put("time-stamp", new Date().getTime());
-
         return new ResponseEntity<>(map, status);
 
+    }
+
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
+                                                          Object responseObj, InsuranceCompanyResponse response) {
+
+        Map<String, Object> map = populateResponseMap(message, status,
+                response.getNumber_of_records(), response.getNumber_of_matching_records());
+        map.put("records", response.getRecords());
+        return new ResponseEntity<>(map, status);
+    }
+
+    private static Map<String, Object> populateResponseMap(String message, HttpStatus status,
+                                                           Integer numberOfRecords, Integer numberOfMatchingRecords) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("message", message);
+        map.put("number_of_records", numberOfRecords);
+        map.put("number_of_matching_records", numberOfMatchingRecords);
+        map.put("status", status.value());
+        map.put("time-stamp", new Date().getTime());
+        return map;
     }
 }

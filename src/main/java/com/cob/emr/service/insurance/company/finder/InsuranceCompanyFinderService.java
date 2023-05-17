@@ -1,11 +1,11 @@
 package com.cob.emr.service.insurance.company.finder;
 
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
-
-import java.util.List;
+import com.cob.emr.model.response.InsuranceCompanyResponse;
+import org.springframework.data.domain.Pageable;
 
 public interface InsuranceCompanyFinderService {
-    List<InsuranceCompanyModel> findAll(Long clinicId);
+    InsuranceCompanyResponse findAll(Pageable pageable, Long clinicId);
 
     InsuranceCompanyModel findById(Long insuranceCompanyId, Long clinicId);
 
