@@ -11,6 +11,7 @@ import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -35,13 +36,13 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     ModelMapper mapper;
 
     @Override
-    public List<PatientModel> findAll(Long clinicId) {
+    public List<PatientModel> findAll(Pageable pageable, Long clinicId) {
 
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinicRepository
                 .findById(clinicId)
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId)));
-        return patientRepository.findByClinicsIn(clinics)
+        return patientRepository.findByClinicsIn(pageable, clinics)
                 .stream().map(patient -> mapper.map(patient, PatientModel.class))
                 .collect(Collectors.toList());
     }

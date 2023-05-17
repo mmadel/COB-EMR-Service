@@ -6,6 +6,8 @@ import com.cob.emr.service.patient.creator.PatientCreatorService;
 import com.cob.emr.service.patient.finder.PatientFinderService;
 import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,11 +42,14 @@ public class PatientController {
     }
 
     @GetMapping("/find/clinicId/{clinicId}")
-    public ResponseEntity<Object> findAll(@PathVariable("clinicId") Long clinicId) {
+    public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
+                                          @RequestParam(name = "limit") String limit,
+                                          @PathVariable("clinicId") Long clinicId) {
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully Find All Patients!",
                         HttpStatus.OK,
-                        finderService.findAll(clinicId));
+                        finderService.findAll(paging, clinicId));
     }
 
     @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
