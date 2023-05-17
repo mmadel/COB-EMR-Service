@@ -5,12 +5,14 @@ import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
+import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -36,15 +38,22 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     ModelMapper mapper;
 
     @Override
-    public List<PatientModel> findAll(Pageable pageable, Long clinicId) {
+    public PatientResponse findAll(Pageable pageable, Long clinicId) {
 
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinicRepository
                 .findById(clinicId)
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId)));
-        return patientRepository.findByClinicsIn(pageable, clinics)
-                .stream().map(patient -> mapper.map(patient, PatientModel.class))
+        Page<Patient> pages = patientRepository.findByClinicsIn(pageable, clinics);
+        long total = (pages).getTotalElements();
+        List<PatientModel> records = pages.stream().map(patient -> mapper.map(patient , PatientModel.class))
                 .collect(Collectors.toList());
+        return PatientResponse.builder()
+                .number_of_records(records.size())
+                .number_of_matching_records((int) total)
+                .records(records)
+                .build();
+
     }
 
     @Override

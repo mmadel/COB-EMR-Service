@@ -48,7 +48,7 @@ public class PatientController {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully Find All Patients!",
-                        HttpStatus.OK,
+                        HttpStatus.OK, null,
                         finderService.findAll(paging, clinicId));
     }
 
