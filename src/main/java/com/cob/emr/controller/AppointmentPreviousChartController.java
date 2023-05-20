@@ -29,7 +29,7 @@ public class AppointmentPreviousChartController {
                         finderService.findAllPreviousAppointments(patientId, clinicId, page));
     }
 
-    @GetMapping(path = "/find/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}/page/{page}/size/{size}")
+    @GetMapping(path = "/find/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}")
     public ResponseEntity<Object> findPreviousAppointmentsByCase(@PathVariable Long patientId, @PathVariable Long clinicId,
                                                                  @PathVariable Long patientCaseId,
                                                                  @RequestParam(name = "offset") String offset,
