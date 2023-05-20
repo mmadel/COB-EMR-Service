@@ -49,7 +49,7 @@ public class AppointmentCancelNoShowChartController {
         Pageable page = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit),Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find Cancel No-Show Appointments",
-                        HttpStatus.OK,
+                        HttpStatus.OK,null,
                         finderService.findCancelNoShowAppointments(patientId, clinicId, clinicId, page));
     }
 }
