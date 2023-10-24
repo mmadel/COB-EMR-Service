@@ -9,7 +9,7 @@ import lombok.Setter;
 public class ClinicModel {
     private Long id;
     private String name;
-    private AddressModel address;
+    private String address;
 
 
 }

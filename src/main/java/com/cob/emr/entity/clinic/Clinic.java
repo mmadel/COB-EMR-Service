@@ -23,9 +23,9 @@ public class Clinic {
     @Column(name = "clinic_name")
     private String name;
 
-    @Column(name = "clinic_address", columnDefinition = "json")
-    @Type(type = "json")
-    private AddressModel address;
+//    @Column(name = "clinic_address", columnDefinition = "json")
+//    @Type(type = "json")
+    private String address;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "clinic_patient",
