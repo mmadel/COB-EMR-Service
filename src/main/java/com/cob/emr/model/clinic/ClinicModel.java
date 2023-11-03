@@ -11,5 +11,7 @@ public class ClinicModel {
     private String name;
     private String address;
 
+    private Long organizationId;
+
 
 }
