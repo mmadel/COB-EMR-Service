@@ -5,6 +5,7 @@ import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.clinic.CreateClinicUseCase;
 import com.cob.emr.usecases.clinic.FindClinicsByListOfIdentificationUseCase;
+import com.cob.emr.usecases.clinic.FindClinicsForUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,8 @@ public class ClinicController {
     CreateClinicUseCase createClinicUseCase;
     @Autowired
     FindClinicsByListOfIdentificationUseCase findClinicsByListOfIdentification;
+    @Autowired
+    FindClinicsForUserUseCase findClinicsForUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody ClinicModel clinicModel) {
@@ -40,5 +43,10 @@ public class ClinicController {
                 .generateResponse("Successfully Find All Clinics By Ids",
                         HttpStatus.OK,
                         findClinicsByListOfIdentification.find(ids));
+    }
+    @GetMapping(path = "/find/clinics/userUUID/{userUUID}")
+    @ResponseBody
+    public ResponseEntity getByUserUUID(@PathVariable String userUUID) {
+        return new ResponseEntity(findClinicsForUserUseCase.find(userUUID), HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.cob.emr.entity.clinic;
 
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.security.user.ClinicalUser;
 import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,4 +44,7 @@ public class Clinic {
         patient.getClinics().add(this);
     }
 
+    @ManyToOne()
+    @JoinColumn(name = "user_id")
+    private ClinicalUser clinicalUser;
 }
