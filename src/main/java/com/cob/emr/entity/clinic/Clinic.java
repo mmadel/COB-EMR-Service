@@ -24,9 +24,9 @@ public class Clinic {
     @Column(name = "clinic_name")
     private String name;
 
-//    @Column(name = "clinic_address", columnDefinition = "json")
-//    @Type(type = "json")
-    private String address;
+    @Column(name = "clinic_address", columnDefinition = "json")
+    @Type(type = "json")
+    private AddressModel address;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "clinic_patient",
@@ -34,6 +34,11 @@ public class Clinic {
             inverseJoinColumns = {@JoinColumn(name = "patient_id")})
     private Set<Patient> patients = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "clinic_user",
+            joinColumns = {@JoinColumn(name = "clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<ClinicalUser> users = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "organization_id")
@@ -43,8 +48,4 @@ public class Clinic {
         this.patients.add(patient);
         patient.getClinics().add(this);
     }
-
-    @ManyToOne()
-    @JoinColumn(name = "user_id")
-    private ClinicalUser clinicalUser;
 }
