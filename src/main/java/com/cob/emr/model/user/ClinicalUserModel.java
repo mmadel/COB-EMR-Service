@@ -1,12 +1,10 @@
 package com.cob.emr.model.user;
 
+import com.cob.emr.model.clinic.ClinicModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.util.List;
 
 @Setter
 @Getter
@@ -18,4 +16,7 @@ public class ClinicalUserModel {
     private String lastName;
     private String email;
     private String uuid;
+    private String password;
+    private String role;
+    private List<ClinicModel> clinics;
 }

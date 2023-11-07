@@ -1,6 +1,7 @@
 package com.cob.emr.entity.security.user;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.security.role.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,5 +35,27 @@ public class ClinicalUser {
     private String uuid;
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "users")
     private Set<Clinic> clinics = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "clinicalUsers")
+    private Set<Role> roles = new HashSet<>();
+
+    public void addClinic(Clinic clinic) {
+        this.clinics.add(clinic);
+        clinic.getUsers().add(this);
+    }
+
+    public void removeClinic(Clinic clinic) {
+        this.clinics.remove(clinic);
+        clinic.getUsers().remove(this);
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
+        role.getClinicalUsers().add(this);
+    }
+
+    public void removeRole(Role role) {
+        this.roles.remove(role);
+        role.getClinicalUsers().remove(this);
+    }
 
 }
