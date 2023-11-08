@@ -36,14 +36,25 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @GetMapping("/find/clinicId/{clinicId}")
+    @GetMapping("/find/clinicals/clinicId/{clinicId}")
+    public ResponseEntity<Object> findClinicalUsers(@RequestParam(name = "offset") String offset,
+                                                    @RequestParam(name = "limit") String limit,
+                                                    @PathVariable("clinicId") Long clinicId) throws ClinicException {
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
+        return ResponseHandler
+                .generateResponse("Successfully find all clinical users",
+                        HttpStatus.OK, null,
+                        findUserByClinicIdentificationUseCase.getUsers(paging, clinicId));
+    }
+
+    @GetMapping("/find/doctors/clinicId/{clinicId}")
     public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
                                           @RequestParam(name = "limit") String limit,
                                           @PathVariable("clinicId") Long clinicId) throws ClinicException {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
-                .generateResponse("Successfully Find All Users!",
+                .generateResponse("Successfully find all doctors",
                         HttpStatus.OK, null,
-                        findUserByClinicIdentificationUseCase.find(paging, clinicId));
+                        findUserByClinicIdentificationUseCase.getDoctors(paging, clinicId));
     }
 }
