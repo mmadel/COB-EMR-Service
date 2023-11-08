@@ -1,17 +1,18 @@
 package com.cob.emr.controller;
 
+import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
-import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.user.ClinicalUserModel;
+import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.user.CreateUserUseCase;
+import com.cob.emr.usecases.user.FindUserByClinicIdentificationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -26,10 +27,23 @@ public class UserController {
     @Autowired
     CreateUserUseCase createUserUseCase;
 
+    @Autowired
+    FindUserByClinicIdentificationUseCase findUserByClinicIdentificationUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         createUserUseCase.create(model);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/find/clinicId/{clinicId}")
+    public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
+                                          @RequestParam(name = "limit") String limit,
+                                          @PathVariable("clinicId") Long clinicId) throws ClinicException {
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
+        return ResponseHandler
+                .generateResponse("Successfully Find All Users!",
+                        HttpStatus.OK, null,
+                        findUserByClinicIdentificationUseCase.find(paging, clinicId));
     }
 }
