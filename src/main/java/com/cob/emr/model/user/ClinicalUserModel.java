@@ -19,4 +19,6 @@ public class ClinicalUserModel {
     private String password;
     private String role;
     private List<String> clinics;
+
+    private Doctor doctor;
 }
