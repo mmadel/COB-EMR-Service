@@ -18,5 +18,5 @@ public class ClinicalUserModel {
     private String uuid;
     private String password;
     private String role;
-    private List<ClinicModel> clinics;
+    private List<String> clinics;
 }

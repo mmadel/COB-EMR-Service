@@ -69,7 +69,7 @@ public class CreateUserUseCase {
         toBeCreated.setRoles(new HashSet<>());
         model.getClinics()
                 .stream()
-                .map(clinicModel -> clinicRepository.findById(clinicModel.getId()).get())
+                .map(clinicId -> clinicRepository.findById(Long.valueOf(clinicId)).get())
                 .collect(Collectors.toSet())
                 .forEach(clinic -> toBeCreated.addClinic(clinic));
         Role userRole = roleRepository.findRoleByName(model.getRole());
