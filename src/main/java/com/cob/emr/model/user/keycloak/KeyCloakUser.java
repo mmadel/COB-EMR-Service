@@ -11,7 +11,7 @@ import java.util.List;
 public class KeyCloakUser {
     private String userId;
 
-    private String username;
+    private String userName;
     private String firstName;
     private String lastName;
 

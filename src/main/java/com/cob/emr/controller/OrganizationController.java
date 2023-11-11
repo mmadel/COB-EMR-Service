@@ -1,5 +1,7 @@
 package com.cob.emr.controller;
 
+import com.cob.emr.exception.business.UserException;
+import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.organization.OrganizationModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.organization.creator.OrganizationCreatorService;
@@ -8,6 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping(value = "/organization")
@@ -19,12 +28,12 @@ public class OrganizationController {
     OrganizationFinderService finderService;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody OrganizationModel model) {
+    public ResponseEntity<Object> create(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         return ResponseHandler.generateResponse("Successfully added Organization!", HttpStatus.OK, creatorService.createOrUpdate(model));
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody OrganizationModel model) {
+    public ResponseEntity<Object> update(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         return ResponseHandler.generateResponse("Successfully updated Organization!", HttpStatus.OK, creatorService.createOrUpdate(model));
     }
 

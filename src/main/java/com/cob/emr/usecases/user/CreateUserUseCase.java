@@ -53,7 +53,7 @@ public class CreateUserUseCase {
     private void createKeyCloakUser(ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         log.info("create user in keycloak ", model.getUserName());
         KeyCloakUser keyCloakUser = KeyCloakUser.builder()
-                .username(model.getUserName())
+                .userName(model.getUserName())
                 .firstName(model.getFirstName())
                 .lastName(model.getLastName())
                 .email(model.getEmail())

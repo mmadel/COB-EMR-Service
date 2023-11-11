@@ -6,6 +6,7 @@ import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.user.CreateUserUseCase;
+import com.cob.emr.usecases.user.FindAllDoctorsUseCase;
 import com.cob.emr.usecases.user.FindUserByClinicIdentificationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +30,8 @@ public class UserController {
 
     @Autowired
     FindUserByClinicIdentificationUseCase findUserByClinicIdentificationUseCase;
+    @Autowired
+    FindAllDoctorsUseCase findAllDoctorsUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -56,5 +59,9 @@ public class UserController {
                 .generateResponse("Successfully find all doctors",
                         HttpStatus.OK, null,
                         findUserByClinicIdentificationUseCase.getDoctors(paging, clinicId));
+    }
+    @GetMapping("/find/doctors")
+    public ResponseEntity findAllDoctors(){
+        return new ResponseEntity( findAllDoctorsUseCase.find(), HttpStatus.OK);
     }
 }

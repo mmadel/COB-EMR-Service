@@ -67,9 +67,14 @@ public class KeyCloakUserCreationService {
 
     public UserRepresentation create(KeyCloakUser keyCloakUser) throws UserException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         RealmResource realmResource = keycloakService.realm(realm);
-        ClientRepresentation clientRepresentation = realmResource.clients().findByClientId("intake-ui").get(0);
+        ClientRepresentation clientRepresentation = null;
+        try{
+            clientRepresentation = realmResource.clients().findByClientId("intake-ui").get(0);
+        }catch (javax.ws.rs.NotAuthorizedException exception){
+            log.warn("admin token is expired");
+        }
         UsersResource usersResource = realmResource.users();
-        isUserExists(realmResource, keyCloakUser.getUsername());
+        isUserExists(realmResource, keyCloakUser.getUserName());
         isEmailExists(realmResource, keyCloakUser.getEmail());
         isRoleNotExists(keyCloakUser.getRoles(), realmResource, clientRepresentation);
 
@@ -81,7 +86,7 @@ public class KeyCloakUserCreationService {
 
         } catch (WebApplicationException ex) {
             log.error("check the Keycloak ", ex.getMessage());
-            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_CREATED_IN_KC, new Object[]{keyCloakUser.getUsername()});
+            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_CREATED_IN_KC, new Object[]{keyCloakUser.getUserName()});
         }
         setUserPassword(userId, keyCloakUser.getPassword());
 
@@ -104,7 +109,7 @@ public class KeyCloakUserCreationService {
         try {
             userResource = usersResource.get(keyCloakUser.getUserId());
         } catch (WebApplicationException ex) {
-            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{keyCloakUser.getUsername()});
+            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{keyCloakUser.getUserName()});
         }
         if (keyCloakUser.getPassword() != null) {
             CredentialRepresentation credential = new CredentialRepresentation();
@@ -143,7 +148,7 @@ public class KeyCloakUserCreationService {
     private UserRepresentation prepareUserRepresentation(KeyCloakUser keyCloakUser) {
         UserRepresentation user = new UserRepresentation();
         user.setEnabled(true);
-        user.setUsername(keyCloakUser.getUsername());
+        user.setUsername(keyCloakUser.getUserName());
         user.setFirstName(keyCloakUser.getFirstName());
         user.setLastName(keyCloakUser.getLastName());
         user.setEmail(keyCloakUser.getEmail());
