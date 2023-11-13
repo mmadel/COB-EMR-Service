@@ -6,6 +6,7 @@ import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.user.CreateUserUseCase;
+import com.cob.emr.usecases.user.DeleteUserUseCase;
 import com.cob.emr.usecases.user.FindAllDoctorsUseCase;
 import com.cob.emr.usecases.user.FindUserByClinicIdentificationUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,9 @@ public class UserController {
     FindUserByClinicIdentificationUseCase findUserByClinicIdentificationUseCase;
     @Autowired
     FindAllDoctorsUseCase findAllDoctorsUseCase;
+
+    @Autowired
+    DeleteUserUseCase deleteUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -63,5 +67,9 @@ public class UserController {
     @GetMapping("/find/doctors")
     public ResponseEntity findAllDoctors(){
         return new ResponseEntity( findAllDoctorsUseCase.find(), HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/{uuid}")
+    public ResponseEntity deleteUser(@PathVariable("uuid") String uuid) throws UserException {
+        return new ResponseEntity( deleteUserUseCase.delete(uuid), HttpStatus.OK);
     }
 }

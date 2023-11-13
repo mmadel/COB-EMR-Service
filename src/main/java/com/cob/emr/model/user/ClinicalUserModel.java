@@ -1,6 +1,5 @@
 package com.cob.emr.model.user;
 
-import com.cob.emr.model.clinic.ClinicModel;
 import lombok.Getter;
 import lombok.Setter;
 

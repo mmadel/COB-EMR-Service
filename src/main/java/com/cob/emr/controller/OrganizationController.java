@@ -7,6 +7,7 @@ import com.cob.emr.model.organization.OrganizationModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.organization.creator.OrganizationCreatorService;
 import com.cob.emr.service.organization.finder.OrganizationFinderService;
+import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
 import com.cob.emr.usecases.organization.UpdateOrganizationUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +31,8 @@ public class OrganizationController {
     OrganizationFinderService finderService;
     @Autowired
     UpdateOrganizationUserCase updateOrganizationUserCase;
+    @Autowired
+    DeleteOrganizationUserCase deleteOrganizationUserCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -41,9 +44,9 @@ public class OrganizationController {
         return ResponseHandler.generateResponse("Successfully updated Organization", HttpStatus.OK, updateOrganizationUserCase.update(model));
     }
 
-    @DeleteMapping("/delete/id/{id}")
-    public ResponseEntity<Object> delete(@PathVariable("id") Long id) {
-//        creatorService.delete(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) throws OrganizationException {
+        deleteOrganizationUserCase.delete(id);
         return ResponseHandler.generateResponse("Successfully deleted Organization!", HttpStatus.OK);
     }
 

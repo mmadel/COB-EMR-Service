@@ -52,7 +52,7 @@ public class UpdateOrganizationUserCase {
                 });
         deleteRemovedClinics(organization, fromDatabase, model.getClinics());
         addNewClinics(organization, model.getClinics(), fromDatabase);
-        return null;
+        return organization.getId();
 
     }
 
