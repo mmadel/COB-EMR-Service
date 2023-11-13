@@ -70,6 +70,12 @@ public class UserController {
     }
     @DeleteMapping("/delete/{uuid}")
     public ResponseEntity deleteUser(@PathVariable("uuid") String uuid) throws UserException {
-        return new ResponseEntity( deleteUserUseCase.delete(uuid), HttpStatus.OK);
+        deleteUserUseCase.delete(uuid);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/doctor/{uuid}")
+    public ResponseEntity deleteDoctor(@PathVariable("uuid") String uuid) throws UserException {
+        deleteUserUseCase.delete(uuid);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

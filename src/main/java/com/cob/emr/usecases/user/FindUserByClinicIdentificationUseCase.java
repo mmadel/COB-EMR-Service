@@ -38,7 +38,11 @@ public class FindUserByClinicIdentificationUseCase {
         getClinic(clinics, clinicId);
         Page<ClinicalUser> pages = clinicalUserRepository.findByClinicsIn(pageable, clinics);
         long total = (pages).getTotalElements();
-        List<ClinicalUserModel> records = pages.stream().map(clinicalUser -> {
+        List<ClinicalUserModel> records = pages.stream()
+                .filter(clinicalUser -> {
+                    return !(clinicalUser instanceof DoctorUser);
+                })
+                .map(clinicalUser -> {
                     ClinicalUserModel user = mapper.map(clinicalUser, ClinicalUserModel.class);
                     user.setClinics(clinicalUser.getClinics().stream().map(clinic -> clinic.getId().toString()).collect(Collectors.toList()));
                     return user;
