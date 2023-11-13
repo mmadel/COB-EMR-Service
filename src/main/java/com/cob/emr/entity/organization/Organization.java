@@ -32,7 +32,7 @@ public class Organization {
     @Column(name = "billing_address", columnDefinition = "json")
     @Type(type = "json")
     private AddressModel billingAddress;
-    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "organization")
+    @OneToMany(mappedBy = "organization")
     private List<Clinic> clinics = new ArrayList<>();
 
     public void assignClinicsToOrganization() {
