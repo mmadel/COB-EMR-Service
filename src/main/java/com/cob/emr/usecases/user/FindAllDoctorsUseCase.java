@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.user;
 
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.DoctorUser;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.model.user.Doctor;
@@ -18,6 +19,7 @@ public class FindAllDoctorsUseCase {
     public List<ClinicalUserModel> find() {
         List<ClinicalUserModel> models = new ArrayList<>();
         doctorUserRepository.findAll()
+                .stream().filter(doctorUser -> doctorUser.getClinics().isEmpty())
                 .forEach(doctorUser -> {
                     ClinicalUserModel clinicalUserModel = new ClinicalUserModel();
                     clinicalUserModel.setUserName(doctorUser.getUserName());

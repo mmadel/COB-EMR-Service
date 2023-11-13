@@ -15,4 +15,6 @@ public interface ClinicRepository extends PagingAndSortingRepository<Clinic, Lon
 
     @Query("select c from  Clinic c where  c.organization.id =:organizationId")
     List<Clinic> findByOrganization(@Param(value = "organizationId") Long organizationId);
+    @Query("delete  from  Clinic c where  c.organization.id =:organizationId and c.id =:clinicId")
+    void deleteByOrganization(@Param(value = "clinicId") Long clinicId , @Param(value = "organizationId") Long organizationId);
 }

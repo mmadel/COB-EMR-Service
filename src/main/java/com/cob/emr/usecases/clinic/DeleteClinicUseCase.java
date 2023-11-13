@@ -18,6 +18,9 @@ public class DeleteClinicUseCase {
         } catch (Exception emrException) {
             throw new ClinicException(HttpStatus.CONFLICT, ClinicException.CLINIC_ASSIGN_TO_USER, new Object[]{clinicId});
         }
+    }
 
+    public void deleteByOrganization(Long clinicId, Long organizationId) {
+        clinicRepository.deleteByOrganization(clinicId, organizationId);
     }
 }

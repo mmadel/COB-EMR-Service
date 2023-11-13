@@ -15,7 +15,4 @@ public interface OrganizationCreatorService {
 
     OrganizationModel createOrUpdate(OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException;
 
-    void delete(Long organizationId);
-
-
 }
