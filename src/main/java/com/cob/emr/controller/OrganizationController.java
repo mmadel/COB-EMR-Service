@@ -50,7 +50,7 @@ public class OrganizationController {
     @GetMapping("/find")
     public ResponseEntity<Object> findAll() {
         return ResponseHandler
-                .generateResponse("Successfully find all organization",
+                .generateResponse("Successfully find all organizations",
                         HttpStatus.OK,
                         finderService.findAll());
     }
@@ -58,7 +58,7 @@ public class OrganizationController {
     @GetMapping("/find/id/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
         return ResponseHandler
-                .generateResponse("Successfully deleted Organization!",
+                .generateResponse("Successfully find Organization",
                         HttpStatus.OK,
                         finderService.findById(id));
     }

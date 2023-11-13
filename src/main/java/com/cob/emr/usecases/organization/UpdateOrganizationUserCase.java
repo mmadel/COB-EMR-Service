@@ -38,7 +38,7 @@ public class UpdateOrganizationUserCase {
 
     @Transactional(rollbackOn = {UserKeyCloakException.class, UserException.class})
     public Long update(OrganizationModel model) throws OrganizationException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        updateOrganizationBasicInformation(model);
+        //updateOrganizationBasicInformation(model);
         Organization organization = find(model.getId());
         List<ClinicModel> fromDatabase = new ArrayList<>();
         organization.getClinics()
@@ -47,7 +47,8 @@ public class UpdateOrganizationUserCase {
                     clinicModel.setId(clinic.getId());
                     clinicModel.setName(clinic.getName());
                     clinicModel.setAddress(clinic.getAddress());
-                    clinicModel.setOrganizationId(clinic.getOrganization().getId());
+                    clinicModel.setOrganizationId(model.getId());
+                    fromDatabase.add(clinicModel);
                 });
         deleteRemovedClinics(organization, fromDatabase, model.getClinics());
         addNewClinics(organization, model.getClinics(), fromDatabase);
