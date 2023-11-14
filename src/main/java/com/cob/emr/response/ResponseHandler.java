@@ -3,6 +3,7 @@ package com.cob.emr.response;
 import com.cob.emr.model.response.AppointmentResponse;
 import com.cob.emr.model.response.InsuranceCompanyResponse;
 import com.cob.emr.model.response.PatientResponse;
+import com.cob.emr.model.response.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -32,7 +33,13 @@ public class ResponseHandler {
                 response.getNumber_of_records(), response.getNumber_of_matching_records());
         map.put("records", response.getRecords());
         return new ResponseEntity<>(map, status);
-
+    }
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
+                                                          Object responseObj, UserResponse response) {
+        Map<String, Object> map = populateResponseMap(message, status,
+                response.getNumber_of_records(), (int) response.getNumber_of_matching_records());
+        map.put("records", response.getRecords());
+        return new ResponseEntity<>(map, status);
     }
 
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,

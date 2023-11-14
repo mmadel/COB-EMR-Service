@@ -19,5 +19,6 @@ public class AddressModel implements Serializable {
 
     private String city;
     private String province;
+    private String zipCode;
 
 }

@@ -67,7 +67,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + patientId));
 
         Patient patient = patientRepository.findByIdAndClinicsIn(patientId, clinics).stream().findFirst().orElseThrow(
-                () -> new IllegalArgumentException("patient with id not found" + patientId));
+                () -> new IllegalArgumentException("patient with id not found " + patientId));
 
         PatientModel model = mapper.map(patient, PatientModel.class);
         model.setPatientCaseModels(patientCaseRepository

@@ -5,6 +5,9 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
 import com.cob.emr.service.patient.finder.PatientFinderService;
 import com.cob.emr.service.patient.updater.PatientUpdaterService;
+import com.cob.emr.usecases.patient.CreatePatientUseCase;
+import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
+import com.cob.emr.usecases.patient.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +28,19 @@ public class PatientController {
     @Autowired
     PatientFinderService finderService;
 
+    @Autowired
+    CreatePatientUseCase createPatientUseCase;
+    @Autowired
+    UpdatePatientUseCase updatePatientUseCase;
+    @Autowired
+    FindPatientByClinicIdentificationUseCase findPatientByClinicIdentification;
+
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
         return ResponseHandler
                 .generateResponse("Successfully added Patient!",
                         HttpStatus.OK,
-                        creatorService.create(model));
+                        createPatientUseCase.create(model));
     }
 
     @PutMapping("/update")
@@ -38,7 +48,7 @@ public class PatientController {
         return ResponseHandler
                 .generateResponse("Successfully updated Patient!",
                         HttpStatus.OK,
-                        updaterService.update(model));
+                        updatePatientUseCase.update(model));
     }
 
     @GetMapping("/find/clinicId/{clinicId}")
@@ -49,7 +59,7 @@ public class PatientController {
         return ResponseHandler
                 .generateResponse("Successfully Find All Patients!",
                         HttpStatus.OK, null,
-                        finderService.findAll(paging, clinicId));
+                        findPatientByClinicIdentification.find(paging, clinicId));
     }
 
     @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
