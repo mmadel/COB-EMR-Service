@@ -22,10 +22,10 @@ public class InsuranceCompanyFinderServiceImpl implements InsuranceCompanyFinder
     ModelMapper mapper;
 
     @Override
-    public InsuranceCompanyResponse findAll(Pageable pageable,Long clinicId) {
+    public InsuranceCompanyResponse findAll(Pageable pageable, Long clinicId) {
         Page<InsuranceCompany> pages = repository.findByClinicId(pageable, clinicId);
         long total = (pages).getTotalElements();
-        List<InsuranceCompanyModel> records = pages.stream().map(insuranceCompany -> mapper.map(insuranceCompany , InsuranceCompanyModel.class))
+        List<InsuranceCompanyModel> records = pages.stream().map(insuranceCompany -> mapper.map(insuranceCompany, InsuranceCompanyModel.class))
                 .collect(Collectors.toList());
         return InsuranceCompanyResponse.builder()
                 .number_of_records(records.size())
@@ -39,5 +39,12 @@ public class InsuranceCompanyFinderServiceImpl implements InsuranceCompanyFinder
         InsuranceCompany entity = repository.findByIdAndClinic_Id(insuranceCompanyId, clinicId)
                 .orElseThrow(() -> new IllegalArgumentException(insuranceCompanyId.toString() + ',' + clinicId.toString()));
         return mapper.map(entity, InsuranceCompanyModel.class);
+    }
+
+    @Override
+    public List<InsuranceCompanyModel> findAllWithoutPagination(Long clinicId) {
+        return repository.findByClinicId(clinicId).stream()
+                .map(insuranceCompany -> mapper.map(insuranceCompany, InsuranceCompanyModel.class))
+                .collect(Collectors.toList());
     }
 }

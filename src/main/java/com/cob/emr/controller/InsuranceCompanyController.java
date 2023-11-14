@@ -44,14 +44,19 @@ public class InsuranceCompanyController {
                         HttpStatus.OK, id);
     }
 
+    @GetMapping("/find/all/clinicId/{clinicId}")
+    public ResponseEntity findAllWithoutPagination(@PathVariable("clinicId") Long clinicId) {
+        return new ResponseEntity(insuranceCompanyFinderService.findAllWithoutPagination(clinicId), HttpStatus.OK);
+    }
+
     @GetMapping("/find/clinicId/{clinicId}")
     public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
                                           @RequestParam(name = "limit") String limit,
-            @PathVariable("clinicId") Long clinicId) {
+                                          @PathVariable("clinicId") Long clinicId) {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully Find All Insurance Companies!",
-                        HttpStatus.OK,null,
+                        HttpStatus.OK, null,
                         insuranceCompanyFinderService.findAll(paging, clinicId));
     }
 
