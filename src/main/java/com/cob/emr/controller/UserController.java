@@ -5,10 +5,7 @@ import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.usecases.user.CreateUserUseCase;
-import com.cob.emr.usecases.user.DeleteUserUseCase;
-import com.cob.emr.usecases.user.FindAllDoctorsUseCase;
-import com.cob.emr.usecases.user.FindUserByClinicIdentificationUseCase;
+import com.cob.emr.usecases.user.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,10 +34,24 @@ public class UserController {
     @Autowired
     DeleteUserUseCase deleteUserUseCase;
 
+    @Autowired
+    UpdateUserUseCase updateUserUseCase;
+
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         createUserUseCase.create(model);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity update(@RequestBody ClinicalUserModel model) {
+        updateUserUseCase.update(model);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/find/uuid/{uuid}")
+    public ResponseEntity findUser(@PathVariable("uuid") String uuid) {
+        return new ResponseEntity(findUserByClinicIdentificationUseCase.getUserByUUID(uuid), HttpStatus.OK);
     }
 
     @GetMapping("/find/clinicals/clinicId/{clinicId}")
@@ -64,15 +75,18 @@ public class UserController {
                         HttpStatus.OK, null,
                         findUserByClinicIdentificationUseCase.getDoctors(paging, clinicId));
     }
+
     @GetMapping("/find/doctors")
-    public ResponseEntity findAllDoctors(){
-        return new ResponseEntity( findAllDoctorsUseCase.find(), HttpStatus.OK);
+    public ResponseEntity findAllDoctors() {
+        return new ResponseEntity(findAllDoctorsUseCase.find(), HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/{uuid}")
     public ResponseEntity deleteUser(@PathVariable("uuid") String uuid) throws UserException {
         deleteUserUseCase.delete(uuid);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/doctor/{uuid}")
     public ResponseEntity deleteDoctor(@PathVariable("uuid") String uuid) throws UserException {
         deleteUserUseCase.delete(uuid);

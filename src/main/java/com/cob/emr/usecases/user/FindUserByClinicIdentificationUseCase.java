@@ -33,6 +33,15 @@ public class FindUserByClinicIdentificationUseCase {
     @Autowired
     ModelMapper mapper;
 
+    public ClinicalUserModel getUserByUUID(String uuid) {
+        ClinicalUser user= clinicalUserRepository.findByUUID(uuid).get();
+        List<String> clinicsIdAsStr = user.getClinics().stream().map(clinicObj ->clinicObj.getId().toString()).collect(Collectors.toList());
+        ClinicalUserModel model = mapper.map(user , ClinicalUserModel.class);
+        model.setRole(user.getRoles().stream().findFirst().get().getName());
+        model.setClinics(clinicsIdAsStr);
+        return model;
+    }
+
     public UserResponse getUsers(Pageable pageable, Long clinicId) throws ClinicException {
         List<Clinic> clinics = new ArrayList<>();
         getClinic(clinics, clinicId);

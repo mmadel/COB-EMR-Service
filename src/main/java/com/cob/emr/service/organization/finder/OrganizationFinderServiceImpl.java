@@ -43,7 +43,8 @@ public class OrganizationFinderServiceImpl implements OrganizationFinderService 
         organization.getClinics()
                 .forEach(clinic -> {
                     for (ClinicalUser user : clinic.getUsers()) {
-                        if (user.getRoles().stream().findFirst().get().getName().equals(ADMINISTRATION_ROLE)) {
+                        if ((user instanceof DoctorUser) && !user.getRoles().stream().findFirst().isEmpty()
+                                && user.getRoles().stream().findFirst().get().getName().equals(ADMINISTRATION_ROLE)) {
                             clinicClinicalUserMap.put(clinic, user);
                             break;
                         }
@@ -60,7 +61,6 @@ public class OrganizationFinderServiceImpl implements OrganizationFinderService 
             administratorDoctor.setMiddleName(clinicalUser.getMiddleName());
             administratorDoctor.setLastName(clinicalUser.getLastName());
             administratorDoctor.setEmail(clinicalUser.getEmail());
-            administratorDoctor.setNpi(((DoctorUser) clinicalUser).getNpi());
             administratorDoctor.setNpi(((DoctorUser) clinicalUser).getNpi());
             clinicModel.setAdministratorDoctor(administratorDoctor);
             clinics.add(clinicModel);
