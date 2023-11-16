@@ -35,7 +35,7 @@ public class PatientUpdaterServiceImpl implements PatientUpdaterService {
 
         patientClinicUpdaterService.update(original, submitted.getClinicsId());
 
-        patientCaseUpdaterService.updatePatientCases(original, submitted.getPatientCaseModels());
+        patientCaseUpdaterService.updatePatientCases(original, submitted.getCases());
 
         patientInsuranceUpdaterService.updatePatientInsurances(original, submitted.getPatientInsuranceModels());
         Patient created = patientRepository.save(mapper.map(submitted, Patient.class));

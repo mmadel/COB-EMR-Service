@@ -55,7 +55,7 @@ public class Clinic {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;
 //        Clinic clinic = (Clinic) o;
-//        return id.equals(clinic.id) && name.equals(clinic.name);
+//        return id.equals(clinic.id);
 //    }
 //
 //    @Override

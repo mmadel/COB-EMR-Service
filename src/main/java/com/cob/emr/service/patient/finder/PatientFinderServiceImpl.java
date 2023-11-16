@@ -1,5 +1,6 @@
 package com.cob.emr.service.patient.finder;
 
+import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.patient.PatientModel;
@@ -46,7 +47,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId)));
         Page<Patient> pages = patientRepository.findByClinicsIn(pageable, clinics);
         long total = (pages).getTotalElements();
-        List<PatientModel> records = pages.stream().map(patient -> mapper.map(patient , PatientModel.class))
+        List<PatientModel> records = pages.stream().map(patient -> mapper.map(patient, PatientModel.class))
                 .collect(Collectors.toList());
         return PatientResponse.builder()
                 .number_of_records(records.size())
@@ -54,6 +55,22 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .records(records)
                 .build();
 
+    }
+
+    @Override
+    public List<PatientModel> finsAll(Long clinicId) {
+        Clinic clinic = clinicRepository
+                .findById(clinicId)
+                .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId));
+        return patientRepository.findByClinic(clinic).stream()
+                .map(patient -> {
+                    PatientModel model = mapper.map(patient, PatientModel.class);
+                    model.setFullName(PatientUtil.constructPatientName(model.getFirstName()
+                            , model.getMiddleName()
+                            , model.getLastName()));
+                    return model;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -70,7 +87,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 () -> new IllegalArgumentException("patient with id not found " + patientId));
 
         PatientModel model = mapper.map(patient, PatientModel.class);
-        model.setPatientCaseModels(patientCaseRepository
+        model.setCases(patientCaseRepository
                 .findByPatient_Id(patientId)
                 .stream()
                 .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))

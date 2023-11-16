@@ -84,7 +84,8 @@ public class Patient {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "patients")
     private Set<Clinic> clinics = new HashSet<>();
 
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<PatientCase> cases;
     public void addClinic(Clinic clinic) {
         this.clinics.add(clinic);
         clinic.getPatients().add(this);

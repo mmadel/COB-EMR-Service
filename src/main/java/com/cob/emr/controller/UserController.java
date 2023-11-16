@@ -80,6 +80,10 @@ public class UserController {
     public ResponseEntity findAllDoctors() {
         return new ResponseEntity(findAllDoctorsUseCase.find(), HttpStatus.OK);
     }
+    @GetMapping("/find/all/doctors/clinicId/{clinicId}")
+    public ResponseEntity findAllDoctors(@PathVariable("clinicId") Long clinicId) {
+        return new ResponseEntity(findAllDoctorsUseCase.findByClinic(clinicId), HttpStatus.OK);
+    }
 
     @DeleteMapping("/delete/{uuid}")
     public ResponseEntity deleteUser(@PathVariable("uuid") String uuid) throws UserException {

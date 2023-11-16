@@ -61,6 +61,10 @@ public class PatientController {
                         HttpStatus.OK, null,
                         findPatientByClinicIdentification.find(paging, clinicId));
     }
+    @GetMapping("/find/all/clinicId/{clinicId}")
+    public ResponseEntity findAll(@PathVariable("clinicId") Long clinicId) {
+        return new ResponseEntity(finderService.finsAll(clinicId), HttpStatus.OK);
+    }
 
     @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
     public ResponseEntity<Object> findById(@PathVariable("clinicId") Long clinicId,

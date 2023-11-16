@@ -4,6 +4,7 @@ import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.DoctorUser;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.model.user.Doctor;
+import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.security.DoctorUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,11 +16,23 @@ import java.util.List;
 public class FindAllDoctorsUseCase {
     @Autowired
     DoctorUserRepository doctorUserRepository;
+    @Autowired
+    ClinicRepository clinicRepository;
 
     public List<ClinicalUserModel> find() {
+        return constructModels(doctorUserRepository.findAll());
+    }
+
+    public List<ClinicalUserModel> findByClinic(Long clinicId) {
+        Clinic clinic = clinicRepository
+                .findById(clinicId)
+                .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId));
+        return constructModels(doctorUserRepository.findByClinic(clinic));
+    }
+
+    private List<ClinicalUserModel> constructModels(List<DoctorUser> doctors) {
         List<ClinicalUserModel> models = new ArrayList<>();
-        doctorUserRepository.findAll()
-                .stream().filter(doctorUser -> doctorUser.getClinics().isEmpty())
+        doctors.stream()
                 .forEach(doctorUser -> {
                     ClinicalUserModel clinicalUserModel = new ClinicalUserModel();
                     clinicalUserModel.setUserName(doctorUser.getUserName());

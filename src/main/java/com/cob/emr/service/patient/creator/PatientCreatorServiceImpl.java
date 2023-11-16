@@ -54,7 +54,7 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
                 .forEach(clinic -> clinic.addPatient(toBeCreated));
         Patient created = patientRepository.save(toBeCreated);
 
-        persistPatientCases(created, model.getPatientCaseModels());
+        persistPatientCases(created, model.getCases());
 
         persistPatientInsurances(created , model.getPatientInsuranceModels());
 
