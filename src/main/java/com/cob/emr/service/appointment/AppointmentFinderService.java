@@ -1,5 +1,7 @@
 package com.cob.emr.service.appointment;
 
+import com.cob.emr.Utils.PatientUtil;
+import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
@@ -24,7 +26,14 @@ public class AppointmentFinderService {
                         "endDate: " + startDate +
                         "Clinic Id " + startDate))
                 .stream()
-                .map(appointment -> mapper.map(appointment, AppointmentModel.class))
+                .map(appointment -> {
+                    AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
+                    String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
+                            appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
+                            + ":" + appointment.getPatientCase().getTitle();
+                    appointmentModel.setTitle(title);
+                    return appointmentModel;
+                })
                 .collect(Collectors.toList());
     }
 

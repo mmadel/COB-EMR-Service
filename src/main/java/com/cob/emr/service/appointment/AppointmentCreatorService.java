@@ -39,9 +39,6 @@ public class AppointmentCreatorService {
         Clinic clinic = new Clinic();
         clinic.setId(model.getClinicId());
 
-        AppointmentType appointmentType = new AppointmentType();
-        appointmentType.setId(model.getAppointmentTypeId());
-
         Patient patient = new Patient();
         patient.setId(model.getPatientId());
 
@@ -51,7 +48,6 @@ public class AppointmentCreatorService {
         toBeFilled.setClinic(clinic);
         toBeFilled.setPatient(patient);
         toBeFilled.setPatientCase(patientCase);
-        toBeFilled.setAppointmentType(appointmentType);
     }
 
     private void addAppointmentHistoryRecord(AppointmentModel model, Appointment createdAppointment) {

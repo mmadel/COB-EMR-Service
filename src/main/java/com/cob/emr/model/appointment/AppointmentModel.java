@@ -1,6 +1,7 @@
 package com.cob.emr.model.appointment;
 
 import com.cob.emr.enums.AppointmentStatus;
+import com.cob.emr.enums.AppointmentType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +23,7 @@ public class AppointmentModel {
 
     private Long patientCaseId;
 
-    private Long appointmentTypeId;
+    private AppointmentType appointmentType;
 
     private StatusHistoryValueModel statusHistoryValueModel;
 }
