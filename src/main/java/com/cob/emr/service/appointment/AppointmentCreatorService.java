@@ -27,6 +27,7 @@ public class AppointmentCreatorService {
     ModelMapper mapper;
 
     public AppointmentModel createOrUpdate(AppointmentModel model) {
+        mapper.getConfiguration().setAmbiguityIgnored(true);
         Appointment toBeCreated = mapper.map(model, Appointment.class);
         fillAppointmentAssociation(toBeCreated, model);
         Appointment createdAppointment = appointmentRepository.save(toBeCreated);

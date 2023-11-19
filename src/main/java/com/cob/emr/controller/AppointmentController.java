@@ -68,4 +68,8 @@ public class AppointmentController {
                         HttpStatus.OK,
                         historyFinderService.find(appointmentId));
     }
+    @GetMapping("/find/id/{appointmentId}")
+    public ResponseEntity find(@PathVariable Long appointmentId){
+        return new ResponseEntity(finderService.find(appointmentId), HttpStatus.OK);
+    }
 }
