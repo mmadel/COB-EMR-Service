@@ -24,8 +24,6 @@ public class Appointment {
     @Column
     private Long endDate;
     @Column
-    private String title;
-    @Column
     private String note;
     @Column
     private Integer repeatId;
