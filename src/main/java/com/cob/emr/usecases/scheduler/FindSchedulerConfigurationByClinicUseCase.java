@@ -15,7 +15,15 @@ public class FindSchedulerConfigurationByClinicUseCase {
     ModelMapper mapper;
 
     public SchedulerConfiguration find(Long clinicId) {
-        SchedulerConfigurationEntity schedulerConfiguration = schedulerConfigurationRepository.findByClinicId(clinicId).orElseThrow(() -> new IllegalArgumentException("scheduler configuration for clinic not found"));
+        SchedulerConfigurationEntity schedulerConfiguration ;
+        if(!schedulerConfigurationRepository.findByClinicId(clinicId).isEmpty())
+        schedulerConfiguration = schedulerConfigurationRepository.findByClinicId(clinicId).get();
+        else{
+            schedulerConfiguration = new SchedulerConfigurationEntity();
+            schedulerConfiguration.setClinicId(clinicId);
+            schedulerConfiguration.setStartHour(8L);
+            schedulerConfiguration.setEndHour(19L);
+        }
         return mapper.map(schedulerConfiguration, SchedulerConfiguration.class);
     }
 }
