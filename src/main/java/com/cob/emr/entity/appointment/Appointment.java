@@ -3,6 +3,7 @@ package com.cob.emr.entity.appointment;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.enums.AppointmentRepetition;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.enums.AppointmentType;
 import lombok.Getter;
@@ -26,11 +27,15 @@ public class Appointment {
     @Column
     private String note;
     @Column
-    private Integer repeatId;
+    private String therapyUUID;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_status")
     private AppointmentStatus appointmentStatus;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "appointment_repetition")
+    private AppointmentRepetition appointmentRepetition;
 
     @OneToOne()
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")

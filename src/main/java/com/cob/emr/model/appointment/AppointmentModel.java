@@ -1,6 +1,7 @@
 package com.cob.emr.model.appointment;
 
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.enums.AppointmentRepetition;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.enums.AppointmentType;
 import com.cob.emr.model.patient.PatientModel;
@@ -17,7 +18,10 @@ public class AppointmentModel {
     private String note;
     private Integer repeatId;
 
+    private String therapyUUID;
+
     private AppointmentStatus appointmentStatus;
+    private AppointmentRepetition appointmentRepetition;
 
     private Long clinicId;
 
