@@ -19,8 +19,6 @@ public class SchedulerConfigurationEntity {
     private Long startHour;
     @Column
     private Long endHour;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "clinic_id", referencedColumnName = "id")
-    private Clinic clinic;
+    @Column
+    private Long clinicId;
 }
