@@ -27,13 +27,13 @@ public class AppointmentCreatorService {
     @Autowired
     ModelMapper mapper;
 
-    public AppointmentModel createOrUpdate(AppointmentModel model) {
+    public Long createOrUpdate(AppointmentModel model) {
         mapper.getConfiguration().setAmbiguityIgnored(true);
         Appointment toBeCreated = mapper.map(model, Appointment.class);
         fillAppointmentAssociation(toBeCreated, model);
         Appointment createdAppointment = appointmentRepository.save(toBeCreated);
         addAppointmentHistoryRecord(model,createdAppointment);
-        return null;
+        return createdAppointment.getId();
     }
 
 
