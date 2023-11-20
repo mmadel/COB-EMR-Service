@@ -1,6 +1,6 @@
 package com.cob.emr.model.appointment;
 
-import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.appointment.AppointmentCancelNoShowReason;
 import com.cob.emr.enums.AppointmentRepetition;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.enums.AppointmentType;
@@ -34,5 +34,5 @@ public class AppointmentModel {
 
     private AppointmentType appointmentType;
 
-    private StatusHistoryValueModel statusHistoryValueModel;
+    private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
 }
