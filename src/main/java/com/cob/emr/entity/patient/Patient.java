@@ -1,10 +1,7 @@
 package com.cob.emr.entity.patient;
 
 import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.enums.IdType;
-import com.cob.emr.enums.MaritalStatus;
-import com.cob.emr.enums.Suffix;
-import com.cob.emr.enums.Title;
+import com.cob.emr.enums.*;
 import com.cob.emr.model.common.AddressModel;
 import com.cob.emr.model.common.ContactModel;
 import com.cob.emr.model.patient.PatientDependentModel;
@@ -61,6 +58,9 @@ public class Patient {
     private IdType idType;
     @Column(name = "patient_id")
     private String PatientId;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
 
     @Column(name = "patient_id_effective_from")
     private Long effectiveFromDate;

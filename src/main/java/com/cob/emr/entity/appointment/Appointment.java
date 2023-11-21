@@ -52,5 +52,8 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_type")
     private AppointmentType appointmentType;
+
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
+    private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
 }
 

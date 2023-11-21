@@ -1,9 +1,6 @@
 package com.cob.emr.model.patient;
 
-import com.cob.emr.enums.IdType;
-import com.cob.emr.enums.MaritalStatus;
-import com.cob.emr.enums.Suffix;
-import com.cob.emr.enums.Title;
+import com.cob.emr.enums.*;
 import com.cob.emr.model.common.AddressModel;
 import com.cob.emr.model.common.ContactModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
@@ -33,6 +30,7 @@ public class PatientModel {
     private String employerName;
     private Title title;
     private IdType idType;
+    private Gender gender;
     private String patientId;
     private Long effectiveFromDate;
     private Long effectiveToDate;

@@ -25,4 +25,6 @@ public class AppointmentCancelNoShowReason {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "appointment_id", referencedColumnName = "id")
     private Appointment appointment;
+
+
 }
