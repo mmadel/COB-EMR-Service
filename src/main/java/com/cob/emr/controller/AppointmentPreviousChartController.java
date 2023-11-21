@@ -37,7 +37,7 @@ public class AppointmentPreviousChartController {
         Pageable page = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit),Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find Previous Appointments By Case",
-                        HttpStatus.OK,
+                        HttpStatus.OK,null,
                         finderService.findPreviousAppointmentsByCase(patientId, clinicId, patientCaseId, page));
     }
 }
