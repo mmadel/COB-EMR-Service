@@ -50,6 +50,6 @@ public class AppointmentCancelNoShowChartController {
         return ResponseHandler
                 .generateResponse("Successfully find Cancel No-Show Appointments",
                         HttpStatus.OK,null,
-                        finderService.findCancelNoShowAppointments(patientId, clinicId, clinicId, page));
+                        finderService.findCancelNoShowAppointments(patientId, clinicId, patientCaseId, page));
     }
 }
