@@ -2,6 +2,8 @@ package com.cob.emr.entity.clinic;
 
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.security.user.ClericalEMRUser;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.entity.security.user.ClinicalUser;
 import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
@@ -10,7 +12,6 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -34,6 +35,19 @@ public class Clinic {
             joinColumns = {@JoinColumn(name = "clinic_id")},
             inverseJoinColumns = {@JoinColumn(name = "patient_id")})
     private Set<Patient> patients = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "clinical_clinic_user",
+            joinColumns = {@JoinColumn(name = "clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "clinical_user_id")})
+    private Set<ClinicalEMRUser> clinicalUsers = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "clerical_clinic_user",
+            joinColumns = {@JoinColumn(name = "clinic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "clerical_user_id")})
+    private Set<ClericalEMRUser> clericalUsers = new HashSet<>();
+
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "clinic_user",
