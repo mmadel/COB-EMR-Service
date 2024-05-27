@@ -1,8 +1,6 @@
 package com.cob.emr.security;
 
 
-import com.cob.emr.service.security.SecurityFinderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -22,8 +20,6 @@ public class SecurityConfiguration {
 //    @Autowired
 //    @Qualifier("handlerRestAccessDenied")
 //    RestAccessDeniedHandler restAccessDeniedHandler;
-    @Autowired
-    SecurityFinderService securityFinderService;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {

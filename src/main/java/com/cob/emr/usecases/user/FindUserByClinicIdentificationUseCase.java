@@ -4,7 +4,6 @@ import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.ClinicalUser;
 import com.cob.emr.entity.security.user.DoctorUser;
 import com.cob.emr.exception.business.ClinicException;
-import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.model.response.UserResponse;
 import com.cob.emr.model.user.ClinicalUserModel;
 import com.cob.emr.model.user.Doctor;
@@ -37,7 +36,6 @@ public class FindUserByClinicIdentificationUseCase {
         ClinicalUser user= clinicalUserRepository.findByUUID(uuid).get();
         List<String> clinicsIdAsStr = user.getClinics().stream().map(clinicObj ->clinicObj.getId().toString()).collect(Collectors.toList());
         ClinicalUserModel model = mapper.map(user , ClinicalUserModel.class);
-        model.setRole(user.getRoles().stream().findFirst().get().getName());
         model.setClinics(clinicsIdAsStr);
         return model;
     }

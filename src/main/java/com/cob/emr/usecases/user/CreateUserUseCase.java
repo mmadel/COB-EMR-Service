@@ -1,7 +1,6 @@
 package com.cob.emr.usecases.user;
 
-import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.entity.security.role.Role;
+
 import com.cob.emr.entity.security.user.ClinicalUser;
 import com.cob.emr.entity.security.user.DoctorUser;
 import com.cob.emr.exception.business.UserException;
@@ -11,7 +10,6 @@ import com.cob.emr.model.user.keycloak.KeyCloakUser;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.security.ClinicalUserRepository;
 import com.cob.emr.repositories.security.DoctorUserRepository;
-import com.cob.emr.repositories.security.RoleRepository;
 import com.cob.emr.usecases.user.keycloak.KeyCloakUserCreationService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -24,7 +22,9 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,8 +38,6 @@ public class CreateUserUseCase {
     ClinicalUserRepository clinicalUserRepository;
     @Autowired
     DoctorUserRepository doctorUserRepository;
-    @Autowired
-    RoleRepository roleRepository;
     @Autowired
     ClinicRepository clinicRepository;
     @Autowired
@@ -84,14 +82,12 @@ public class CreateUserUseCase {
 
     private void constructUserEntity(ClinicalUser user, List<String> clinicsIds, String role) {
         user.setClinics(new HashSet<>());
-        user.setRoles(new HashSet<>());
+
         clinicsIds
                 .stream()
                 .map(clinicId -> clinicRepository.findById(Long.valueOf(clinicId)).get())
                 .collect(Collectors.toSet())
                 .forEach(clinic -> user.addClinic(clinic));
-        Role userRole = roleRepository.findRoleByName(role);
-        user.addRole(userRole);
     }
 
     private void fillDoctorData(ClinicalUserModel model, DoctorUser doctorToBeCreated) {

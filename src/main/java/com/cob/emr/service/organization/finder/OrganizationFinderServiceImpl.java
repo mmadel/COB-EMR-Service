@@ -43,8 +43,7 @@ public class OrganizationFinderServiceImpl implements OrganizationFinderService 
         organization.getClinics()
                 .forEach(clinic -> {
                     for (ClinicalUser user : clinic.getUsers()) {
-                        if ((user instanceof DoctorUser) && !user.getRoles().stream().findFirst().isEmpty()
-                                && user.getRoles().stream().findFirst().get().getName().equals(ADMINISTRATION_ROLE)) {
+                        if ((user instanceof DoctorUser)) {
                             clinicClinicalUserMap.put(clinic, user);
                             break;
                         }
