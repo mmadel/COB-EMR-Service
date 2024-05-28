@@ -3,9 +3,13 @@ package com.cob.emr.controller;
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
-import com.cob.emr.model.user.ClinicalUserModel;
+import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.usecases.user.*;
+import com.cob.emr.usecases.user.CreateUserUseCase;
+import com.cob.emr.usecases.user.DeleteUserUseCase;
+import com.cob.emr.usecases.user.UpdateUserUseCase;
+import com.cob.emr.usecases.user.clerical.FindClericalUsersByClinic;
+import com.cob.emr.usecases.user.clinical.FindClinicalUsersByClinicUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +29,10 @@ import java.security.NoSuchAlgorithmException;
 public class UserController {
     @Autowired
     CreateUserUseCase createUserUseCase;
-
     @Autowired
-    FindUserByClinicIdentificationUseCase findUserByClinicIdentificationUseCase;
+    FindClinicalUsersByClinicUseCase findClinicalUsersByClinicUseCase;
     @Autowired
-    FindAllDoctorsUseCase findAllDoctorsUseCase;
-
+    FindClericalUsersByClinic findClericalUsersByClinic;
     @Autowired
     DeleteUserUseCase deleteUserUseCase;
 
@@ -38,23 +40,18 @@ public class UserController {
     UpdateUserUseCase updateUserUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public ResponseEntity create(@RequestBody ClinicalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         createUserUseCase.create(model);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity update(@RequestBody ClinicalUserModel model) {
-        updateUserUseCase.update(model);
-        return new ResponseEntity(HttpStatus.OK);
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity update(@RequestBody ClinicalUserModel model) {
+//        updateUserUseCase.update(model);
+//        return new ResponseEntity(HttpStatus.OK);
+//    }
 
-    @GetMapping("/find/uuid/{uuid}")
-    public ResponseEntity findUser(@PathVariable("uuid") String uuid) {
-        return new ResponseEntity(findUserByClinicIdentificationUseCase.getUserByUUID(uuid), HttpStatus.OK);
-    }
-
-    @GetMapping("/find/clinicals/clinicId/{clinicId}")
+    @GetMapping("/find/clinical/clinicId/{clinicId}")
     public ResponseEntity<Object> findClinicalUsers(@RequestParam(name = "offset") String offset,
                                                     @RequestParam(name = "limit") String limit,
                                                     @PathVariable("clinicId") Long clinicId) throws ClinicException {
@@ -62,28 +59,20 @@ public class UserController {
         return ResponseHandler
                 .generateResponse("Successfully find all clinical users",
                         HttpStatus.OK, null,
-                        findUserByClinicIdentificationUseCase.getUsers(paging, clinicId));
+                        findClinicalUsersByClinicUseCase.find(paging, clinicId));
     }
 
-    @GetMapping("/find/doctors/clinicId/{clinicId}")
+    @GetMapping("/find/clerical/clinicId/{clinicId}")
     public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
                                           @RequestParam(name = "limit") String limit,
                                           @PathVariable("clinicId") Long clinicId) throws ClinicException {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
-                .generateResponse("Successfully find all doctors",
+                .generateResponse("Successfully find clerical users",
                         HttpStatus.OK, null,
-                        findUserByClinicIdentificationUseCase.getDoctors(paging, clinicId));
+                        findClericalUsersByClinic.find(paging, clinicId));
     }
 
-    @GetMapping("/find/doctors")
-    public ResponseEntity findAllDoctors() {
-        return new ResponseEntity(findAllDoctorsUseCase.find(), HttpStatus.OK);
-    }
-    @GetMapping("/find/all/doctors/clinicId/{clinicId}")
-    public ResponseEntity findAllDoctors(@PathVariable("clinicId") Long clinicId) {
-        return new ResponseEntity(findAllDoctorsUseCase.findByClinic(clinicId), HttpStatus.OK);
-    }
 
     @DeleteMapping("/delete/{uuid}")
     public ResponseEntity deleteUser(@PathVariable("uuid") String uuid) throws UserException {

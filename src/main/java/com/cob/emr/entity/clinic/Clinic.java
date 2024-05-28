@@ -4,7 +4,6 @@ import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
-import com.cob.emr.entity.security.user.ClinicalUser;
 import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -48,12 +47,6 @@ public class Clinic {
             inverseJoinColumns = {@JoinColumn(name = "clerical_user_id")})
     private Set<ClericalEMRUser> clericalUsers = new HashSet<>();
 
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "clinic_user",
-            joinColumns = {@JoinColumn(name = "clinic_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
-    private Set<ClinicalUser> users = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "organization_id")

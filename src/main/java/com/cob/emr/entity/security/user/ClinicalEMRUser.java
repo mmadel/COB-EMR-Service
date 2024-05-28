@@ -1,6 +1,8 @@
 package com.cob.emr.entity.security.user;
 
 import com.cob.emr.entity.clinic.Clinic;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "clinical_emr_user")
+@Setter
+@Getter
 public class ClinicalEMRUser extends EMRUser {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +26,7 @@ public class ClinicalEMRUser extends EMRUser {
     @Column(name="credential")
     private String credential;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "clinicalUsers")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE,CascadeType.REMOVE}, mappedBy = "clinicalUsers")
     private Set<Clinic> clinics = new HashSet<>();
 
     public void addClinic(Clinic clinic) {

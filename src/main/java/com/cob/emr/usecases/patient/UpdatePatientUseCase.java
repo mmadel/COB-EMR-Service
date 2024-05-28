@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class UpdatePatientUseCase {
     @Autowired
     PatientUpdaterService updaterService;
-    @PreAuthorize("hasAnyRole(@roleEvaluator.findAuthorizedRoleForModification('patient'))")
     public PatientModel update(PatientModel model){
         return updaterService.update(model);
     }

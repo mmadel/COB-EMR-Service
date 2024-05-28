@@ -41,7 +41,7 @@ public class OrganizationController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, OrganizationException {
-        return ResponseHandler.generateResponse("Successfully updated Organization", HttpStatus.OK, updateOrganizationUserCase.update(model));
+        return ResponseHandler.generateResponse("not implemented", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @DeleteMapping("/delete/{id}")

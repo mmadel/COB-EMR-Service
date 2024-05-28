@@ -1,15 +1,13 @@
 package com.cob.emr.usecases.user;
 
 
-import com.cob.emr.entity.security.user.ClinicalUser;
-import com.cob.emr.entity.security.user.DoctorUser;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
-import com.cob.emr.model.user.ClinicalUserModel;
+import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.model.user.keycloak.KeyCloakUser;
 import com.cob.emr.repositories.clinic.ClinicRepository;
-import com.cob.emr.repositories.security.ClinicalUserRepository;
-import com.cob.emr.repositories.security.DoctorUserRepository;
+import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
 import com.cob.emr.usecases.user.keycloak.KeyCloakUserCreationService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -22,9 +20,6 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,65 +30,41 @@ public class CreateUserUseCase {
     @Autowired
     KeyCloakUserCreationService keyCloakUsersCreatorService;
     @Autowired
-    ClinicalUserRepository clinicalUserRepository;
-    @Autowired
-    DoctorUserRepository doctorUserRepository;
+    ClinicalEMRUserRepository clinicalEMRUserRepository;
     @Autowired
     ClinicRepository clinicRepository;
     @Autowired
     ModelMapper mapper;
 
-    public void create(ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        createKeyCloakUser(model);
-        createEMRUser(model);
+    public void create(ClinicalEMRUserModel administratorDoctor) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        //createKeyCloakUser(administratorDoctor);
+        createEMRUser(administratorDoctor);
     }
 
-    private void createKeyCloakUser(ClinicalUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        log.info("create user in keycloak ", model.getUserName());
+    private void createKeyCloakUser(ClinicalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        log.info("create user in keycloak ", model.getAccountName());
         KeyCloakUser keyCloakUser = KeyCloakUser.builder()
-                .userName(model.getUserName())
-                .firstName(model.getFirstName())
-                .lastName(model.getLastName())
+                .userName(model.getAccountName())
+//                .firstName(model.getFirstName())
+//                .lastName(model.getLastName())
                 .email(model.getEmail())
-                .password(model.getPassword())
-                .roles(Arrays.asList(model.getRole()))
+//                .password(model.getPassword())
+//                .roles(Arrays.asList(model.getRole()))
                 .build();
         String uuid = keyCloakUsersCreatorService.create(keyCloakUser).getId();
         model.setUuid(uuid);
     }
 
-    private void createEMRUser(ClinicalUserModel model) {
-        log.info("create user in EMR ", model.getUserName());
-        ClinicalUser toBeCreated;
-        if (model.getDoctor() != null) {
-            log.info("User type is doctor ", model.getUserName());
-            toBeCreated = mapper.map(model, DoctorUser.class);
-            DoctorUser doctorToBeCreated = (DoctorUser) toBeCreated;
-            fillDoctorData(model, doctorToBeCreated);
-            constructUserEntity(doctorToBeCreated, model.getClinics(), model.getRole());
-            doctorUserRepository.save(doctorToBeCreated);
-        } else {
-            log.info("User type is",model.getRole(), model.getUserName());
-            toBeCreated = mapper.map(model, ClinicalUser.class);
-            constructUserEntity(toBeCreated, model.getClinics(), model.getRole());
-            clinicalUserRepository.save(toBeCreated);
-        }
-    }
+    private void createEMRUser(ClinicalEMRUserModel model) {
+        log.info("create user in EMR ", model.getAccountName());
+        ClinicalEMRUser toBeCreated = mapper.map(model, ClinicalEMRUser.class);
 
-    private void constructUserEntity(ClinicalUser user, List<String> clinicsIds, String role) {
-        user.setClinics(new HashSet<>());
-
-        clinicsIds
+        model.getClinicsId()
                 .stream()
-                .map(clinicId -> clinicRepository.findById(Long.valueOf(clinicId)).get())
+                .map(clinicId -> clinicRepository.findById(clinicId).get())
                 .collect(Collectors.toSet())
-                .forEach(clinic -> user.addClinic(clinic));
-    }
+                .forEach(clinic -> toBeCreated.addClinic(clinic));
 
-    private void fillDoctorData(ClinicalUserModel model, DoctorUser doctorToBeCreated) {
-        doctorToBeCreated.setNpi(model.getDoctor().getNpi());
-        doctorToBeCreated.setLicence(model.getDoctor().getLicence());
-        doctorToBeCreated.setSpeciality(model.getDoctor().getSpeciality());
-        doctorToBeCreated.setCredential(model.getDoctor().getCredential());
+        clinicalEMRUserRepository.save(toBeCreated);
     }
 }

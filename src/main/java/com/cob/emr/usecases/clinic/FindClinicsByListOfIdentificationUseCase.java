@@ -12,7 +12,6 @@ import java.util.List;
 public class FindClinicsByListOfIdentificationUseCase {
     @Autowired
     ClinicFinderService clinicFinderService;
-    @PreAuthorize("hasAnyRole(@roleEvaluator.findAuthorizedRoleForInquiring('clinic'))")
     public List<ClinicModel> find(List<Long> ids){
         return clinicFinderService.findByIds(ids);
     }

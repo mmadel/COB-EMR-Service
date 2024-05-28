@@ -53,10 +53,10 @@ public class ClinicController {
                         findClinicsByListOfIdentification.find(ids));
     }
 
-    @GetMapping(path = "/find/clinics/userUUID/{userUUID}")
+    @GetMapping(path = "/find/user/{uuid}")
     @ResponseBody
-    public ResponseEntity getByUserUUID(@PathVariable String userUUID) {
-        return new ResponseEntity(findClinicsForUserUseCase.find(userUUID), HttpStatus.OK);
+    public ResponseEntity getByUserUUID(@PathVariable String uuid) {
+        return new ResponseEntity(findClinicsForUserUseCase.find(uuid), HttpStatus.OK);
     }
 
     @GetMapping(path = "/find/organization/{organizationId}")
@@ -68,12 +68,12 @@ public class ClinicController {
                         findClinicByOrganizationIdUseCase.find(organizationId));
     }
 
-    @DeleteMapping(path = "/delete/clinic/{clinicId}")
+    @DeleteMapping(path = "/delete/{clinicId}")
     @ResponseBody
     public void deleteClinic(@PathVariable Long clinicId) throws ClinicException {
         deleteClinicUseCase.delete(clinicId);
     }
-    @GetMapping(path = "/find/clinic/{clinicId}")
+    @GetMapping(path = "/find/{clinicId}")
     @ResponseBody
     public ResponseEntity findClinicById(@PathVariable Long clinicId){
         return new ResponseEntity(findClinicUseCase.find(clinicId), HttpStatus.OK);

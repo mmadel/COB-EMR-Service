@@ -36,25 +36,25 @@ public class UpdateOrganizationUserCase {
     @Autowired
     CreateOrganizationClinicsUseCase createOrganizationClinicsUseCase;
 
-    @Transactional(rollbackOn = {UserKeyCloakException.class, UserException.class})
-    public Long update(OrganizationModel model) throws OrganizationException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        Organization organization = find(model.getId());
-        updateOrganizationBasicInformation(organization, model);
-        List<ClinicModel> fromDatabase = new ArrayList<>();
-        organization.getClinics()
-                .forEach(clinic -> {
-                    ClinicModel clinicModel = new ClinicModel();
-                    clinicModel.setId(clinic.getId());
-                    clinicModel.setName(clinic.getName());
-                    clinicModel.setAddress(clinic.getAddress());
-                    clinicModel.setOrganizationId(model.getId());
-                    fromDatabase.add(clinicModel);
-                });
-        deleteRemovedClinics(organization, fromDatabase, model.getClinics());
-        addNewClinics(organization, model.getClinics(), fromDatabase);
-        return organization.getId();
-
-    }
+//    @Transactional(rollbackOn = {UserKeyCloakException.class, UserException.class})
+//    public Long update(OrganizationModel model) throws OrganizationException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+//        Organization organization = find(model.getId());
+//        updateOrganizationBasicInformation(organization, model);
+//        List<ClinicModel> fromDatabase = new ArrayList<>();
+//        organization.getClinics()
+//                .forEach(clinic -> {
+//                    ClinicModel clinicModel = new ClinicModel();
+//                    clinicModel.setId(clinic.getId());
+//                    clinicModel.setName(clinic.getName());
+//                    clinicModel.setAddress(clinic.getAddress());
+//                    clinicModel.setOrganizationId(model.getId());
+//                    fromDatabase.add(clinicModel);
+//                });
+//        deleteRemovedClinics(organization, fromDatabase, model.getClinics());
+//        addNewClinics(organization, model.getClinics(), fromDatabase);
+//        return organization.getId();
+//
+//    }
 
     private void updateOrganizationBasicInformation(Organization organization, OrganizationModel model) {
         Organization toBeUpdated = new Organization();
@@ -83,10 +83,10 @@ public class UpdateOrganizationUserCase {
         });
     }
 
-    private void addNewClinics(Organization organization, List<ClinicModel> fromUser, List<ClinicModel> fromDatabase) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        List<ClinicModel> clinicModels = findClinicsDifference(fromUser, fromDatabase);
-        createOrganizationClinicsUseCase.create(organization, clinicModels);
-    }
+//    private void addNewClinics(Organization organization, List<ClinicModel> fromUser, List<ClinicModel> fromDatabase) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+//        List<ClinicModel> clinicModels = findClinicsDifference(fromUser, fromDatabase);
+//        createOrganizationClinicsUseCase.create(organization, clinicModels);
+//    }
 
     private List<ClinicModel> findClinicsDifference(List<ClinicModel> first, List<ClinicModel> second) {
         List<ClinicModel> difference = new ArrayList<>();
