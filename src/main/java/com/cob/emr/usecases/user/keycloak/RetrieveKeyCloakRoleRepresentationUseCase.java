@@ -1,0 +1,23 @@
+package com.cob.emr.usecases.user.keycloak;
+
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.representations.idm.ClientRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Component
+public class RetrieveKeyCloakRoleRepresentationUseCase {
+    public List<RoleRepresentation> find(List<String> roles, RealmResource realmResource, ClientRepresentation clientRepresentation){
+        List<RoleRepresentation> roleRepresentation = new ArrayList<>();
+        roles.stream()
+                .forEach(role -> {
+                    RoleRepresentation clientRole = realmResource.clients().get(clientRepresentation.getId())
+                            .roles().get(role).toRepresentation();
+                    roleRepresentation.add(clientRole);
+                });
+        return roleRepresentation;
+    }
+}

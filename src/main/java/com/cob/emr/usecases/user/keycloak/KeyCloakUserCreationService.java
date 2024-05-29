@@ -1,10 +1,10 @@
 package com.cob.emr.usecases.user.keycloak;
 
-import com.cob.emr.Utils.Encryption;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.user.keycloak.Credentials;
 import com.cob.emr.model.user.keycloak.KeyCloakUser;
+import com.cob.emr.security.DecryptPassword;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -51,19 +51,19 @@ public class KeyCloakUserCreationService {
     @Value("${kc.realm}")
     private String realm;
     @Autowired
-    Encryption encryption;
-    @Autowired
     RestTemplate restTemplate;
 
     @Autowired
     KeyCloakUsersRemoverService keyCloakUsersRemoverService;
     @Autowired
-    AuthenticationService authenticationService;
+    AdminAuthenticationUseCase adminAuthenticationUseCase;
 
     @Value("${kc.administrator.username}")
     private String admin_username;
     @Value("${kc.administrator.password}")
     private String admin_password;
+    @Autowired
+    DecryptPassword decryptPassword;
 
     public UserRepresentation create(KeyCloakUser keyCloakUser) throws UserException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         RealmResource realmResource = keycloakService.realm(realm);
@@ -92,8 +92,6 @@ public class KeyCloakUserCreationService {
 
         UserResource userResource = usersResource.get(userId);
 
-        //updateAttribute(userResource, "address", keyCloakUser.getAddress());
-
         List<RoleRepresentation> roles = null;
 
         roles = prepareRoleRepresentation(keyCloakUser.getRoles(), realmResource, clientRepresentation);
@@ -115,7 +113,7 @@ public class KeyCloakUserCreationService {
             CredentialRepresentation credential = new CredentialRepresentation();
             credential.setTemporary(true);
             credential.setType(CredentialRepresentation.PASSWORD);
-            credential.setValue(encryption.decrypt(keyCloakUser.getPassword()));
+            credential.setValue(decryptPassword.decrypt(keyCloakUser.getPassword()));
             userResource.resetPassword(credential);
 
         }
@@ -192,14 +190,14 @@ public class KeyCloakUserCreationService {
     private void setUserPassword(String userId, String password) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, UserException, HttpClientErrorException, UserKeyCloakException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(authenticationService.getTokens(Credentials.builder()
+        headers.setBearerAuth(adminAuthenticationUseCase.getTokens(Credentials.builder()
                 .userName(admin_username)
                 .password(admin_password)
                 .build()).getAccess_token());
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setTemporary(true);
         credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(encryption.decrypt(password));
+        credential.setValue(decryptPassword.decrypt(password));
         Gson gson = new Gson();
         gson.toJson(credential);
         HttpEntity<String> httpEntity = new HttpEntity<>(gson.toJson(credential).toString(), headers);

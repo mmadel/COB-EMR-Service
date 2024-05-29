@@ -3,6 +3,7 @@ package com.cob.emr.model.user.keycloak;
 
 import lombok.Builder;
 import lombok.Data;
+import org.keycloak.admin.client.resource.RealmResource;
 
 import java.util.List;
 
@@ -19,5 +20,6 @@ public class KeyCloakUser {
     private String email;
     private String address ;
     private List<String> roles;
+    private String uuid;
 
 }

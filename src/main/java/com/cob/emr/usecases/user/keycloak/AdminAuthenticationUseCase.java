@@ -16,7 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class AuthenticationService {
+public class AdminAuthenticationUseCase {
     @Value("${kc.auth.url}")
     private String tokenUrl;
     @Value("${kc.client.id}")

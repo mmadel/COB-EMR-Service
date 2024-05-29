@@ -27,6 +27,9 @@ public class ClinicalEMRUserModel {
     private String speciality;
 
     private String credential;
-
+    private String firstName;
+    private String lastName;
+    private String password;
+    private List<String> roles;
     private List<Long> clinicsId = new ArrayList<>();
 }

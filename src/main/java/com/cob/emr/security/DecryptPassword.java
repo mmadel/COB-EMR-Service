@@ -1,6 +1,7 @@
-package com.cob.emr.Utils;
+package com.cob.emr.security;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.BadPaddingException;
@@ -16,17 +17,17 @@ import java.util.Arrays;
 import java.util.Base64;
 
 @Component
-public class Encryption {
+public class DecryptPassword {
     @Value("${app.encryption.secret}")
-    private String secret;
-    public  String  decrypt(String value) throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    private  String secret;
+    public  String decrypt(String value) throws NoSuchPaddingException, NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-        byte[]  key = secret.getBytes("UTF-8");
+        byte[] key = secret.getBytes("UTF-8");
         MessageDigest sha = MessageDigest.getInstance("SHA-1");
         key = sha.digest(key);
         key = Arrays.copyOf(key, 16);
         SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        return  new String(cipher.doFinal(Base64.getDecoder().decode(value)));
+        return new String(cipher.doFinal(Base64.getDecoder().decode(value)));
     }
 }

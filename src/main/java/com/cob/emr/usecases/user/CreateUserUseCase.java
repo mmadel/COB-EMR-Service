@@ -37,7 +37,7 @@ public class CreateUserUseCase {
     ModelMapper mapper;
 
     public void create(ClinicalEMRUserModel administratorDoctor) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        //createKeyCloakUser(administratorDoctor);
+        createKeyCloakUser(administratorDoctor);
         createEMRUser(administratorDoctor);
     }
 

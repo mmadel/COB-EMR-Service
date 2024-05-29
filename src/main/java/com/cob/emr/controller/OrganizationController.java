@@ -4,14 +4,17 @@ import com.cob.emr.exception.business.OrganizationException;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.organization.OrganizationModel;
+import com.cob.emr.model.role.Role;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.organization.creator.OrganizationCreatorService;
 import com.cob.emr.service.organization.finder.OrganizationFinderService;
+import com.cob.emr.usecases.organization.CreateOrganizationUseCase;
 import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
 import com.cob.emr.usecases.organization.UpdateOrganizationUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.crypto.BadPaddingException;
@@ -23,6 +26,7 @@ import java.security.NoSuchAlgorithmException;
 
 @RestController
 @RequestMapping(value = "/organization")
+@PreAuthorize("hasAnyRole(@role.ADMIN_ROLE)")
 public class OrganizationController {
 
     @Autowired
@@ -33,10 +37,12 @@ public class OrganizationController {
     UpdateOrganizationUserCase updateOrganizationUserCase;
     @Autowired
     DeleteOrganizationUserCase deleteOrganizationUserCase;
+    @Autowired
+    CreateOrganizationUseCase createOrganizationUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        return ResponseHandler.generateResponse("Successfully added Organization", HttpStatus.OK, creatorService.createOrUpdate(model));
+        return ResponseHandler.generateResponse("Successfully added Organization", HttpStatus.OK, createOrganizationUseCase.create(model));
     }
 
     @PutMapping("/update")
