@@ -55,9 +55,6 @@ public class ClinicalUserController {
 
     @GetMapping("/find/clinicId/{clinicId}/uuid/{uuid}")
     public ResponseEntity<Object> find(@PathVariable Long clinicId, @PathVariable String uuid) throws UserException {
-        return ResponseHandler
-                .generateResponse("Successfully find clerical users",
-                        HttpStatus.OK, findClinicalUsersByClinicUseCase.find(clinicId, uuid)
-                );
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(clinicId, uuid), HttpStatus.OK);
     }
 }

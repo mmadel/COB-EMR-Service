@@ -51,9 +51,14 @@ public class FindClinicalUsersByClinicUseCase {
                 .records(records)
                 .build();
     }
-    public ClericalEMRUserModel find(Long clinicId, String uuid) throws UserException {
-        ClericalEMRUser clericalEMRUser = clinicalEMRUserRepository
+    public ClinicalEMRUserModel find(Long clinicId, String uuid) throws UserException {
+        ClinicalEMRUser clinicalEMRUser  = clinicalEMRUserRepository
                 .findById(clinicId, uuid).orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{}));
-        return mapper.map(clericalEMRUser, ClericalEMRUserModel.class);
+        List<Long> clinicsIds= clinicalEMRUser.getClinics().stream()
+                .map(Clinic::getId)
+                .collect(Collectors.toList());
+        ClinicalEMRUserModel model =  mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class);
+        model.setClinicIds(clinicsIds);
+        return model;
     }
 }
