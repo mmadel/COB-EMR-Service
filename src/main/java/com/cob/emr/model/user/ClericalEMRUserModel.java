@@ -8,16 +8,9 @@ import java.util.List;
 
 @Setter
 @Getter
-public class ClericalEMRUserModel {
+public class ClericalEMRUserModel extends EMRUser {
     private Long id;
-
     private String accountName;
-
     private String fullName;
-
-    private String email;
-
-    private String uuid;
-
     private List<Long> clinicsId = new ArrayList<>();
 }

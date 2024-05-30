@@ -2,8 +2,6 @@ package com.cob.emr.usecases.organization;
 
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.exception.business.OrganizationException;
-import com.cob.emr.exception.business.UserException;
-import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.organization.OrganizationModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
@@ -13,13 +11,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.transaction.Transactional;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +24,6 @@ public class UpdateOrganizationUserCase {
     ModelMapper mapper;
     @Autowired
     DeleteClinicUseCase deleteClinicUseCase;
-    @Autowired
-    CreateOrganizationClinicsUseCase createOrganizationClinicsUseCase;
 
 //    @Transactional(rollbackOn = {UserKeyCloakException.class, UserException.class})
 //    public Long update(OrganizationModel model) throws OrganizationException, UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {

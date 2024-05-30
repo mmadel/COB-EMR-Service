@@ -19,7 +19,6 @@ public class CreateClinicalUserStep extends OrganizationCreationStepper {
     CreateClinicalUserUseCase createClinicalUserUseCase;
     @Override
     public boolean create(OrganizationModel model) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        System.out.println("CreateClinicalUserStep");
         for (ClinicDataHolder holder : model.getClinics()) {
             createClinicalUserUseCase.create(holder.getAdministratorDoctor());
         }

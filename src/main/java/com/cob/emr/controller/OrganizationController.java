@@ -4,10 +4,7 @@ import com.cob.emr.exception.business.OrganizationException;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.organization.OrganizationModel;
-import com.cob.emr.model.role.Role;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.service.organization.creator.OrganizationCreatorService;
-import com.cob.emr.service.organization.finder.OrganizationFinderService;
 import com.cob.emr.usecases.organization.CreateOrganizationUseCase;
 import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
 import com.cob.emr.usecases.organization.UpdateOrganizationUserCase;
@@ -29,10 +26,7 @@ import java.security.NoSuchAlgorithmException;
 @PreAuthorize("hasAnyRole(@role.ADMIN_ROLE)")
 public class OrganizationController {
 
-    @Autowired
-    OrganizationCreatorService creatorService;
-    @Autowired
-    OrganizationFinderService finderService;
+
     @Autowired
     UpdateOrganizationUserCase updateOrganizationUserCase;
     @Autowired
@@ -60,15 +54,13 @@ public class OrganizationController {
     public ResponseEntity<Object> findAll() {
         return ResponseHandler
                 .generateResponse("Successfully find all organizations",
-                        HttpStatus.OK,
-                        finderService.findAll());
+                        HttpStatus.OK);
     }
 
     @GetMapping("/find/id/{id}")
     public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
         return ResponseHandler
                 .generateResponse("Successfully find Organization",
-                        HttpStatus.OK,
-                        finderService.findById(id));
+                        HttpStatus.OK);
     }
 }
