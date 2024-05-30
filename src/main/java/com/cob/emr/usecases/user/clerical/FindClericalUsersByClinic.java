@@ -2,7 +2,9 @@ package com.cob.emr.usecases.user.clerical;
 
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.exception.business.ClinicException;
+import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.response.ClericalUserResponse;
 import com.cob.emr.model.user.ClericalEMRUserModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
@@ -27,6 +29,7 @@ public class FindClericalUsersByClinic {
     ClericalEMRUserRepository clericalEMRUserRepository;
     @Autowired
     ModelMapper mapper;
+
     public ClericalUserResponse find(Pageable pageable, Long clinicId) throws ClinicException {
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinicRepository
@@ -46,5 +49,11 @@ public class FindClericalUsersByClinic {
                 .number_of_matching_records(total)
                 .records(records)
                 .build();
+    }
+
+    public ClericalEMRUserModel find(Long clinicId, String uuid) throws UserException {
+        ClericalEMRUser clericalEMRUser = clericalEMRUserRepository
+                .findById(clinicId, uuid).orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{}));
+        return mapper.map(clericalEMRUser, ClericalEMRUserModel.class);
     }
 }

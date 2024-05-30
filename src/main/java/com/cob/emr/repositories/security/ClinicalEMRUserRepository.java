@@ -1,6 +1,7 @@
 package com.cob.emr.repositories.security;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.security.user.ClericalEMRUser;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,5 +27,8 @@ public interface ClinicalEMRUserRepository extends JpaRepository<ClinicalEMRUser
     Page<ClinicalEMRUser> findByClinicsIn(Pageable pageable, List<Clinic> clinics);
 
     Optional<ClinicalEMRUser> findByClinicsIn(List<Clinic> clinics);
+
+    @Query("select user from ClinicalEMRUser user JOIN  user.clinics c WHERE :clinicId IN  c.id and user.uuid =:uuid")
+    Optional<ClericalEMRUser> findById(@Param("clinicId") Long clinicId, @Param("uuid") String uuid);
 
 }
