@@ -21,7 +21,7 @@ public class CreateClinicalUserUseCase {
 
     public void create(ClinicalEMRUserModel model) {
         ClinicalEMRUser clinicalEMRUser = mapper.map(model, ClinicalEMRUser.class);
-        model.getClinics()
+        model.getClinicIds()
                 .stream()
                 .map(clinicId -> clinicRepository.findById(clinicId).get())
                 .collect(Collectors.toSet())

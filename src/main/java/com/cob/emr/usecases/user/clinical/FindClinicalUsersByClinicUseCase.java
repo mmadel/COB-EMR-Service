@@ -38,7 +38,7 @@ public class FindClinicalUsersByClinicUseCase {
         List<ClinicalEMRUserModel> records = pages.stream()
                 .map(clinicalUser -> {
                     ClinicalEMRUserModel user = mapper.map(clinicalUser, ClinicalEMRUserModel.class);
-                    user.setClinics(clinicalUser.getClinics().stream().map(clinic -> clinic.getId()).collect(Collectors.toList()));
+                    user.setClinicIds(clinicalUser.getClinics().stream().map(clinic -> clinic.getId()).collect(Collectors.toList()));
                     return user;
                 })
                 .collect(Collectors.toList());

@@ -35,7 +35,7 @@ public class CreateClinicsStep extends OrganizationCreationStepper {
             toBeCreated.setOrganization(organization);
             Long clinicId = clinicRepository.save(toBeCreated).getId();
             holder.getClinicModel().setId(clinicId);
-            holder.getAdministratorDoctor().getClinics().add(clinicId);
+            holder.getAdministratorDoctor().getClinicIds().add(clinicId);
         }
         return nextStep(model);
     }
