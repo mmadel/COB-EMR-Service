@@ -29,7 +29,6 @@ public class CreateClinicsStep extends OrganizationCreationStepper {
 
     @Override
     public boolean create(OrganizationModel model) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        System.out.println("CreateClinicsStep");
         for (ClinicDataHolder holder : model.getClinics()) {
             Clinic toBeCreated = mapper.map(holder.getClinicModel(), Clinic.class);
             Organization organization = mapper.map(model , Organization.class);

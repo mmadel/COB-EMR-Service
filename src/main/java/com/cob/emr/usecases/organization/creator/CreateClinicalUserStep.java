@@ -1,10 +1,9 @@
 package com.cob.emr.usecases.organization.creator;
 
-import com.cob.emr.Utils.BeanFactory;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.clinic.ClinicDataHolder;
 import com.cob.emr.model.organization.OrganizationModel;
-import com.cob.emr.usecases.user.CreateClinicalUserUseCase;
+import com.cob.emr.usecases.user.clinical.CreateClinicalUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.user;
+package com.cob.emr.usecases.user.clinical;
 
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.model.user.ClinicalEMRUserModel;

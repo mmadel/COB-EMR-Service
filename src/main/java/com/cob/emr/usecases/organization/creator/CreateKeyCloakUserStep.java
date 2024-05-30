@@ -21,7 +21,6 @@ public class CreateKeyCloakUserStep extends OrganizationCreationStepper {
     CreateKeyCloakUserUseCase createKeyCloakUserUseCase;
     @Override
     public boolean create(OrganizationModel model) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        System.out.println("CreateKeyCloakUserStep");
         for (ClinicDataHolder holder : model.getClinics()) {
             createKeyCloakUserUseCase.create(holder.getAdministratorDoctor());
         }
