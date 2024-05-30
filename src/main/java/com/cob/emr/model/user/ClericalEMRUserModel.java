@@ -12,5 +12,5 @@ public class ClericalEMRUserModel extends EMRUser {
     private Long id;
     private String accountName;
     private String fullName;
-    private List<Long> clinicsId = new ArrayList<>();
+    private List<Long> clinics = new ArrayList<>();
 }

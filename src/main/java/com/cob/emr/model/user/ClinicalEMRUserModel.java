@@ -15,5 +15,5 @@ public class ClinicalEMRUserModel extends EMRUser {
     private String licence;
     private String speciality;
     private String credential;
-    private List<Long> clinicsId = new ArrayList<>();
+    private List<Long> clinics = new ArrayList<>();
 }
