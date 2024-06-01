@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.organization;
 
 import com.cob.emr.exception.business.OrganizationException;
 import com.cob.emr.exception.business.UserException;
@@ -7,6 +7,7 @@ import com.cob.emr.model.organization.OrganizationModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.organization.CreateOrganizationUseCase;
 import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
+import com.cob.emr.usecases.organization.FindOrganizationUseCase;
 import com.cob.emr.usecases.organization.UpdateOrganizationUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,8 @@ public class OrganizationController {
     DeleteOrganizationUserCase deleteOrganizationUserCase;
     @Autowired
     CreateOrganizationUseCase createOrganizationUseCase;
+    @Autowired
+    FindOrganizationUseCase findOrganizationUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -52,9 +55,7 @@ public class OrganizationController {
 
     @GetMapping("/find")
     public ResponseEntity<Object> findAll() {
-        return ResponseHandler
-                .generateResponse("Successfully find all organizations",
-                        HttpStatus.OK);
+        return new ResponseEntity<>(findOrganizationUseCase.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/find/id/{id}")
