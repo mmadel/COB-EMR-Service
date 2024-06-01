@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.patient;
 
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.response.ResponseHandler;

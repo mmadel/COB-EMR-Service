@@ -11,6 +11,7 @@ import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
+import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,6 +38,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
 
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    FindPatientCasesUseCase findPatientCasesUseCase;
 
     @Override
     public PatientResponse findAll(Pageable pageable, Long clinicId) {
@@ -68,6 +71,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                     model.setFullName(PatientUtil.constructPatientName(model.getFirstName()
                             , model.getMiddleName()
                             , model.getLastName()));
+                    model.setCases(findPatientCasesUseCase.find(patient.getId()));
                     return model;
                 })
                 .collect(Collectors.toList());
