@@ -51,14 +51,28 @@ public class FindClinicalUsersByClinicUseCase {
                 .records(records)
                 .build();
     }
+
     public ClinicalEMRUserModel find(Long clinicId, String uuid) throws UserException {
-        ClinicalEMRUser clinicalEMRUser  = clinicalEMRUserRepository
+        ClinicalEMRUser clinicalEMRUser = clinicalEMRUserRepository
                 .findById(clinicId, uuid).orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{}));
-        List<Long> clinicsIds= clinicalEMRUser.getClinics().stream()
+        List<Long> clinicsIds = clinicalEMRUser.getClinics().stream()
                 .map(Clinic::getId)
                 .collect(Collectors.toList());
-        ClinicalEMRUserModel model =  mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class);
+        ClinicalEMRUserModel model = mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class);
         model.setClinicIds(clinicsIds);
         return model;
+    }
+
+    public List<ClinicalEMRUserModel> find(Long clinicId) {
+        List<ClinicalEMRUser> clinicalEMRUsers = clinicalEMRUserRepository.findByClinic(clinicId).get();
+        return clinicalEMRUsers.stream()
+                .map(clinicalEMRUser -> mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class))
+                .collect(Collectors.toList());
+    }
+
+    public List<ClinicalEMRUserModel> find() {
+        return clinicalEMRUserRepository.findAll().stream()
+                .map(clinicalEMRUser -> mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class))
+                .collect(Collectors.toList());
     }
 }

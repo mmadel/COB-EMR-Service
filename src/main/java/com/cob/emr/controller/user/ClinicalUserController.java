@@ -57,4 +57,14 @@ public class ClinicalUserController {
     public ResponseEntity<Object> find(@PathVariable Long clinicId, @PathVariable String uuid) throws UserException {
         return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(clinicId, uuid), HttpStatus.OK);
     }
+
+    @GetMapping("/find-all/clinicId/{clinicId}")
+    public ResponseEntity<Object> find(@PathVariable Long clinicId) throws UserException {
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(clinicId), HttpStatus.OK);
+    }
+
+    @GetMapping("/find-all")
+    public ResponseEntity<Object> find() throws UserException {
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(), HttpStatus.OK);
+    }
 }
