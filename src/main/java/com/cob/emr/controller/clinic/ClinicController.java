@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.clinic;
 
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.model.clinic.ClinicModel;
@@ -71,7 +71,7 @@ public class ClinicController {
     @DeleteMapping(path = "/delete/{clinicId}")
     @ResponseBody
     public void deleteClinic(@PathVariable Long clinicId) throws ClinicException {
-        deleteClinicUseCase.delete(clinicId);
+        deleteClinicUseCase.deleteById(clinicId);
     }
     @GetMapping(path = "/find/{clinicId}")
     @ResponseBody

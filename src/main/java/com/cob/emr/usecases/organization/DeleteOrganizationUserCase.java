@@ -29,7 +29,7 @@ public class DeleteOrganizationUserCase {
         Organization organization = organizationRepository.findById(id).orElseThrow(() -> new OrganizationException(OrganizationException.ORGANIZATION_NOT_FOUND, new Object[]{id}));
         organization.getClinics().stream()
                 .forEach(clinic -> {
-                    deletePatientUseCase.deleteByClinic(clinic);
+                    deletePatientUseCase.deleteByClinic(clinic.getId());
                 });
         deleteInsuranceCompanyUseCase.delete(id);
         deleteClinicUseCase.delete(id);

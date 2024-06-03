@@ -25,8 +25,8 @@ public class DeletePatientUseCase {
         patientRepository.deleteById(id);
     }
 
-    public void deleteByClinic(Clinic clinic) {
-        Clinic attachedClinic = clinicRepository.findById(clinic.getId()).get();
+    public void deleteByClinic(Long clinicId) {
+        Clinic attachedClinic = clinicRepository.findById(clinicId).get();
         attachedClinic.getPatients()
                 .stream()
                 .forEach(patient -> {
