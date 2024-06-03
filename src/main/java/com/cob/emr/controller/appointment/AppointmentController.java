@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.appointment;
 
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;

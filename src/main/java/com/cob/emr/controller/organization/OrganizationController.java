@@ -8,7 +8,6 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.organization.CreateOrganizationUseCase;
 import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
 import com.cob.emr.usecases.organization.FindOrganizationUseCase;
-import com.cob.emr.usecases.organization.UpdateOrganizationUserCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +26,6 @@ import java.security.NoSuchAlgorithmException;
 @PreAuthorize("hasAnyRole(@role.ADMIN_ROLE)")
 public class OrganizationController {
 
-
-    @Autowired
-    UpdateOrganizationUserCase updateOrganizationUserCase;
     @Autowired
     DeleteOrganizationUserCase deleteOrganizationUserCase;
     @Autowired

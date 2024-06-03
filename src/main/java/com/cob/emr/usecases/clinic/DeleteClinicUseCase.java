@@ -1,8 +1,10 @@
 package com.cob.emr.usecases.clinic;
 
+import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.EMRException;
 import com.cob.emr.repositories.clinic.ClinicRepository;
+import com.cob.emr.repositories.organization.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -11,8 +13,9 @@ import org.springframework.stereotype.Component;
 public class DeleteClinicUseCase {
     @Autowired
     ClinicRepository clinicRepository;
-
-    public void delete(Long clinicId) throws ClinicException {
+    @Autowired
+    OrganizationRepository organizationRepository;
+    public void deleteById(Long clinicId) throws ClinicException {
         try {
             clinicRepository.deleteById(clinicId);
         } catch (Exception emrException) {
@@ -20,7 +23,8 @@ public class DeleteClinicUseCase {
         }
     }
 
-    public void deleteByOrganization(Long clinicId, Long organizationId) {
-        clinicRepository.deleteByOrganization(clinicId, organizationId);
+    public void delete(Long organizationId) {
+        Organization organization = organizationRepository.findById(organizationId).get();
+        clinicRepository.deleteByOrganization(organization);
     }
 }

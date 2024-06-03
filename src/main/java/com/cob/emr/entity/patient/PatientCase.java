@@ -51,7 +51,7 @@ public class PatientCase {
     @Type(type = "json")
     private CaseOtherInformation caseOtherInformation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="patient_id")
     private Patient patient;
 

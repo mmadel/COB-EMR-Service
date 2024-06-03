@@ -44,11 +44,11 @@ public class CreateUserCredentialsStep extends KeycloakUserCreationStepper {
     private static final String KC_PASSWORD_EXECUTE_EMAIL_ACTION = "/execute-actions-email";
 
     @Override
-    public boolean create(KeyCloakUser keyCloakUser) throws UserException {
+    public boolean create(KeyCloakUser keyCloakUser) throws UserException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setTemporary(true);
         credential.setType(CredentialRepresentation.PASSWORD);
-        credential.setValue(keyCloakUser.getPassword());
+        credential.setValue(decryptPassword.decrypt(keyCloakUser.getPassword()));
         Gson gson = new Gson();
         String url = keycloakURL + KC_ADMIN_RELATIVE_PATH + realm + KC_USER_RESOURCE + keyCloakUser.getUuid() + KC_PASSWORD_RESET_PASSWORD_ACTION;
         createKCHTTPRequest.request(gson.toJson(credential), url);

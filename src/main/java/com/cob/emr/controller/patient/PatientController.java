@@ -6,6 +6,7 @@ import com.cob.emr.service.patient.creator.PatientCreatorService;
 import com.cob.emr.service.patient.finder.PatientFinderService;
 import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import com.cob.emr.usecases.patient.CreatePatientUseCase;
+import com.cob.emr.usecases.patient.DeletePatientUseCase;
 import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
 import com.cob.emr.usecases.patient.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class PatientController {
     UpdatePatientUseCase updatePatientUseCase;
     @Autowired
     FindPatientByClinicIdentificationUseCase findPatientByClinicIdentification;
+    @Autowired
+    DeletePatientUseCase deletePatientUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
@@ -51,6 +54,12 @@ public class PatientController {
                         updatePatientUseCase.update(model));
     }
 
+    @DeleteMapping("/delete/patientId/{patientId}")
+    public ResponseEntity delete(@PathVariable("patientId") Long patientId) {
+        deletePatientUseCase.delete(patientId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
     @GetMapping("/find/clinicId/{clinicId}")
     public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
                                           @RequestParam(name = "limit") String limit,
@@ -61,6 +70,7 @@ public class PatientController {
                         HttpStatus.OK, null,
                         findPatientByClinicIdentification.find(paging, clinicId));
     }
+
     @GetMapping("/find/all/clinicId/{clinicId}")
     public ResponseEntity findAll(@PathVariable("clinicId") Long clinicId) {
         return new ResponseEntity(finderService.finsAll(clinicId), HttpStatus.OK);

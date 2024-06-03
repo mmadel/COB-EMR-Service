@@ -9,14 +9,20 @@ import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @Component
 @Slf4j
 public class CreateKCUserResourceStep extends KeycloakUserCreationStepper {
     @Override
-    public boolean create(KeyCloakUser keyCloakUser) throws UserException{
+    public boolean create(KeyCloakUser keyCloakUser) throws UserException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         UsersResource usersResource = realmResource().users();
         UserRepresentation userRepresentation = createUserRepresentation(keyCloakUser);
         Response response = usersResource.create(userRepresentation);

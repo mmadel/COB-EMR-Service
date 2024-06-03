@@ -23,5 +23,5 @@ public class InsuranceCompanyModel {
 
     private List<AddressModel> addresses;
 
-    private Long clinicId;
+    private Long organizationId;
 }

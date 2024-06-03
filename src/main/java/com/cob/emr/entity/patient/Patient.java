@@ -6,6 +6,7 @@ import com.cob.emr.model.common.AddressModel;
 import com.cob.emr.model.common.ContactModel;
 import com.cob.emr.model.patient.PatientDependentModel;
 import com.cob.emr.model.patient.PatientEmergencyModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,11 +83,19 @@ public class Patient {
     @Type(type = "json")
     private PatientDependentModel dependent;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "patients")
+    @Column(name = "patient_insurances", columnDefinition = "json")
+    @Type(type = "json")
+    private List<PatientInsuranceModel> patientInsuranceModels;
+    @ManyToMany
+    @JoinTable(
+            name = "patient_clinic",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "clinic_id")
+    )
     private Set<Clinic> clinics = new HashSet<>();
 
-//    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "patient")
-//    private List<PatientCase> cases;
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<PatientCase> cases = new HashSet<>();
 
     public void addClinic(Clinic clinic) {
         this.clinics.add(clinic);

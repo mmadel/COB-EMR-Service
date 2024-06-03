@@ -1,6 +1,7 @@
 package com.cob.emr.repositories.appointment;
 
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.entity.clinic.Clinic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -85,4 +86,6 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     Page<List<Appointment>> findCancelNoShowAppointments(@Param(value = "patientId") long patientId,
                                                          @Param(value = "clinicId") long clinicId,
                                                          @Param(value = "patientCaseId") long patientCaseId, Pageable paging);
+
+    Optional<List<Appointment>> findByPatient_Id(Long id);
 }

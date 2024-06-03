@@ -37,15 +37,15 @@ public class Appointment {
     @Column(name = "appointment_repetition")
     private AppointmentRepetition appointmentRepetition;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")
     private Clinic clinic;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "case_id", referencedColumnName = "id")
     private PatientCase patientCase;
 

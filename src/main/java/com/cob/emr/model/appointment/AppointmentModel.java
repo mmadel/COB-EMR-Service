@@ -17,22 +17,12 @@ public class AppointmentModel {
     private String title;
     private String note;
     private Integer repeatId;
-
     private String therapyUUID;
-
     private AppointmentStatus appointmentStatus;
     private AppointmentRepetition appointmentRepetition;
-
     private Long clinicId;
-
     private Long patientId;
-
-    private PatientModel patient;
-
     private Long patientCaseId;
-
-
     private AppointmentType appointmentType;
-
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
 }

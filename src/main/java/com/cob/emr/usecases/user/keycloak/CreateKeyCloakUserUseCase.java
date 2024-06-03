@@ -12,11 +12,17 @@ import com.cob.emr.usecases.user.keycloak.creator.CreateUserCredentialsStep;
 import com.cob.emr.usecases.user.keycloak.creator.KeycloakUserCreationStepper;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.stream.Collectors;
 
 @Component
 public class CreateKeyCloakUserUseCase {
-    public void create(EMRUser model) throws UserException {
+    public void create(EMRUser model) throws UserException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         KeyCloakUser keyCloakUser = KeyCloakUser.builder()
                 .userName(model.getAccountName())
                 .firstName(model.getFirstName())

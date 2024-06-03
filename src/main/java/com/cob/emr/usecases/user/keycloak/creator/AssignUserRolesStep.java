@@ -31,7 +31,7 @@ public class AssignUserRolesStep extends KeycloakUserCreationStepper {
     @Autowired
     DeleteKeyCloakUserUseCase deleteKeyCloakUserUseCase;
     @Override
-    public boolean create(KeyCloakUser keyCloakUser) throws UserException {
+    public boolean create(KeyCloakUser keyCloakUser) throws UserException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         ClientRepresentation clientRepresentation = realmResource().clients().findByClientId(emrClient).get(0);
         try {
             if(keyCloakUser.getRoles() != null){

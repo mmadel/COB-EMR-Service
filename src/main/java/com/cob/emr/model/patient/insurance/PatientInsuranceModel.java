@@ -9,28 +9,13 @@ import lombok.Setter;
 @Getter
 public class PatientInsuranceModel {
 
-    private Long id;
-
     private String insuranceNumber;
-
-
     private String groupNumber;
-
-
     private PaymentType paymentType;
-
-
     private String paymentValue;
-
-
     private String totalDeductible;
-
-
     private Integer visitAllowed;
-
-
     private Long expirationDate;
-
     private InsuranceCompanyModel insuranceCompany;
 
 }

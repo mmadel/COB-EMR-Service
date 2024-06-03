@@ -15,7 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -48,32 +51,24 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
 
     private PatientModel persistPatient(PatientModel model) {
-        Patient toBeCreated = mapper.map(model, Patient.class);
+        Patient patient = mapper.map(model, Patient.class);
         StreamSupport
                 .stream(clinicRepository.findAllById(model.getClinicsId()).spliterator(), false)
-                .forEach(clinic -> clinic.addPatient(toBeCreated));
-        Patient created = patientRepository.save(toBeCreated);
+                .forEach(clinic -> clinic.addPatient(patient));
 
-        persistPatientCases(created, model.getCases());
+        persistPatientCases(patient, model.getCases());
+        patientRepository.save(patient);
+        return mapper.map(patient, PatientModel.class);
 
-        persistPatientInsurances(created , model.getPatientInsuranceModels());
-
-        return mapper.map(created, PatientModel.class);
     }
 
-    private void persistPatientInsurances(Patient created, List<PatientInsuranceModel> models) {
-        models.forEach(patientInsuranceModel -> {
-            PatientInsurance patientInsurance = mapper.map(patientInsuranceModel, PatientInsurance.class);
-            patientInsurance.setPatient(created);
-            patientInsuranceRepository.save(patientInsurance);
-        });
-    }
-
-    private void persistPatientCases(Patient created, List<PatientCaseModel> models) {
+    private void persistPatientCases(Patient patient, List<PatientCaseModel> models) {
+        Set<PatientCase> patientCases = new HashSet<>();
         models.forEach(patientCaseModel -> {
             PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
-            patientCase.setPatient(created);
-            patientCaseRepository.save(patientCase);
+            patientCase.setPatient(patient);
+            patientCases.add(patientCase);
         });
+        patient.setCases(patientCases);
     }
 }

@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.appointment;
 
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.chart.AppointmentChartPreviousFinderService;

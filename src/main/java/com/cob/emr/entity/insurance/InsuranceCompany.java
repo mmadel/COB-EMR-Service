@@ -1,6 +1,7 @@
 package com.cob.emr.entity.insurance;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.enums.InsuranceCompanyType;
 import com.cob.emr.model.common.AddressModel;
 import lombok.Getter;
@@ -32,6 +33,6 @@ public class InsuranceCompany {
     private List<AddressModel> addresses;
 
     @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private Clinic clinic;
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }
