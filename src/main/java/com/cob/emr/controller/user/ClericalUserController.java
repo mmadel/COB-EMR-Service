@@ -7,8 +7,10 @@ import com.cob.emr.model.user.ClericalEMRUserModel;
 import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.user.clerical.CreateClericalUserUseCase;
+import com.cob.emr.usecases.user.clerical.DeleteClericalUserUseCase;
 import com.cob.emr.usecases.user.clerical.FindClericalUsersByClinic;
 import com.cob.emr.usecases.user.keycloak.CreateKeyCloakUserUseCase;
+import com.cob.emr.usecases.user.keycloak.DeleteKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.creator.CreateUserCredentialsStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -33,11 +35,21 @@ public class ClericalUserController {
     FindClericalUsersByClinic findClericalUsersByClinic;
     @Autowired
     CreateKeyCloakUserUseCase createKeyCloakUserUseCase;
+    @Autowired
+    DeleteKeyCloakUserUseCase deleteKeyCloakUserUseCase;
+    @Autowired
+    DeleteClericalUserUseCase deleteClericalUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity createClericalUser(@RequestBody ClericalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         createKeyCloakUserUseCase.create(model);
         createClericalUserUseCase.create(model);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @DeleteMapping("/delete/uuid/{uuid}")
+    public ResponseEntity deleteClinicalUser(@PathVariable("uuid") String uuid) throws UserException {
+        deleteKeyCloakUserUseCase.delete(uuid);
+        deleteClericalUserUseCase.delete(uuid);
         return new ResponseEntity(HttpStatus.OK);
     }
 

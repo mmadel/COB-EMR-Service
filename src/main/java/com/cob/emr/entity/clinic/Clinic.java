@@ -56,19 +56,14 @@ public class Clinic {
 
     public void deletePatient(Patient patient) {
         this.patients.remove(patient);
-        patient.getClinics().add(this);
+        patient.getClinics().remove(this);
     }
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//        Clinic clinic = (Clinic) o;
-//        return id.equals(clinic.id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(id, name);
-//    }
+    public void removeClinicalUser(ClinicalEMRUser clinicalEMRUser){
+        this.clinicalUsers.remove(clinicalEMRUser);
+        clinicalEMRUser.getClinics().remove(this);
+    }
+    public void removeClericalUser(ClericalEMRUser clericalEMRUser){
+        this.clericalUsers.remove(clericalEMRUser);
+        clericalEMRUser.getClinics().remove(this);
+    }
 }

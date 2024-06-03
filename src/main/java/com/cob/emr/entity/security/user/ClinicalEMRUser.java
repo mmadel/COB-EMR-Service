@@ -39,7 +39,7 @@ public class ClinicalEMRUser extends EMRUser {
     @Type(type = "json")
     private List<EMRUseRoleScope> roleScope;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "clinicalUsers")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "clinicalUsers")
     private Set<Clinic> clinics = new HashSet<>();
 
     public void addClinic(Clinic clinic) {
