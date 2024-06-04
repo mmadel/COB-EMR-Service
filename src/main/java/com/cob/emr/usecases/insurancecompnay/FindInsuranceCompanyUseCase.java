@@ -34,4 +34,10 @@ public class FindInsuranceCompanyUseCase {
                 .records(records)
                 .build();
     }
+
+    public List<InsuranceCompanyModel> find(Long organizationId) {
+        return repository.findByOrganization_Id(organizationId).stream()
+                .map(insuranceCompany -> mapper.map(insuranceCompany, InsuranceCompanyModel.class))
+                .collect(Collectors.toList());
+    }
 }

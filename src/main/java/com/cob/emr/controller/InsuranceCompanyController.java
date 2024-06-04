@@ -54,4 +54,9 @@ public class InsuranceCompanyController {
                         HttpStatus.OK, null,
                         findInsuranceCompanyUseCase.find(paging, organizationId));
     }
+
+    @GetMapping("/find/all/organization/{organizationId}")
+    public ResponseEntity<Object> findAll(@PathVariable("organizationId") Long organizationId) {
+        return new ResponseEntity<>(findInsuranceCompanyUseCase.find(organizationId),HttpStatus.OK);
+    }
 }
