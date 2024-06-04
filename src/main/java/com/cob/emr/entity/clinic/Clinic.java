@@ -32,7 +32,7 @@ public class Clinic {
     @ManyToMany(mappedBy = "clinics")
     private Set<Patient> patients = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "clinical_clinic_user",
             joinColumns = {@JoinColumn(name = "clinic_id")},
             inverseJoinColumns = {@JoinColumn(name = "clinical_user_id")})

@@ -20,6 +20,8 @@ public class ClinicController {
     @Autowired
     CreateClinicUseCase createClinicUseCase;
     @Autowired
+    UpdateClinicUseCase updateClinicUseCase;
+    @Autowired
     FindClinicsByListOfIdentificationUseCase findClinicsByListOfIdentification;
     @Autowired
     FindClinicsForUserUseCase findClinicsForUserUseCase;
@@ -42,7 +44,8 @@ public class ClinicController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody ClinicModel model) {
-        return null;
+        updateClinicUseCase.update(model);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("/find/ids/{ids}")
