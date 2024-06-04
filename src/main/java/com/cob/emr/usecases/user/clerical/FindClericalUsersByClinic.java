@@ -51,9 +51,9 @@ public class FindClericalUsersByClinic {
                 .build();
     }
 
-    public ClericalEMRUserModel find(Long clinicId, String uuid) throws UserException {
+    public ClericalEMRUserModel find(String uuid) throws UserException {
         ClericalEMRUser clericalEMRUser = clericalEMRUserRepository
-                .findById(clinicId, uuid).orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{}));
+                .findById(uuid).orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{}));
         List<Long> clinicsIds= clericalEMRUser.getClinics().stream()
                 .map(Clinic::getId)
                 .collect(Collectors.toList());

@@ -8,6 +8,7 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.user.clinical.CreateClinicalUserUseCase;
 import com.cob.emr.usecases.user.clinical.DeleteClinicalUserUseCase;
 import com.cob.emr.usecases.user.clinical.FindClinicalUsersByClinicUseCase;
+import com.cob.emr.usecases.user.clinical.UpdateClinicalUserUseCase;
 import com.cob.emr.usecases.user.keycloak.CreateKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.DeleteKeyCloakUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,19 @@ public class ClinicalUserController {
     DeleteKeyCloakUserUseCase deleteKeyCloakUserUseCase;
     @Autowired
     DeleteClinicalUserUseCase deleteClinicalUserUseCase;
+    @Autowired
+    UpdateClinicalUserUseCase updateClinicalUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity createClinicalUser(@RequestBody ClinicalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
         createKeyCloakUserUseCase.create(model);
         createClinicalUserUseCase.create(model);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity updateClinicalUser(@RequestBody ClinicalEMRUserModel model) {
+        updateClinicalUserUseCase.update(model);
         return new ResponseEntity(HttpStatus.OK);
     }
 
@@ -54,6 +63,7 @@ public class ClinicalUserController {
         deleteClinicalUserUseCase.delete(uuid);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @GetMapping("/find/clinicId/{clinicId}")
     public ResponseEntity<Object> findClinicalUsers(@RequestParam(name = "offset") String offset,
                                                     @RequestParam(name = "limit") String limit,
@@ -65,9 +75,9 @@ public class ClinicalUserController {
                         findClinicalUsersByClinicUseCase.find(paging, clinicId));
     }
 
-    @GetMapping("/find/clinicId/{clinicId}/uuid/{uuid}")
-    public ResponseEntity<Object> find(@PathVariable Long clinicId, @PathVariable String uuid) throws UserException {
-        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(clinicId, uuid), HttpStatus.OK);
+    @GetMapping("/find/uuid/{uuid}")
+    public ResponseEntity<Object> find(@PathVariable String uuid) throws UserException {
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find( uuid), HttpStatus.OK);
     }
 
     @GetMapping("/find-all/clinicId/{clinicId}")
