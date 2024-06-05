@@ -93,7 +93,7 @@ public class Patient {
     )
     private Set<Clinic> clinics = new HashSet<>();
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
     private Set<PatientCase> cases = new HashSet<>();
 
     public void addClinic(Clinic clinic) {
@@ -104,6 +104,16 @@ public class Patient {
     public void removeClinic(Clinic clinic) {
         this.clinics.remove(clinic);
         clinic.getPatients().remove(this);
+    }
+
+    public void addCase(PatientCase patientCase) {
+        this.cases.add(patientCase);
+        patientCase.setPatient(this);
+    }
+
+    public void removeCase(PatientCase patientCase) {
+        this.cases.remove(patientCase);
+        patientCase.setPatient(null);
     }
 
 }

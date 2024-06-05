@@ -9,4 +9,5 @@ import java.util.List;
 public interface PatientCaseRepository extends PagingAndSortingRepository<PatientCase, Long> {
     List<PatientCase> findByPatient_Id(Long id);
     void deleteByPatient(Patient patient);
+
 }

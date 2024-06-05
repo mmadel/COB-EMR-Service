@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.patient.update;
+package com.cob.emr.usecases.patient.update.dependencies;
 
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.common.AddressDependencyModel;

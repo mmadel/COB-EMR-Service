@@ -1,5 +1,6 @@
 package com.cob.emr.controller.patient;
 
+import com.cob.emr.exception.business.PatientCaseException;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
@@ -48,7 +49,7 @@ public class PatientController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody PatientModel model) {
+    public ResponseEntity<Object> update(@RequestBody PatientModel model) throws PatientCaseException {
         updatePatientUseCase.update(model);
         return new ResponseEntity<>(HttpStatus.OK);
     }
