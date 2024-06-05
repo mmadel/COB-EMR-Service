@@ -8,16 +8,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class UpdatePatientUseCase {
     @Autowired
     PatientRepository patientRepository;
     @Autowired
     UpdatePatientAddressUseCase updatePatientAddressUseCase;
+    @Autowired
+    UpdatePatientContactUseCase updatePatientContactUseCase;
 
     public void update(PatientModel model) {
         Patient patient = patientRepository.findById(model.getId()).get();
-        updatePatientAddressUseCase.update(model.getAddresses(), patient.getAddresses(), patient);
+        List<PatientDependencyUpdater> dependencies = new ArrayList<>();
+        dependencies.add(updatePatientAddressUseCase);
+        dependencies.add(updatePatientContactUseCase);
+        dependencies.forEach(patientDependencyUpdater -> patientDependencyUpdater.update(model, patient));
         patientRepository.save(patient);
     }
 }
