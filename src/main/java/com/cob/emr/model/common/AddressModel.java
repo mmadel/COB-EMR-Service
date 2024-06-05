@@ -1,6 +1,7 @@
 package com.cob.emr.model.common;
 
 import com.cob.emr.enums.AddressType;
+import com.cob.emr.model.patient.DependencyPatientModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class AddressModel implements Serializable {
+public class AddressModel implements Serializable, DependencyPatientModel {
 
     private AddressType addressType;
     private String firstAddress;

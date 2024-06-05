@@ -16,16 +16,13 @@ public class UpdatePatientUseCase {
     @Autowired
     PatientRepository patientRepository;
     @Autowired
-    UpdatePatientAddressUseCase updatePatientAddressUseCase;
-    @Autowired
-    UpdatePatientContactUseCase updatePatientContactUseCase;
+    UpdatePatientDependenciesUseCase updatePatientDependenciesUseCase;
 
     public void update(PatientModel model) {
         Patient patient = patientRepository.findById(model.getId()).get();
-        List<PatientDependencyUpdater> dependencies = new ArrayList<>();
-        dependencies.add(updatePatientAddressUseCase);
-        dependencies.add(updatePatientContactUseCase);
-        dependencies.forEach(patientDependencyUpdater -> patientDependencyUpdater.update(model, patient));
+
+        updatePatientDependenciesUseCase.update(model, patient);
+
         patientRepository.save(patient);
     }
 }

@@ -1,6 +1,7 @@
 package com.cob.emr.model.common;
 
 import com.cob.emr.enums.PhoneType;
+import com.cob.emr.model.patient.DependencyPatientModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class ContactModel {
+public class ContactModel implements DependencyPatientModel {
 
     private PhoneType phoneType;
     private String phoneNumber;
