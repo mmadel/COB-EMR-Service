@@ -2,14 +2,11 @@ package com.cob.emr.service.patient.creator;
 
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
-import com.cob.emr.entity.patient.PatientInsurance;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
-import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
-import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -27,9 +23,6 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
     @Autowired
     PatientRepository patientRepository;
-
-    @Autowired
-    PatientInsuranceRepository patientInsuranceRepository;
 
     @Autowired
     PatientCaseRepository patientCaseRepository;

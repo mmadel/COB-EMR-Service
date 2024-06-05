@@ -5,12 +5,10 @@ import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
-import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
-import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
 import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,9 +30,6 @@ public class PatientFinderServiceImpl implements PatientFinderService {
 
     @Autowired
     PatientCaseRepository patientCaseRepository;
-
-    @Autowired
-    PatientInsuranceRepository patientInsuranceRepository;
 
     @Autowired
     ModelMapper mapper;
@@ -96,19 +91,11 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .stream()
                 .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
                 .collect(Collectors.toList()));
-
-        model.setPatientInsuranceModels(
-                patientInsuranceRepository
-                        .findByPatient_Id(patientId)
-                        .stream()
-                        .map(patientInsurance -> mapper.map(patientInsurance, PatientInsuranceModel.class))
-                        .collect(Collectors.toList()));
         List<Patient> patients = new ArrayList<>();
         patients.add(queriedPatient);
         model.setClinicsId(
                 clinicRepository.findByPatientsIn(patients).stream().map(Clinic::getId).collect(Collectors.toList())
         );
-        patientInsuranceRepository.findByPatient_Id(patientId);
         return model;
     }
 }

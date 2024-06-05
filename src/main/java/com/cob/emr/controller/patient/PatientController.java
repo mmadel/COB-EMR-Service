@@ -8,7 +8,7 @@ import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import com.cob.emr.usecases.patient.CreatePatientUseCase;
 import com.cob.emr.usecases.patient.DeletePatientUseCase;
 import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
-import com.cob.emr.usecases.patient.UpdatePatientUseCase;
+import com.cob.emr.usecases.patient.update.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +38,7 @@ public class PatientController {
     @Autowired
     DeletePatientUseCase deletePatientUseCase;
 
+
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
         return ResponseHandler
@@ -48,10 +49,8 @@ public class PatientController {
 
     @PutMapping("/update")
     public ResponseEntity<Object> update(@RequestBody PatientModel model) {
-        return ResponseHandler
-                .generateResponse("Successfully updated Patient!",
-                        HttpStatus.OK,
-                        updatePatientUseCase.update(model));
+        updatePatientUseCase.update(model);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/patientId/{patientId}")
