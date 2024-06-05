@@ -20,10 +20,29 @@ public class UpdatePatientUseCase {
 
     public void update(PatientModel model) throws PatientCaseException {
         Patient patient = patientRepository.findById(model.getId()).get();
-
-        //updatePatientDependenciesUseCase.update(model, patient);
+        updatePatientDependenciesUseCase.update(model, patient);
         updatePatientCaseUseCase.update(model, patient);
-
+        fillPatientBasicInformation(model, patient);
+        fillPatientIdentificationInformation(model, patient);
         patientRepository.save(patient);
+    }
+
+    private void fillPatientBasicInformation(PatientModel source, Patient target) {
+        target.setFirstName(source.getFirstName());
+        target.setMiddleName(source.getMiddleName());
+        target.setLastName(source.getLastName());
+        target.setBirthDate(source.getBirthDate());
+        target.setGender(source.getGender());
+        target.setMaritalStatus(source.getMaritalStatus());
+        target.setSuffix(source.getSuffix());
+        target.setEmployerName(source.getEmployerName());
+        target.setTitle(source.getTitle());
+
+    }
+
+    private void fillPatientIdentificationInformation(PatientModel source, Patient target) {
+        target.setPatientId(source.getPatientId());
+        target.setEffectiveFromDate(source.getEffectiveFromDate());
+        target.setEffectiveToDate(source.getEffectiveToDate());
     }
 }
