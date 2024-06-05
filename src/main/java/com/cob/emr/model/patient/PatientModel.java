@@ -1,17 +1,15 @@
 package com.cob.emr.model.patient;
 
 import com.cob.emr.enums.*;
-import com.cob.emr.model.common.AddressModel;
-import com.cob.emr.model.common.ContactModel;
+import com.cob.emr.model.common.AddressDependencyModel;
+import com.cob.emr.model.common.ContactDependencyModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
-import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.joining;
 
@@ -34,11 +32,11 @@ public class PatientModel {
     private String patientId;
     private Long effectiveFromDate;
     private Long effectiveToDate;
-    private List<AddressModel> addresses;
-    private List<ContactModel> contacts;
-    private List<PatientEmergencyModel> emergencies;
+    private List<AddressDependencyModel> addresses;
+    private List<ContactDependencyModel> contacts;
+    private List<PatientEmergencyDependencyModel> emergencies;
     private PatientDependentModel dependent;
     private List<Long> clinicsId = new ArrayList<>();
     private List<PatientCaseModel> cases = new ArrayList<>();
-    private List<PatientInsuranceModel> patientInsuranceModels = new ArrayList<>();
+    private List<PatientInsuranceDependencyModel> patientInsuranceModels = new ArrayList<>();
 }

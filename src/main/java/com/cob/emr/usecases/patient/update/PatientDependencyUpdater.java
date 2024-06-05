@@ -1,13 +1,13 @@
 package com.cob.emr.usecases.patient.update;
 
 import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.model.patient.DependencyPatientModel;
+import com.cob.emr.model.patient.PatientDependencyModel;
 import com.cob.emr.model.patient.PatientModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class PatientDependencyUpdater<T extends DependencyPatientModel> {
+public abstract class PatientDependencyUpdater<T extends PatientDependencyModel> {
     protected abstract void update(PatientModel model, Patient patient);
 
     protected List<T> findAdded(List<T> updated, List<T> original) {

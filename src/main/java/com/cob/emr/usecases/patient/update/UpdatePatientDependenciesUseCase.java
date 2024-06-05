@@ -16,12 +16,15 @@ public class UpdatePatientDependenciesUseCase {
     private UpdatePatientContactUseCase updatePatientContactUseCase;
     @Autowired
     UpdatePatientEmergencyUseCase updatePatientEmergencyUseCase;
+    @Autowired
+    UpdatePatientInsuranceUseCase UpdatePatientInsuranceUseCase;
 
     public void update(PatientModel model, Patient patient) {
         List<PatientDependencyUpdater> dependencies = new ArrayList<>();
         dependencies.add(updatePatientAddressUseCase);
         dependencies.add(updatePatientContactUseCase);
         dependencies.add(updatePatientEmergencyUseCase);
+        dependencies.add(UpdatePatientInsuranceUseCase);
         dependencies.forEach(patientDependencyUpdater -> patientDependencyUpdater.update(model, patient));
     }
 }

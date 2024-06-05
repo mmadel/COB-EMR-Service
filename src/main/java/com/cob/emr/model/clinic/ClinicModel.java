@@ -1,6 +1,6 @@
 package com.cob.emr.model.clinic;
 
-import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +11,7 @@ import java.util.Objects;
 public class ClinicModel {
     private Long id;
     private String name;
-    private AddressModel address;
+    private AddressDependencyModel address;
     private Long organizationId;
     @Override
     public boolean equals(Object o) {

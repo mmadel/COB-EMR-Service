@@ -1,7 +1,7 @@
 package com.cob.emr.model.common;
 
 import com.cob.emr.enums.AddressType;
-import com.cob.emr.model.patient.DependencyPatientModel;
+import com.cob.emr.model.patient.PatientDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class AddressModel implements Serializable, DependencyPatientModel {
+public class AddressDependencyModel implements Serializable, PatientDependencyModel {
 
     private AddressType addressType;
     private String firstAddress;
@@ -27,7 +27,7 @@ public class AddressModel implements Serializable, DependencyPatientModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AddressModel that = (AddressModel) o;
+        AddressDependencyModel that = (AddressDependencyModel) o;
         return addressType == that.addressType && Objects.equals(firstAddress, that.firstAddress) && Objects.equals(secondAddress, that.secondAddress) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(province, that.province) && Objects.equals(zipCode, that.zipCode);
     }
 

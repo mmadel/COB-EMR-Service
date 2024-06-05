@@ -4,7 +4,7 @@ import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
-import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -27,7 +27,7 @@ public class Clinic {
 
     @Column(name = "clinic_address", columnDefinition = "json")
     @Type(type = "json")
-    private AddressModel address;
+    private AddressDependencyModel address;
 
     @ManyToMany(mappedBy = "clinics")
     private Set<Patient> patients = new HashSet<>();

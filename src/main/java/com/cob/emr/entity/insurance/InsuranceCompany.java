@@ -1,9 +1,8 @@
 package com.cob.emr.entity.insurance;
 
-import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.enums.InsuranceCompanyType;
-import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -30,7 +29,7 @@ public class InsuranceCompany {
     private String fax;
     @Column(name = "patient_addresses", columnDefinition = "json")
     @Type(type = "json")
-    private List<AddressModel> addresses;
+    private List<AddressDependencyModel> addresses;
 
     @ManyToOne
     @JoinColumn(name = "organization_id")

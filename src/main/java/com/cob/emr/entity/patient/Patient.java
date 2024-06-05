@@ -2,11 +2,11 @@ package com.cob.emr.entity.patient;
 
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.enums.*;
-import com.cob.emr.model.common.AddressModel;
-import com.cob.emr.model.common.ContactModel;
+import com.cob.emr.model.common.AddressDependencyModel;
+import com.cob.emr.model.common.ContactDependencyModel;
 import com.cob.emr.model.patient.PatientDependentModel;
-import com.cob.emr.model.patient.PatientEmergencyModel;
-import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
+import com.cob.emr.model.patient.PatientEmergencyDependencyModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceDependencyModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +15,6 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,21 +70,21 @@ public class Patient {
 
     @Column(name = "patient_addresses", columnDefinition = "json")
     @Type(type = "json")
-    private List<AddressModel> addresses;
+    private List<AddressDependencyModel> addresses;
 
     @Column(name = "patient_contacts", columnDefinition = "json")
     @Type(type = "json")
-    private List<ContactModel> contacts;
+    private List<ContactDependencyModel> contacts;
     @Column(name = "patient_emergency", columnDefinition = "json")
     @Type(type = "json")
-    private List<PatientEmergencyModel> emergencies;
+    private List<PatientEmergencyDependencyModel> emergencies;
     @Column(name = "patient_dependent", columnDefinition = "json")
     @Type(type = "json")
     private PatientDependentModel dependent;
 
     @Column(name = "patient_insurances", columnDefinition = "json")
     @Type(type = "json")
-    private List<PatientInsuranceModel> patientInsuranceModels;
+    private List<PatientInsuranceDependencyModel> patientInsuranceModels;
     @ManyToMany
     @JoinTable(
             name = "patient_clinic",

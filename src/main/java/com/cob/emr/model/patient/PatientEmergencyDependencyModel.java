@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Setter
 @Getter
-public class PatientEmergencyModel implements DependencyPatientModel {
+public class PatientEmergencyDependencyModel implements PatientDependencyModel {
     private String contactName;
     private PhoneType phoneType;
 
@@ -22,7 +22,7 @@ public class PatientEmergencyModel implements DependencyPatientModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PatientEmergencyModel that = (PatientEmergencyModel) o;
+        PatientEmergencyDependencyModel that = (PatientEmergencyDependencyModel) o;
         return Objects.equals(contactName, that.contactName) && phoneType == that.phoneType && Objects.equals(phoneNumber, that.phoneNumber) && Objects.equals(otherPhoneType, that.otherPhoneType) && Objects.equals(additionalInfo, that.additionalInfo);
     }
 
