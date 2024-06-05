@@ -45,7 +45,13 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId)));
         Page<Patient> pages = patientRepository.findByClinicsIn(pageable, clinics);
         long total = (pages).getTotalElements();
-        List<PatientModel> records = pages.stream().map(patient -> mapper.map(patient, PatientModel.class))
+        List<PatientModel> records = pages.stream().map(patient -> {
+                    PatientModel model = mapper.map(patient, PatientModel.class);
+                    model.setClinicsId(patient.getClinics()
+                            .stream()
+                            .map(clinic -> clinic.getId()).collect(Collectors.toList()));
+                    return model;
+                })
                 .collect(Collectors.toList());
         return PatientResponse.builder()
                 .number_of_records(records.size())
