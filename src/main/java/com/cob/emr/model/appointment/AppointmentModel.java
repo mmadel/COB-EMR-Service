@@ -22,6 +22,7 @@ public class AppointmentModel {
     private AppointmentRepetition appointmentRepetition;
     private Long clinicId;
     private Long patientId;
+    private PatientModel patient;
     private Long patientCaseId;
     private AppointmentType appointmentType;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
