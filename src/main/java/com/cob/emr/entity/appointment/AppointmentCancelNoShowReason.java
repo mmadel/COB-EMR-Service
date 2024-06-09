@@ -22,7 +22,7 @@ public class AppointmentCancelNoShowReason {
     @Column
     private String comment;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     @JoinColumn(name = "appointment_id", referencedColumnName = "id")
     private Appointment appointment;
 

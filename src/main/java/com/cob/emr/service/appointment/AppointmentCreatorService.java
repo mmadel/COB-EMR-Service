@@ -35,13 +35,14 @@ public class AppointmentCreatorService {
         mapper.getConfiguration().setAmbiguityIgnored(true);
         Appointment toBeCreated = mapper.map(model, Appointment.class);
         fillAppointmentAssociation(toBeCreated, model);
-        Appointment createdAppointment = appointmentRepository.save(toBeCreated);
+
         //addAppointmentHistoryRecord(model,createdAppointment);
         if (model.getAppointmentCancelNoShowReason() != null) {
             AppointmentCancelNoShowReason appointmentCancelNoShowReason = mapper.map(model.getAppointmentCancelNoShowReason(), AppointmentCancelNoShowReason.class);
-            appointmentCancelNoShowReason.setAppointment(createdAppointment);
-            appointmentCancelNoShowReasonRepository.save(appointmentCancelNoShowReason);
+            appointmentCancelNoShowReason.setAppointment(toBeCreated);
+            toBeCreated.setAppointmentCancelNoShowReason(appointmentCancelNoShowReason);
         }
+        Appointment createdAppointment = appointmentRepository.save(toBeCreated);
         return createdAppointment.getId();
     }
 
