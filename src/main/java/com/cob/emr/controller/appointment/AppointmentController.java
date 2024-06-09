@@ -26,10 +26,11 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
-        return ResponseHandler
-                .generateResponse("Successfully added Appointment",
-                        HttpStatus.OK,
-                        creatorService.createOrUpdate(model));
+        return new ResponseEntity<>(creatorService.createOrUpdate(model) , HttpStatus.OK);
+//        return ResponseHandler
+//                .generateResponse("Successfully added Appointment",
+//                        HttpStatus.OK,
+//                        creatorService.createOrUpdate(model));
     }
 
     @PutMapping("/update")
