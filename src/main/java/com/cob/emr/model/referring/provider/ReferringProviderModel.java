@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 public class ReferringProviderModel {
     private Long id;
-    private String name;
+    private String firstName;
+    private String lastName;
     private String npi;
     private Long organizationId;
 }
