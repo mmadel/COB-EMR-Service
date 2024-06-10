@@ -4,9 +4,12 @@ import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.referring.provider.ReferringProviderModel;
 import com.cob.emr.model.user.ClericalEMRUserModel;
+import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.referring.provider.CreateReferringProviderUseCase;
 import com.cob.emr.usecases.referring.provider.FindReferringProvidersUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +35,13 @@ public class ReferringProviderController {
     }
 
     @GetMapping("/find/organizationId/{organizationId}")
-    public ResponseEntity find(@PathVariable Long organizationId){
-        return new ResponseEntity(findReferringProvidersUseCase.find(organizationId),HttpStatus.OK);
+    public ResponseEntity find(@RequestParam(name = "offset") String offset,
+                               @RequestParam(name = "limit") String limit,
+            @PathVariable Long organizationId){
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
+        return ResponseHandler
+                .generateResponse("Successfully Find All Referring Providers!",
+                        HttpStatus.OK, null,
+                        findReferringProvidersUseCase.find(paging, organizationId));
     }
 }
