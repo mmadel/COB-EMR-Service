@@ -20,7 +20,7 @@ public class AppointmentTypeController {
     AppointmentTypeFinderService finderService;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody AppointmentTypeModel model) {
+    public ResponseEntity create(@RequestBody AppointmentTypeModel model) {
         return ResponseHandler
                 .generateResponse("Successfully added AppointmentType",
                         HttpStatus.OK,
