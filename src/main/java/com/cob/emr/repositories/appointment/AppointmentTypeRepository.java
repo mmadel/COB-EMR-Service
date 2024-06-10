@@ -10,4 +10,6 @@ public interface AppointmentTypeRepository extends PagingAndSortingRepository<Ap
     Optional<List<AppointmentType>> findByClinicId(Long id);
 
     Optional<AppointmentType> findByIdAndClinic_Id(Long id, Long clinicId);
+    Optional<AppointmentType> findByNameAndClinic_Id(String name , Long clinicId);
+
 }

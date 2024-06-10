@@ -24,6 +24,7 @@ public class AppointmentModel {
     private Long patientId;
     private PatientModel patient;
     private Long patientCaseId;
-    private AppointmentType appointmentType;
+    private String appointmentType;
+    private String appointmentTypeColor;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
 }

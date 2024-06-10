@@ -49,9 +49,8 @@ public class Appointment {
     @JoinColumn(name = "case_id", referencedColumnName = "id")
     private PatientCase patientCase;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "appointment_type")
-    private AppointmentType appointmentType;
+    private String appointmentType;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;

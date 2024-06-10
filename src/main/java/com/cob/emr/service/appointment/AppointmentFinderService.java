@@ -5,6 +5,7 @@ import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
+import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 public class AppointmentFinderService {
     @Autowired
     AppointmentRepository appointmentRepository;
+    @Autowired
+    AppointmentTypeRepository appointmentTypeRepository;
     @Autowired
     ModelMapper mapper;
 
@@ -32,6 +35,9 @@ public class AppointmentFinderService {
                             appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
                             + ":" + appointment.getPatientCase().getTitle();
                     appointmentModel.setTitle(title);
+                    appointmentModel.setAppointmentTypeColor(appointmentTypeRepository
+                            .findByNameAndClinic_Id(appointment.getAppointmentType(), clinicId )
+                            .get().getColor());
                     return appointmentModel;
                 })
                 .collect(Collectors.toList());
