@@ -7,6 +7,7 @@ import com.cob.emr.model.user.ClericalEMRUserModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.referring.provider.CreateReferringProviderUseCase;
 import com.cob.emr.usecases.referring.provider.FindReferringProvidersUseCase;
+import com.cob.emr.usecases.referring.provider.UpdateReferringProviderUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,9 +29,18 @@ public class ReferringProviderController {
     CreateReferringProviderUseCase createReferringProviderUseCase;
     @Autowired
     FindReferringProvidersUseCase findReferringProvidersUseCase;
+    @Autowired
+    UpdateReferringProviderUseCase updateReferringProviderUseCase;
+
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody ReferringProviderModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public ResponseEntity create(@RequestBody ReferringProviderModel model){
         createReferringProviderUseCase.create(model);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity update(@RequestBody ReferringProviderModel model){
+        updateReferringProviderUseCase.update(model);
         return new ResponseEntity(HttpStatus.OK);
     }
 
