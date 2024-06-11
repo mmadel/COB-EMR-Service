@@ -11,4 +11,6 @@ public interface SchedulerConfigurationRepository extends CrudRepository<Schedul
     Optional<SchedulerConfigurationEntity> findByClinicId(Long clinicId);
 
     Optional<List<SchedulerConfigurationEntity>> findByOrganization_Id(Long id);
+
+
 }

@@ -2,7 +2,6 @@ package com.cob.emr.controller.clinic;
 
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.model.clinic.ClinicModel;
-import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.usecases.clinic.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,8 @@ public class ClinicController {
 
     @Autowired
     FindClinicUseCase findClinicUseCase;
+    @Autowired
+    FindNotConfigurableSchedulerClinicsUseCase findNotConfigurableSchedulerClinicsUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody ClinicModel clinicModel) {
@@ -80,5 +81,10 @@ public class ClinicController {
     @ResponseBody
     public ResponseEntity findClinicById(@PathVariable Long clinicId){
         return new ResponseEntity(findClinicUseCase.find(clinicId), HttpStatus.OK);
+    }
+    @GetMapping(path = "/find-not-configurable/organization/{organizationId}")
+    @ResponseBody
+    public ResponseEntity findNotConfigurableClinic(@PathVariable Long organizationId){
+        return new ResponseEntity(findNotConfigurableSchedulerClinicsUseCase.find(organizationId), HttpStatus.OK);
     }
 }

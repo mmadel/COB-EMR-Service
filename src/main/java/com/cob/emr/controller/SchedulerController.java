@@ -19,7 +19,7 @@ public class SchedulerController {
 
     @Autowired
     FindAllSchedulersConfigurationUseCase findAllSchedulersConfigurationUseCase;
-    @PostMapping("/configure")
+    @PostMapping("/create/configuration")
     public ResponseEntity configureScheduler(@RequestBody SchedulerConfiguration schedulerConfiguration) {
         return new ResponseEntity(createSchedulerConfigurationUseCase
                 .configure(schedulerConfiguration)
