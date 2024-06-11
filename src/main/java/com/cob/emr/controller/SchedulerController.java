@@ -2,6 +2,7 @@ package com.cob.emr.controller;
 
 import com.cob.emr.model.scheduler.SchedulerConfiguration;
 import com.cob.emr.usecases.scheduler.CreateSchedulerConfigurationUseCase;
+import com.cob.emr.usecases.scheduler.FindAllSchedulersConfigurationUseCase;
 import com.cob.emr.usecases.scheduler.FindSchedulerConfigurationByClinicUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +17,8 @@ public class SchedulerController {
     @Autowired
     FindSchedulerConfigurationByClinicUseCase findSchedulerConfigurationByClinicUseCase;
 
+    @Autowired
+    FindAllSchedulersConfigurationUseCase findAllSchedulersConfigurationUseCase;
     @PostMapping("/configure")
     public ResponseEntity configureScheduler(@RequestBody SchedulerConfiguration schedulerConfiguration) {
         return new ResponseEntity(createSchedulerConfigurationUseCase
@@ -27,6 +30,12 @@ public class SchedulerController {
     public ResponseEntity get(@PathVariable("clinicId") Long clinicId) {
         return new ResponseEntity(findSchedulerConfigurationByClinicUseCase
                 .find(clinicId)
+                , HttpStatus.OK);
+    }
+    @GetMapping("/find/organizationId/{organizationId}")
+    public ResponseEntity findAll(@PathVariable Long organizationId){
+        return new ResponseEntity(findAllSchedulersConfigurationUseCase
+                .find(organizationId)
                 , HttpStatus.OK);
     }
 }

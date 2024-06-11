@@ -12,6 +12,7 @@ public class SchedulerConfiguration {
 
     private Long startHour;
     private Long endHour;
-
     private Long clinicId;
+    private String clinicName;
+    private Long organizationId;
 }
