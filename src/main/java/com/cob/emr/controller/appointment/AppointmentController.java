@@ -3,9 +3,9 @@ package com.cob.emr.controller.appointment;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.service.appointment.AppointmentCreatorService;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
+import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,30 +16,26 @@ import org.springframework.web.bind.annotation.*;
 public class AppointmentController {
 
     @Autowired
-    AppointmentCreatorService creatorService;
-
-    @Autowired
     AppointmentFinderService finderService;
 
     @Autowired
     AppointmentHistoryFinderService historyFinderService;
+    @Autowired
+    CreateAppointmentUseCase createAppointmentUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
-        return new ResponseEntity<>(creatorService.createOrUpdate(model) , HttpStatus.OK);
-//        return ResponseHandler
-//                .generateResponse("Successfully added Appointment",
-//                        HttpStatus.OK,
-//                        creatorService.createOrUpdate(model));
+        createAppointmentUseCase.execute(model);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
-        return ResponseHandler
-                .generateResponse("Successfully update Appointment",
-                        HttpStatus.OK,
-                        creatorService.createOrUpdate(model));
-    }
+//    @PutMapping("/update")
+//    public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
+//        return ResponseHandler
+//                .generateResponse("Successfully update Appointment",
+//                        HttpStatus.OK,
+//                        creatorService.createOrUpdate(model));
+//    }
 
     @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}")
     public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
@@ -69,8 +65,9 @@ public class AppointmentController {
                         HttpStatus.OK,
                         historyFinderService.find(appointmentId));
     }
+
     @GetMapping("/find/id/{appointmentId}")
-    public ResponseEntity find(@PathVariable Long appointmentId){
-        return new ResponseEntity(finderService.find(appointmentId), HttpStatus.OK);
+    public ResponseEntity<AppointmentModel> find(@PathVariable Long appointmentId) {
+        return new ResponseEntity<>(finderService.find(appointmentId), HttpStatus.OK);
     }
 }

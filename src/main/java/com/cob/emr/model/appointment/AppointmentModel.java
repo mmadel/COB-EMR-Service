@@ -1,9 +1,7 @@
 package com.cob.emr.model.appointment;
 
-import com.cob.emr.entity.appointment.AppointmentCancelNoShowReason;
-import com.cob.emr.enums.AppointmentRepetition;
+
 import com.cob.emr.enums.AppointmentStatus;
-import com.cob.emr.enums.AppointmentType;
 import com.cob.emr.model.appointment.repeat.AppointmentRepeat;
 import com.cob.emr.model.patient.PatientModel;
 import lombok.Getter;
@@ -20,7 +18,6 @@ public class AppointmentModel {
     private Integer repeatId;
     private String therapyUUID;
     private AppointmentStatus appointmentStatus;
-    private AppointmentRepetition appointmentRepetition;
     private Long clinicId;
     private Long patientId;
     private PatientModel patient;
@@ -28,5 +25,6 @@ public class AppointmentModel {
     private String appointmentType;
     private String appointmentTypeColor;
     private AppointmentRepeat appointmentRepeat;
+    private AppointmentRepetitionType appointmentRepetitionType;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class DailyRepeatAppointment {
-    Long every;
+    Integer every;
     Long start;
     Long end;
 }
