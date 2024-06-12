@@ -8,4 +8,5 @@ import lombok.Setter;
 public class AppointmentRepeat {
     String type;
     DailyRepeatAppointment daily;
+    WeeklyRepeatAppointment weekly;
 }

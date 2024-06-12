@@ -6,6 +6,7 @@ import com.cob.emr.usecases.appointment.PersistAppointmentUseCase;
 import com.cob.emr.usecases.appointment.create.creator.AppointmentCreator;
 import com.cob.emr.usecases.appointment.create.creator.DailyAppointmentCreator;
 import com.cob.emr.usecases.appointment.create.creator.SingleAppointmentCreator;
+import com.cob.emr.usecases.appointment.create.creator.WeeklyAppointmentCreator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +31,8 @@ public class CreateAppointmentUseCase {
             case Daily:
                 appointmentCreator = new DailyAppointmentCreator();
                 break;
-            case weekly:
+            case Weekly:
+                appointmentCreator = new WeeklyAppointmentCreator();
                 break;
             case Monthly:
                 break;

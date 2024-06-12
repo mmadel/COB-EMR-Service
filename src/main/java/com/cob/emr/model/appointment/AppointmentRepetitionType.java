@@ -1,5 +1,5 @@
 package com.cob.emr.model.appointment;
 
 public enum AppointmentRepetitionType {
-    Single, Daily, weekly, Monthly, Yearly
+    Single, Daily, Weekly, Monthly, Yearly
 }
