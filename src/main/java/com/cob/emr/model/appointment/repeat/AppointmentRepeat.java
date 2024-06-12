@@ -9,4 +9,5 @@ public class AppointmentRepeat {
     String type;
     DailyRepeatAppointment daily;
     WeeklyRepeatAppointment weekly;
+    MonthlyRepeatAppointment monthly;
 }

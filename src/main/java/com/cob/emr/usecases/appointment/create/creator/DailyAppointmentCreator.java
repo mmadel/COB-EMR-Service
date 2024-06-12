@@ -7,9 +7,4 @@ public class DailyAppointmentCreator extends AppointmentCreator {
     public DailyAppointmentCreator() {
         appointmentRepetition = new DailyAppointmentRepetition();
     }
-
-    @Override
-    public void create(AppointmentModel model) {
-        appointments = appointmentRepetition.repeat(model);
-    }
 }

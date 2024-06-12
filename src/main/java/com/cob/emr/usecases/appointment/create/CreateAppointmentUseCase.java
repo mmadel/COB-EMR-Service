@@ -35,7 +35,7 @@ public class CreateAppointmentUseCase {
                 appointmentCreator = new WeeklyAppointmentCreator();
                 break;
             case Monthly:
-                break;
+                throw  new IllegalArgumentException("not implemented yes");
             case Yearly:
                 break;
 

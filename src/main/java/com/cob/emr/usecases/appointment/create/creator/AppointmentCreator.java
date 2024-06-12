@@ -9,5 +9,7 @@ public abstract class AppointmentCreator {
     protected AppointmentRepetition appointmentRepetition;
     public List<AppointmentModel> appointments;
 
-    public abstract void create(AppointmentModel model);
+    public void create(AppointmentModel model) {
+        appointments = appointmentRepetition.repeat(model);
+    }
 }
