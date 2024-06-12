@@ -5,6 +5,7 @@ import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
+import com.cob.emr.usecases.UpdateAppointmentUseCase;
 import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class AppointmentController {
     AppointmentHistoryFinderService historyFinderService;
     @Autowired
     CreateAppointmentUseCase createAppointmentUseCase;
+    @Autowired
+    UpdateAppointmentUseCase updateAppointmentUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
@@ -29,13 +32,11 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @PutMapping("/update")
-//    public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
-//        return ResponseHandler
-//                .generateResponse("Successfully update Appointment",
-//                        HttpStatus.OK,
-//                        creatorService.createOrUpdate(model));
-//    }
+    @PutMapping("/update")
+    public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
+        updateAppointmentUseCase.update(model);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}")
     public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
