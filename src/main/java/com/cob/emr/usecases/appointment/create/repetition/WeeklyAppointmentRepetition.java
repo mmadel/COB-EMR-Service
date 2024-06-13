@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
 import com.cob.emr.model.appointment.AppointmentModel;
+import com.cob.emr.usecases.appointment.util.RepeatedAppointmentDatesConstructor;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,19 +31,20 @@ public class WeeklyAppointmentRepetition implements AppointmentRepetition {
 
     private void createAppointmentsDates(int[] days, int repeat, long startBoundary, long endBoundary, List<Long> appointmentDates) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(startBoundary));
+        calendar.setTimeInMillis(startBoundary);
         calendar.add(Calendar.WEEK_OF_MONTH, repeat);
         long newDate = calendar.getTime().getTime();
         if (newDate > endBoundary)
             return;
-        if (days != null)
+        if (days != null) {
             for (int i = 0; i < days.length; i++) {
-                calendar.set(Calendar.DAY_OF_WEEK, days[i] - 1);
+                calendar.set(Calendar.DAY_OF_WEEK, days[i]);
                 long day = calendar.getTime().getTime();
                 appointmentDates.add(day);
             }
-        else
+        } else {
             appointmentDates.add(newDate);
+        }
         createAppointmentsDates(days, repeat, newDate, endBoundary, appointmentDates);
     }
 }

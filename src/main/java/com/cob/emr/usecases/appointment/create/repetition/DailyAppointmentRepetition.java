@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
 import com.cob.emr.model.appointment.AppointmentModel;
+import com.cob.emr.usecases.appointment.util.RepeatedAppointmentDatesConstructor;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -3,10 +3,7 @@ package com.cob.emr.usecases.appointment.create;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.model.appointment.AppointmentRepetitionType;
 import com.cob.emr.usecases.appointment.PersistAppointmentUseCase;
-import com.cob.emr.usecases.appointment.create.creator.AppointmentCreator;
-import com.cob.emr.usecases.appointment.create.creator.DailyAppointmentCreator;
-import com.cob.emr.usecases.appointment.create.creator.SingleAppointmentCreator;
-import com.cob.emr.usecases.appointment.create.creator.WeeklyAppointmentCreator;
+import com.cob.emr.usecases.appointment.create.creator.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +32,7 @@ public class CreateAppointmentUseCase {
                 appointmentCreator = new WeeklyAppointmentCreator();
                 break;
             case Monthly:
-                throw  new IllegalArgumentException("not implemented yes");
+                appointmentCreator = new MonthlyAppointmentCreator();
             case Yearly:
                 break;
 

@@ -1,14 +1,19 @@
 package com.cob.emr.usecases.appointment.repeat;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(new Date(1717189200000L));
-        cal.add(Calendar.HOUR,8);
-        cal.add(Calendar.MINUTE,0);
-        System.out.println(cal.getTime().getTime());
+    public static void main(String[] args) {
+        Calendar cacheCalendar = Calendar.getInstance();
+        cacheCalendar.set(Calendar.DAY_OF_MONTH, 2);
+        cacheCalendar.set(Calendar.MONTH, 6);
+        cacheCalendar.set(Calendar.YEAR, 2024);
+        System.out.println(cacheCalendar.get(Calendar.DATE));
+
     }
 }
