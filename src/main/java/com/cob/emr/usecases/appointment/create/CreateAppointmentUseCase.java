@@ -34,6 +34,7 @@ public class CreateAppointmentUseCase {
             case Monthly:
                 appointmentCreator = new MonthlyAppointmentCreator();
             case Yearly:
+                appointmentCreator = new YearlyAppointmentCreator();
                 break;
 
         }

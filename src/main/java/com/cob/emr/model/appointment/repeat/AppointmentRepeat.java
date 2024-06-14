@@ -10,4 +10,5 @@ public class AppointmentRepeat {
     DailyRepeatAppointment daily;
     WeeklyRepeatAppointment weekly;
     MonthlyRepeatAppointment monthly;
+    YearlyRepeatAppointment yearly;
 }
