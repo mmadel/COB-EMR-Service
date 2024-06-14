@@ -21,14 +21,13 @@ public class UserController {
 
     @GetMapping("/check/username/{username}")
     public ResponseEntity checkUserName(@PathVariable String username) throws UserException {
-        checkUserNameUseCase.checkUserName(username);
-        return new ResponseEntity(HttpStatus.OK);
+
+        return new ResponseEntity(checkUserNameUseCase.checkUserName(username), HttpStatus.OK);
     }
 
     @GetMapping("/check/email/{email}")
     public ResponseEntity checkEmail(@PathVariable String email) throws UserException {
-        checkEmailUseCase.check(email);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(checkEmailUseCase.check(email),HttpStatus.OK);
     }
 
 }
