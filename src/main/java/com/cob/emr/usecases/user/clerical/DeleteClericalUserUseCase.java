@@ -1,11 +1,14 @@
 package com.cob.emr.usecases.user.clerical;
 
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
 import com.cob.emr.repositories.security.ClericalEMRUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
 
 @Component
 public class DeleteClericalUserUseCase {
@@ -15,7 +18,8 @@ public class DeleteClericalUserUseCase {
 
     public void delete(String uuid){
         ClericalEMRUser clericalEMRUser = clericalEMRUserRepository.findByUUID(uuid).get();
-        clericalEMRUser.getClinics()
+        Set<Clinic> copy = new HashSet<>(clericalEMRUser.getClinics());
+        copy
                         .forEach(clinic -> {
                             clinic.removeClericalUser(clericalEMRUser);
                         });
