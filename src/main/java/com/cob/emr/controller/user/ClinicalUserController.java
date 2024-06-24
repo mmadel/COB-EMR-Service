@@ -11,6 +11,7 @@ import com.cob.emr.usecases.user.clinical.FindClinicalUsersByClinicUseCase;
 import com.cob.emr.usecases.user.clinical.UpdateClinicalUserUseCase;
 import com.cob.emr.usecases.user.keycloak.CreateKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.DeleteKeyCloakUserUseCase;
+import com.cob.emr.usecases.user.keycloak.UpdateKeyCloakUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,6 +39,8 @@ public class ClinicalUserController {
     @Autowired
     CreateKeyCloakUserUseCase createKeyCloakUserUseCase;
     @Autowired
+    UpdateKeyCloakUserUseCase updateKeyCloakUserUseCase;
+    @Autowired
     DeleteKeyCloakUserUseCase deleteKeyCloakUserUseCase;
     @Autowired
     DeleteClinicalUserUseCase deleteClinicalUserUseCase;
@@ -53,6 +56,7 @@ public class ClinicalUserController {
 
     @PutMapping("/update")
     public ResponseEntity updateClinicalUser(@RequestBody ClinicalEMRUserModel model) {
+        updateKeyCloakUserUseCase.update(model);
         updateClinicalUserUseCase.update(model);
         return new ResponseEntity(HttpStatus.OK);
     }

@@ -12,6 +12,7 @@ import com.cob.emr.usecases.user.clerical.FindClericalUsersByClinic;
 import com.cob.emr.usecases.user.clerical.UpdateClericalUserUseCase;
 import com.cob.emr.usecases.user.keycloak.CreateKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.DeleteKeyCloakUserUseCase;
+import com.cob.emr.usecases.user.keycloak.UpdateKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.creator.CreateUserCredentialsStep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -33,6 +34,8 @@ public class ClericalUserController {
     @Autowired
     CreateClericalUserUseCase createClericalUserUseCase;
     @Autowired
+    UpdateKeyCloakUserUseCase updateKeyCloakUserUseCase;
+    @Autowired
     FindClericalUsersByClinic findClericalUsersByClinic;
     @Autowired
     CreateKeyCloakUserUseCase createKeyCloakUserUseCase;
@@ -49,11 +52,14 @@ public class ClericalUserController {
         createClericalUserUseCase.create(model);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @PutMapping("/update")
     public ResponseEntity updateClinicalUser(@RequestBody ClericalEMRUserModel model) {
+        updateKeyCloakUserUseCase.update(model);
         updateClericalUserUseCase.update(model);
         return new ResponseEntity(HttpStatus.OK);
     }
+
     @DeleteMapping("/delete/uuid/{uuid}")
     public ResponseEntity deleteClinicalUser(@PathVariable("uuid") String uuid) throws UserException {
         deleteKeyCloakUserUseCase.delete(uuid);
@@ -73,7 +79,7 @@ public class ClericalUserController {
     }
 
     @GetMapping("/find/uuid/{uuid}")
-    public ResponseEntity<Object> find(@PathVariable String uuid) throws  UserException {
-        return new ResponseEntity(findClericalUsersByClinic.find(uuid),HttpStatus.OK);
+    public ResponseEntity<Object> find(@PathVariable String uuid) throws UserException {
+        return new ResponseEntity(findClericalUsersByClinic.find(uuid), HttpStatus.OK);
     }
 }
