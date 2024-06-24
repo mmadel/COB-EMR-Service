@@ -1,5 +1,6 @@
 package com.cob.emr.model.user;
 
+import com.cob.emr.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,5 +16,6 @@ public class EMRUser {
     private String password;
     private String email;
     private String uuid;
+    private UserType userType;
     private List<EMRUseRoleScope> roleScope;
 }

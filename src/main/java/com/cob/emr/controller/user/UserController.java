@@ -1,6 +1,7 @@
 package com.cob.emr.controller.user;
 
 import com.cob.emr.exception.business.UserException;
+import com.cob.emr.usecases.user.FindUserByUUIDUseCase;
 import com.cob.emr.usecases.user.checking.CheckEmailUseCase;
 import com.cob.emr.usecases.user.checking.CheckUserNameUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class UserController {
     CheckUserNameUseCase checkUserNameUseCase;
     @Autowired
     CheckEmailUseCase checkEmailUseCase;
+    @Autowired
+    FindUserByUUIDUseCase findUserByUUIDUseCase;
 
     @GetMapping("/check/username/{username}")
     public ResponseEntity checkUserName(@PathVariable String username) throws UserException {
@@ -28,6 +31,11 @@ public class UserController {
     @GetMapping("/check/email/{email}")
     public ResponseEntity checkEmail(@PathVariable String email) throws UserException {
         return new ResponseEntity(checkEmailUseCase.check(email),HttpStatus.OK);
+    }
+
+    @GetMapping("/find/uuid/{uuid}")
+    public ResponseEntity findUser(@PathVariable String uuid) throws UserException {
+        return new ResponseEntity(findUserByUUIDUseCase.find(uuid),HttpStatus.OK);
     }
 
 }
