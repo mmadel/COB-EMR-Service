@@ -2,7 +2,6 @@ package com.cob.emr.repositories.security;
 
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
-import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,5 +19,8 @@ public interface ClericalEMRUserRepository extends JpaRepository<ClericalEMRUser
 
     @Query("select u from ClericalEMRUser u  where  u.uuid =:uuid")
     Optional<ClericalEMRUser> findByUUID(@Param("uuid") String uuid);
+
+    @Query("select cu.clinics from ClericalEMRUser cu where cu.uuid =:uuid")
+    List<Clinic>  findUserClinicsByUUID(@Param("uuid") String uuid);
     void deleteByUuid(String uuid);
 }
