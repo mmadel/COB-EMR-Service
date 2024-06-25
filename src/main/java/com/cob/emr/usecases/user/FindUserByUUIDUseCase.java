@@ -26,12 +26,13 @@ public class FindUserByUUIDUseCase {
         Optional<ClericalEMRUser> clericalEMRUser;
         if (clinicalEMRUser.isEmpty()) {
             clericalEMRUser = clericalEMRUserRepository.findByUUID(uuid);
-            user = map(clericalEMRUser.orElseThrow(() -> new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{})));
+            if (!clericalEMRUser.isEmpty())
+                user = map(clericalEMRUser.get());
         } else {
             user = map(clinicalEMRUser.get());
         }
-        if (user == null)
-            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{});
+//        if (user == null)
+//            throw new UserException(HttpStatus.CONFLICT, UserException.USER_NOT_FOUND, new Object[]{});
         return user;
 
     }

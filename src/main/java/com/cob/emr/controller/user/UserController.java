@@ -4,6 +4,7 @@ import com.cob.emr.exception.business.UserException;
 import com.cob.emr.usecases.user.FindUserByUUIDUseCase;
 import com.cob.emr.usecases.user.checking.CheckEmailUseCase;
 import com.cob.emr.usecases.user.checking.CheckUserNameUseCase;
+import com.cob.emr.usecases.user.keycloak.RemoveEMRRolesFromUserUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,8 @@ public class UserController {
     CheckEmailUseCase checkEmailUseCase;
     @Autowired
     FindUserByUUIDUseCase findUserByUUIDUseCase;
+    @Autowired
+    RemoveEMRRolesFromUserUseCase removeEMRRolesFromUserUseCase;
 
     @GetMapping("/check/username/{username}")
     public ResponseEntity checkUserName(@PathVariable String username) throws UserException {
@@ -30,12 +33,17 @@ public class UserController {
 
     @GetMapping("/check/email/{email}")
     public ResponseEntity checkEmail(@PathVariable String email) throws UserException {
-        return new ResponseEntity(checkEmailUseCase.check(email),HttpStatus.OK);
+        return new ResponseEntity(checkEmailUseCase.check(email), HttpStatus.OK);
     }
 
     @GetMapping("/find/uuid/{uuid}")
     public ResponseEntity findUser(@PathVariable String uuid) throws UserException {
-        return new ResponseEntity(findUserByUUIDUseCase.find(uuid),HttpStatus.OK);
+        return new ResponseEntity(findUserByUUIDUseCase.find(uuid), HttpStatus.OK);
     }
 
+    @GetMapping("/remove/roles/{uuid}")
+    public ResponseEntity remove(@PathVariable String uuid) throws UserException {
+        removeEMRRolesFromUserUseCase.removeAll(uuid);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

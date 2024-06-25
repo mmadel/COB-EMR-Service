@@ -4,6 +4,7 @@ import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
+import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
@@ -24,7 +25,6 @@ public class DeletePatientUseCase {
     ClinicRepository clinicRepository;
     @Autowired
     PatientCaseRepository patientCaseRepository;
-
     @Transactional
     public void delete(Long id) {
         deletePatientAppointments(id);
@@ -47,6 +47,7 @@ public class DeletePatientUseCase {
                 .map(appointment -> appointment.getId())
                 .collect(Collectors.toList()));
     }
+
 
     private void deletePatientCases(Long patientId) {
         Patient patient = patientRepository.findById(patientId).get();

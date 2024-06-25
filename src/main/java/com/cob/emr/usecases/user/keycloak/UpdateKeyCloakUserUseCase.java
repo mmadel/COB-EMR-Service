@@ -29,7 +29,6 @@ public class UpdateKeyCloakUserUseCase {
     public void update(EMRUser model) {
         RealmResource realmResource = keycloakService.realm(realm);
         ClientRepresentation clientRepresentation = realmResource.clients().findByClientId(emrClient).get(0);
-
         List<String> removedRoles = model.getRoleScope().stream()
                 .filter(roleScope -> roleScope.getScope().equals("hidden"))
                 .map(roleScope -> roleScope.getRole())
