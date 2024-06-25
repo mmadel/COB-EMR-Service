@@ -3,7 +3,6 @@ package com.cob.emr.model.user.keycloak;
 
 import lombok.Builder;
 import lombok.Data;
-import org.keycloak.admin.client.resource.RealmResource;
 
 import java.util.List;
 

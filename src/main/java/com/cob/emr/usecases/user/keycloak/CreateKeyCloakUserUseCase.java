@@ -18,6 +18,7 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
@@ -30,9 +31,7 @@ public class CreateKeyCloakUserUseCase {
                 .email(model.getEmail())
                 .password(model.getPassword())
                 .userId(model.getUuid())
-                .roles(model.getRoleScope().stream()
-                        .map(EMRUseRoleScope::getRole)
-                        .collect(Collectors.toList()))
+                .roles(getRolesToAssign(model.getRoleScope()))
                 .build();
         KeycloakUserCreationStepper keycloakUserCreationStepper = KeycloakUserCreationStepper.register(
                 BeanFactory.getBean(CreateKCUserResourceStep.class),
@@ -41,6 +40,13 @@ public class CreateKeyCloakUserUseCase {
         );
         keycloakUserCreationStepper.create(keyCloakUser);
         model.setUuid(keycloakUserCreationStepper.getUUID());
+    }
+
+    private List<String> getRolesToAssign(List<EMRUseRoleScope> roleScopes) {
+        return roleScopes.stream()
+                .filter(roleScope -> !roleScope.getScope().equals("hidden"))
+                .map(roleScope -> roleScope.getRole())
+                .collect(Collectors.toList());
     }
 
 }
