@@ -28,16 +28,14 @@ public class CreateOrganizationClinicsStep extends OrganizationRequestCreator {
 
     @Override
     public boolean create(OrganizationRequest model) throws NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        List<Clinic> clinics = new ArrayList<>();
         model.getClinics().forEach(clinicInformation -> {
             Clinic clinic = new Clinic();
             clinic.setName(clinicInformation.getName());
             clinic.setAddress(buildAddress(clinicInformation.getAddress()));
             Organization organization = organizationRepository.findById(model.getId()).get();
             clinic.setOrganization(organization);
-            clinics.add(clinic);
+            clinicInformation.setId(clinicRepository.save(clinic).getId());
         });
-        clinicRepository.saveAll(clinics);
         return nextStep(model);
     }
 

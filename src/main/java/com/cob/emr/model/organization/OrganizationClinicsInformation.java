@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class OrganizationClinicsInformation {
+    private Long id;
     private String name;
     private String address;
 }
