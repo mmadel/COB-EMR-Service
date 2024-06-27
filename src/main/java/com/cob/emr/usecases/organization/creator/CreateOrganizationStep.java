@@ -1,6 +1,5 @@
 package com.cob.emr.usecases.organization.creator;
 
-import com.cob.emr.Utils.BeanFactory;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.organization.OrganizationModel;

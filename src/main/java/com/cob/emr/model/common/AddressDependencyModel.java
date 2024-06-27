@@ -22,7 +22,7 @@ public class AddressDependencyModel implements Serializable, PatientDependencyMo
     private String city;
     private String province;
     private String zipCode;
-
+    private String state;
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
