@@ -14,6 +14,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
+
 @Component
 public class SignUpOrganizationUseCase {
     @Transactional
@@ -22,7 +23,8 @@ public class SignUpOrganizationUseCase {
                 BeanFactory.getBean(CreateOrganizationEssentialStep.class),
                 BeanFactory.getBean(CreateOrganizationClinicsStep.class),
                 BeanFactory.getBean(CreateOrganizationAdministratorStep.class),
-                BeanFactory.getBean(CreateOrganizationUsersStep.class)
+                BeanFactory.getBean(CreateOrganizationUsersStep.class),
+                BeanFactory.getBean(DeactivateUserUsersStep.class)
         );
         organizationRequestCreator.create(model);
         return model;

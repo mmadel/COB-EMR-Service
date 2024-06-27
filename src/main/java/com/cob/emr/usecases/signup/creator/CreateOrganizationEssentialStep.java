@@ -30,16 +30,16 @@ public class CreateOrganizationEssentialStep extends OrganizationRequestCreator 
 
     private Organization fillEntity(OrganizationRequest model) {
         Organization organization = new Organization();
-        organization.setName(model.getEssential().getOrgname());
-        organization.setDba(model.getEssential().getDba());
-        organization.setTaxID(model.getEssential().getTaxID());
-        organization.setGroupNPI(model.getEssential().getGroupNPI());
+        organization.setName(model.getOrgname());
+        organization.setDba(model.getDba());
+        organization.setTaxID(model.getTaxID());
+        organization.setGroupNPI(model.getGroupNPI());
         AddressDependencyModel address = new AddressDependencyModel();
-        address.setFirstAddress(model.getEssential().getFirstAddress());
-        address.setSecondAddress(model.getEssential().getSecondAddress());
-        address.setCountry(model.getEssential().getState());
-        address.setCity(model.getEssential().getCity());
-        address.setZipCode(model.getEssential().getZipCode());
+        address.setFirstAddress(model.getFirstAddress());
+        address.setSecondAddress(model.getSecondAddress());
+        address.setCountry(model.getState());
+        address.setCity(model.getCity());
+        address.setZipCode(model.getZipCode());
         organization.setBillingAddress(address);
         return organization;
     }

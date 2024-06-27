@@ -10,8 +10,17 @@ import java.util.List;
 @Getter
 public class OrganizationRequest {
     private Long id;
-    private OrganizationEssentialInformation essential;
+    private String orgname;
+    private String dba;
+    private String groupNPI;
+    private String taxID;
+    private String firstAddress;
+    private String secondAddress;
+    private String city;
+    private String state;
+    private String zipCode;
     private List<OrganizationClinicsInformation> clinics;
     private EMRUser administrator;
     private List<EMRUser> users;
+    private String loggedInUUID;
 }
