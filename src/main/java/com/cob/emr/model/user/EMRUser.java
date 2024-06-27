@@ -4,6 +4,7 @@ import com.cob.emr.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Setter
@@ -18,4 +19,5 @@ public class EMRUser {
     private String uuid;
     private UserType userType;
     private List<EMRUseRoleScope> roleScope;
+    private List<Long> clinicIds = new ArrayList<>();
 }
