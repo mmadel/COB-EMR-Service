@@ -16,8 +16,6 @@ import javax.crypto.NoSuchPaddingException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class CreateOrganizationClinicsStep extends OrganizationRequestCreator {
