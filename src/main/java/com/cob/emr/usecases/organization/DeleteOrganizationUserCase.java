@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.organization;
 
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.security.user.ClericalEMRUser;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
@@ -55,7 +56,7 @@ public class DeleteOrganizationUserCase {
                     deletePatientUseCase.deleteByClinic(clinic.getId());
                     deleteAppointmentTypes(clinic.getId());
                     deleteSchedulerConfiguration(clinic.getId());
-                    deleteClinicalUsers(clinic.getId());
+                    deleteClinicalUsers(clinic);
                     deleteClericalUsers(clinic.getId());
                 });
         deleteInsuranceCompanyUseCase.delete(id);
@@ -77,14 +78,14 @@ public class DeleteOrganizationUserCase {
         referringProviderRepository.deleteByOrganization_Id(organizationId);
     }
 
-    private void deleteClinicalUsers(Long clinicId) {
-        List<ClinicalEMRUser> clinicalEMRUser = clinicalEMRUserRepository.findByClinic(clinicId).get();
-        List<Long> ids = clinicalEMRUser
+    private void deleteClinicalUsers(Clinic clinic) {
+        List<ClinicalEMRUser> clinicalEMRUsers = clinicalEMRUserRepository.findByClinic(clinic.getId()).get();
+        List<Long> ids = clinicalEMRUsers
                 .stream()
                 .map(user -> user.getId())
                 .collect(Collectors.toList());
 
-        List<String> uuids = clinicalEMRUser
+        List<String> uuids = clinicalEMRUsers
                 .stream()
                 .map(user -> user.getUuid())
                 .collect(Collectors.toList());

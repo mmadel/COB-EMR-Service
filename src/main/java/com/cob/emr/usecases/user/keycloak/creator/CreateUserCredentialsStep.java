@@ -49,31 +49,42 @@ public class CreateUserCredentialsStep extends KeycloakUserCreationStepper {
         CredentialRepresentation credential = new CredentialRepresentation();
         credential.setTemporary(true);
         credential.setType(CredentialRepresentation.PASSWORD);
-        if (keyCloakUser.getPassword() != null)
+        if (keyCloakUser.getPassword() != null) {
             credential.setValue(decryptPassword.decrypt(keyCloakUser.getPassword()));
-        else{
-            String value = GeneratePassword.generate(20);
-            System.out.println(value);
-            credential.setValue(value);
+            resetCredentialRepresentation(keyCloakUser.getUuid(), keyCloakUser.getUserId(), credential);
+        } else {
+//            String value = GeneratePassword.generate(20);
+//            System.out.println(value);
+//            credential.setValue(value);
+            executeActionCredentialRepresentation(keyCloakUser.getUuid());
         }
+        return nextStep(keyCloakUser);
+    }
 
+    private void resetCredentialRepresentation(String uuid, String userId, CredentialRepresentation credential) throws UserException {
         Gson gson = new Gson();
-        String url = keycloakURL + KC_ADMIN_RELATIVE_PATH + realm + KC_USER_RESOURCE + keyCloakUser.getUuid() + KC_PASSWORD_RESET_PASSWORD_ACTION;
+        String url = keycloakURL + KC_ADMIN_RELATIVE_PATH + realm + KC_USER_RESOURCE + uuid + KC_PASSWORD_RESET_PASSWORD_ACTION;
         createKCHTTPRequest.request(gson.toJson(credential), url);
         try {
             createKCHTTPRequest.request(gson.toJson(credential), url);
         } catch (HttpServerErrorException.InternalServerError exception) {
-            deleteKeyCloakUserUseCase.delete(keyCloakUser.getUserId());
+            deleteKeyCloakUserUseCase.delete(userId);
             String message = exception.getMessage().split("errorMessage\":")[1].replace("}", "")
                     .replace("\"", "");
             throw new UserException(HttpStatus.BAD_REQUEST, UserException.INVALID_PASSWORD, new Object[]{message});
         } catch (HttpClientErrorException.BadRequest exception) {
-            deleteKeyCloakUserUseCase.delete(keyCloakUser.getUserId());
+            deleteKeyCloakUserUseCase.delete(userId);
             String message = exception.getMessage().split("error\":")[1].replace("}", "")
                     .replace("\"", "");
             throw new UserException(HttpStatus.BAD_REQUEST, UserException.INVALID_PASSWORD, new Object[]{message});
 
         }
-        return nextStep(keyCloakUser);
+    }
+
+    private void executeActionCredentialRepresentation(String userUUID) {
+        Gson gson = new Gson();
+        String url = keycloakURL + KC_ADMIN_RELATIVE_PATH + realm + KC_USER_RESOURCE + userUUID + KC_PASSWORD_EXECUTE_EMAIL_ACTION;
+        String[] actions = new String[]{"UPDATE_PASSWORD"};
+        createKCHTTPRequest.request(gson.toJson(actions), url);
     }
 }
