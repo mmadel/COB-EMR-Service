@@ -10,6 +10,6 @@ import java.util.List;
 public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> {
     @Query(value = "select cal  from CalendarEntity cal " +
             "where cal.createdBy =:uuid " +
-            "AND cal.isPublic=true ")
+            "OR cal.isPublic=true ")
     List<CalendarEntity> getCalendars(@Param("uuid") String uuid);
 }
