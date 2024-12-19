@@ -5,6 +5,8 @@ import com.cob.emr.usecases.calendar.AttachCalendarWithClinicUseCase;
 import com.cob.emr.usecases.calendar.CreateCalendarUseCase;
 import com.cob.emr.usecases.calendar.RetrieveCalendarsUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +29,11 @@ public class CalendarController {
     }
 
     @GetMapping("/get/uuid/{uuid}")
-    public ResponseEntity get(@PathVariable("uuid") String uuid) {
+    public ResponseEntity get(@PathVariable("uuid") String uuid,@RequestParam(name = "offset") String offset,
+                              @RequestParam(name = "limit") String limit) {
+        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseEntity.ok()
-                .body(retrieveCalendarsUseCase.retrieve(uuid));
+                .body(retrieveCalendarsUseCase.retrieve(paging, uuid));
     }
 
     @PutMapping("/attach/calendarIds/{calendarIds}/clinic/{clinicId}")
