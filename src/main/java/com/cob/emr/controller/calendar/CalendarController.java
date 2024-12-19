@@ -1,11 +1,14 @@
 package com.cob.emr.controller.calendar;
 
 import com.cob.emr.model.calendar.CalendarModel;
+import com.cob.emr.usecases.calendar.AttachCalendarWithClinicUseCase;
 import com.cob.emr.usecases.calendar.CreateCalendarUseCase;
 import com.cob.emr.usecases.calendar.RetrieveCalendarsUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @RestController
 @RequestMapping(value = "/calendar")
@@ -14,6 +17,8 @@ public class CalendarController {
     CreateCalendarUseCase createCalendarUseCase;
     @Autowired
     RetrieveCalendarsUseCase retrieveCalendarsUseCase;
+    @Autowired
+    AttachCalendarWithClinicUseCase attachCalendarWithClinicUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CalendarModel model) {
@@ -25,5 +30,12 @@ public class CalendarController {
     public ResponseEntity get(@PathVariable("uuid") String uuid) {
         return ResponseEntity.ok()
                 .body(retrieveCalendarsUseCase.retrieve(uuid));
+    }
+
+    @PutMapping("/attach/calendar/{calendarIds}/clinic/{clinicId}")
+    public ResponseEntity attachCalendar(@PathVariable("calendarId") Long[] calendarIds, @PathVariable("clinicId") Long clinicId) {
+        attachCalendarWithClinicUseCase.attach(Arrays.asList(calendarIds), clinicId);
+        return ResponseEntity.ok()
+                .build();
     }
 }
