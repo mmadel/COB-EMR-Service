@@ -32,8 +32,8 @@ public class CalendarController {
                 .body(retrieveCalendarsUseCase.retrieve(uuid));
     }
 
-    @PutMapping("/attach/calendar/{calendarIds}/clinic/{clinicId}")
-    public ResponseEntity attachCalendar(@PathVariable("calendarId") Long[] calendarIds, @PathVariable("clinicId") Long clinicId) {
+    @PutMapping("/attach/calendarIds/{calendarIds}/clinic/{clinicId}")
+    public ResponseEntity attachCalendar(@PathVariable("calendarIds") Long[] calendarIds, @PathVariable("clinicId") Long clinicId) {
         attachCalendarWithClinicUseCase.attach(Arrays.asList(calendarIds), clinicId);
         return ResponseEntity.ok()
                 .build();
