@@ -21,7 +21,7 @@ public class AttachCalendarWithClinicUseCase {
     @Autowired
     CalendarClinicRepository calendarClinicRepository;
 
-    public void attach(List<Long> calendarId, Long clinicId){
+    public void attach(List<Long> calendarId, Long clinicId ,String uuid){
         List<CalendarClinicEntity> calendarClinicEntities = new ArrayList<>();
         List<CalendarEntity> calendarEntities = calendarRepository.findAllById(calendarId);
         Clinic clinic = clinicRepository.findById(clinicId).get();
@@ -29,6 +29,7 @@ public class AttachCalendarWithClinicUseCase {
             CalendarClinicEntity calendarClinic = new CalendarClinicEntity();
             calendarClinic.setCalendarEntity(calendarEntity);
             calendarClinic.setClinic(clinic);
+            calendarClinic.setUserUUID(uuid);
             calendarClinicEntities.add(calendarClinic);
         });
         calendarClinicRepository.saveAll(calendarClinicEntities);

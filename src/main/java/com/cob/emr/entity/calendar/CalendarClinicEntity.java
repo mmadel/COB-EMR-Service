@@ -25,6 +25,9 @@ public class CalendarClinicEntity {
     @JoinColumn(name = "calendar_id", nullable = false)
     private CalendarEntity calendarEntity;
 
+    @Column(name = "user_uuid")
+    private String userUUID;
+
     @Column(name = "created_at")
     private Long createdAt;
 
