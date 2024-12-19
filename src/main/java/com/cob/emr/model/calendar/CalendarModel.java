@@ -5,8 +5,9 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class Calendar {
+public class CalendarModel {
     private Long id;
     private String name;
     private String createdBy;
+    private Boolean isPublic;
 }

@@ -21,6 +21,8 @@ public class CalendarEntity {
     private String createdBy;
     @Column(name = "created_at")
     private Long createdAt;
+    @Column(name = "is_public")
+    private Boolean isPublic;
 
     @PrePersist
     private void beforeSaving() {
