@@ -1,11 +1,10 @@
 package com.cob.emr.usecases.calendar;
 
+import com.cob.emr.entity.calendar.CalendarClinicEntity;
 import com.cob.emr.entity.calendar.CalendarEntity;
-import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.calendar.CalendarModel;
-import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.response.CalendarResponse;
-import com.cob.emr.model.response.PatientResponse;
+import com.cob.emr.repositories.calendar.CalendarClinicRepository;
 import com.cob.emr.repositories.calendar.CalendarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
 public class RetrieveCalendarsUseCase {
     @Autowired
     CalendarRepository repository;
+    @Autowired
+    CalendarClinicRepository calendarClinicRepository;
     @Autowired
     ModelMapper mapper;
 

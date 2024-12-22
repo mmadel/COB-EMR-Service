@@ -8,6 +8,7 @@ import com.cob.emr.repositories.calendar.CalendarRepository;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class AttachCalendarWithClinicUseCase {
     @Autowired
     CalendarClinicRepository calendarClinicRepository;
 
+    @Transactional
     public void attach(List<Long> calendarId, Long clinicId ,String uuid){
         List<CalendarClinicEntity> calendarClinicEntities = new ArrayList<>();
         List<CalendarEntity> calendarEntities = calendarRepository.findAllById(calendarId);
@@ -33,5 +35,6 @@ public class AttachCalendarWithClinicUseCase {
             calendarClinicEntities.add(calendarClinic);
         });
         calendarClinicRepository.saveAll(calendarClinicEntities);
+        calendarRepository.attachCalendar(calendarId);
     }
 }

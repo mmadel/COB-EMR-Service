@@ -10,4 +10,5 @@ public class CalendarModel {
     private String name;
     private String createdBy;
     private Boolean isPublic;
+    private Boolean attached;
 }
