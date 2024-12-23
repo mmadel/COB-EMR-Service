@@ -29,8 +29,7 @@ public class CalendarEntity {
     @Column(name = "attached")
     private boolean attached;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "calendar_id")
+    @OneToMany(fetch = FetchType.LAZY , mappedBy = "calendar")
     private List<Appointment> appointments;
 
     public void addAppointment(Appointment appointment) {

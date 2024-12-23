@@ -38,13 +38,14 @@ public class AppointmentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}")
+    @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}/calendarId/{calendarId}")
     public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
-                                       @PathVariable Long clinicId) {
+                                       @PathVariable Long clinicId,
+                                       @PathVariable Long calendarId) {
         return ResponseHandler
                 .generateResponse("Successfully find Appointment by date range",
                         HttpStatus.OK,
-                        finderService.find(startDate, endDate, clinicId));
+                        finderService.find(startDate, endDate, clinicId,calendarId));
 
     }
 

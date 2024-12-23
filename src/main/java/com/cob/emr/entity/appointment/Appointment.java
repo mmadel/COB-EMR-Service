@@ -1,5 +1,6 @@
 package com.cob.emr.entity.appointment;
 
+import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
@@ -50,6 +51,10 @@ public class Appointment {
 
     @Column(name = "appointment_type")
     private String appointmentType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calendar_id")
+    private CalendarEntity calendar;
 
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
