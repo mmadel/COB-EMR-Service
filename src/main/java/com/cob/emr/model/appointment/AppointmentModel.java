@@ -20,6 +20,7 @@ public class AppointmentModel {
     private AppointmentStatus appointmentStatus;
     private Long clinicId;
     private Long patientId;
+    private Long calendarId;
     private PatientModel patient;
     private Long patientCaseId;
     private String appointmentType;

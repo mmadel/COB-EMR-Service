@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +32,14 @@ public class CalendarEntity {
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "calendar_id")
     private List<Appointment> appointments;
+
+    public void addAppointment(Appointment appointment) {
+        if (appointment != null) {
+            if (appointments == null)
+                appointments = new ArrayList<>();
+            appointments.add(appointment);
+        }
+    }
 
     @PrePersist
     private void beforeSaving() {

@@ -1,18 +1,23 @@
 package com.cob.emr.usecases.appointment;
 
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
+import com.cob.emr.repositories.calendar.CalendarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Component
 public class PersistAppointmentUseCase {
@@ -20,14 +25,18 @@ public class PersistAppointmentUseCase {
     ModelMapper mapper;
     @Autowired
     AppointmentRepository appointmentRepository;
+    @Autowired
+    CalendarRepository calendarRepository;
 
-    public void persist(List<AppointmentModel> models) {
+
+    public void persist(List<AppointmentModel> models, Long calendarId) {
         List<Appointment> appointments = new ArrayList<>();
         models.stream().forEach(model -> {
             Appointment appointment = persist(model, false);
             appointments.add(appointment);
         });
-        appointmentRepository.saveAll(appointments);
+        Iterable<Appointment> createdAppointments = appointmentRepository.saveAll(appointments);
+        assignToCalendar(createdAppointments, calendarId);
     }
 
     public Appointment persist(AppointmentModel model, boolean save) {
@@ -49,6 +58,9 @@ public class PersistAppointmentUseCase {
         PatientCase patientCase = new PatientCase();
         patientCase.setId(model.getPatientCaseId());
 
+        CalendarEntity calendar = new CalendarEntity();
+        calendar.setId(model.getCalendarId());
+
         toBeFilled.setClinic(clinic);
         toBeFilled.setPatient(patient);
         toBeFilled.setPatientCase(patientCase);
@@ -56,5 +68,16 @@ public class PersistAppointmentUseCase {
             toBeFilled.setAppointmentStatus(AppointmentStatus.Created);
         else
             toBeFilled.setAppointmentStatus(model.getAppointmentStatus());
+    }
+
+    private void assignToCalendar(Iterable<Appointment> createdAppointments, Long calendarId) {
+        List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
+                .collect(Collectors.toList());
+        CalendarEntity calendar = calendarRepository.findById(calendarId)
+                .orElseThrow(() -> new IllegalArgumentException("Calendar not found"));
+        list.forEach(appointment -> {
+            calendar.addAppointment(appointment);
+        });
+        calendarRepository.save(calendar);
     }
 }

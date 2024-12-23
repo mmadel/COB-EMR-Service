@@ -6,6 +6,7 @@ import com.cob.emr.usecases.appointment.PersistAppointmentUseCase;
 import com.cob.emr.usecases.appointment.create.creator.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class CreateAppointmentUseCase {
@@ -14,10 +15,11 @@ public class CreateAppointmentUseCase {
 
     AppointmentCreator appointmentCreator;
 
+    @Transactional
     public void execute(AppointmentModel model) {
         setAppointmentCreator(model.getAppointmentRepetitionType());
         appointmentCreator.create(model);
-        persistAppointmentUseCase.persist(appointmentCreator.appointments);
+        persistAppointmentUseCase.persist(appointmentCreator.appointments,model.getCalendarId());
     }
 
     private void setAppointmentCreator(AppointmentRepetitionType appointmentRepetitionType) {
