@@ -31,12 +31,12 @@ public class CalendarController {
                 .body(createCalendarUseCase.create(model));
     }
 
-    @GetMapping("/get/uuid/{uuid}")
+    @GetMapping("/get/uuid/{uuid}/clinicId/{clinicId}")
     public ResponseEntity get(@PathVariable("uuid") String uuid, @RequestParam(name = "offset") String offset,
-                              @RequestParam(name = "limit") String limit) {
+                              @RequestParam(name = "limit") String limit, @PathVariable("clinicId") Long clinicId) {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseEntity.ok()
-                .body(retrieveCalendarsUseCase.retrieve(paging, uuid));
+                .body(retrieveCalendarsUseCase.retrieve(paging, uuid,clinicId));
     }
 
     @PutMapping("/attach/calendarIds/{calendarIds}/clinic/{clinicId}/uuid/{uuid}")
