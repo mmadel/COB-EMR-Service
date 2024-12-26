@@ -1,4 +1,4 @@
-package com.cob.emr.controller;
+package com.cob.emr.controller.scheduler;
 
 import com.cob.emr.model.scheduler.SchedulerConfiguration;
 import com.cob.emr.usecases.scheduler.CreateSchedulerConfigurationUseCase;
