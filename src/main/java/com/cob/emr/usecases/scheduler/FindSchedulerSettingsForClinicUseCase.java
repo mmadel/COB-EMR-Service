@@ -18,8 +18,12 @@ public class FindSchedulerSettingsForClinicUseCase {
 
     public SchedulerSettings find(Long clinicId) {
         Optional<SchedulerSettingsEntity> schedulerSettingsOptional = repository.findByClinic_Id(clinicId);
-        if (schedulerSettingsOptional.isPresent())
-            return mapper.map(schedulerSettingsOptional.get().getSettings(), SchedulerSettings.class);
+        if (schedulerSettingsOptional.isPresent()){
+            SchedulerSettingsEntity schedulerSettingsEntity = schedulerSettingsOptional.get();
+            SchedulerSettings schedulerSettings = mapper.map(schedulerSettingsEntity.getSettings(), SchedulerSettings.class);
+            schedulerSettings.setId(schedulerSettingsEntity.getId());
+            return schedulerSettings;
+        }
         else
             return new SchedulerSettings();
 

@@ -6,6 +6,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class SchedulerSettings {
+    private Long id;
     private String startWeek;
     private String timeInterval;
     private String startDay;
