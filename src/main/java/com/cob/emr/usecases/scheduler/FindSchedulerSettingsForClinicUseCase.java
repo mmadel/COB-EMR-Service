@@ -7,15 +7,21 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class FindSchedulerSettingsForClinicUseCase {
     @Autowired
     SchedulerSettingsRepository repository;
     @Autowired
     ModelMapper mapper;
+
     public SchedulerSettings find(Long clinicId) {
-        SchedulerSettingsEntity schedulerSettingsEntity = repository.findByClinic_Id(clinicId)
-                .orElseThrow(() ->  new IllegalArgumentException(" Scheduler Setting not found"));
-        return mapper.map(schedulerSettingsEntity.getSettings(), SchedulerSettings.class);
+        Optional<SchedulerSettingsEntity> schedulerSettingsOptional = repository.findByClinic_Id(clinicId);
+        if (schedulerSettingsOptional.isPresent())
+            return mapper.map(schedulerSettingsOptional.get().getSettings(), SchedulerSettings.class);
+        else
+            return new SchedulerSettings();
+
     }
 }
