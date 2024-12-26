@@ -18,10 +18,10 @@ public class CreateSchedulerSettingsUseCase {
     @Autowired
     ModelMapper mapper;
 
-    public void create(SchedulerSettings model) {
+    public Long create(SchedulerSettings model) {
         Clinic clinic = clinicRepository.findById(model.getClinicId()).orElseThrow(() -> new IllegalArgumentException("Clinic not found"));
-        SchedulerSettingsEntity toBecreated = mapper.map(model, SchedulerSettingsEntity.class);
-        toBecreated.setClinic(clinic);
-        repository.save(toBecreated);
+        SchedulerSettingsEntity toBeCreated = mapper.map(model, SchedulerSettingsEntity.class);
+        toBeCreated.setClinic(clinic);
+        return repository.save(toBeCreated).getId();
     }
 }
