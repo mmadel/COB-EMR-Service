@@ -2,10 +2,7 @@ package com.cob.emr.controller.scheduler;
 
 import com.cob.emr.model.scheduler.SchedulerConfiguration;
 import com.cob.emr.model.scheduler.SchedulerSettings;
-import com.cob.emr.usecases.scheduler.CreateSchedulerConfigurationUseCase;
-import com.cob.emr.usecases.scheduler.CreateSchedulerSettingsUseCase;
-import com.cob.emr.usecases.scheduler.FindAllSchedulersConfigurationUseCase;
-import com.cob.emr.usecases.scheduler.FindSchedulerConfigurationByClinicUseCase;
+import com.cob.emr.usecases.scheduler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +19,8 @@ public class SchedulerController {
     FindAllSchedulersConfigurationUseCase findAllSchedulersConfigurationUseCase;
     @Autowired
     CreateSchedulerSettingsUseCase createSchedulerSettingsUseCase;
+    @Autowired
+    FindSchedulerSettingsForClinicUseCase findSchedulerSettingsForClinicUseCase;
 
     @PostMapping("/create/configuration")
     public ResponseEntity configureScheduler(@RequestBody SchedulerConfiguration schedulerConfiguration) {
@@ -48,5 +47,11 @@ public class SchedulerController {
     public ResponseEntity create(@RequestBody SchedulerSettings model) {
         return ResponseEntity.ok()
                 .body(createSchedulerSettingsUseCase.create(model));
+    }
+
+    @GetMapping("/find/settings/clinicId/{clinicId}")
+    public ResponseEntity find(@PathVariable("clinicId") Long clinicId) {
+        return ResponseEntity.ok()
+                .body(findSchedulerSettingsForClinicUseCase.find(clinicId));
     }
 }
