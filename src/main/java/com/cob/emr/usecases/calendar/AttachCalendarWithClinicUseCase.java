@@ -35,6 +35,5 @@ public class AttachCalendarWithClinicUseCase {
             calendarClinicEntities.add(calendarClinic);
         });
         calendarClinicRepository.saveAll(calendarClinicEntities);
-        calendarRepository.attachCalendar(calendarId);
     }
 }

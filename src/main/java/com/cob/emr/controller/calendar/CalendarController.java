@@ -1,6 +1,7 @@
 package com.cob.emr.controller.calendar;
 
 import com.cob.emr.model.calendar.CalendarModel;
+import com.cob.emr.model.calendar.CalendarsUpdateModel;
 import com.cob.emr.usecases.calendar.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -23,6 +24,8 @@ public class CalendarController {
     UnAttachCalendarWithClinicUseCase unattachCalendarWithClinicUseCase;
     @Autowired
     GetAttachedCalendarsUseCase getAttachedCalendarsUseCase;
+    @Autowired
+    UpdateCalendarsUseCase updateCalendarsUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CalendarModel model) {
@@ -35,7 +38,7 @@ public class CalendarController {
                               @RequestParam(name = "limit") String limit, @PathVariable("clinicId") Long clinicId) {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseEntity.ok()
-                .body(retrieveCalendarsUseCase.retrieve(paging, uuid,clinicId));
+                .body(retrieveCalendarsUseCase.retrieve(paging, uuid, clinicId));
     }
 
     @PutMapping("/attach/calendarIds/{calendarIds}/clinic/{clinicId}/uuid/{uuid}")
@@ -44,6 +47,7 @@ public class CalendarController {
         return ResponseEntity.ok()
                 .build();
     }
+
     @PutMapping("/unattach/calendarIds/{calendarIds}/clinic/{clinicId}/uuid/{uuid}")
     public ResponseEntity unattachCalendar(@PathVariable("calendarIds") Long[] calendarIds, @PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
         unattachCalendarWithClinicUseCase.unattached(Arrays.asList(calendarIds), clinicId, uuid);
@@ -55,5 +59,11 @@ public class CalendarController {
     public ResponseEntity getAttachedCalendar(@PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
         return ResponseEntity.ok()
                 .body(getAttachedCalendarsUseCase.get(clinicId, uuid));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity updateCalendars(@RequestBody CalendarsUpdateModel calendarsUpdateModel) {
+        updateCalendarsUseCase.update(calendarsUpdateModel);
+        return ResponseEntity.ok().build();
     }
 }
