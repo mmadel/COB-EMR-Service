@@ -1,10 +1,7 @@
 package com.cob.emr.controller.calendar;
 
 import com.cob.emr.model.calendar.CalendarModel;
-import com.cob.emr.usecases.calendar.AttachCalendarWithClinicUseCase;
-import com.cob.emr.usecases.calendar.CreateCalendarUseCase;
-import com.cob.emr.usecases.calendar.GetAttachedCalendarsUseCase;
-import com.cob.emr.usecases.calendar.RetrieveCalendarsUseCase;
+import com.cob.emr.usecases.calendar.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +19,8 @@ public class CalendarController {
     RetrieveCalendarsUseCase retrieveCalendarsUseCase;
     @Autowired
     AttachCalendarWithClinicUseCase attachCalendarWithClinicUseCase;
+    @Autowired
+    UnAttachCalendarWithClinicUseCase unattachCalendarWithClinicUseCase;
     @Autowired
     GetAttachedCalendarsUseCase getAttachedCalendarsUseCase;
 
@@ -42,6 +41,12 @@ public class CalendarController {
     @PutMapping("/attach/calendarIds/{calendarIds}/clinic/{clinicId}/uuid/{uuid}")
     public ResponseEntity attachCalendar(@PathVariable("calendarIds") Long[] calendarIds, @PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
         attachCalendarWithClinicUseCase.attach(Arrays.asList(calendarIds), clinicId, uuid);
+        return ResponseEntity.ok()
+                .build();
+    }
+    @PutMapping("/unattach/calendarIds/{calendarIds}/clinic/{clinicId}/uuid/{uuid}")
+    public ResponseEntity unattachCalendar(@PathVariable("calendarIds") Long[] calendarIds, @PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
+        unattachCalendarWithClinicUseCase.unattached(Arrays.asList(calendarIds), clinicId, uuid);
         return ResponseEntity.ok()
                 .build();
     }
