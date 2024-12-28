@@ -35,9 +35,9 @@ public class AppointmentFinderService {
                             appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
                             + ":" + appointment.getPatientCase().getTitle();
                     appointmentModel.setTitle(title);
-                    appointmentModel.setAppointmentTypeColor(appointmentTypeRepository
-                            .findByNameAndClinic_Id(appointment.getAppointmentType(), clinicId )
-                            .get().getColor());
+//                    appointmentModel.setAppointmentTypeColor(appointmentTypeRepository
+//                            .findByNameAndClinic_Id(appointment.getAppointmentType(), clinicId )
+//                            .get().getColor());
                     return appointmentModel;
                 })
                 .collect(Collectors.toList());

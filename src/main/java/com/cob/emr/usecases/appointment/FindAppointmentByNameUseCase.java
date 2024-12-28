@@ -15,7 +15,8 @@ public class FindAppointmentByNameUseCase {
     ModelMapper mapper;
 
     public AppointmentTypeModel find(String name, Long clinicId) {
-        AppointmentType appointmentType = appointmentTypeRepository.findByNameAndClinic_Id(name, clinicId).get();
+        AppointmentType appointmentType = null;
+//        AppointmentType appointmentType = appointmentTypeRepository.findByNameAndClinic_Id(name, clinicId).get();
         return mapper.map(appointmentType, AppointmentTypeModel.class);
     }
 }
