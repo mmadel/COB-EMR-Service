@@ -13,13 +13,12 @@ import java.util.Optional;
 
 public interface AppointmentRepository extends PagingAndSortingRepository<Appointment, Long> {
 
-    @Query("select a from Appointment a where " +
-            "a.clinic.id = :clinicId " +
-            "AND a.calendar.id=:calendarId " +
+    @Query("select a from Appointment a " +
+            "WHERE a.calendar.id=:calendarId " +
             "AND " + "a.startDate >= :startDate " +
             "AND " + "a.endDate <=:endDate")
     Optional<List<Appointment>> findAppointmentByDateRange(@Param(value = "startDate") long startDate, @Param(value = "endDate") long endDate,
-                                                           @Param(value = "clinicId") long clinicId,@Param(value = "calendarId") long calendarId);
+                                                           @Param(value = "calendarId") long calendarId);
 
     @Query("select a from Appointment a where " +
             "a.patient.id = :patientId " +

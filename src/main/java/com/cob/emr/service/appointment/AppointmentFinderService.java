@@ -23,7 +23,7 @@ public class AppointmentFinderService {
     ModelMapper mapper;
 
     public List<AppointmentModel> find(Long startDate, Long endDate, Long clinicId,Long calendarId) {
-        return appointmentRepository.findAppointmentByDateRange(startDate, endDate, clinicId,calendarId)
+        return appointmentRepository.findAppointmentByDateRange(startDate, endDate,calendarId)
                 .orElseThrow(() -> new IllegalArgumentException("Error Find Appointment" +
                         "startDate: " + startDate +
                         "endDate: " + startDate +
