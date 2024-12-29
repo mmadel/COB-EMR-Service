@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.appointment;
 
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.entity.appointment.AppointmentType;
 import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
@@ -8,6 +9,7 @@ import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
+import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import com.cob.emr.repositories.calendar.CalendarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +28,18 @@ public class PersistAppointmentUseCase {
     @Autowired
     AppointmentRepository appointmentRepository;
     @Autowired
+    AppointmentTypeRepository appointmentTypeRepository;
+    @Autowired
     CalendarRepository calendarRepository;
 
 
     public void persist(List<AppointmentModel> models, Long calendarId) {
         List<Appointment> appointments = new ArrayList<>();
         models.stream().forEach(model -> {
+            AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
+                    .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
             Appointment appointment = persist(model, false);
+            appointment.setAppointmentType(type);
             appointments.add(appointment);
         });
         Iterable<Appointment> createdAppointments = appointmentRepository.saveAll(appointments);

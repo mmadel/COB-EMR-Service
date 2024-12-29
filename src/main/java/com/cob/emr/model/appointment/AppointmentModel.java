@@ -23,8 +23,10 @@ public class AppointmentModel {
     private Long calendarId;
     private PatientModel patient;
     private Long patientCaseId;
+    private Long appointmentTypeId;
     private String appointmentType;
     private String appointmentTypeColor;
+    private String appointmentFontTypeColor;
     private AppointmentRepeat appointmentRepeat;
     private AppointmentRepetitionType appointmentRepetitionType;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;

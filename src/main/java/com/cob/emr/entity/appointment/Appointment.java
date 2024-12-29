@@ -49,14 +49,15 @@ public class Appointment {
     @JoinColumn(name = "case_id", referencedColumnName = "id")
     private PatientCase patientCase;
 
-    @Column(name = "appointment_type")
-    private String appointmentType;
+    @OneToOne
+    @JoinColumn(name = "appointment_type_id", referencedColumnName = "id")
+    private AppointmentType appointmentType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "calendar_id")
     private CalendarEntity calendar;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
 }
 
