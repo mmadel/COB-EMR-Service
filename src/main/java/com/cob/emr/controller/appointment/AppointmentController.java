@@ -27,9 +27,9 @@ public class AppointmentController {
     UpdateAppointmentUseCase updateAppointmentUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity<Object> create(@RequestBody AppointmentModel model) {
-        createAppointmentUseCase.execute(model);
-        return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity create(@RequestBody AppointmentModel model) {
+        return  ResponseEntity.ok()
+                .body(createAppointmentUseCase.execute(model));
     }
 
     @PutMapping("/update")

@@ -19,6 +19,7 @@ public abstract class AppointmentRepetition {
             AppointmentModel repeatedAppointment = AppointmentCloner.clone(model);
             repeatedAppointment.setStartDate(repeatedDate[0]);
             repeatedAppointment.setEndDate(repeatedDate[1]);
+            repeatedAppointment.setCalendarId(model.getCalendarId());
             appointments.add(repeatedAppointment);
         });
         return appointments;

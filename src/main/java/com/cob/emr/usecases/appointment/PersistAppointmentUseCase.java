@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.appointment;
 
+import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.appointment.AppointmentType;
 import com.cob.emr.entity.calendar.CalendarEntity;
@@ -11,10 +12,10 @@ import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import com.cob.emr.repositories.calendar.CalendarRepository;
+import com.cob.emr.repositories.patient.PatientRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +32,11 @@ public class PersistAppointmentUseCase {
     AppointmentTypeRepository appointmentTypeRepository;
     @Autowired
     CalendarRepository calendarRepository;
+    @Autowired
+    PatientRepository patientRepository;
 
 
-    public void persist(List<AppointmentModel> models, Long calendarId) {
+    public List<AppointmentModel> persist(List<AppointmentModel> models, Long calendarId) {
         List<Appointment> appointments = new ArrayList<>();
         models.stream().forEach(model -> {
             AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
@@ -44,6 +47,19 @@ public class PersistAppointmentUseCase {
         });
         Iterable<Appointment> createdAppointments = appointmentRepository.saveAll(appointments);
         assignToCalendar(createdAppointments, calendarId);
+        List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
+                .collect(Collectors.toList());
+        return list.stream()
+                .map(appointment -> {
+                    AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
+                    String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
+                            appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
+                            + ":" + appointment.getPatientCase().getTitle();
+                    appointmentModel.setTitle(title);
+                    appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
+                    appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
+                    return appointmentModel;
+                }).collect(Collectors.toList());
     }
 
     public Appointment persist(AppointmentModel model, boolean save) {
@@ -56,9 +72,6 @@ public class PersistAppointmentUseCase {
     }
 
     public void fillAppointmentAssociation(Appointment toBeFilled, AppointmentModel model) {
-        Clinic clinic = new Clinic();
-        clinic.setId(model.getClinicId());
-
         Patient patient = new Patient();
         patient.setId(model.getPatientId());
 
@@ -67,8 +80,6 @@ public class PersistAppointmentUseCase {
 
         CalendarEntity calendar = new CalendarEntity();
         calendar.setId(model.getCalendarId());
-
-        toBeFilled.setClinic(clinic);
         toBeFilled.setPatient(patient);
         toBeFilled.setPatientCase(patientCase);
         if (model.getId() == null)
@@ -87,4 +98,5 @@ public class PersistAppointmentUseCase {
         });
         calendarRepository.save(calendar);
     }
+
 }

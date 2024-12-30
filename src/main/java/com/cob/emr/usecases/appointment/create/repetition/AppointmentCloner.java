@@ -14,6 +14,7 @@ public class AppointmentCloner {
         model.setPatientId(original.getPatientId());
         model.setPatient(original.getPatient());
         model.setPatientCaseId(original.getPatientCaseId());
+        model.setAppointmentTypeId(original.getAppointmentTypeId());
         model.setAppointmentType(original.getAppointmentType());
         model.setAppointmentTypeColor(original.getAppointmentTypeColor());
         model.setAppointmentRepeat(original.getAppointmentRepeat());
