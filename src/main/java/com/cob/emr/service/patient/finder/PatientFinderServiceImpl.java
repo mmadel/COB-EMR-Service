@@ -3,6 +3,7 @@ package com.cob.emr.service.patient.finder;
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.model.response.PatientResponse;
@@ -73,6 +74,10 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                             , model.getMiddleName()
                             , model.getLastName()));
                     model.setCases(findPatientCasesUseCase.find(patient.getId()));
+                    List<ClinicModel> clinicModels = patient.getClinics().stream()
+                            .map(clinicEntity -> mapper.map(clinicEntity , ClinicModel.class))
+                            .collect(Collectors.toList());
+                    model.setClinicModels(clinicModels);
                     return model;
                 })
                 .collect(Collectors.toList());
