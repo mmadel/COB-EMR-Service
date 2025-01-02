@@ -3,6 +3,7 @@ package com.cob.emr.model.appointment;
 
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.appointment.repeat.AppointmentRepeat;
+import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +30,6 @@ public class AppointmentModel {
     private String appointmentFontTypeColor;
     private AppointmentRepeat appointmentRepeat;
     private AppointmentRepetitionType appointmentRepetitionType;
+    private ClinicModel clinicModel;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
 }
