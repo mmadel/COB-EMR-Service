@@ -16,18 +16,18 @@ public class AppointmentChartIncomingFinderService {
     @Autowired
     AppointmentRepository appointmentRepository;
 
-    public AppointmentResponse findAllIncomingAppointments(Long patientId, Long clinicId,
+    public AppointmentResponse findAllIncomingAppointments(Long patientId,
                                                            Pageable pageable) {
         final long currentDate = (new Date().getTime());
-        Page<List<Appointment>> page = appointmentRepository.findAllIncomingAppointments(patientId, clinicId, currentDate, pageable);
+        Page<List<Appointment>> page = appointmentRepository.findAllIncomingAppointments(patientId, currentDate, pageable);
         return PaginationAppointmentUtil.getAppointmentPageContent(page);
     }
     /* Appointments that will start in the future by patient case */
 
-    public AppointmentResponse findIncomingAppointmentsByCase(Long patientId, Long clinicId, Long patientCaseId,
-                                                                     Pageable pageable) {
+    public AppointmentResponse findIncomingAppointmentsByCase(Long patientId, Long patientCaseId,
+                                                              Pageable pageable) {
         final long currentDate = (new Date().getTime());
-        Page<List<Appointment>> page = appointmentRepository.findIncomingAppointmentsByCase(patientId, clinicId, patientCaseId, currentDate, pageable);
+        Page<List<Appointment>> page = appointmentRepository.findIncomingAppointmentsByCase(patientId, patientCaseId, currentDate, pageable);
         return PaginationAppointmentUtil.getAppointmentPageContent(page);
     }
 }
