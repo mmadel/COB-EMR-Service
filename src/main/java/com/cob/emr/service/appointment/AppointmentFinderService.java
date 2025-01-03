@@ -33,7 +33,7 @@ public class AppointmentFinderService {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
                     String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
                             appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
-                            + ":" + appointment.getPatientCase().getTitle();
+                            + ":" + appointment.getPatientCase().getTitle() +( appointment.getNote() ==null?"": "<br/>"+ appointment.getNote());
                     appointmentModel.setTitle(title);
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
