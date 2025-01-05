@@ -10,6 +10,7 @@ import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import com.cob.emr.usecases.patient.CreatePatientUseCase;
 import com.cob.emr.usecases.patient.DeletePatientUseCase;
 import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
+import com.cob.emr.usecases.patient.FindPatientByNameUseCase;
 import com.cob.emr.usecases.patient.chart.PatientChartAccessibilityUseCase;
 import com.cob.emr.usecases.patient.update.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,8 @@ public class PatientController {
     @Autowired
     PatientChartAccessibilityUseCase patientChartAccessibilityUseCase;
 
+    @Autowired
+    FindPatientByNameUseCase findPatientByNameUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
@@ -94,5 +97,11 @@ public class PatientController {
     public ResponseEntity checkPatientChartAccessibility(@RequestBody PatientChartAccessibilityModelRequest patientChartAccessibilityModelRequest) {
         return ResponseEntity.ok()
                 .body(patientChartAccessibilityUseCase.check(patientChartAccessibilityModelRequest));
+    }
+
+    @GetMapping("/find/name/{name}")
+    public ResponseEntity findPatientByName(@PathVariable("name") String name) {
+        return ResponseEntity.ok()
+                .body(findPatientByNameUseCase.find(name));
     }
 }
