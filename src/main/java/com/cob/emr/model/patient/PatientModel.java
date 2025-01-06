@@ -23,6 +23,7 @@ public class PatientModel {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String displayName;
     private Long birthDate;
     private MaritalStatus maritalStatus;
     private Suffix suffix;
