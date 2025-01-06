@@ -16,9 +16,9 @@ public class FindPatientByNameUseCase {
     @Autowired
     ModelMapper mapper;
 
-    public List<PatientModel> find(String name) {
+    public List<PatientModel> find(String name,Long clinicID) {
         List<PatientModel> results = new ArrayList<>();
-        patientRepository.findByName(name.trim().toLowerCase()).stream()
+        patientRepository.findByName(name.trim().toLowerCase(),clinicID).stream()
                 .forEach(patient -> {
                     results.add(mapper.map(patient, PatientModel.class));
                 });
