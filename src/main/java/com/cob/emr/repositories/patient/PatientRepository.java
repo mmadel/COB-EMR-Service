@@ -21,8 +21,7 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
     @Query("SELECT p FROM patient p JOIN p.clinics c WHERE :clinic IN c")
     List<Patient> findByClinic(@Param("clinic") Clinic clinic);
 
-    @Query("SELECT pe FROM patient  pe INNER JOIN FETCH pe.clinics clinic where " +
-            "(LOWER(pe.firstName) LIKE CONCAT('%',:name,'%') OR LOWER(pe.middleName) LIKE CONCAT('%',:name,'%')  OR LOWER(pe.lastName) LIKE CONCAT('%',:name,'%')) " +
-            "AND clinic.id =:clinicId")
-    List<Patient> findByName(@Param("name") String name,@Param("clinicId") Long clinicId);
+    @Query("SELECT pe FROM patient  pe  where " +
+            "(LOWER(pe.firstName) LIKE CONCAT('%',:name,'%') OR LOWER(pe.middleName) LIKE CONCAT('%',:name,'%')  OR LOWER(pe.lastName) LIKE CONCAT('%',:name,'%')) " )
+    List<Patient> findByName(@Param("name") String name);
 }

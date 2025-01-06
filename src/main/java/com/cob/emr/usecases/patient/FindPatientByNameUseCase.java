@@ -22,9 +22,9 @@ public class FindPatientByNameUseCase {
     @Autowired
     ModelMapper mapper;
 
-    public List<PatientModel> find(String name,Long clinicID) {
+    public List<PatientModel> find(String name) {
         List<PatientModel> results = new ArrayList<>();
-        patientRepository.findByName(name.trim().toLowerCase(),clinicID).stream()
+        patientRepository.findByName(name.trim().toLowerCase()).stream()
                 .forEach(patient -> {
                     PatientModel model = mapper.map(patient, PatientModel.class);
                     model.setDisplayName(PatientUtil.constructDisplayName(patient.getLastName(), patient.getFirstName() , patient.getBirthDate()));
