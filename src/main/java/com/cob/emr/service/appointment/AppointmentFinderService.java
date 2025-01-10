@@ -2,6 +2,7 @@ package com.cob.emr.service.appointment;
 
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.enums.AppointmentStructure;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
@@ -26,17 +27,14 @@ public class AppointmentFinderService {
         return appointmentRepository.findAppointmentByDateRange(startDate, endDate,calendarId)
                 .orElseThrow(() -> new IllegalArgumentException("Error Find Appointment" +
                         "startDate: " + startDate +
-                        "endDate: " + startDate +
-                        "Clinic Id " + startDate))
+                        "endDate: " + endDate +
+                        "calendarId " + calendarId))
                 .stream()
                 .map(appointment -> {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
-                    String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
-                            appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
-                            + ":" + appointment.getPatientCase().getTitle() +( appointment.getNote() ==null?"": "<br/>"+ appointment.getNote());
-                    appointmentModel.setTitle(title);
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
+                    appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
                     return appointmentModel;
                 })
                 .collect(Collectors.toList());
@@ -49,10 +47,7 @@ public class AppointmentFinderService {
     public AppointmentModel find(Long appointmentId){
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
         AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
-        String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
-                appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
-                + ":" + appointment.getPatientCase().getTitle();
-        appointmentModel.setTitle(title);
+        appointmentModel.setAppointmentStructure(appointment.getPatient()==null?AppointmentStructure.Block:AppointmentStructure.Full);
         return appointmentModel;
     }
 }

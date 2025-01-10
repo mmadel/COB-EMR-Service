@@ -59,5 +59,9 @@ public class Appointment {
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
+
+    @Column(name = "title")
+    private String title;
+
 }
 

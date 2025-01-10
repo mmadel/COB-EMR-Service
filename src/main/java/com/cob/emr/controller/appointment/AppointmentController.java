@@ -6,6 +6,7 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
 import com.cob.emr.usecases.UpdateAppointmentUseCase;
+import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,8 @@ public class AppointmentController {
     CreateAppointmentUseCase createAppointmentUseCase;
     @Autowired
     UpdateAppointmentUseCase updateAppointmentUseCase;
+    @Autowired
+    FindFullAppointmentUseCase findFullAppointmentUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AppointmentModel model) {
@@ -71,5 +74,10 @@ public class AppointmentController {
     @GetMapping("/find/id/{appointmentId}")
     public ResponseEntity<AppointmentModel> find(@PathVariable Long appointmentId) {
         return new ResponseEntity<>(finderService.find(appointmentId), HttpStatus.OK);
+    }
+    @GetMapping("/find/full/id/{appointmentId}")
+    public ResponseEntity<AppointmentModel> findFullAppointment(@PathVariable Long appointmentId) {
+        return ResponseEntity.ok()
+                .body(findFullAppointmentUseCase.find(appointmentId));
     }
 }

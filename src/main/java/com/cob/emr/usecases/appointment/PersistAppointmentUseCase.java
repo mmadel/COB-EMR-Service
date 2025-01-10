@@ -8,6 +8,7 @@ import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.AppointmentStatus;
+import com.cob.emr.enums.AppointmentStructure;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
@@ -57,12 +58,9 @@ public class PersistAppointmentUseCase {
         return list.stream()
                 .map(appointment -> {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
-                    String title = PatientUtil.constructPatientName(appointment.getPatient().getFirstName(),
-                            appointment.getPatient().getMiddleName(), appointment.getPatient().getLastName())
-                            + ":" + appointment.getPatientCase().getTitle();
-                    appointmentModel.setTitle(title);
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
+                    appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
                     return appointmentModel;
                 }).collect(Collectors.toList());
     }
@@ -77,16 +75,20 @@ public class PersistAppointmentUseCase {
     }
 
     public void fillAppointmentAssociation(Appointment toBeFilled, AppointmentModel model) {
-        Patient patient = new Patient();
-        patient.setId(model.getPatientId());
+        if(model.getPatientId() != null){
+            Patient patient = new Patient();
+            patient.setId(model.getPatientId());
+            toBeFilled.setPatient(patient);
+        }
 
-        PatientCase patientCase = new PatientCase();
-        patientCase.setId(model.getPatientCaseId());
+        if(model.getPatientCaseId() !=null){
+            PatientCase patientCase = new PatientCase();
+            patientCase.setId(model.getPatientCaseId());
+            toBeFilled.setPatientCase(patientCase);
+        }
 
         CalendarEntity calendar = new CalendarEntity();
         calendar.setId(model.getCalendarId());
-        toBeFilled.setPatient(patient);
-        toBeFilled.setPatientCase(patientCase);
         if (model.getId() == null)
             toBeFilled.setAppointmentStatus(AppointmentStatus.Created);
         else
