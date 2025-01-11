@@ -32,6 +32,7 @@ public class AppointmentFinderService {
                 .stream()
                 .map(appointment -> {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
+                    appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
                     appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
