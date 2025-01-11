@@ -99,9 +99,9 @@ public class PatientController {
                 .body(patientChartAccessibilityUseCase.check(patientChartAccessibilityModelRequest));
     }
 
-    @GetMapping("/find/name/{name}")
-    public ResponseEntity findPatientByName(@PathVariable("name") String name) {
+    @GetMapping("/find/name/{name}/clinic-id/{clinic-id}")
+    public ResponseEntity findPatientByName(@PathVariable("name") String name,@PathVariable("clinic-id") Long clinicId) {
         return ResponseEntity.ok()
-                .body(findPatientByNameUseCase.find(name));
+                .body(findPatientByNameUseCase.find(name,clinicId));
     }
 }

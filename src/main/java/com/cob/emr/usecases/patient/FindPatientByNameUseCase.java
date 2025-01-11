@@ -1,9 +1,12 @@
 package com.cob.emr.usecases.patient;
 
 import com.cob.emr.Utils.PatientUtil;
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
+import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
+import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +23,16 @@ public class FindPatientByNameUseCase {
     @Autowired
     PatientRepository patientRepository;
     @Autowired
+    ClinicRepository clinicRepository;
+    @Autowired
     ModelMapper mapper;
 
-    public List<PatientModel> find(String name) {
+    public List<PatientModel> find(String name ,Long clinicId) {
+        Clinic clinic = clinicRepository
+                .findById(clinicId)
+                .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + clinicId));
         List<PatientModel> results = new ArrayList<>();
-        patientRepository.findByName(name.trim().toLowerCase()).stream()
+        patientRepository.findByName(name.trim().toLowerCase(),clinic).stream()
                 .forEach(patient -> {
                     PatientModel model = mapper.map(patient, PatientModel.class);
                     model.setDisplayName(PatientUtil.constructDisplayName(patient.getLastName(), patient.getFirstName() , patient.getBirthDate()));

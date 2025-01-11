@@ -61,6 +61,7 @@ public class PersistAppointmentUseCase {
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
                     appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
+                    appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
                     return appointmentModel;
                 }).collect(Collectors.toList());
     }
