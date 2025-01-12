@@ -26,6 +26,8 @@ public class CalendarController {
     GetAttachedCalendarsUseCase getAttachedCalendarsUseCase;
     @Autowired
     UpdateCalendarsUseCase updateCalendarsUseCase;
+    @Autowired
+    UpdateCalendarNameUSeCase updateCalendarNameUSeCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CalendarModel model) {
@@ -64,6 +66,11 @@ public class CalendarController {
     @PutMapping("/update")
     public ResponseEntity updateCalendars(@RequestBody CalendarsUpdateModel calendarsUpdateModel) {
         updateCalendarsUseCase.update(calendarsUpdateModel);
+        return ResponseEntity.ok().build();
+    }
+    @PutMapping("/update/calendar")
+    public ResponseEntity updateCalendar(@RequestBody CalendarModel model) {
+        updateCalendarNameUSeCase.update(model);
         return ResponseEntity.ok().build();
     }
 }
