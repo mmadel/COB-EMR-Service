@@ -16,6 +16,12 @@ public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> 
             "OR cal.isPublic=true ")
     Page<CalendarEntity> getCalendars(Pageable paging, @Param("uuid") String uuid);
 
+    @Query(value = "select cal  from CalendarEntity cal " +
+            "where cal.createdBy =:uuid " +
+            "AND cal.isPublic=true ")
+    List<CalendarEntity> getPublicCalendars(@Param("uuid") String uuid);
+
+
     @Modifying
     @Query(value = "update CalendarEntity c set c.attached = true " +
             "WHERE c.id IN :ids")
