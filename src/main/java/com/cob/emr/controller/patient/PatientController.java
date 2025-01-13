@@ -1,6 +1,7 @@
 package com.cob.emr.controller.patient;
 
 import com.cob.emr.exception.business.PatientCaseException;
+import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.chart.PatientChartAccessibilityModelRequest;
 import com.cob.emr.response.ResponseHandler;
@@ -85,7 +86,7 @@ public class PatientController {
 
     @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
     public ResponseEntity<Object> findById(@PathVariable("clinicId") Long clinicId,
-                                           @PathVariable("patientId") Long patientId) {
+                                           @PathVariable("patientId") Long patientId) throws PatientException {
         return ResponseHandler
                 .generateResponse("Successfully Find Patient!",
                         HttpStatus.OK,

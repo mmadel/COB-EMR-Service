@@ -3,6 +3,8 @@ package com.cob.emr.service.patient.finder;
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.exception.business.ClinicException;
+import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
@@ -15,10 +17,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,7 +79,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                             , model.getLastName()));
                     model.setCases(findPatientCasesUseCase.find(patient.getId()));
                     List<ClinicModel> clinicModels = patient.getClinics().stream()
-                            .map(clinicEntity -> mapper.map(clinicEntity , ClinicModel.class))
+                            .map(clinicEntity -> mapper.map(clinicEntity, ClinicModel.class))
                             .collect(Collectors.toList());
                     model.setClinicModels(clinicModels);
                     return model;
@@ -84,7 +88,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     }
 
     @Override
-    public PatientModel findById(Long clinicId, Long patientId) {
+    public PatientModel findById(Long clinicId, Long patientId) throws PatientException {
         List<Clinic> clinics = new ArrayList<>();
         clinics.add(clinicRepository
                 .findById(clinicId)
@@ -93,20 +97,22 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .findById(patientId)
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + patientId));
 
-        Patient patient = patientRepository.findByIdAndClinicsIn(patientId, clinics).stream().findFirst().orElseThrow(
-                () -> new IllegalArgumentException("patient with id not found " + patientId));
-
-        PatientModel model = mapper.map(patient, PatientModel.class);
-        model.setCases(patientCaseRepository
-                .findByPatient_Id(patientId)
-                .stream()
-                .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
-                .collect(Collectors.toList()));
-        List<Patient> patients = new ArrayList<>();
-        patients.add(queriedPatient);
-        model.setClinicsId(
-                clinicRepository.findByPatientsIn(patients).stream().map(Clinic::getId).collect(Collectors.toList())
-        );
-        return model;
+        Optional<Patient> patient = patientRepository.findByIdAndClinicsIn(patientId, clinics).stream().findFirst();
+        if(patient.isPresent()) {
+            PatientModel model = mapper.map(patient.get(), PatientModel.class);
+            model.setCases(patientCaseRepository
+                    .findByPatient_Id(patientId)
+                    .stream()
+                    .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
+                    .collect(Collectors.toList()));
+            List<Patient> patients = new ArrayList<>();
+            patients.add(queriedPatient);
+            model.setClinicsId(
+                    clinicRepository.findByPatientsIn(patients).stream().map(Clinic::getId).collect(Collectors.toList())
+            );
+            return model;
+        }else{
+            throw new PatientException(HttpStatus.CONFLICT, PatientException.PATIENT_NOTFOUND, new Object[]{patientId,clinicId});
+        }
     }
 }
