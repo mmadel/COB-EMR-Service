@@ -1,5 +1,6 @@
 package com.cob.emr.entity.patient;
 
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.enums.InjuryCase;
 import com.cob.emr.enums.PlaceOfService;
 import com.cob.emr.model.patient.cases.*;
@@ -51,6 +52,9 @@ public class PatientCase {
     @Type(type = "json")
     private CaseOtherInformation caseOtherInformation;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "therapist_id", referencedColumnName = "id")
+    private ClinicalEMRUser clinicalEMRUser;
     @ManyToOne
     @JoinColumn(name="patient_id")
     private Patient patient;

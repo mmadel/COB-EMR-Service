@@ -29,4 +29,5 @@ public class PatientCaseModel  {
     private ReferralCase referralCase;
 
     private CaseOtherInformation caseOtherInformation;
+    private Long therapist;
 }
