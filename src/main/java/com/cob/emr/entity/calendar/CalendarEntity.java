@@ -1,6 +1,8 @@
 package com.cob.emr.entity.calendar;
 
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.security.user.EMRUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -20,16 +22,18 @@ public class CalendarEntity {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "created_by")
-    private String createdBy;
     @Column(name = "created_at")
     private Long createdAt;
     @Column(name = "public")
     private Boolean isPublic;
     @Column(name = "attached")
     private boolean attached;
-
-    @OneToMany(fetch = FetchType.LAZY , mappedBy = "calendar")
+    @Column(name = "user_uuid")
+    private String createdBy;
+    @ManyToOne
+    @JoinColumn(name = "clinic_id")
+    private Clinic clinic;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "calendar")
     private List<Appointment> appointments;
 
     public void addAppointment(Appointment appointment) {
