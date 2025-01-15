@@ -20,7 +20,12 @@ public class FindPatientCasesUseCase {
     public List<PatientCaseModel> find(Long patientId) {
         List<PatientCase> patientCases = patientCaseRepository.findByPatient_Id(patientId);
         return patientCases.stream()
-                .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
+                .map(patientCase -> {
+                    PatientCaseModel patientCaseModel = mapper.map(patientCase, PatientCaseModel.class);
+                    patientCaseModel.setTherapist(patientCase.getClinicalEMRUser() ==null?null:patientCase.getClinicalEMRUser().getId());
+                    patientCaseModel.setTherapistUUID(patientCase.getClinicalEMRUser() ==null?null:patientCase.getClinicalEMRUser().getUuid());
+                    return patientCaseModel;
+                })
                 .collect(Collectors.toList());
     }
 }
