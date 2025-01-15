@@ -13,6 +13,8 @@ public class CalendarModel {
     private String createdBy;
     private Boolean isPublic;
     private Boolean attached;
+    private String user;
+    private Long clinicId;
 
     @Override
     public boolean equals(Object o) {
