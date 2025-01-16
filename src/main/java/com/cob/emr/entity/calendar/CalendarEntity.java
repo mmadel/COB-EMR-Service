@@ -26,8 +26,6 @@ public class CalendarEntity {
     private Long createdAt;
     @Column(name = "public")
     private Boolean isPublic;
-    @Column(name = "attached")
-    private boolean attached;
     @Column(name = "user_uuid")
     private String createdBy;
     @ManyToOne
