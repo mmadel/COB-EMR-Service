@@ -29,13 +29,24 @@ public class ListCalendarsUseCase {
     public CalendarResponse list(Pageable paging, Long clinicId, String userUUID) {
         Page<CalendarEntity> pages = calendarRepository.listCalendars(paging, clinicId);
         long total = (pages).getTotalElements();
-        List<CalendarsListModel> records = pages.stream().map(calendarEntity -> {
-            Optional<UserCalendarAttachment> optional = userCalendarAttachmentRepository.findByCalendar_IdAndUser(calendarEntity.getId(), userUUID);
-            if (optional.isPresent())
-                return fillCalendarsListModel(calendarEntity, optional.get());
-            else
-                return fillCalendarsListModel(calendarEntity, null);
-        }).collect(Collectors.toList());
+        List<CalendarsListModel> records = pages.stream()
+                .filter(calendarEntity -> {
+                    if (calendarEntity.getCreatedBy().equals(userUUID)) {
+                        return true;
+                    } else {
+                        if (calendarEntity.getIsPublic())
+                            return true;
+                        else
+                            return false;
+                    }
+                })
+                .map(calendarEntity -> {
+                    Optional<UserCalendarAttachment> optional = userCalendarAttachmentRepository.findByCalendar_IdAndUser(calendarEntity.getId(), userUUID);
+                    if (optional.isPresent())
+                        return fillCalendarsListModel(calendarEntity, optional.get());
+                    else
+                        return fillCalendarsListModel(calendarEntity, null);
+                }).collect(Collectors.toList());
         return CalendarResponse.builder()
                 .number_of_records(records.size())
                 .number_of_matching_records((int) total)
