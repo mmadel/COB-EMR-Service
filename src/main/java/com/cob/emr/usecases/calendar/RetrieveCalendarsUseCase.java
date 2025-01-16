@@ -33,11 +33,7 @@ public class RetrieveCalendarsUseCase {
             return model;
         }).collect(Collectors.toList());
 
-        return CalendarResponse.builder()
-                .number_of_records(records.size())
-                .number_of_matching_records((int) total)
-                .records(records)
-                .build();
+        return null;
     }
 
     private boolean isAttachedCalendar(List<CalendarEntity> attachedCalendars, CalendarEntity calendarEntity) {

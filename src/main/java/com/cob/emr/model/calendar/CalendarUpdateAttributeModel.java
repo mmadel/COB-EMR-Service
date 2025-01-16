@@ -8,6 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 public class CalendarUpdateAttributeModel {
-    private List<CalendarAttributesModel> calendarAttributes;
+    private List<CalendarAttachmentAttributesModel> calendarAttachmentAttributes;
+    private List<CalendarAccessibilityAttributesModel> calendarAccessibilityAttributes;
     private String uuid;
 }

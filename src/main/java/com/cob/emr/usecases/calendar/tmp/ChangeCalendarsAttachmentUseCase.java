@@ -16,7 +16,7 @@ public class ChangeCalendarsAttachmentUseCase {
     UserCalendarAttachmentRepository userCalendarAttachmentRepository;
 
     public void change(CalendarUpdateAttributeModel model) {
-        model.getCalendarAttributes().forEach(calendarAttribute -> {
+        model.getCalendarAttachmentAttributes().forEach(calendarAttribute -> {
             UserCalendarAttachment userCalendarAttachment;
             CalendarEntity calendarEntity = calendarRepository.findById(calendarAttribute.getCalendarId())
                     .orElseThrow(() -> new IllegalArgumentException("Calendar not found during change attribute values"));

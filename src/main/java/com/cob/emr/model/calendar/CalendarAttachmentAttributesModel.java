@@ -5,9 +5,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CalendarAttributesModel {
+public class CalendarAttachmentAttributesModel {
     private Long calendarId;
     private Long userAttachmentId;
     private Boolean isAttach;
-    private Boolean isPublic;
 }
