@@ -3,6 +3,8 @@ package com.cob.emr.model.scheduler;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class SchedulerSettings {
@@ -13,4 +15,5 @@ public class SchedulerSettings {
     private String endDay;
     private String appointmentDuration;
     private Long clinicId;
+    private List<Long> selectedCalendarsId;
 }

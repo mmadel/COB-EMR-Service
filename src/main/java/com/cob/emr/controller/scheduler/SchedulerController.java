@@ -21,6 +21,8 @@ public class SchedulerController {
     CreateSchedulerSettingsUseCase createSchedulerSettingsUseCase;
     @Autowired
     FindSchedulerSettingsForClinicUseCase findSchedulerSettingsForClinicUseCase;
+    @Autowired
+    UpdateSchedulerSettingsBySelectedCalendarsUseCase updateSchedulerSettingsBySelectedCalendarsUseCase;
 
     @PostMapping("/create/configuration")
     public ResponseEntity configureScheduler(@RequestBody SchedulerConfiguration schedulerConfiguration) {
@@ -47,6 +49,13 @@ public class SchedulerController {
     public ResponseEntity create(@RequestBody SchedulerSettings model) {
         return ResponseEntity.ok()
                 .body(createSchedulerSettingsUseCase.create(model));
+    }
+
+    @PutMapping("/update/selected-calendars")
+    public ResponseEntity updateSelectedCalendars(@RequestBody SchedulerSettings model) {
+        updateSchedulerSettingsBySelectedCalendarsUseCase.update(model);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @GetMapping("/find/settings/clinicId/{clinicId}")
