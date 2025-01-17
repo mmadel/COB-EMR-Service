@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> {
     @Query(value = "select cal  from CalendarEntity cal " +
@@ -24,4 +25,6 @@ public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> 
     @Query(value = "select cal  from CalendarEntity cal " +
             "where cal.clinic.id =:clinicId ")
     Page<CalendarEntity> listCalendars(Pageable paging, @Param("clinicId") Long clinicId);
+
+    Optional<List<CalendarEntity>> findByClinic_IdAndCreatedBy(Long clinicId , String uuid);
 }
