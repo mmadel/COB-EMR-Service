@@ -24,6 +24,7 @@ public class CreateCalendarUseCaseq {
         CalendarEntity calendarEntity = mapper.map(model, CalendarEntity.class);
         calendarEntity.setCreatedBy(model.getCreatedBy());
         calendarEntity.setClinic(clinic);
+        calendarEntity.setIsPublic(model.getIsPublic() ==null?false:model.getIsPublic());
         return calendarRepository.save(calendarEntity).getId();
     }
 }
