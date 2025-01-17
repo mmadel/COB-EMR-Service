@@ -23,7 +23,9 @@ public class SchedulerController {
     @Autowired
     FindSchedulerSettingsForClinicUseCase findSchedulerSettingsForClinicUseCase;
     @Autowired
-    UpdateSchedulerSettingsBySelectedCalendarsUseCase updateSchedulerSettingsBySelectedCalendarsUseCase;
+    UpdateSchedulerUserSettingsUSeCase updateSchedulerUserSettingsUSeCase;
+    @Autowired
+    FindCalendarsBySchedulerUserSettingsUseCase findCalendarsBySchedulerUserSettingsUseCase;
 
     @PostMapping("/create/configuration")
     public ResponseEntity configureScheduler(@RequestBody SchedulerConfiguration schedulerConfiguration) {
@@ -54,9 +56,15 @@ public class SchedulerController {
 
     @PutMapping("/update/selected-calendars")
     public ResponseEntity updateSchedulerUserSettings(@RequestBody SchedulerUserSettings model) {
-        updateSchedulerSettingsBySelectedCalendarsUseCase.update(model);
+        updateSchedulerUserSettingsUSeCase.update(model);
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @GetMapping("/find/saved-calendars/clinicId/{clinicId}/user/{uuid}")
+    public ResponseEntity findCalendarsBySchedulerUserSettings(@PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
+        return ResponseEntity.ok()
+                .body(findCalendarsBySchedulerUserSettingsUseCase.find(clinicId, uuid));
     }
 
     @GetMapping("/find/settings/clinicId/{clinicId}")
