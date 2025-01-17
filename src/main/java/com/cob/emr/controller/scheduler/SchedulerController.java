@@ -53,7 +53,7 @@ public class SchedulerController {
     }
 
     @PutMapping("/update/selected-calendars")
-    public ResponseEntity updateSelectedCalendars(@RequestBody SchedulerUserSettings model) {
+    public ResponseEntity updateSchedulerUserSettings(@RequestBody SchedulerUserSettings model) {
         updateSchedulerSettingsBySelectedCalendarsUseCase.update(model);
         return ResponseEntity.ok()
                 .build();
