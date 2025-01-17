@@ -2,6 +2,7 @@ package com.cob.emr.controller.calendar.tmp;
 
 import com.cob.emr.model.calendar.CalendarModel;
 import com.cob.emr.model.calendar.CalendarUpdateAttributeModel;
+import com.cob.emr.usecases.calendar.GetAttachedCalendarsUseCase;
 import com.cob.emr.usecases.calendar.tmp.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +21,8 @@ public class CalendarControllerq {
     ChangeCalendarsAccessibilityUseCase changeCalendarsAccessibilityUseCase;
     @Autowired
     ChangeCalendarsAttributesUseCase changeCalendarsAttributesUseCase;
+    @Autowired
+    GetAttachedCalendarsUseCase getAttachedCalendarsUseCase;
     @Autowired
     ListCalendarsUseCase listCalendarsUseCase;
 
@@ -59,5 +62,11 @@ public class CalendarControllerq {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseEntity.ok()
                 .body(listCalendarsUseCase.list(paging, clinicId, user));
+    }
+
+    @GetMapping("/get-attached/clinicId/{clinicId}/uuid/{uuid}")
+    public ResponseEntity getAttachedCalendar(@PathVariable("clinicId") Long clinicId, @PathVariable("uuid") String uuid) {
+        return ResponseEntity.ok()
+                .body(getAttachedCalendarsUseCase.get(clinicId, uuid));
     }
 }
