@@ -15,5 +15,4 @@ public class SchedulerSettings {
     private String endDay;
     private String appointmentDuration;
     private Long clinicId;
-    private List<Long> selectedCalendarsId;
 }

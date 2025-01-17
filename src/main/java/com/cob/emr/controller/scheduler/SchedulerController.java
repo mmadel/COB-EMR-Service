@@ -2,6 +2,7 @@ package com.cob.emr.controller.scheduler;
 
 import com.cob.emr.model.scheduler.SchedulerConfiguration;
 import com.cob.emr.model.scheduler.SchedulerSettings;
+import com.cob.emr.model.scheduler.SchedulerUserSettings;
 import com.cob.emr.usecases.scheduler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,7 +53,7 @@ public class SchedulerController {
     }
 
     @PutMapping("/update/selected-calendars")
-    public ResponseEntity updateSelectedCalendars(@RequestBody SchedulerSettings model) {
+    public ResponseEntity updateSelectedCalendars(@RequestBody SchedulerUserSettings model) {
         updateSchedulerSettingsBySelectedCalendarsUseCase.update(model);
         return ResponseEntity.ok()
                 .build();
