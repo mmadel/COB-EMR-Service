@@ -15,6 +15,7 @@ public class CalendarModel {
     private Boolean attached;
     private String user;
     private Long clinicId;
+    private Boolean selected;
 
     @Override
     public boolean equals(Object o) {

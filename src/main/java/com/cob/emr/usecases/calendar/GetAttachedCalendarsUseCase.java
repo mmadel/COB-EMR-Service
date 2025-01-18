@@ -1,6 +1,5 @@
 package com.cob.emr.usecases.calendar;
 
-import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.model.calendar.CalendarModel;
 import com.cob.emr.repositories.calendar.CalendarClinicRepository;
 import com.cob.emr.repositories.calendar.CalendarRepository;
@@ -36,7 +35,11 @@ public class GetAttachedCalendarsUseCase {
                             return false;
                     }
                 })
-                .map(calendarEntity -> mapper.map(calendarEntity, CalendarModel.class))
+                .map(calendarEntity -> {
+                    CalendarModel model = mapper.map(calendarEntity, CalendarModel.class);
+                    model.setSelected(true);
+                    return model;
+                })
                 .collect(Collectors.toList());
     }
 }
