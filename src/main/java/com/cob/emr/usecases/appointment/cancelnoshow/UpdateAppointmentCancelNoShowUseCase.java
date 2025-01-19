@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
+
 @Component
 public class UpdateAppointmentCancelNoShowUseCase {
     @Autowired
@@ -18,10 +20,13 @@ public class UpdateAppointmentCancelNoShowUseCase {
     @Autowired
     ModelMapper mapper;
 
+    @Transactional
     public void update(AppointmentCancelNoShowReasonModel model) {
         Appointment appointment = appointmentRepository.findById(model.getAppointmentId())
                 .orElseThrow(() -> new IllegalArgumentException("Appointment with id " + model.getAppointmentId() + " not found "));
         AppointmentCancelNoShowReason entity = mapper.map(model, AppointmentCancelNoShowReason.class);
+        appointment.setAppointmentStatus(model.getStatus());
         repository.save(entity);
+        appointmentRepository.save(appointment);
     }
 }
