@@ -1,5 +1,6 @@
 package com.cob.emr.controller.appointment;
 
+import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.response.ResponseHandler;
@@ -7,6 +8,7 @@ import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
 import com.cob.emr.usecases.UpdateAppointmentUseCase;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
+import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
 import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,10 +30,12 @@ public class AppointmentController {
     UpdateAppointmentUseCase updateAppointmentUseCase;
     @Autowired
     FindFullAppointmentUseCase findFullAppointmentUseCase;
+    @Autowired
+    UpdateAppointmentCancelNoShowUseCase updateAppointmentCancelNoShowUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AppointmentModel model) {
-        return  ResponseEntity.ok()
+        return ResponseEntity.ok()
                 .body(createAppointmentUseCase.execute(model));
     }
 
@@ -48,7 +52,7 @@ public class AppointmentController {
         return ResponseHandler
                 .generateResponse("Successfully find Appointment by date range",
                         HttpStatus.OK,
-                        finderService.find(startDate, endDate, clinicId,calendarId));
+                        finderService.find(startDate, endDate, clinicId, calendarId));
 
     }
 
@@ -75,9 +79,17 @@ public class AppointmentController {
     public ResponseEntity<AppointmentModel> find(@PathVariable Long appointmentId) {
         return new ResponseEntity<>(finderService.find(appointmentId), HttpStatus.OK);
     }
+
     @GetMapping("/find/full/id/{appointmentId}")
     public ResponseEntity<AppointmentModel> findFullAppointment(@PathVariable Long appointmentId) {
         return ResponseEntity.ok()
                 .body(findFullAppointmentUseCase.find(appointmentId));
+    }
+
+    @PutMapping("/update/cancel-noshow")
+    public ResponseEntity updateAppointmentCancelNoShow(@RequestBody AppointmentCancelNoShowReasonModel model) {
+        updateAppointmentCancelNoShowUseCase.update(model);
+        return ResponseEntity.ok()
+                .build();
     }
 }

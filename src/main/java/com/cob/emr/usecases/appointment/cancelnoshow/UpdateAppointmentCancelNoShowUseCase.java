@@ -1,0 +1,27 @@
+package com.cob.emr.usecases.appointment.cancelnoshow;
+
+import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.entity.appointment.AppointmentCancelNoShowReason;
+import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
+import com.cob.emr.repositories.appointment.AppointmentCancelNoShowReasonRepository;
+import com.cob.emr.repositories.appointment.AppointmentRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class UpdateAppointmentCancelNoShowUseCase {
+    @Autowired
+    AppointmentCancelNoShowReasonRepository repository;
+    @Autowired
+    AppointmentRepository appointmentRepository;
+    @Autowired
+    ModelMapper mapper;
+
+    public void update(AppointmentCancelNoShowReasonModel model) {
+        Appointment appointment = appointmentRepository.findById(model.getAppointmentId())
+                .orElseThrow(() -> new IllegalArgumentException("Appointment with id " + model.getAppointmentId() + " not found "));
+        AppointmentCancelNoShowReason entity = mapper.map(model, AppointmentCancelNoShowReason.class);
+        repository.save(entity);
+    }
+}
