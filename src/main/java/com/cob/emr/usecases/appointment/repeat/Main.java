@@ -13,20 +13,12 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-//        Calendar cacheCalendar = Calendar.getInstance();
-//        cacheCalendar.set(Calendar.DAY_OF_MONTH, 2);
-//        cacheCalendar.set(Calendar.MONTH, 6);
-//        cacheCalendar.set(Calendar.YEAR, 2024);
-//        System.out.println(cacheCalendar.get(Calendar.DATE));
-        String x = "1320958800000";
-
-        DateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-
-        long milliSeconds= Long.parseLong(x);
-        System.out.println(milliSeconds);
-
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(milliSeconds);
-        System.out.println(formatter.format(calendar.getTime()));
+        calendar.set(Calendar.DAY_OF_MONTH, 31);
+        System.out.println(calendar.getTime());
+        calendar.add(Calendar.MONTH, 1);
+        int maxDayOfNextMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.DAY_OF_MONTH, Math.min(30, maxDayOfNextMonth));
+        System.out.println(calendar.getTime());
     }
 }

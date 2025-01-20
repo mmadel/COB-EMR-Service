@@ -10,4 +10,5 @@ public class MonthlyRepeatAppointment {
     Long start;
     Long end;
     int[] dayInMonth;
+    MonthDay days;
 }
