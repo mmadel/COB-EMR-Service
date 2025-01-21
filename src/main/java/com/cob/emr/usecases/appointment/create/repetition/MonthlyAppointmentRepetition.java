@@ -16,27 +16,14 @@ public class MonthlyAppointmentRepetition extends AppointmentRepetition {
         calendar.setTimeInMillis(monthlyRepeatAppointment.getStart());
         int dayDate = 0;
         if (appointmentDates.isEmpty()) {
-            int day = monthlyRepeatAppointment.getDayInMonth()[0];
-            if (day < 7)
-                dayDate = RepeatedAppointmentDatesConstructor.getFirstDayInMonth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), day);
-            if (day > 7 && day <= 31)
-                dayDate = day;
-            if (day > 31)
-                dayDate = RepeatedAppointmentDatesConstructor.getDayInMonth(day);
+            dayDate = getDay(calendar, monthlyRepeatAppointment.getDays());
             calendar.set(Calendar.DAY_OF_MONTH, dayDate);
             long appointmentTime = calendar.getTime().getTime();
-            if (appointmentTime > monthlyRepeatAppointment.getStart())
+            if (appointmentTime >= monthlyRepeatAppointment.getStart())
                 appointmentDates.add(calendar.getTime().getTime());
         }
         calendar.add(Calendar.MONTH, monthlyRepeatAppointment.getEvery());
-        dayDate = 0;
-        int day = monthlyRepeatAppointment.getDayInMonth()[0];
-        if (day < 7)
-            dayDate = RepeatedAppointmentDatesConstructor.getFirstDayInMonth(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), monthlyRepeatAppointment.getDayInMonth()[0]);
-        if (day > 7 && day <= 31)
-            dayDate = day;
-        if (day > 31)
-            dayDate = RepeatedAppointmentDatesConstructor.getDayInMonth(day);
+        dayDate = getDay(calendar, monthlyRepeatAppointment.getDays());
         int maxDayOfNextMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         calendar.set(Calendar.DAY_OF_MONTH, Math.min(dayDate, maxDayOfNextMonth));
         long newDate = calendar.getTime().getTime();
@@ -46,7 +33,15 @@ public class MonthlyAppointmentRepetition extends AppointmentRepetition {
         model.getMonthly().setStart(newDate);
         createAppointmentsDates(model, appointmentDates);
     }
-    private int dd(MonthDay day){
-        // return datDate number based on i
+
+    private int getDay(Calendar calendar, MonthDay day) {
+        // pass day as name like monday
+        if (day.getDay() == -1) {
+            return RepeatedAppointmentDatesConstructor.getIndexOfDay(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), day.getDayNumber(), day.getIndex());
+        }
+        //pass day as number 21th
+        else {
+            return day.getDay();
+        }
     }
 }
