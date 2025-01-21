@@ -13,7 +13,7 @@ public class WeeklyAppointmentRepetition extends AppointmentRepetition {
         calendar.setTimeInMillis(model.getWeekly().getStart());
         calendar.add(Calendar.WEEK_OF_MONTH, model.getWeekly().getEvery());
         long newDate = calendar.getTime().getTime();
-        if (newDate > model.getWeekly().getEnd())
+        if (newDate >= model.getWeekly().getEnd())
             return;
         if (model.getWeekly().getDays() != null) {
             for (int i = 0; i < model.getWeekly().getDays().length; i++) {
