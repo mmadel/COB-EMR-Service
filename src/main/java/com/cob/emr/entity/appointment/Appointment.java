@@ -33,10 +33,6 @@ public class Appointment {
     @Column(name = "appointment_status")
     private AppointmentStatus appointmentStatus;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "appointment_repetition")
-    private AppointmentRepetitionType appointmentRepetition;
-
     @OneToOne
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")
     private Clinic clinic;

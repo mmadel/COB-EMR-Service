@@ -21,27 +21,30 @@ public class CreateAppointmentUseCase {
     public List<AppointmentModel> execute(AppointmentModel model) {
         setAppointmentCreator(model.getAppointmentRepetitionType());
         appointmentCreator.create(model);
-        return persistAppointmentUseCase.persist(appointmentCreator.appointments,model.getCalendarId());
+        return persistAppointmentUseCase.persist(appointmentCreator.appointments, model.getCalendarId());
     }
 
     private void setAppointmentCreator(AppointmentRepetitionType appointmentRepetitionType) {
-        switch (appointmentRepetitionType) {
-            case Single:
-                appointmentCreator = new SingleAppointmentCreator();
-                break;
-            case Daily:
-                appointmentCreator = new DailyAppointmentCreator();
-                break;
-            case Weekly:
-                appointmentCreator = new WeeklyAppointmentCreator();
-                break;
-            case Monthly:
-                appointmentCreator = new MonthlyAppointmentCreator();
-                break;
-            case Yearly:
-                appointmentCreator = new YearlyAppointmentCreator();
-                break;
+        if (appointmentRepetitionType == null)
+            appointmentCreator = new SingleAppointmentCreator();
+        else
+            switch (appointmentRepetitionType) {
+                case Single:
+                    appointmentCreator = new SingleAppointmentCreator();
+                    break;
+                case Daily:
+                    appointmentCreator = new DailyAppointmentCreator();
+                    break;
+                case Weekly:
+                    appointmentCreator = new WeeklyAppointmentCreator();
+                    break;
+                case Monthly:
+                    appointmentCreator = new MonthlyAppointmentCreator();
+                    break;
+                case Yearly:
+                    appointmentCreator = new YearlyAppointmentCreator();
+                    break;
 
-        }
+            }
     }
 }
