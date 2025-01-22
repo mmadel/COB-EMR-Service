@@ -9,4 +9,6 @@ public class YearlyRepeatAppointment {
     Integer every;
     Long start;
     Long end;
+    Long startDate;
+    Long initDate;
 }

@@ -26,7 +26,7 @@ public class RepeatedAppointmentDatesConstructor {
         int[] originalAppointmentTime = getOriginalAppointmentTime(originalAppointmentDate);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date(repeatedAppointmentDate));
-        cal.add(Calendar.HOUR, originalAppointmentTime[0] + 1);
+        cal.add(Calendar.HOUR, originalAppointmentTime[0]);
         cal.add(Calendar.MINUTE, originalAppointmentTime[1]);
         return cal.getTime().getTime();
     }
