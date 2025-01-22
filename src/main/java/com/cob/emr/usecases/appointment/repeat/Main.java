@@ -10,8 +10,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        Instant instant = Instant.ofEpochMilli(1737439200000L);
-        LocalDateTime localDateTime = instant.atZone(ZoneId.systemDefault()).toLocalDateTime();
-        System.out.println(localDateTime.getHour() + " " + localDateTime.getMinute());
+        Random rand = new Random();
+        int rand_int1 = rand.nextInt(1000000);
+        System.out.println(rand_int1);
     }
 }
