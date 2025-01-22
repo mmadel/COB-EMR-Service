@@ -58,6 +58,7 @@ public class Appointment {
 
     @Column(name = "title")
     private String title;
-
+    @Column
+    private Integer seriesId;
 }
 

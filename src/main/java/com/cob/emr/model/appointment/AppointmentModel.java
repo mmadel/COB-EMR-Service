@@ -33,4 +33,5 @@ public class AppointmentModel {
     private ClinicModel clinicModel;
     private AppointmentCancelNoShowReasonModel appointmentCancelNoShowReason;
     private AppointmentStructure appointmentStructure;
+    private Integer seriesId;
 }

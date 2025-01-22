@@ -44,8 +44,9 @@ public class CreateAppointmentSeriesUseCase {
                 .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
         series.setAppointmentType(type);
         Random rand = new Random();
-        series.setSeriesId(rand.nextInt(1000000));
-
+        Integer seriesId = rand.nextInt(1000000);
+        series.setSeriesId(seriesId);
+        appointment.setSeriesId(seriesId);
         appointmentSeriesRepository.save(series);
     }
 }

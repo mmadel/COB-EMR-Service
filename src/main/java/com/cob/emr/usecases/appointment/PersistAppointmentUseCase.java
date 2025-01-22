@@ -1,6 +1,5 @@
 package com.cob.emr.usecases.appointment;
 
-import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.appointment.AppointmentType;
 import com.cob.emr.entity.calendar.CalendarEntity;
@@ -39,20 +38,16 @@ public class PersistAppointmentUseCase {
     @Autowired
     ClinicRepository clinicRepository;
 
-    public List<AppointmentModel> persist(List<AppointmentModel> models, Long calendarId) {
+    public List<AppointmentModel> persist(List<AppointmentModel> models, AppointmentModel model) {
         List<Appointment> appointments = new ArrayList<>();
-        models.stream().forEach(model -> {
-            AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
-                    .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
-            Clinic clinic = clinicRepository.findById(model.getClinicId())
-                    .orElseThrow(() -> new IllegalArgumentException("clinic not found"));
-            Appointment appointment = persist(model, false);
-            appointment.setAppointmentType(type);
-            appointment.setClinic(clinic);
-            appointments.add(appointment);
-        });
+        if (models.size() > 1)
+            createRepeatedAppointment(models, appointments, model.getSeriesId());
+        else
+            createSingleAppointment(models
+                    .stream()
+                    .findFirst().get(), appointments);
         Iterable<Appointment> createdAppointments = appointmentRepository.saveAll(appointments);
-        assignToCalendar(createdAppointments, calendarId);
+        assignToCalendar(createdAppointments, model.getCalendarId());
         List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
                 .collect(Collectors.toList());
         return list.stream()
@@ -60,7 +55,7 @@ public class PersistAppointmentUseCase {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
                     appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
                     appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
-                    appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
+                    appointmentModel.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
                     appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
                     return appointmentModel;
                 }).collect(Collectors.toList());
@@ -76,13 +71,13 @@ public class PersistAppointmentUseCase {
     }
 
     public void fillAppointmentAssociation(Appointment toBeFilled, AppointmentModel model) {
-        if(model.getPatientId() != null){
+        if (model.getPatientId() != null) {
             Patient patient = new Patient();
             patient.setId(model.getPatientId());
             toBeFilled.setPatient(patient);
         }
 
-        if(model.getPatientCaseId() !=null){
+        if (model.getPatientCaseId() != null) {
             PatientCase patientCase = new PatientCase();
             patientCase.setId(model.getPatientCaseId());
             toBeFilled.setPatientCase(patientCase);
@@ -94,6 +89,31 @@ public class PersistAppointmentUseCase {
             toBeFilled.setAppointmentStatus(AppointmentStatus.Created);
         else
             toBeFilled.setAppointmentStatus(model.getAppointmentStatus());
+    }
+
+    private void createSingleAppointment(AppointmentModel model, List<Appointment> appointments) {
+        AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
+                .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
+        Clinic clinic = clinicRepository.findById(model.getClinicId())
+                .orElseThrow(() -> new IllegalArgumentException("clinic not found"));
+        Appointment appointment = persist(model, false);
+        appointment.setAppointmentType(type);
+        appointment.setClinic(clinic);
+        appointments.add(appointment);
+    }
+
+    private void createRepeatedAppointment(List<AppointmentModel> models, List<Appointment> appointments, Integer seriesId) {
+        models.stream().forEach(model -> {
+            AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
+                    .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
+            Clinic clinic = clinicRepository.findById(model.getClinicId())
+                    .orElseThrow(() -> new IllegalArgumentException("clinic not found"));
+            Appointment appointment = persist(model, false);
+            appointment.setAppointmentType(type);
+            appointment.setClinic(clinic);
+            appointment.setSeriesId(seriesId);
+            appointments.add(appointment);
+        });
     }
 
     private void assignToCalendar(Iterable<Appointment> createdAppointments, Long calendarId) {

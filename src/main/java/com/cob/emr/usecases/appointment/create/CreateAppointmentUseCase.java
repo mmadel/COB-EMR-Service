@@ -24,7 +24,7 @@ public class CreateAppointmentUseCase {
     public List<AppointmentModel> execute(AppointmentModel model) {
         setAppointmentCreator(model);
         appointmentCreator.create(model);
-        return persistAppointmentUseCase.persist(appointmentCreator.appointments, model.getCalendarId());
+        return persistAppointmentUseCase.persist(appointmentCreator.appointments, model);
     }
 
     private void setAppointmentCreator(AppointmentModel model) {
