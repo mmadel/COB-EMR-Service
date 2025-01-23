@@ -1,5 +1,6 @@
 package com.cob.emr.entity.appointment;
 
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.AppointmentStatus;
@@ -41,6 +42,10 @@ public class AppointmentSeries {
     @OneToOne
     @JoinColumn(name = "appointment_type_id", referencedColumnName = "id")
     private AppointmentType appointmentType;
+
+    @OneToOne
+    @JoinColumn(name = "clinic_id", referencedColumnName = "id")
+    private Clinic clinic;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "repetition_type")

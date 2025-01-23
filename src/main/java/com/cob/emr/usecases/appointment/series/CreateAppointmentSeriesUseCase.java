@@ -2,6 +2,7 @@ package com.cob.emr.usecases.appointment.series;
 
 import com.cob.emr.entity.appointment.AppointmentSeries;
 import com.cob.emr.entity.appointment.AppointmentType;
+import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.model.appointment.AppointmentModel;
@@ -30,6 +31,11 @@ public class CreateAppointmentSeriesUseCase {
             patient.setId(appointment.getPatientId());
             series.setPatient(patient);
         }
+        //clinic
+        Clinic clinic = new Clinic();
+        clinic.setId(appointment.getClinicId());
+        series.setClinic(clinic);
+
         //Case
         if (appointment.getPatientCaseId() != null) {
             PatientCase patientCase = new PatientCase();
