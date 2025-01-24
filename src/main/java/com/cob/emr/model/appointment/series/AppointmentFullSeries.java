@@ -12,6 +12,7 @@ import java.util.List;
 @Getter
 public class AppointmentFullSeries {
     private String patientName;
+    private List<ClinicModel> patientClinics ;
     private List<PatientCaseModel> patientCases;
     private Long startTime;
     private Long endTime;

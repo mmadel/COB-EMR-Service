@@ -41,6 +41,11 @@ public class FindFullAppointmentSeriesUseCase {
                 .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
                 .collect(Collectors.toList());
         appointmentFullSeries.setPatientCases(patientCases);
+        appointmentFullSeries.setPatientName(patient.getLastName() + "," + patient.getFirstName());
+        List<ClinicModel> patientClinics = patient.getClinics().stream()
+                .map(clinic -> mapper.map(getClass(), ClinicModel.class))
+                .collect(Collectors.toList());
+        appointmentFullSeries.setPatientClinics(patientClinics);
     }
 
     private void fillDates(AppointmentFullSeries appointmentFullSeries, Long startDate, Long endDate) {
