@@ -39,26 +39,15 @@ public class PersistAppointmentUseCase {
     ClinicRepository clinicRepository;
 
     public List<AppointmentModel> persist(List<AppointmentModel> models, AppointmentModel model) {
-        List<Appointment> appointments = new ArrayList<>();
+        Iterable<Appointment> createdAppointments;
         if (models.size() > 1)
-            createRepeatedAppointment(models, appointments, model.getSeriesId());
+            createdAppointments = createRepeatedAppointment(models, model.getSeriesId());
         else
-            createSingleAppointment(models
+            createdAppointments = createSingleAppointment(models
                     .stream()
-                    .findFirst().get(), appointments);
-        Iterable<Appointment> createdAppointments = appointmentRepository.saveAll(appointments);
+                    .findFirst().get());
         assignToCalendar(createdAppointments, model.getCalendarId());
-        List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
-                .collect(Collectors.toList());
-        return list.stream()
-                .map(appointment -> {
-                    AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
-                    appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
-                    appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
-                    appointmentModel.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
-                    appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
-                    return appointmentModel;
-                }).collect(Collectors.toList());
+        return buildReturnedList(createdAppointments);
     }
 
     public Appointment persist(AppointmentModel model, boolean save) {
@@ -91,7 +80,8 @@ public class PersistAppointmentUseCase {
             toBeFilled.setAppointmentStatus(model.getAppointmentStatus());
     }
 
-    private void createSingleAppointment(AppointmentModel model, List<Appointment> appointments) {
+    private Iterable<Appointment> createSingleAppointment(AppointmentModel model) {
+        List<Appointment> appointments = new ArrayList<>();
         AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
                 .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
         Clinic clinic = clinicRepository.findById(model.getClinicId())
@@ -100,9 +90,18 @@ public class PersistAppointmentUseCase {
         appointment.setAppointmentType(type);
         appointment.setClinic(clinic);
         appointments.add(appointment);
+        Iterable<Appointment> appointmentIterable = appointmentRepository.saveAll(appointments);
+        Appointment createdAppointment = StreamSupport.stream(appointmentIterable.spliterator(), false)
+                .collect(Collectors.toList())
+                .stream().findFirst()
+                .get();
+        createdAppointment.setSeriesId(createdAppointment.getId().intValue());
+        appointmentRepository.save(createdAppointment);
+        return appointmentIterable;
     }
 
-    private void createRepeatedAppointment(List<AppointmentModel> models, List<Appointment> appointments, Integer seriesId) {
+    private Iterable<Appointment> createRepeatedAppointment(List<AppointmentModel> models, Integer seriesId) {
+        List<Appointment> appointments = new ArrayList<>();
         models.stream().forEach(model -> {
             AppointmentType type = appointmentTypeRepository.findById(model.getAppointmentTypeId())
                     .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
@@ -114,6 +113,7 @@ public class PersistAppointmentUseCase {
             appointment.setSeriesId(seriesId);
             appointments.add(appointment);
         });
+        return appointmentRepository.saveAll(appointments);
     }
 
     private void assignToCalendar(Iterable<Appointment> createdAppointments, Long calendarId) {
@@ -127,4 +127,17 @@ public class PersistAppointmentUseCase {
         calendarRepository.save(calendar);
     }
 
+    private List<AppointmentModel> buildReturnedList(Iterable<Appointment> createdAppointments) {
+        List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
+                .collect(Collectors.toList());
+        return list.stream()
+                .map(appointment -> {
+                    AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
+                    appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
+                    appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
+                    appointmentModel.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
+                    appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
+                    return appointmentModel;
+                }).collect(Collectors.toList());
+    }
 }

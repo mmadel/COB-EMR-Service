@@ -86,4 +86,7 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
 
     @Query("select a from Appointment a where a.clinic.id IN :clinicIds")
     Optional<List<Appointment>> findAppointmentByCases(@Param(value = "clinicIds") List<Long> clinicIds);
+
+    @Query("select a from Appointment a where a.clinic.id =:clinicId and a.seriesId =:seriesId")
+    List<Appointment> findAppointmentSeries(@Param(value = "clinicId") Long clinicId , @Param(value = "seriesId") Integer seriesId);
 }

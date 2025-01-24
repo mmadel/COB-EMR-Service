@@ -22,33 +22,8 @@ public class CreateAppointmentSeriesUseCase {
 
     public void create(AppointmentModel appointment) {
         AppointmentSeries series = new AppointmentSeries();
-        series.setTitle(appointment.getTitle());
-        series.setNote(appointment.getNote());
-        series.setTherapyUUID(appointment.getTherapyUUID());
-        //Patient
-        if (appointment.getPatientId() != null) {
-            Patient patient = new Patient();
-            patient.setId(appointment.getPatientId());
-            series.setPatient(patient);
-        }
-        //clinic
-        Clinic clinic = new Clinic();
-        clinic.setId(appointment.getClinicId());
-        series.setClinic(clinic);
-
-        //Case
-        if (appointment.getPatientCaseId() != null) {
-            PatientCase patientCase = new PatientCase();
-            patientCase.setId(appointment.getPatientCaseId());
-            series.setPatientCase(patientCase);
-        }
         //Type
         series.setRepetitionType(appointment.getAppointmentRepetitionType());
-
-        //Appointment Type
-        AppointmentType type = appointmentTypeRepository.findById(appointment.getAppointmentTypeId())
-                .orElseThrow(() -> new IllegalArgumentException("appointment not found"));
-        series.setAppointmentType(type);
         Random rand = new Random();
         Integer seriesId = rand.nextInt(1000000);
         series.setSeriesId(seriesId);

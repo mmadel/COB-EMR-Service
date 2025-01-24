@@ -10,6 +10,7 @@ import com.cob.emr.usecases.UpdateAppointmentUseCase;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
 import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
+import com.cob.emr.usecases.appointment.series.FindAppointmentSeriesUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,8 @@ public class AppointmentController {
     FindFullAppointmentUseCase findFullAppointmentUseCase;
     @Autowired
     UpdateAppointmentCancelNoShowUseCase updateAppointmentCancelNoShowUseCase;
+    @Autowired
+    FindAppointmentSeriesUseCase findAppointmentSeriesUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AppointmentModel model) {
@@ -91,5 +94,11 @@ public class AppointmentController {
         updateAppointmentCancelNoShowUseCase.update(model);
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @GetMapping("/series/clinicId/{clinicId}/seriesId/{seriesId}")
+    public ResponseEntity getAppointmentSeries(@PathVariable Long clinicId , @PathVariable Integer seriesId ){
+        return ResponseEntity.ok()
+                .body(findAppointmentSeriesUseCase.find(clinicId,seriesId ));
     }
 }
