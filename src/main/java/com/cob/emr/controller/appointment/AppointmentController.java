@@ -102,10 +102,10 @@ public class AppointmentController {
     @GetMapping("/series/clinicId/{clinicId}/seriesId/{seriesId}/type/{type}")
     public ResponseEntity getAppointmentSeries(@PathVariable Long clinicId, @PathVariable Integer seriesId, @PathVariable String type) {
         switch (type) {
-            case "block":
+            case "Block":
                 return ResponseEntity.ok()
                         .body(findBlockAppointmentSeriesUseCase.find(clinicId, seriesId));
-            case "full":
+            case "Full":
                 return ResponseEntity.ok()
                         .body(findFullAppointmentSeriesUseCase.find(clinicId, seriesId));
             default:

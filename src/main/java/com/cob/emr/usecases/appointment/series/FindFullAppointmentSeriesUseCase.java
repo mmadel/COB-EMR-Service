@@ -5,6 +5,7 @@ import com.cob.emr.entity.appointment.AppointmentType;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.model.appointment.AppointmentTypeModel;
 import com.cob.emr.model.appointment.series.AppointmentFullSeries;
+import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
@@ -30,6 +31,8 @@ public class FindFullAppointmentSeriesUseCase {
         fillPatientCase(series, appointment.getPatient());
         fillDates(series, appointment.getStartDate(), appointment.getEndDate());
         fillAppointmentType(series, appointment.getAppointmentType());
+        series.setTherapy(appointment.getTherapyUUID());
+        series.setClinic(mapper.map(appointment.getClinic(), ClinicModel.class));
         return series;
     }
 
