@@ -43,7 +43,7 @@ public class FindFullAppointmentSeriesUseCase {
         appointmentFullSeries.setPatientCases(patientCases);
         appointmentFullSeries.setPatientName(patient.getLastName() + "," + patient.getFirstName());
         List<ClinicModel> patientClinics = patient.getClinics().stream()
-                .map(clinic -> mapper.map(getClass(), ClinicModel.class))
+                .map(clinic -> mapper.map(clinic, ClinicModel.class))
                 .collect(Collectors.toList());
         appointmentFullSeries.setPatientClinics(patientClinics);
     }
