@@ -26,6 +26,7 @@ public class FindBlockAppointmentSeriesUseCase {
         series.setStartTime(appointment.getStartDate());
         series.setEndTime(appointment.getEndDate());
         series.setClinic(mapper.map(appointment.getClinic(), ClinicModel.class));
+        series.setNote(appointment.getNote());
         return series;
     }
 }

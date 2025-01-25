@@ -13,5 +13,6 @@ public class AppointmentBlockSeries {
     private Long endTime;
     private ClinicModel clinic;
     private AppointmentTypeModel appointmentType;
+    private String note;
 
 }
