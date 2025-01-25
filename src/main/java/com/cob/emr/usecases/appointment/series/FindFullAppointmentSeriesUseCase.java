@@ -33,6 +33,7 @@ public class FindFullAppointmentSeriesUseCase {
         fillAppointmentType(series, appointment.getAppointmentType());
         series.setTherapy(appointment.getTherapyUUID());
         series.setClinic(mapper.map(appointment.getClinic(), ClinicModel.class));
+        series.setNote(appointment.getNote());
         return series;
     }
 
