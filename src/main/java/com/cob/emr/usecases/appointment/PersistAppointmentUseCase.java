@@ -14,6 +14,7 @@ import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import com.cob.emr.repositories.calendar.CalendarRepository;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
+import com.cob.emr.usecases.appointment.util.BuildAppointments;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,8 @@ public class PersistAppointmentUseCase {
     PatientRepository patientRepository;
     @Autowired
     ClinicRepository clinicRepository;
+    @Autowired
+    BuildAppointments buildAppointments;
 
     public List<AppointmentModel> persist(List<AppointmentModel> models, AppointmentModel model) {
         Iterable<Appointment> createdAppointments;
@@ -47,7 +50,7 @@ public class PersistAppointmentUseCase {
                     .stream()
                     .findFirst().get());
         assignToCalendar(createdAppointments, model.getCalendarId());
-        return buildReturnedList(createdAppointments);
+        return buildAppointments.build(createdAppointments);
     }
 
     public Appointment persist(AppointmentModel model, boolean save) {
@@ -125,19 +128,5 @@ public class PersistAppointmentUseCase {
             calendar.addAppointment(appointment);
         });
         calendarRepository.save(calendar);
-    }
-
-    private List<AppointmentModel> buildReturnedList(Iterable<Appointment> createdAppointments) {
-        List<Appointment> list = StreamSupport.stream(createdAppointments.spliterator(), false)
-                .collect(Collectors.toList());
-        return list.stream()
-                .map(appointment -> {
-                    AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
-                    appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
-                    appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
-                    appointmentModel.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
-                    appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
-                    return appointmentModel;
-                }).collect(Collectors.toList());
     }
 }

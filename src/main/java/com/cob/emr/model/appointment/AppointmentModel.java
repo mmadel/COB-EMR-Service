@@ -17,7 +17,6 @@ public class AppointmentModel {
     private Long endDate;
     private String title;
     private String note;
-    private Integer repeatId;
     private String therapyUUID;
     private AppointmentStatus appointmentStatus;
     private Long clinicId;

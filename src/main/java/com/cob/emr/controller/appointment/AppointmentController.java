@@ -3,6 +3,7 @@ package com.cob.emr.controller.appointment;
 import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
+import com.cob.emr.model.appointment.series.AppointmentFullSeries;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
@@ -10,6 +11,7 @@ import com.cob.emr.usecases.UpdateAppointmentUseCase;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
 import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
+import com.cob.emr.usecases.appointment.series.EditFullAppointmentSeriesUseCase;
 import com.cob.emr.usecases.appointment.series.FindBlockAppointmentSeriesUseCase;
 import com.cob.emr.usecases.appointment.series.FindFullAppointmentSeriesUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,8 @@ public class AppointmentController {
     FindFullAppointmentSeriesUseCase findFullAppointmentSeriesUseCase;
     @Autowired
     FindBlockAppointmentSeriesUseCase findBlockAppointmentSeriesUseCase;
+    @Autowired
+    EditFullAppointmentSeriesUseCase editFullAppointmentSeriesUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AppointmentModel model) {
@@ -111,5 +115,11 @@ public class AppointmentController {
             default:
                 throw new IllegalArgumentException("Appointment Structure is not supported");
         }
+    }
+
+    @PutMapping("/series/seriesId/{seriesId}")
+    public ResponseEntity editAppointmentSeries(@RequestBody AppointmentFullSeries model, @PathVariable Integer seriesId) {
+        return ResponseEntity.ok()
+                .body(editFullAppointmentSeriesUseCase.edit(model, seriesId));
     }
 }

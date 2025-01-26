@@ -18,6 +18,7 @@ public class AppointmentFullSeries {
     private Long endTime;
     private AppointmentTypeModel appointmentType;
     private String therapy;
+    private PatientCaseModel patientCase;
     private ClinicModel clinic;
     private String note;
 }
