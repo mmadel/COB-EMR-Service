@@ -26,7 +26,6 @@ public class MapAppointmentSeriesToRepetitionConfiguration {
     private static AppointmentRepetitionConfiguration setDailyConfiguration(AppointmentSeries appointmentSeries) {
         AppointmentRepetitionConfiguration dailyConfiguration = new AppointmentRepetitionConfiguration();
         dailyConfiguration.setAppointmentRepetitionType(AppointmentRepetitionType.Daily);
-        dailyConfiguration.setIgnored(true);
         DailyRepeatAppointment daily = new DailyRepeatAppointment();
         daily.setStartDate(appointmentSeries.getStartDate());
         daily.setEndDate(appointmentSeries.getEndDate());

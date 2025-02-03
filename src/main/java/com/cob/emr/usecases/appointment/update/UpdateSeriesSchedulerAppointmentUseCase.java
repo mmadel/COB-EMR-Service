@@ -36,11 +36,11 @@ public class UpdateSeriesSchedulerAppointmentUseCase {
     public RenderAppointmentContainer update(SchedulerAppointment schedulerAppointment) {
         AppointmentSeries appointmentSeries = appointmentSeriesRepository.findBySeriesId(schedulerAppointment.getSeriesId()).get();
         AppointmentRepetitionConfiguration appointmentRepetitionConfiguration = MapAppointmentSeriesToRepetitionConfiguration.map(appointmentSeries);
-        if(appointmentRepetitionConfiguration.isIgnored())
-            return RenderAppointmentContainer.builder()
-                    .addedRenderAppointment(updateSeriesAppointments(schedulerAppointment))
-                    .deletedRenderAppointment(null)
-                    .build();
+//        if(appointmentRepetitionConfiguration.isIgnored())
+//            return RenderAppointmentContainer.builder()
+//                    .addedRenderAppointment(updateSeriesAppointments(schedulerAppointment))
+//                    .deletedRenderAppointment(null)
+//                    .build();
         boolean isSameRepetition = checkRepetitionEquality(appointmentRepetitionConfiguration
                 , schedulerAppointment.getAppointmentRepetitionConfiguration());
         if (isSameRepetition)
