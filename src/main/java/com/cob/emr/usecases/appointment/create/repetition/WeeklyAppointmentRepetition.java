@@ -1,19 +1,19 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
-import com.cob.emr.model.appointment.repeat.AppointmentRepeat;
+import com.cob.emr.model.appointment.repeat.AppointmentRepetitionConfiguration;
 
 import java.util.Calendar;
 import java.util.List;
 
 public class WeeklyAppointmentRepetition extends AppointmentRepetition {
     @Override
-    protected void createAppointmentsDates(AppointmentRepeat model, List<Long> appointmentDates) {
+    protected void createAppointmentsDates(AppointmentRepetitionConfiguration model, List<Long> appointmentDates) {
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(model.getWeekly().getStart());
+        calendar.setTimeInMillis(model.getWeekly().getStartDate());
         calendar.add(Calendar.WEEK_OF_MONTH, model.getWeekly().getEvery());
         long newDate = calendar.getTime().getTime();
-        if (newDate >= model.getWeekly().getEnd())
+        if (newDate >= model.getWeekly().getEndDate())
             return;
         if (model.getWeekly().getDays() != null) {
             for (int i = 0; i < model.getWeekly().getDays().length; i++) {
@@ -24,7 +24,7 @@ public class WeeklyAppointmentRepetition extends AppointmentRepetition {
         } else {
             appointmentDates.add(newDate);
         }
-        model.getWeekly().setStart(newDate);
+        model.getWeekly().setStartDate(newDate);
         createAppointmentsDates(model, appointmentDates);
     }
 }

@@ -1,6 +1,6 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
-import com.cob.emr.model.appointment.repeat.AppointmentRepeat;
+import com.cob.emr.model.appointment.repeat.AppointmentRepetitionConfiguration;
 import com.cob.emr.model.appointment.repeat.YearlyRepeatAppointment;
 
 import java.time.Instant;
@@ -12,15 +12,15 @@ import java.util.List;
 
 public class YearlyAppointmentRepetition extends AppointmentRepetition {
     @Override
-    protected void createAppointmentsDates(AppointmentRepeat model, List<Long> appointmentDates) {
+    protected void createAppointmentsDates(AppointmentRepetitionConfiguration model, List<Long> appointmentDates) {
         YearlyRepeatAppointment yearlyRepeatAppointment = model.getYearly();
         if (appointmentDates.isEmpty())
-            appointmentDates.add(yearlyRepeatAppointment.getStart());
+            appointmentDates.add(yearlyRepeatAppointment.getStartDate());
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(yearlyRepeatAppointment.getStart()));
+        calendar.setTime(new Date(yearlyRepeatAppointment.getStartDate()));
         calendar.add(Calendar.YEAR, yearlyRepeatAppointment.getEvery());
         long newDate = calendar.getTime().getTime();
-        if (newDate > yearlyRepeatAppointment.getEnd())
+        if (newDate > yearlyRepeatAppointment.getEndDate())
             return;
 
         if (checkEqualDate(yearlyRepeatAppointment.getInitDate(), newDate)) {
@@ -33,7 +33,7 @@ public class YearlyAppointmentRepetition extends AppointmentRepetition {
                 appointmentDates.add(changeNewDate(newDate, maxDayOfNextMonth));
             }
         }
-        model.getYearly().setStart(newDate);
+        model.getYearly().setStartDate(newDate);
         createAppointmentsDates(model, appointmentDates);
     }
 

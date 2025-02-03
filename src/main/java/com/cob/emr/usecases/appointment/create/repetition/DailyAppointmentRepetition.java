@@ -1,23 +1,22 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
-import com.cob.emr.model.appointment.repeat.AppointmentRepeat;
+import com.cob.emr.model.appointment.repeat.AppointmentRepetitionConfiguration;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class DailyAppointmentRepetition extends AppointmentRepetition {
-    protected void createAppointmentsDates(AppointmentRepeat model, List<Long> appointmentDates) {
+    protected void createAppointmentsDates(AppointmentRepetitionConfiguration model, List<Long> appointmentDates) {
         if (appointmentDates.isEmpty())
-            appointmentDates.add(model.getDaily().getStart());
+            appointmentDates.add(model.getDaily().getStartDate());
         Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(model.getDaily().getStart());
+        cal.setTimeInMillis(model.getDaily().getStartDate());
         cal.add(Calendar.DAY_OF_WEEK, model.getDaily().getEvery());
         long newDate = cal.getTime().getTime();
-        if (newDate > model.getDaily().getEnd())
+        if (newDate > model.getDaily().getEndDate())
             return;
         appointmentDates.add(newDate);
-        model.getDaily().setStart(newDate);
+        model.getDaily().setStartDate(newDate);
         createAppointmentsDates(model, appointmentDates);
     }
 }

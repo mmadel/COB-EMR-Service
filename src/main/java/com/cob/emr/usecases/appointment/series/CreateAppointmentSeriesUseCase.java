@@ -1,13 +1,10 @@
 package com.cob.emr.usecases.appointment.series;
 
-import com.cob.emr.entity.appointment.AppointmentSeries;
-import com.cob.emr.entity.appointment.AppointmentType;
-import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.entity.patient.PatientCase;
-import com.cob.emr.model.appointment.AppointmentModel;
+import com.cob.emr.entity.appointment.series.AppointmentSeries;
+import com.cob.emr.model.appointment.SchedulerAppointment;
 import com.cob.emr.repositories.appointment.AppointmentSeriesRepository;
 import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
+import com.cob.emr.usecases.appointment.series.mapper.AppointmentSeriesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,14 +17,14 @@ public class CreateAppointmentSeriesUseCase {
     @Autowired
     AppointmentTypeRepository appointmentTypeRepository;
 
-    public void create(AppointmentModel appointment) {
+    public void create(SchedulerAppointment appointment) {
         AppointmentSeries series = new AppointmentSeries();
-        //Type
-        series.setRepetitionType(appointment.getAppointmentRepetitionType());
         Random rand = new Random();
         Integer seriesId = rand.nextInt(1000000);
         series.setSeriesId(seriesId);
         appointment.setSeriesId(seriesId);
+        AppointmentSeriesMapper.map(series, appointment.getAppointmentRepetitionConfiguration());
+        series.setRepetitionType(appointment.getAppointmentRepetitionConfiguration().getAppointmentRepetitionType());
         appointmentSeriesRepository.save(series);
     }
 }

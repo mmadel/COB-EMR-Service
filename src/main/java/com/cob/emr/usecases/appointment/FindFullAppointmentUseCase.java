@@ -1,41 +1,42 @@
 package com.cob.emr.usecases.appointment;
 
 import com.cob.emr.entity.appointment.Appointment;
-import com.cob.emr.model.appointment.FullAppointmentModel;
-import com.cob.emr.model.clinic.ClinicModel;
-import com.cob.emr.model.patient.PatientModel;
-import com.cob.emr.model.patient.cases.PatientCaseModel;
+import com.cob.emr.entity.appointment.series.AppointmentSeries;
+import com.cob.emr.model.appointment.SchedulerAppointment;
+import com.cob.emr.model.appointment.repeat.AppointmentRepetitionConfiguration;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
-import com.cob.emr.repositories.patient.PatientRepository;
-import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
+import com.cob.emr.repositories.appointment.AppointmentSeriesRepository;
+import com.cob.emr.usecases.appointment.series.mapper.AppointmentRepetitionConfigurationMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.stream.Collectors;
-
 @Component
 public class FindFullAppointmentUseCase {
     @Autowired
-    AppointmentRepository appointmentRepository;
+    private AppointmentRepository appointmentRepository;
     @Autowired
-    PatientRepository patientRepository;
-    @Autowired
-    PatientCaseRepository patientCaseRepository;
+    private AppointmentSeriesRepository appointmentSeriesRepository;
     @Autowired
     ModelMapper mapper;
 
-    public FullAppointmentModel find(Long id){
-        Appointment appointment =appointmentRepository.findById(id)
+    public SchedulerAppointment find(Long id) {
+        Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found "));
-        FullAppointmentModel model = mapper.map(appointment,FullAppointmentModel.class);
-        model.setPatient(mapper.map(appointment.getPatient(), PatientModel.class));
-        model.setPatientCase(mapper.map(appointment.getPatientCase(), PatientCaseModel.class));
-        model.getPatient().setClinicModels(
-                appointment.getPatient().getClinics().stream()
-                        .map(clinicEntity -> mapper.map(clinicEntity , ClinicModel.class))
-                        .collect(Collectors.toList())
-        );
+        SchedulerAppointment model = mapper.map(appointment, SchedulerAppointment.class);
+        assignAppointmentRepetitionConfiguration(appointment, model);
         return model;
+    }
+
+    private void assignAppointmentRepetitionConfiguration(Appointment appointment, SchedulerAppointment model) {
+        if (!(appointment.getSeriesId().equals(appointment.getId().intValue()))) {
+            AppointmentSeries appointmentSeries = appointmentSeriesRepository.findBySeriesId(appointment.getSeriesId())
+                    .orElseThrow(() -> new IllegalArgumentException("Appointment series not found for id " + appointment.getSeriesId()));
+            AppointmentRepetitionConfiguration appointmentRepetitionConfiguration = new AppointmentRepetitionConfiguration();
+            AppointmentRepetitionConfigurationMapper.map(appointmentRepetitionConfiguration, appointmentSeries);
+            model.setAppointmentRepetitionConfiguration(appointmentRepetitionConfiguration);
+        } else {
+            model.setAppointmentRepetitionConfiguration(new AppointmentRepetitionConfiguration());
+        }
     }
 }

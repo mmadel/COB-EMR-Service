@@ -2,8 +2,11 @@ package com.cob.emr.repositories.appointment;
 
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.patient.PatientCase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
@@ -88,5 +91,18 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     Optional<List<Appointment>> findAppointmentByCases(@Param(value = "clinicIds") List<Long> clinicIds);
 
     @Query("select a from Appointment a where a.clinic.id =:clinicId and a.seriesId =:seriesId")
-    List<Appointment> findAppointmentSeries(@Param(value = "clinicId") Long clinicId , @Param(value = "seriesId") Integer seriesId);
+    List<Appointment> findAppointmentSeries(@Param(value = "clinicId") Long clinicId, @Param(value = "seriesId") Integer seriesId);
+
+    @Query("select a.patient from Appointment a where  a.id=:appointmentId")
+    Patient findPatientByAppointment(@Param(value = "appointmentId") Long appointmentId);
+
+    @Query("select a.patientCase from Appointment a where  a.id=:appointmentId")
+    PatientCase findPatientCaseByAppointment(@Param(value = "appointmentId") Long appointmentId);
+
+    Optional<List<Appointment>> findBySeriesId(Integer seriesId);
+
+    @Modifying
+    @Query("delete from Appointment a where a.seriesId =:seriesId")
+    void deleteBySeriesId(@Param(value = "seriesId") Integer seriesId);
+
 }

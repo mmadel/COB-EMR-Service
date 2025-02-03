@@ -3,18 +3,18 @@ package com.cob.emr.controller.appointment;
 import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
-import com.cob.emr.model.appointment.series.AppointmentFullSeries;
+import com.cob.emr.model.appointment.SchedulerAppointment;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
-import com.cob.emr.usecases.UpdateAppointmentUseCase;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
-import com.cob.emr.usecases.appointment.create.CreateAppointmentUseCase;
-import com.cob.emr.usecases.appointment.series.EditFullAppointmentSeriesUseCase;
-import com.cob.emr.usecases.appointment.series.FindBlockAppointmentSeriesUseCase;
-import com.cob.emr.usecases.appointment.series.FindFullAppointmentSeriesUseCase;
+import com.cob.emr.usecases.appointment.create.CreateSchedulerAppointment;
+import com.cob.emr.usecases.appointment.create.CreateSingleSchedulerAppointmentUseCase;
+import com.cob.emr.usecases.appointment.patient.FindAppointmentPatientUseCase;
+import com.cob.emr.usecases.appointment.update.UpdateSingleSchedulerAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,31 +28,30 @@ public class AppointmentController {
 
     @Autowired
     AppointmentHistoryFinderService historyFinderService;
-    @Autowired
-    CreateAppointmentUseCase createAppointmentUseCase;
-    @Autowired
-    UpdateAppointmentUseCase updateAppointmentUseCase;
+
     @Autowired
     FindFullAppointmentUseCase findFullAppointmentUseCase;
     @Autowired
     UpdateAppointmentCancelNoShowUseCase updateAppointmentCancelNoShowUseCase;
     @Autowired
-    FindFullAppointmentSeriesUseCase findFullAppointmentSeriesUseCase;
+    FindAppointmentPatientUseCase findAppointmentPatientUseCase;
     @Autowired
-    FindBlockAppointmentSeriesUseCase findBlockAppointmentSeriesUseCase;
+    @Qualifier("CreateSingleSchedulerAppointment")
+    CreateSchedulerAppointment createSchedulerAppointment;
+
     @Autowired
-    EditFullAppointmentSeriesUseCase editFullAppointmentSeriesUseCase;
+    UpdateSingleSchedulerAppointmentUseCase updateSingleSchedulerAppointmentUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody AppointmentModel model) {
+    public ResponseEntity create(@RequestBody SchedulerAppointment model) {
         return ResponseEntity.ok()
-                .body(createAppointmentUseCase.execute(model));
+                .body(createSchedulerAppointment.create(model));
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<Object> update(@RequestBody AppointmentModel model) {
-        updateAppointmentUseCase.update(model);
-        return new ResponseEntity<>(HttpStatus.OK);
+    @PostMapping("/update")
+    public ResponseEntity update(@RequestBody SchedulerAppointment model) {
+        return ResponseEntity.ok()
+                .body(updateSingleSchedulerAppointmentUseCase.update(model));
     }
 
     @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}/calendarId/{calendarId}")
@@ -86,12 +85,13 @@ public class AppointmentController {
     }
 
     @GetMapping("/find/id/{appointmentId}")
-    public ResponseEntity<AppointmentModel> find(@PathVariable Long appointmentId) {
-        return new ResponseEntity<>(finderService.find(appointmentId), HttpStatus.OK);
+    public ResponseEntity find(@PathVariable Long appointmentId) {
+        return ResponseEntity.ok()
+                .body(finderService.find(appointmentId));
     }
 
     @GetMapping("/find/full/id/{appointmentId}")
-    public ResponseEntity<AppointmentModel> findFullAppointment(@PathVariable Long appointmentId) {
+    public ResponseEntity findFullAppointment(@PathVariable Long appointmentId) {
         return ResponseEntity.ok()
                 .body(findFullAppointmentUseCase.find(appointmentId));
     }
@@ -103,23 +103,15 @@ public class AppointmentController {
                 .build();
     }
 
-    @GetMapping("/series/clinicId/{clinicId}/seriesId/{seriesId}/type/{type}")
-    public ResponseEntity getAppointmentSeries(@PathVariable Long clinicId, @PathVariable Integer seriesId, @PathVariable String type) {
-        switch (type) {
-            case "Block":
-                return ResponseEntity.ok()
-                        .body(findBlockAppointmentSeriesUseCase.find(clinicId, seriesId));
-            case "Full":
-                return ResponseEntity.ok()
-                        .body(findFullAppointmentSeriesUseCase.find(clinicId, seriesId));
-            default:
-                throw new IllegalArgumentException("Appointment Structure is not supported");
-        }
+    @GetMapping("/patient/appointment-id/{appointmentId}")
+    public ResponseEntity getAppointmentPatient(@PathVariable Long appointmentId) {
+        return ResponseEntity.ok()
+                .body(findAppointmentPatientUseCase.findPatient(appointmentId));
     }
 
-    @PutMapping("/series/seriesId/{seriesId}")
-    public ResponseEntity editAppointmentSeries(@RequestBody AppointmentFullSeries model, @PathVariable Integer seriesId) {
+    @GetMapping("/patient-case/appointment-id/{appointmentId}")
+    public ResponseEntity getAppointmentPatientCase(@PathVariable Long appointmentId) {
         return ResponseEntity.ok()
-                .body(editFullAppointmentSeriesUseCase.edit(model, seriesId));
+                .body(findAppointmentPatientUseCase.findPatientCase(appointmentId));
     }
 }
