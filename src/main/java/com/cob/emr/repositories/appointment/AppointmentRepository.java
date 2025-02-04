@@ -4,6 +4,7 @@ import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.enums.AppointmentStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -104,5 +105,8 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     @Modifying
     @Query("delete from Appointment a where a.seriesId =:seriesId")
     void deleteBySeriesId(@Param(value = "seriesId") Integer seriesId);
+    @Modifying
+    @Query("update Appointment a set a.appointmentStatus=:appointmentStatus where a.id =:appointmentId")
+    void updateAppointmentStatus(@Param(value = "appointmentStatus") AppointmentStatus appointmentStatus,@Param(value = "appointmentId") Long appointmentId);
 
 }

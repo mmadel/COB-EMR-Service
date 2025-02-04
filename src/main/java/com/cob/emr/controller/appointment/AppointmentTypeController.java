@@ -4,6 +4,7 @@ import com.cob.emr.model.appointment.AppointmentTypeModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.type.AppointmentTypeFinderService;
 import com.cob.emr.usecases.appointment.type.CreateAppointmentTypeUseCase;
+import com.cob.emr.usecases.appointment.type.FindAppointmentTypeByIdUSeCase;
 import com.cob.emr.usecases.appointment.type.FindAppointmentTypeUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ public class AppointmentTypeController {
     @Autowired
     FindAppointmentTypeUseCase findAppointmentTypeUseCase;
 
+    @Autowired
+    FindAppointmentTypeByIdUSeCase findAppointmentTypeByIdUSeCase;
+
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody AppointmentTypeModel model) {
         return ResponseHandler
@@ -36,5 +40,11 @@ public class AppointmentTypeController {
                 .generateResponse("Successfully Find all AppointmentTypes",
                         HttpStatus.OK,
                         findAppointmentTypeUseCase.findAll());
+    }
+
+    @GetMapping("/find/id/{id}")
+    public ResponseEntity findById(@PathVariable Long id) {
+        return ResponseEntity.ok()
+                .body(findAppointmentTypeByIdUSeCase.find(id));
     }
 }

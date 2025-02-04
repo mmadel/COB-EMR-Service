@@ -2,7 +2,6 @@ package com.cob.emr.controller.appointment;
 
 import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
-import com.cob.emr.model.appointment.AppointmentModel;
 import com.cob.emr.model.appointment.SchedulerAppointment;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
@@ -10,8 +9,8 @@ import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
 import com.cob.emr.usecases.appointment.create.CreateSchedulerAppointment;
-import com.cob.emr.usecases.appointment.create.CreateSingleSchedulerAppointmentUseCase;
 import com.cob.emr.usecases.appointment.patient.FindAppointmentPatientUseCase;
+import com.cob.emr.usecases.appointment.update.UpdateAppointmentStatusUseCase;
 import com.cob.emr.usecases.appointment.update.UpdateSingleSchedulerAppointmentUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -41,6 +40,8 @@ public class AppointmentController {
 
     @Autowired
     UpdateSingleSchedulerAppointmentUseCase updateSingleSchedulerAppointmentUseCase;
+    @Autowired
+    UpdateAppointmentStatusUseCase updateAppointmentStatusUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody SchedulerAppointment model) {
@@ -52,6 +53,13 @@ public class AppointmentController {
     public ResponseEntity update(@RequestBody SchedulerAppointment model) {
         return ResponseEntity.ok()
                 .body(updateSingleSchedulerAppointmentUseCase.update(model));
+    }
+
+    @PutMapping("/update/status")
+    public ResponseEntity updateStatus(@RequestBody SchedulerAppointment model) {
+        updateAppointmentStatusUseCase.update(model);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}/calendarId/{calendarId}")
