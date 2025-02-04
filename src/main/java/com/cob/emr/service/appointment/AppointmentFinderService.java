@@ -32,8 +32,8 @@ public class AppointmentFinderService {
     @Autowired
     ModelMapper mapper;
 
-    public List<AppointmentModel> find(Long startDate, Long endDate, Long clinicId,Long calendarId) {
-        return appointmentRepository.findAppointmentByDateRange(startDate, endDate,calendarId)
+    public List<AppointmentModel> find(Long startDate, Long endDate, Long clinicId, Long calendarId) {
+        return appointmentRepository.findAppointmentByDateRange(startDate, endDate, calendarId)
                 .orElseThrow(() -> new IllegalArgumentException("Error Find Appointment" +
                         "startDate: " + startDate +
                         "endDate: " + endDate +
@@ -42,9 +42,8 @@ public class AppointmentFinderService {
                 .map(appointment -> {
                     AppointmentModel appointmentModel = mapper.map(appointment, AppointmentModel.class);
                     appointmentModel.setAppointmentType(appointment.getAppointmentType().getName());
-                    appointmentModel.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
-                    appointmentModel.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
-                    appointmentModel.setAppointmentStructure(appointment.getPatient() ==null? AppointmentStructure.Block:AppointmentStructure.Full);
+                    setAppointmentColor(appointmentModel,appointment);
+                    appointmentModel.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
                     return appointmentModel;
                 })
                 .collect(Collectors.toList());
@@ -54,16 +53,18 @@ public class AppointmentFinderService {
         /// TODO: 5/9/2023 implements filter appointment by filter inputs and start,end and clinic
         return null;
     }
-    public SchedulerAppointment find(Long appointmentId){
+
+    public SchedulerAppointment find(Long appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
         SchedulerAppointment model = mapper.map(appointment, SchedulerAppointment.class);
-        model.setAppointmentStructure(appointment.getPatient()==null?AppointmentStructure.Block:AppointmentStructure.Full);
+        model.setAppointmentStructure(appointment.getPatient() == null ? AppointmentStructure.Block : AppointmentStructure.Full);
         model.setIsStatusChangeable(setStatusChangeable(appointment.getStartDate()));
         assignAppointmentRepetitionConfiguration(appointment, model);
         return model;
     }
+
     private void assignAppointmentRepetitionConfiguration(Appointment appointment, SchedulerAppointment model) {
-        if (appointment.getSeriesId() != null &&(!(appointment.getSeriesId().equals(appointment.getId().intValue())))) {
+        if (appointment.getSeriesId() != null && (!(appointment.getSeriesId().equals(appointment.getId().intValue())))) {
             AppointmentSeries appointmentSeries = appointmentSeriesRepository.findBySeriesId(appointment.getSeriesId())
                     .orElseThrow(() -> new IllegalArgumentException("Appointment series not found for id " + appointment.getSeriesId()));
             AppointmentRepetitionConfiguration appointmentRepetitionConfiguration = new AppointmentRepetitionConfiguration();
@@ -73,7 +74,8 @@ public class AppointmentFinderService {
             model.setAppointmentRepetitionConfiguration(new AppointmentRepetitionConfiguration());
         }
     }
-    private Boolean setStatusChangeable(Long startDate){
+
+    private Boolean setStatusChangeable(Long startDate) {
         Instant appointmentTime = Instant.ofEpochMilli(startDate);
         Instant now = Instant.now();
         // Calculate the time difference in minutes
@@ -84,5 +86,22 @@ public class AppointmentFinderService {
         }
         // If the appointment is within 15 minutes in the future or past, return true
         return true;
+    }
+
+    private void setAppointmentColor(AppointmentModel model, Appointment appointment) {
+        switch (appointment.getAppointmentStatus()) {
+            case Created:
+            case Confirmed:
+            case CheckIn:
+            case Checkout:
+                model.setAppointmentTypeColor(appointment.getAppointmentType().getColor());
+                model.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
+                break;
+            case Cancel:
+            case NoShow:
+                model.setAppointmentTypeColor("#151617");
+                model.setAppointmentFontTypeColor("#e9135b");
+                break;
+        }
     }
 }
