@@ -1,6 +1,7 @@
 package com.cob.emr.service.appointment.chart;
 
 import com.cob.emr.entity.appointment.Appointment;
+import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.response.AppointmentResponse;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
