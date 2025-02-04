@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class CreateCancellationFeeUseCase {
     @Autowired
@@ -19,11 +21,22 @@ public class CreateCancellationFeeUseCase {
     ClinicRepository clinicRepository;
 
     public void create(PatientCancellationFeeModel model) {
-        Clinic clinic = clinicRepository
-                .findById(model.getClinicId())
-                .orElseThrow(() -> new IllegalArgumentException("Clinic not found id: " + model.getClinicId()));
-        PatientCancellationFee patientCancellationFee = mapper.map(model,PatientCancellationFee.class);
-        patientCancellationFee.setClinic(clinic);
+        Optional<PatientCancellationFee>  optional= patientCancellationFeeRepository.findByClinic_Id(model.getClinicId());
+        PatientCancellationFee patientCancellationFee ;
+        if(optional.isPresent()){
+            patientCancellationFee =optional.get();
+            patientCancellationFee.setAmount(model.getAmount());
+            patientCancellationFee.setDuration(model.getDuration());
+            patientCancellationFee.setFeeDurationUnit(model.getFeeDurationUnit());
+            patientCancellationFee.setIsEnabled(model.getIsEnabled());
+        }else{
+            Clinic clinic = clinicRepository
+                    .findById(model.getClinicId())
+                    .orElseThrow(() -> new IllegalArgumentException("Clinic not found id: " + model.getClinicId()));
+            patientCancellationFee = mapper.map(model,PatientCancellationFee.class);
+            patientCancellationFee.setClinic(clinic);
+        }
+
         patientCancellationFeeRepository.save(patientCancellationFee);
     }
 }
