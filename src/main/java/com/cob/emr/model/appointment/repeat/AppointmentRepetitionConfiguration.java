@@ -9,7 +9,7 @@ import java.util.Objects;
 @Setter
 @Getter
 public class AppointmentRepetitionConfiguration {
-    private boolean isIgnored = false;
+    private Boolean ignore;
     private AppointmentRepetitionType appointmentRepetitionType;
     private DailyRepeatAppointment daily;
     private WeeklyRepeatAppointment weekly;

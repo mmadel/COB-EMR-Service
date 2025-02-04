@@ -6,7 +6,6 @@ import com.cob.emr.model.appointment.RenderAppointment;
 import com.cob.emr.model.appointment.RenderAppointmentContainer;
 import com.cob.emr.model.appointment.SchedulerAppointment;
 import com.cob.emr.model.appointment.repeat.AppointmentRepetitionConfiguration;
-import com.cob.emr.model.appointment.repeat.DailyRepeatAppointment;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.appointment.AppointmentSeriesRepository;
 import com.cob.emr.usecases.appointment.ConstructRenderAppointmentUseCase;
@@ -35,12 +34,15 @@ public class UpdateSeriesSchedulerAppointmentUseCase {
 
     public RenderAppointmentContainer update(SchedulerAppointment schedulerAppointment) {
         AppointmentSeries appointmentSeries = appointmentSeriesRepository.findBySeriesId(schedulerAppointment.getSeriesId()).get();
+
+        if (schedulerAppointment.getAppointmentRepetitionConfiguration().getIgnore() != null
+                && schedulerAppointment.getAppointmentRepetitionConfiguration().getIgnore()) {
+            return RenderAppointmentContainer.builder()
+                    .addedRenderAppointment(updateSeriesAppointments(schedulerAppointment))
+                    .deletedRenderAppointment(null)
+                    .build();
+        }
         AppointmentRepetitionConfiguration appointmentRepetitionConfiguration = MapAppointmentSeriesToRepetitionConfiguration.map(appointmentSeries);
-//        if(appointmentRepetitionConfiguration.isIgnored())
-//            return RenderAppointmentContainer.builder()
-//                    .addedRenderAppointment(updateSeriesAppointments(schedulerAppointment))
-//                    .deletedRenderAppointment(null)
-//                    .build();
         boolean isSameRepetition = checkRepetitionEquality(appointmentRepetitionConfiguration
                 , schedulerAppointment.getAppointmentRepetitionConfiguration());
         if (isSameRepetition)
