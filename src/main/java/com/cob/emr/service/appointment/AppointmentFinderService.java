@@ -16,6 +16,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +58,7 @@ public class AppointmentFinderService {
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new IllegalArgumentException("Appointment not found"));
         SchedulerAppointment model = mapper.map(appointment, SchedulerAppointment.class);
         model.setAppointmentStructure(appointment.getPatient()==null?AppointmentStructure.Block:AppointmentStructure.Full);
+        model.setIsStatusChangeable(setStatusChangeable(appointment.getStartDate()));
         assignAppointmentRepetitionConfiguration(appointment, model);
         return model;
     }
@@ -69,5 +72,17 @@ public class AppointmentFinderService {
         } else {
             model.setAppointmentRepetitionConfiguration(new AppointmentRepetitionConfiguration());
         }
+    }
+    private Boolean setStatusChangeable(Long startDate){
+        Instant appointmentTime = Instant.ofEpochMilli(startDate);
+        Instant now = Instant.now();
+        // Calculate the time difference in minutes
+        long minutesDifference = Duration.between(now, appointmentTime).toMinutes();
+        // If the appointment is more than 15 minutes in the future, return false
+        if (minutesDifference > 15) {
+            return false;
+        }
+        // If the appointment is within 15 minutes in the future or past, return true
+        return true;
     }
 }

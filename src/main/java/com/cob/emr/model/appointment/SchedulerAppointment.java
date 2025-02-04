@@ -23,5 +23,6 @@ public class SchedulerAppointment {
     private Long patientCaseId;
     private String therapyUUID;
     private Integer seriesId;
+    private Boolean isStatusChangeable;
     private AppointmentStructure appointmentStructure;
 }
