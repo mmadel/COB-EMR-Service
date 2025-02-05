@@ -1,7 +1,7 @@
 package com.cob.emr.entity.patient;
 
 import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.enums.PatientCancellationFeeDurationUnit;
+import com.cob.emr.enums.CancellationFeeDurationUnit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +25,7 @@ public class PatientCancellationFee {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "fee_duration_unit")
-    private PatientCancellationFeeDurationUnit feeDurationUnit;
+    private CancellationFeeDurationUnit feeDurationUnit;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")

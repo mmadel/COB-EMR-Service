@@ -1,6 +1,6 @@
 package com.cob.emr.model.patient;
 
-import com.cob.emr.enums.PatientCancellationFeeDurationUnit;
+import com.cob.emr.enums.CancellationFeeDurationUnit;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +11,6 @@ public class PatientCancellationFeeModel {
     private Double amount;
     private Integer duration;
     private Boolean isEnabled;
-    private PatientCancellationFeeDurationUnit feeDurationUnit;
+    private CancellationFeeDurationUnit feeDurationUnit;
     private Long clinicId;
 }
