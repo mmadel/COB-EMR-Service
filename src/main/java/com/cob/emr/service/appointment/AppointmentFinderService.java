@@ -98,9 +98,11 @@ public class AppointmentFinderService {
                 model.setAppointmentFontTypeColor(appointment.getAppointmentType().getFontColor());
                 break;
             case Cancel:
+                model.setAppointmentTypeColor("#808080");
+                model.setAppointmentFontTypeColor("#000000");
             case NoShow:
-                model.setAppointmentTypeColor("#151617");
-                model.setAppointmentFontTypeColor("#e9135b");
+                model.setAppointmentTypeColor("#FFFFFF");
+                model.setAppointmentFontTypeColor("#000000");
                 break;
         }
     }
