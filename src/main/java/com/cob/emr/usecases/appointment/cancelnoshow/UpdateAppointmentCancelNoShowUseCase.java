@@ -46,6 +46,7 @@ public class UpdateAppointmentCancelNoShowUseCase {
             entity = mapper.map(model, AppointmentCancelNoShowReason.class);
         appointment.setAppointmentStatus(model.getStatus());
         repository.save(entity);
+        deAttachFromSeries(appointment.getId(),appointment.getSeriesId(),appointment);
         appointmentRepository.save(appointment);
         if (model.getStatus().equals(AppointmentStatus.Cancel))
             applyFee(appointment.getStartDate(), model.getReasonDate(), appointment.getClinic().getId(), appointment.getPatient().getId());
@@ -67,5 +68,10 @@ public class UpdateAppointmentCancelNoShowUseCase {
                 .reason(reason)
                 .build();
         createPatientPaymentRecordUseCase.create(request);
+    }
+    private void deAttachFromSeries(Long appointmentId , Integer seriesId , Appointment appointment){
+        if(appointmentId != seriesId.longValue()){
+            appointment.setSeriesId(appointmentId.intValue());
+        }
     }
 }
