@@ -21,7 +21,7 @@ public class CreateCancellationFeeUseCase {
     ClinicRepository clinicRepository;
 
     public void create(PatientCancellationFeeModel model) {
-        Optional<PatientCancellationFee>  optional= patientCancellationFeeRepository.findByClinic_Id(model.getClinicId());
+        Optional<PatientCancellationFee>  optional= patientCancellationFeeRepository.findById(model.getId());
         PatientCancellationFee patientCancellationFee ;
         if(optional.isPresent()){
             patientCancellationFee =optional.get();
@@ -30,11 +30,7 @@ public class CreateCancellationFeeUseCase {
             patientCancellationFee.setFeeDurationUnit(model.getFeeDurationUnit());
             patientCancellationFee.setIsEnabled(model.getIsEnabled());
         }else{
-            Clinic clinic = clinicRepository
-                    .findById(model.getClinicId())
-                    .orElseThrow(() -> new IllegalArgumentException("Clinic not found id: " + model.getClinicId()));
             patientCancellationFee = mapper.map(model,PatientCancellationFee.class);
-            patientCancellationFee.setClinic(clinic);
         }
 
         patientCancellationFeeRepository.save(patientCancellationFee);

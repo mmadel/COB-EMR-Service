@@ -26,8 +26,4 @@ public class PatientCancellationFee {
     @Enumerated(EnumType.STRING)
     @Column(name = "fee_duration_unit")
     private CancellationFeeDurationUnit feeDurationUnit;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "clinic_id", referencedColumnName = "id")
-    private Clinic clinic;
 }

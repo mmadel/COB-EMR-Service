@@ -20,7 +20,10 @@ public class ApplyCancellationFeeUseCase {
                 isFeeApplied = isFeeApplicableByHour(appointmentStartDate, appointmentCancelDate, rule.getDuration());
                 break;
         }
-        return isFeeApplied ? rule.getAmount() : 0.0;
+        if (rule.getIsEnabled())
+            return isFeeApplied ? rule.getAmount() : 0.0;
+        else
+            return 0.0;
     }
 
     public boolean isFeeApplicableByHour(long appointmentStartDate, long cancellationDate, Integer duration) {

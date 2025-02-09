@@ -22,9 +22,9 @@ public class PatientCancellationFeeController {
                 .build();
     }
 
-    @GetMapping("/find/clinicId/{clinicId}")
-    public ResponseEntity find(@PathVariable("clinicId") Long clinicId) {
+    @GetMapping("/find")
+    public ResponseEntity find() {
         return ResponseEntity.ok()
-                .body(findCancellationFeeUseCase.find(clinicId));
+                .body(findCancellationFeeUseCase.find());
     }
 }

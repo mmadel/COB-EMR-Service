@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.stream.StreamSupport;
 
 @Component
 public class FindCancellationFeeUseCase {
@@ -15,11 +16,10 @@ public class FindCancellationFeeUseCase {
     ModelMapper mapper;
     @Autowired
     PatientCancellationFeeRepository patientCancellationFeeRepository;
-    public PatientCancellationFeeModel find(Long clinicId){
-        Optional<PatientCancellationFee> optional= patientCancellationFeeRepository.findByClinic_Id(clinicId);
+    public PatientCancellationFeeModel find(){
+        Optional<PatientCancellationFee> optional= StreamSupport.stream(patientCancellationFeeRepository.findAll().spliterator(), false).findFirst();
         if(optional.isPresent()){
             PatientCancellationFeeModel model=mapper.map(optional.get(),PatientCancellationFeeModel.class);
-            model.setClinicId(clinicId);
             return model;
         }
 
