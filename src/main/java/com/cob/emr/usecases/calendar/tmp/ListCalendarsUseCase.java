@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.calendar.tmp;
 
+import com.cob.emr.Utils.PaginationUtil;
 import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.calendar.UserCalendarAttachment;
 import com.cob.emr.model.calendar.CalendarModel;
@@ -26,10 +27,9 @@ public class ListCalendarsUseCase {
     @Autowired
     ModelMapper mapper;
 
-    public CalendarResponse list(Pageable paging, Long clinicId, String userUUID) {
-        Page<CalendarEntity> pages = calendarRepository.listCalendars(paging, clinicId);
-        long total = (pages).getTotalElements();
-        List<CalendarsListModel> records = pages.stream()
+    public CalendarResponse list(int offset, int limit, Long clinicId, String userUUID) {
+        List<CalendarEntity> list = calendarRepository.listCalendars(clinicId);
+        List<CalendarsListModel> filteredList = list.stream()
                 .filter(calendarEntity -> {
                     if (calendarEntity.getCreatedBy().equals(userUUID)) {
                         return true;
@@ -47,9 +47,10 @@ public class ListCalendarsUseCase {
                     else
                         return fillCalendarsListModel(calendarEntity, null);
                 }).collect(Collectors.toList());
+        List<CalendarsListModel> records = PaginationUtil.paginate(filteredList, offset, limit);
         return CalendarResponse.builder()
                 .number_of_records(records.size())
-                .number_of_matching_records((int) total)
+                .number_of_matching_records(filteredList.size())
                 .records(records)
                 .build();
     }

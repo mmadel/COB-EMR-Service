@@ -56,12 +56,10 @@ public class CalendarControllerq {
     @GetMapping("/list/clinic-id/{clinicId}/user/{user}")
     public ResponseEntity listCalendars(@PathVariable("clinicId") Long clinicId
             , @PathVariable("user") String user
-            , @RequestParam(name = "offset") String offset
-            , @RequestParam(name = "limit") String limit) {
-
-        Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
+            , @RequestParam(name = "offset") int offset
+            , @RequestParam(name = "limit") int limit) {
         return ResponseEntity.ok()
-                .body(listCalendarsUseCase.list(paging, clinicId, user));
+                .body(listCalendarsUseCase.list(offset + 1, limit, clinicId, user));
     }
 
     @GetMapping("/get-attached/clinicId/{clinicId}/uuid/{uuid}")

@@ -24,7 +24,7 @@ public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> 
 
     @Query(value = "select cal  from CalendarEntity cal " +
             "where cal.clinic.id =:clinicId ")
-    Page<CalendarEntity> listCalendars(Pageable paging, @Param("clinicId") Long clinicId);
+    List<CalendarEntity> listCalendars(@Param("clinicId") Long clinicId);
 
     Optional<List<CalendarEntity>> findByClinic_IdAndCreatedBy(Long clinicId , String uuid);
 }
