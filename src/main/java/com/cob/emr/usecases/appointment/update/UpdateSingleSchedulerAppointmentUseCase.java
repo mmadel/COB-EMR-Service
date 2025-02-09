@@ -29,6 +29,7 @@ public class UpdateSingleSchedulerAppointmentUseCase {
     public RenderAppointment update(SchedulerAppointment appointment) {
         fetchAppointmentLookups(appointment);
         Appointment toBecreatedAppointment = createAppointmentEntityUseCase.create(appointment);
+        deAttachFromSeries(appointment.getId(),appointment.getSeriesId(),toBecreatedAppointment);
         appointmentRepository.save(toBecreatedAppointment);
         return constructRenderAppointmentUseCase.construct(toBecreatedAppointment);
     }
@@ -41,5 +42,10 @@ public class UpdateSingleSchedulerAppointmentUseCase {
                 , schedulerAppointmentsLookup.patientsLookups
                 , schedulerAppointmentsLookup.patientCaseLookups
                 , schedulerAppointmentsLookup.appointmentTypeLookups);
+    }
+    private void deAttachFromSeries(Long appointmentId , Integer seriesId , Appointment appointment){
+        if(appointmentId != seriesId.longValue()){
+            appointment.setSeriesId(appointmentId.intValue());
+        }
     }
 }
