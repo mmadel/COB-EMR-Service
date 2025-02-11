@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UpdateSeriesSchedulerAppointmentUseCase {
@@ -31,8 +32,12 @@ public class UpdateSeriesSchedulerAppointmentUseCase {
     AppointmentSeriesRepository appointmentSeriesRepository;
     @Autowired
     UpdateAppointmentsRepetitionUseCase updateAppointmentsRepetitionUseCase;
+    private Long startDateBoundary;
+    private Long endDateBoundary;
 
-    public RenderAppointmentContainer update(SchedulerAppointment schedulerAppointment) {
+    public RenderAppointmentContainer update(SchedulerAppointment schedulerAppointment, Long startDate, Long endDate) {
+        this.startDateBoundary = startDate;
+        this.endDateBoundary = endDate;
         AppointmentSeries appointmentSeries = appointmentSeriesRepository.findBySeriesId(schedulerAppointment.getSeriesId()).get();
 
         if (schedulerAppointment.getAppointmentRepetitionConfiguration().getIgnore() != null
@@ -47,7 +52,7 @@ public class UpdateSeriesSchedulerAppointmentUseCase {
                 , schedulerAppointment.getAppointmentRepetitionConfiguration());
         if (isSameRepetition)
             return RenderAppointmentContainer.builder()
-                    .addedRenderAppointment(updateSeriesAppointments(schedulerAppointment))
+                    .addedRenderAppointment(filter(updateSeriesAppointments(schedulerAppointment)))
                     .deletedRenderAppointment(null)
                     .build();
         else
@@ -62,6 +67,11 @@ public class UpdateSeriesSchedulerAppointmentUseCase {
         if (isUpdate)
             appointmentRepository.saveAll(seriesAppointments);
         return constructRenderAppointmentUseCase.construct(seriesAppointments);
+    }
+
+    private List<RenderAppointment> filter(List<RenderAppointment> renderAppointments) {
+        return renderAppointments.stream().filter(renderAppointment -> renderAppointment.getStartDate() >= startDateBoundary
+                && renderAppointment.getEndDate() <= endDateBoundary).collect(Collectors.toList());
     }
 
     private boolean checkRepetitionEquality(AppointmentRepetitionConfiguration original, AppointmentRepetitionConfiguration modified) {

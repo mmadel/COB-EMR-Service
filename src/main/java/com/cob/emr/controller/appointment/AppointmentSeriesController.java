@@ -28,10 +28,10 @@ public class AppointmentSeriesController {
                 .body(createSchedulerAppointment.create(model));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity updateRepetition(@RequestBody SchedulerAppointment model) {
+    @PostMapping("/update/start/{start}/end/{end}")
+    public ResponseEntity updateRepetition(@RequestBody SchedulerAppointment model, @PathVariable Long start, @PathVariable Long end) {
         return ResponseEntity.ok()
-                .body(updateSeriesSchedulerAppointmentUseCase.update(model));
+                .body(updateSeriesSchedulerAppointmentUseCase.update(model,start,end));
     }
 
 
