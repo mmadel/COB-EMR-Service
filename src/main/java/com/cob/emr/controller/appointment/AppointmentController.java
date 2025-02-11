@@ -1,5 +1,6 @@
 package com.cob.emr.controller.appointment;
 
+import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.SchedulerAppointment;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/appointment")
@@ -65,11 +68,12 @@ public class AppointmentController {
     @GetMapping("/find/startDate/{startDate}/endDate/{endDate}/{clinicId}/calendarId/{calendarId}")
     public ResponseEntity<Object> find(@PathVariable Long startDate, @PathVariable Long endDate,
                                        @PathVariable Long clinicId,
-                                       @PathVariable Long calendarId) {
+                                       @PathVariable Long calendarId,
+                                       @RequestParam(required = false) List<AppointmentStatus> statuses) {
         return ResponseHandler
                 .generateResponse("Successfully find Appointment by date range",
                         HttpStatus.OK,
-                        finderService.find(startDate, endDate, clinicId, calendarId));
+                        finderService.find(startDate, endDate, clinicId, calendarId,statuses));
 
     }
 

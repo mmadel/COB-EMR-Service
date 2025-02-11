@@ -23,9 +23,11 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
             "  (a.startDate >= :startDate AND a.startDate <= :endDate) OR " + // Starts within the range
             "  (a.endDate >= :startDate AND a.endDate <= :endDate) OR " +   // Ends within the range
             "  (a.startDate <= :startDate AND a.endDate >= :endDate) " +   // Spans the entire range
-            ")")
+            ") " +
+            "AND a.appointmentStatus IN  :statuses")
     Optional<List<Appointment>> findAppointmentByDateRange(@Param(value = "startDate") long startDate, @Param(value = "endDate") long endDate,
-                                                           @Param(value = "calendarId") long calendarId);
+                                                           @Param(value = "calendarId") long calendarId,
+                                                           @Param(value = "statuses") List<AppointmentStatus> statuses);
 
     @Query("select a from Appointment a where " +
             "a.patient.id = :patientId " +

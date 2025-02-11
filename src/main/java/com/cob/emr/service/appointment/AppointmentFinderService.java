@@ -3,6 +3,7 @@ package com.cob.emr.service.appointment;
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.appointment.series.AppointmentSeries;
+import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.enums.AppointmentStructure;
 import com.cob.emr.model.appointment.AppointmentFilterModel;
 import com.cob.emr.model.appointment.AppointmentModel;
@@ -32,8 +33,8 @@ public class AppointmentFinderService {
     @Autowired
     ModelMapper mapper;
 
-    public List<AppointmentModel> find(Long startDate, Long endDate, Long clinicId, Long calendarId) {
-        return appointmentRepository.findAppointmentByDateRange(startDate, endDate, calendarId)
+    public List<AppointmentModel> find(Long startDate, Long endDate, Long clinicId, Long calendarId,List<AppointmentStatus> statuses) {
+        return appointmentRepository.findAppointmentByDateRange(startDate, endDate, calendarId,statuses)
                 .orElseThrow(() -> new IllegalArgumentException("Error Find Appointment" +
                         "startDate: " + startDate +
                         "endDate: " + endDate +
@@ -47,11 +48,6 @@ public class AppointmentFinderService {
                     return appointmentModel;
                 })
                 .collect(Collectors.toList());
-    }
-
-    public List<AppointmentModel> filter(Long startDate, Long endDate, Long clinicId, AppointmentFilterModel filterModel) {
-        /// TODO: 5/9/2023 implements filter appointment by filter inputs and start,end and clinic
-        return null;
     }
 
     public SchedulerAppointment find(Long appointmentId) {
