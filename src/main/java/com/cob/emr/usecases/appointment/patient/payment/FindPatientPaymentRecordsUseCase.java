@@ -20,8 +20,8 @@ public class FindPatientPaymentRecordsUseCase {
     @Autowired
     ModelMapper mapper;
 
-    public PatientPaymentRecordResponse find(Long patientId, Pageable pageable) {
-        Page<PatientPaymentRecord> pages = patientPaymentRecordRepository.findByPatient_Id(patientId, pageable);
+    public PatientPaymentRecordResponse find(Long patientId,Long patientCaseId, Pageable pageable) {
+        Page<PatientPaymentRecord> pages = patientPaymentRecordRepository.findByPatient_IdAndPatientCase_Id(patientId,patientCaseId, pageable);
         long total = (pages).getTotalElements();
         List<PatientPaymentRecordChart> records = pages.stream().map(patientPaymentRecord -> {
                     PatientPaymentRecordChart paymentRecordChart = new PatientPaymentRecordChart();

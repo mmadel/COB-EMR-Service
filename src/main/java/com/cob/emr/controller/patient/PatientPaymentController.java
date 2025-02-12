@@ -15,13 +15,13 @@ public class PatientPaymentController {
     @Autowired
     FindPatientPaymentRecordsUseCase findPatientPaymentRecordsUseCase;
 
-    @GetMapping("/find/patientId/{patientId}")
-    public ResponseEntity<Object> find(@PathVariable Long patientId, @RequestParam(name = "offset") String offset,
+    @GetMapping("/find/patientId/{patientId}/caseId/{caseId}")
+    public ResponseEntity<Object> find(@PathVariable Long patientId,@PathVariable Long caseId, @RequestParam(name = "offset") String offset,
                                        @RequestParam(name = "limit") String limit) {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully find patient payments",
                         HttpStatus.OK, null,
-                        findPatientPaymentRecordsUseCase.find(patientId, paging));
+                        findPatientPaymentRecordsUseCase.find(patientId,caseId, paging));
     }
 }
