@@ -1,5 +1,6 @@
 package com.cob.emr.entity.patient;
 
+import com.cob.emr.entity.clinic.Clinic;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,10 @@ public class PatientPaymentRecord {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_case_id", referencedColumnName = "id")
+    private PatientCase patientCase;
 
     @Column(name = "created_at")
     private Long createdAt;

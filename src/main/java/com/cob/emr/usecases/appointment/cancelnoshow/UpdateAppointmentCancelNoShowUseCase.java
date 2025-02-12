@@ -3,6 +3,7 @@ package com.cob.emr.usecases.appointment.cancelnoshow;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.appointment.AppointmentCancelNoShowReason;
 import com.cob.emr.entity.patient.PatientCancellationFee;
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.AppointmentStatus;
 import com.cob.emr.model.appointment.AppointmentCancelNoShowReasonModel;
 import com.cob.emr.model.patient.PatientCancellationFeeModel;
@@ -50,26 +51,26 @@ public class UpdateAppointmentCancelNoShowUseCase {
         deAttachFromSeries(appointment.getId(), appointment.getSeriesId(), appointment);
         appointmentRepository.save(appointment);
         if (model.getStatus().equals(AppointmentStatus.Cancel))
-            applyFee(appointment.getStartDate(), model.getReasonDate(), appointment.getPatient().getId());
+            applyFee(appointment.getStartDate(), model.getReasonDate(), appointment.getPatient().getId(), appointment.getPatientCase());
     }
 
-    private void applyFee(Long appointmentStartDate, Long appointmentCancelDate, Long patientId) {
+    private void applyFee(Long appointmentStartDate, Long appointmentCancelDate, Long patientId , PatientCase patientCase) {
 
         PatientCancellationFee patientCancellationFee = StreamSupport.stream(patientCancellationFeeRepository.findAll().spliterator(), false).findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Cancellation Fee Rule not found for  clinic "));
         PatientCancellationFeeModel rule = mapper.map(patientCancellationFee, PatientCancellationFeeModel.class);
         double fee = applyCancellationFeeUseCase.apply(appointmentStartDate, appointmentCancelDate, rule);
         if (fee != 0.0)
-            createPatientPaymentRecord(patientId, fee, "Cancellation Fee");
+            createPatientPaymentRecord(patientId,patientCase, fee, "Cancellation Fee");
     }
 
-    private void createPatientPaymentRecord(Long patientId, double amount, String reason) {
+    private void createPatientPaymentRecord(Long patientId, PatientCase patientCase ,double amount, String reason) {
         PatientPaymentRecordRequest request = PatientPaymentRecordRequest.builder()
                 .patientId(patientId)
                 .amount(amount)
                 .reason(reason)
                 .build();
-        createPatientPaymentRecordUseCase.create(request);
+        createPatientPaymentRecordUseCase.create(request,patientCase);
     }
 
     private void deAttachFromSeries(Long appointmentId, Integer seriesId, Appointment appointment) {

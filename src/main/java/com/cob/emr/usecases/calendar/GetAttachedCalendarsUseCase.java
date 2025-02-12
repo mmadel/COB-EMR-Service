@@ -37,7 +37,6 @@ public class GetAttachedCalendarsUseCase {
                 })
                 .map(calendarEntity -> {
                     CalendarModel model = mapper.map(calendarEntity, CalendarModel.class);
-                    model.setSelected(true);
                     return model;
                 })
                 .collect(Collectors.toList());

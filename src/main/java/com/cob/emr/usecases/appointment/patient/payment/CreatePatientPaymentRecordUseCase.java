@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.appointment.patient.payment;
 
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.entity.patient.PatientPaymentRecord;
 import com.cob.emr.model.patient.payment.PatientPaymentRecordRequest;
 import com.cob.emr.repositories.patient.PatientRepository;
@@ -15,16 +16,17 @@ public class CreatePatientPaymentRecordUseCase {
     @Autowired
     PatientPaymentRecordRepository patientPaymentRecordRepository;
 
-    public void create(PatientPaymentRecordRequest request) {
+    public void create(PatientPaymentRecordRequest request , PatientCase patientCase) {
         Patient patient = patientRepository.findById(request.getPatientId())
                 .orElseThrow(() -> new IllegalArgumentException("Patient not found : Id " + request.getPatientId()));
-        PatientPaymentRecord record = createEntity(patient, request.getAmount(), request.getReason());
+        PatientPaymentRecord record = createEntity(patient, patientCase,request.getAmount(), request.getReason());
         patientPaymentRecordRepository.save(record);
     }
 
-    private PatientPaymentRecord createEntity(Patient patient, double amount, String reason) {
+    private PatientPaymentRecord createEntity(Patient patient,PatientCase patientCase, double amount, String reason) {
         PatientPaymentRecord record = new PatientPaymentRecord();
         record.setPatient(patient);
+        record.setPatientCase(patientCase);
         record.setAmount(amount);
         record.setReason(reason);
         return record;
