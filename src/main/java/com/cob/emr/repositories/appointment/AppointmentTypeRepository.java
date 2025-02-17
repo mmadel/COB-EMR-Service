@@ -7,10 +7,4 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AppointmentTypeRepository extends PagingAndSortingRepository<AppointmentType, Long> {
-    Optional<List<AppointmentType>> findByClinicId(Long id);
-
-    Optional<AppointmentType> findByIdAndClinic_Id(Long id, Long clinicId);
-    Optional<AppointmentType> findByNameAndClinic_Id(String name , Long clinicId);
-    Optional<AppointmentType> deleteByClinic_Id(Long clinicId);
-
 }

@@ -1,7 +1,9 @@
 package com.cob.emr.controller.patient;
 
 import com.cob.emr.exception.business.PatientCaseException;
+import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.patient.PatientModel;
+import com.cob.emr.model.patient.chart.PatientChartAccessibilityModelRequest;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
 import com.cob.emr.service.patient.finder.PatientFinderService;
@@ -9,6 +11,8 @@ import com.cob.emr.service.patient.updater.PatientUpdaterService;
 import com.cob.emr.usecases.patient.CreatePatientUseCase;
 import com.cob.emr.usecases.patient.DeletePatientUseCase;
 import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
+import com.cob.emr.usecases.patient.FindPatientByNameUseCase;
+import com.cob.emr.usecases.patient.chart.PatientChartAccessibilityUseCase;
 import com.cob.emr.usecases.patient.update.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -38,7 +42,11 @@ public class PatientController {
     FindPatientByClinicIdentificationUseCase findPatientByClinicIdentification;
     @Autowired
     DeletePatientUseCase deletePatientUseCase;
+    @Autowired
+    PatientChartAccessibilityUseCase patientChartAccessibilityUseCase;
 
+    @Autowired
+    FindPatientByNameUseCase findPatientByNameUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
@@ -78,10 +86,23 @@ public class PatientController {
 
     @GetMapping("/find/clinicId/{clinicId}/patient/{patientId}")
     public ResponseEntity<Object> findById(@PathVariable("clinicId") Long clinicId,
-                                           @PathVariable("patientId") Long patientId) {
+                                           @PathVariable("patientId") Long patientId) throws PatientException {
         return ResponseHandler
                 .generateResponse("Successfully Find Patient!",
                         HttpStatus.OK,
                         finderService.findById(clinicId, patientId));
+    }
+
+
+    @PostMapping("/check/chart/accessibility")
+    public ResponseEntity checkPatientChartAccessibility(@RequestBody PatientChartAccessibilityModelRequest patientChartAccessibilityModelRequest) {
+        return ResponseEntity.ok()
+                .body(patientChartAccessibilityUseCase.check(patientChartAccessibilityModelRequest));
+    }
+
+    @GetMapping("/find/name/{name}/clinic-id/{clinic-id}")
+    public ResponseEntity findPatientByName(@PathVariable("name") String name,@PathVariable("clinic-id") Long clinicId) {
+        return ResponseEntity.ok()
+                .body(findPatientByNameUseCase.find(name,clinicId));
     }
 }

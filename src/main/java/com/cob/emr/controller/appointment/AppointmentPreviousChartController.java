@@ -17,20 +17,19 @@ public class AppointmentPreviousChartController {
     @Autowired
     AppointmentChartPreviousFinderService finderService;
 
-    @GetMapping(path = "/find/patientId/{patientId}/clinicId/{clinicId}")
+    @GetMapping(path = "/find/patientId/{patientId}")
     public ResponseEntity<Object> findAllPreviousAppointments(@PathVariable Long patientId,
-                                                              @PathVariable Long clinicId,
                                                               @RequestParam(name = "offset") String offset,
                                                               @RequestParam(name = "limit") String limit) {
         Pageable page = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit),Sort.by("startDate").descending());
         return ResponseHandler
                 .generateResponse("Successfully find All Incoming Appointments",
                         HttpStatus.OK,null,
-                        finderService.findAllPreviousAppointments(patientId, clinicId, page));
+                        finderService.findAllPreviousAppointments(patientId, page));
     }
 
-    @GetMapping(path = "/find/patientId/{patientId}/clinicId/{clinicId}/patientCaseId/{patientCaseId}")
-    public ResponseEntity<Object> findPreviousAppointmentsByCase(@PathVariable Long patientId, @PathVariable Long clinicId,
+    @GetMapping(path = "/find/patientId/{patientId}/patientCaseId/{patientCaseId}")
+    public ResponseEntity<Object> findPreviousAppointmentsByCase(@PathVariable Long patientId,
                                                                  @PathVariable Long patientCaseId,
                                                                  @RequestParam(name = "offset") String offset,
                                                                  @RequestParam(name = "limit") String limit) {
@@ -38,6 +37,6 @@ public class AppointmentPreviousChartController {
         return ResponseHandler
                 .generateResponse("Successfully find Previous Appointments By Case",
                         HttpStatus.OK,null,
-                        finderService.findPreviousAppointmentsByCase(patientId, clinicId, patientCaseId, page));
+                        finderService.findPreviousAppointmentsByCase(patientId, patientCaseId, page));
     }
 }

@@ -67,7 +67,7 @@ public class DeleteOrganizationUserCase {
     }
 
     private void deleteAppointmentTypes(Long clinicId) {
-        appointmentTypeRepository.deleteByClinic_Id(clinicId);
+//        appointmentTypeRepository.deleteByClinic_Id(clinicId);
     }
 
     private void deleteSchedulerConfiguration(Long clinicId) {

@@ -31,6 +31,7 @@ public class ResponseHandler {
         map.put("records", response.getRecords());
         return new ResponseEntity<>(map, status);
     }
+
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
                                                           Object responseObj, ReferringProviderResponse response) {
         Map<String, Object> map = populateResponseMap(message, status,
@@ -46,6 +47,7 @@ public class ResponseHandler {
         map.put("records", response.getRecords());
         return new ResponseEntity<>(map, status);
     }
+
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
                                                           Object responseObj, ClericalUserResponse response) {
         Map<String, Object> map = populateResponseMap(message, status,
@@ -65,6 +67,15 @@ public class ResponseHandler {
 
     public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
                                                           Object responseObj, AppointmentResponse response) {
+
+        Map<String, Object> map = populateResponseMap(message, status,
+                response.getNumber_of_records(), response.getNumber_of_matching_records());
+        map.put("records", response.getRecords());
+        return new ResponseEntity<>(map, status);
+    }
+
+    public static ResponseEntity<Object> generateResponse(String message, HttpStatus status,
+                                                          Object responseObj, PatientPaymentRecordResponse response) {
 
         Map<String, Object> map = populateResponseMap(message, status,
                 response.getNumber_of_records(), response.getNumber_of_matching_records());

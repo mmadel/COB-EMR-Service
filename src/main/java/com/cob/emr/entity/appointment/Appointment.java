@@ -1,5 +1,6 @@
 package com.cob.emr.entity.appointment;
 
+import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
@@ -32,10 +33,6 @@ public class Appointment {
     @Column(name = "appointment_status")
     private AppointmentStatus appointmentStatus;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "appointment_repetition")
-    private AppointmentRepetitionType appointmentRepetition;
-
     @OneToOne
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")
     private Clinic clinic;
@@ -48,10 +45,20 @@ public class Appointment {
     @JoinColumn(name = "case_id", referencedColumnName = "id")
     private PatientCase patientCase;
 
-    @Column(name = "appointment_type")
-    private String appointmentType;
+    @OneToOne
+    @JoinColumn(name = "appointment_type_id", referencedColumnName = "id")
+    private AppointmentType appointmentType;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calendar_id")
+    private CalendarEntity calendar;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
+
+    @Column(name = "title")
+    private String title;
+    @Column
+    private Integer seriesId;
 }
 

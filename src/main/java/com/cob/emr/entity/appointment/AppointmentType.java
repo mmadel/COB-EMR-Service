@@ -14,16 +14,10 @@ public class AppointmentType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
     @Column
     private String name;
     @Column
     private String color;
-
-    @Column
-    private Long duration;
-
-    @ManyToOne
-    @JoinColumn(name = "clinic_id")
-    private Clinic clinic;
+    @Column(name="font_color")
+    private String fontColor;
 }

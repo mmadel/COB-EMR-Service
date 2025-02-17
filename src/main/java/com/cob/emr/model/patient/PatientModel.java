@@ -1,6 +1,7 @@
 package com.cob.emr.model.patient;
 
 import com.cob.emr.enums.*;
+import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.common.AddressDependencyModel;
 import com.cob.emr.model.common.ContactDependencyModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
@@ -22,6 +23,7 @@ public class PatientModel {
     private String firstName;
     private String middleName;
     private String lastName;
+    private String displayName;
     private Long birthDate;
     private MaritalStatus maritalStatus;
     private Suffix suffix;
@@ -37,6 +39,7 @@ public class PatientModel {
     private List<PatientEmergencyDependencyModel> emergencies;
     private PatientDependentModel dependent;
     private List<Long> clinicsId = new ArrayList<>();
+    private List<ClinicModel> clinicModels = new ArrayList<>();
     private List<PatientCaseModel> cases = new ArrayList<>();
     private List<PatientInsuranceDependencyModel> patientInsuranceModels = new ArrayList<>();
 }

@@ -1,23 +1,19 @@
 package com.cob.emr.usecases.appointment.create.repetition;
 
 
-import com.cob.emr.model.appointment.AppointmentModel;
+import com.cob.emr.model.appointment.SchedulerAppointment;
 
 public class AppointmentCloner {
-    public static AppointmentModel clone(AppointmentModel original) {
-        AppointmentModel model = new AppointmentModel();
+    public static SchedulerAppointment clone(SchedulerAppointment original) {
+        SchedulerAppointment model = new SchedulerAppointment();
         model.setTitle(original.getTitle());
         model.setNote(original.getNote());
         model.setTherapyUUID(original.getTherapyUUID());
         model.setAppointmentStatus(original.getAppointmentStatus());
         model.setClinicId(original.getClinicId());
         model.setPatientId(original.getPatientId());
-        model.setPatient(original.getPatient());
         model.setPatientCaseId(original.getPatientCaseId());
-        model.setAppointmentType(original.getAppointmentType());
-        model.setAppointmentTypeColor(original.getAppointmentTypeColor());
-        model.setAppointmentRepeat(original.getAppointmentRepeat());
-        model.setAppointmentCancelNoShowReason(original.getAppointmentCancelNoShowReason());
+        model.setAppointmentTypeId(original.getAppointmentTypeId());
         return model;
     }
 }

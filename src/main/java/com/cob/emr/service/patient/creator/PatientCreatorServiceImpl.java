@@ -2,11 +2,13 @@ package com.cob.emr.service.patient.creator;
 
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
+import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,8 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
     ClinicRepository clinicRepository;
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    ClinicalEMRUserRepository clinicalEMRUserRepository;
 
     @Override
     public PatientModel create(PatientModel model) {
@@ -59,6 +63,8 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
         Set<PatientCase> patientCases = new HashSet<>();
         models.forEach(patientCaseModel -> {
             PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
+            ClinicalEMRUser clinicalEMRUser = clinicalEMRUserRepository.findById(patientCaseModel.getTherapist()).get();
+            patientCase.setClinicalEMRUser(clinicalEMRUser);
             patientCase.setPatient(patient);
             patientCases.add(patientCase);
         });

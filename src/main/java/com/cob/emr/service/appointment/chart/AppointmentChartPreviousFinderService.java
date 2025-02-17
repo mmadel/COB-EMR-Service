@@ -17,18 +17,18 @@ public class AppointmentChartPreviousFinderService {
     AppointmentRepository appointmentRepository;
 
     /* Appointments have been started */
-    public AppointmentResponse findAllPreviousAppointments(Long patientId, Long clinicId,
+    public AppointmentResponse findAllPreviousAppointments(Long patientId,
                                                            Pageable pageable) {
         final long currentDate = (new Date().getTime());
-        Page<List<Appointment>> page = appointmentRepository.findAllPreviousAppointments(patientId, clinicId, currentDate, pageable);
+        Page<List<Appointment>> page = appointmentRepository.findAllPreviousAppointments(patientId, currentDate, pageable);
         return PaginationAppointmentUtil.getAppointmentPageContent(page);
     }
 
     /* Appointments have been started by case */
-    public AppointmentResponse findPreviousAppointmentsByCase(Long patientId, Long clinicId, Long patientCaseId,
+    public AppointmentResponse findPreviousAppointmentsByCase(Long patientId, Long patientCaseId,
                                                                      Pageable pageable) {
         final long currentDate = (new Date().getTime());
-        Page<List<Appointment>> page = appointmentRepository.findPreviousAppointmentsByCase(patientId, clinicId, patientCaseId, currentDate, pageable);
+        Page<List<Appointment>> page = appointmentRepository.findPreviousAppointmentsByCase(patientId, patientCaseId, currentDate, pageable);
         return PaginationAppointmentUtil.getAppointmentPageContent(page);
     }
 }

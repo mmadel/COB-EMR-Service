@@ -1,6 +1,7 @@
 package com.cob.emr.model.appointment;
 
 
+import com.cob.emr.enums.AppointmentStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +13,5 @@ public class AppointmentCancelNoShowReasonModel {
     private Long reasonDate;
     private String comment;
     private Long appointmentId;
+    private AppointmentStatus status;
 }

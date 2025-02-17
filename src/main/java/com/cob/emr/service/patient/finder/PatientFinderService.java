@@ -1,5 +1,6 @@
 package com.cob.emr.service.patient.finder;
 
+import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.response.PatientResponse;
 import org.springframework.data.domain.Pageable;
@@ -12,5 +13,5 @@ public interface PatientFinderService {
 
     List<PatientModel> finsAll(Long clinicId);
 
-    PatientModel findById(Long clinicId, Long patientId);
+    PatientModel findById(Long clinicId, Long patientId) throws PatientException;
 }
