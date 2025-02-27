@@ -10,5 +10,5 @@ import java.util.List;
 public class SOAPSection {
     private Long id;
     private String name;
-    List<SOAPSectionCategory> categoryies;
+    List<SOAPSectionCategory> categories;
 }
