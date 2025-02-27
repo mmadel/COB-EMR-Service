@@ -27,7 +27,7 @@ public class CreateSoapSectionUseCase {
     public void create(SOAPSection soapSection) {
         SOAPSectionEntity entity = new SOAPSectionEntity();
         entity.setName(soapSection.getName());
-        List<SOAPSectionCategoryEntity> categoryEntities = createCategoryEntities(soapSection.getCategoryies());
+        List<SOAPSectionCategoryEntity> categoryEntities = createCategoryEntities(soapSection.getCategories());
         entity.setCategories(categoryEntities);
         soapSectionRepository.save(entity);
     }

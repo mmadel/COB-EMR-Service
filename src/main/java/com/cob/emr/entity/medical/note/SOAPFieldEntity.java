@@ -27,5 +27,5 @@ public class SOAPFieldEntity {
 
     @Column(name = "field_value", columnDefinition = "json")
     @Type(type = "json")
-    private List<SOAPField> value;
+    private SOAPField value;
 }

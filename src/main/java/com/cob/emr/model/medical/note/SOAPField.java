@@ -8,7 +8,6 @@ import java.util.List;
 @Setter
 @Getter
 public class SOAPField {
-    private Long id;
     private String name;
     private String display;
     private String type;
