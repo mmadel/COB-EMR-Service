@@ -3,8 +3,6 @@ package com.cob.emr.model.medical.note;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 public class SOAPField {
@@ -12,8 +10,8 @@ public class SOAPField {
     private String name;
     private String display;
     private String type;
-    private List<String> value;
-    private String valueType;
+    private Object value;
+    private String selectValue;
     private String parentField;
 
 }

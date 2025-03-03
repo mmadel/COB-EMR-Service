@@ -28,4 +28,8 @@ public class SOAPFieldEntity {
     @Column(name = "field_value", columnDefinition = "json")
     @Type(type = "json")
     private SOAPField value;
+
+    @Column(name = "field_name")
+    private String fieldName;
+
 }
