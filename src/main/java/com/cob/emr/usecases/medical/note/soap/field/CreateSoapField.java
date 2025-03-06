@@ -8,10 +8,13 @@ import com.cob.emr.model.medical.note.SOAPIDField;
 import java.util.UUID;
 
 public class CreateSoapField {
+    static int counter = 0;
+
     public static SOAPFieldEntity create(FieldRequest fieldRequest, String parentUUID) {
         SOAPField field = new SOAPField();
-        field.setName(createFieldName(fieldRequest.getFieldName()));
-        field.setDisplay(fieldRequest.isIgnoreDisplay() ?null:fieldRequest.getFieldName());
+        String fieldName = (counter++) + "_" + createFieldName(fieldRequest.getFieldName());
+        field.setName(fieldName);
+        field.setDisplay(fieldRequest.isIgnoreDisplay() ? null : fieldRequest.getFieldName());
         field.setType(fieldRequest.getFieldType());
         field.setSelectValue(fieldRequest.getSelectValue());
         field.setValue(fieldRequest.getValue());

@@ -1,9 +1,9 @@
 package com.cob.emr.controller.medical.note;
 
-import com.cob.emr.model.medical.note.FieldRequest;
-import com.cob.emr.model.medical.note.SOAPField;
-import com.cob.emr.model.medical.note.SOAPSection;
+import com.cob.emr.model.medical.note.*;
 import com.cob.emr.usecases.medical.note.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +23,8 @@ public class MedicalNoteController {
     UpdateSOAPCategoryFieldUseCase updateSOAPCategoryFieldUseCase;
     @Autowired
     CreateCategoryFieldUseCase createCategoryFieldUseCase;
+    @Autowired
+    GenerateSOAPFieldUseCase GenerateSOAPFieldUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -45,16 +47,26 @@ public class MedicalNoteController {
                 .build();
     }
 
-    @PostMapping("/add/soap/full/field/category/{category}")
+    @PostMapping("/create-soap-field/category/{category}")
     public ResponseEntity addFullField(@RequestBody List<FieldRequest> requests, @PathVariable String category) {
-        createCategoryFieldUseCase.create(requests, category);
         return ResponseEntity.ok()
-                .build();
+                .body(createCategoryFieldUseCase.create(requests, category));
     }
 
     @GetMapping("/find/section/{section}")
     public ResponseEntity getFieldBySection(@PathVariable String section) {
         return ResponseEntity.ok()
                 .body(findSOAPFieldsBySectionUseCase.find(section));
+    }
+
+    @PostMapping("/construct-soap-field")
+    public ObjectNode generateDependencies(@RequestBody DependencyRequest request) {
+        if (request.dependencies == null || request.dependencies.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input: dependencies list cannot be empty");
+        }
+
+        Item root = GenerateSOAPFieldUseCase.buildTree(request.dependencies);
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.valueToTree(root);
     }
 }

@@ -32,4 +32,7 @@ public class SOAPFieldEntity {
     @Column(name = "field_name")
     private String fieldName;
 
+    @Column(name = "field_display_name")
+    private String fieldDisplayName;
+
 }
