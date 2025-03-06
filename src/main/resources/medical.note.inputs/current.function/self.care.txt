@@ -1,0 +1,58 @@
+Self Care
+    Hygiene
+        Grooming
+            Washing Body Parts
+            Washing Whole Body
+            Drying Oneself
+            Caring for Skin
+            Caring for Teeth
+            Caring for Hair
+            Caring for Nails (Toe & Finger)
+        Looking After One's Health
+            Maintaining Balanced Diet
+            Keeping Warm
+            Keeping Cool
+            Getting Immunizations
+            Getting Regular Physical Examinations
+        Dressing
+            Putting on Clothes
+            Putting on Footwear
+            Putting on Appropriate Clothing
+            Removing Clothes
+            Removing Footwear
+        Bathing
+            Showering
+            Washing Body Parts
+            Drying Oneself
+        Toileting
+            Regulating Urination
+            Regulating Defecation
+            Regulating Menstrual Care
+    Sleep
+        Disturbed Sleep
+        Sleeping Postures
+            Prone
+            Supine
+            Side R
+            Side L
+        Pillows
+        Surface
+            Firm
+            Soft
+            Sag
+            Custom
+    IADLs
+        Ability to Use Telephone
+        Shopping
+        Food Preparation
+        Housekeeping
+        Laundry
+        Mode of Transportation
+        Responsibility for Own Medications
+        Ability to Handle Finances
+    Household Chores
+        Cook a Meal
+        Laundry
+    Drive Community Distance
+    Volunteering
+    Caregiving

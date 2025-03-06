@@ -1,0 +1,59 @@
+["Self Care","Hygiene","Grooming","Washing Body Parts"],
+["Self Care","Hygiene","Grooming","Washing Whole Body"],
+["Self Care","Hygiene","Grooming","Drying Oneself"],
+["Self Care","Hygiene","Grooming","Caring for Skin"],
+["Self Care","Hygiene","Grooming","Caring for Teeth"],
+["Self Care","Hygiene","Grooming","Caring for Hair"],
+["Self Care","Hygiene","Grooming","Caring for Nails Toe and Finger"],
+
+["Self Care","Hygiene","Looking After One's Health","Maintaining Balanced Diet"],
+["Self Care","Hygiene","Looking After One's Health","Keeping Warm"],
+["Self Care","Hygiene","Looking After One's Health","Keeping Cool"],
+["Self Care","Hygiene","Looking After One's Health","Getting Immunizations"],
+["Self Care","Hygiene","Looking After One's Health","Getting Regular Physical Examinations"],
+
+
+["Self Care","Hygiene","Dressing","Putting on Clothes"],
+["Self Care","Hygiene","Dressing","Putting on Footwear"],
+["Self Care","Hygiene","Dressing","Putting on Appropriate Clothing"],
+["Self Care","Hygiene","Dressing","Removing Clothes"],
+["Self Care","Hygiene","Dressing","Removing Footwear"],
+
+["Self Care","Hygiene","Bathing","Showering"],
+["Self Care","Hygiene","Bathing","Washing Body Parts"],
+["Self Care","Hygiene","Bathing","Drying Oneself"],
+
+["Self Care","Hygiene","Toileting","Regulating Urination"],
+["Self Care","Hygiene","Toileting","Regulating Defecation"],
+["Self Care","Hygiene","Toileting","Regulating Menstrual Care"],
+
+
+["Self Care","Sleep","Disturbed Sleep"],
+["Self Care","Sleep","Sleeping Postures","Prone"],
+["Self Care","Sleep","Sleeping Postures","Supine"],
+["Self Care","Sleep","Sleeping Postures","Side R"],
+["Self Care","Sleep","Sleeping Postures","Side L"],
+
+["Self Care","Sleep","Pillows"],
+["Self Care","Sleep","Pillows","Surface","Firm"],
+["Self Care","Sleep","Pillows","Surface","Soft"],
+["Self Care","Sleep","Pillows","Surface","Sag"],
+["Self Care","Sleep","Pillows","Surface","Custom"],
+
+
+["Self Care","IADLs","Ability to Use Telephone"],
+["Self Care","IADLs","Shopping"],
+["Self Care","IADLs","Food Preparation"],
+["Self Care","IADLs","Housekeeping"],
+["Self Care","IADLs","Laundry"],
+["Self Care","IADLs","Mode of Transportation"],
+["Self Care","IADLs","Responsibility for Own Medications"],
+["Self Care","IADLs","Ability to Handle Finances"],
+
+["Self Care","Household Chores","Cook a Meal"],
+["Self Care","Household Chores","Laundry"]
+
+
+["Self Care","Drive Community Distance"],
+["Self Care","Volunteering"],
+["Self Care","Caregiving"]
