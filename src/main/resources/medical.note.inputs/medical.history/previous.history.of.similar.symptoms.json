@@ -1,0 +1,19 @@
+{
+    "dependencies": [
+        [
+            "Previous History of Similar Symptoms",
+            "Previous Episodes of Same Complaints",
+            "Age Range"
+        ],
+        [
+            "Previous History of Similar Symptoms",
+            "Previous Episodes of Same Complaints",
+            "Year of First Episode"
+        ],
+        [
+            "Previous History of Similar Symptoms",
+            "Previous Treatments for Similar Symptoms",
+            "Comment"
+        ]
+    ]
+}
