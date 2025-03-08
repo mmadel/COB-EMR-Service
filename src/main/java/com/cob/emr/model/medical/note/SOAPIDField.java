@@ -7,5 +7,5 @@ import lombok.Setter;
 @Getter
 public class SOAPIDField {
     private String id;
-    private String valueChange;
+    private Object valueChange;
 }

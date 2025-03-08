@@ -12,7 +12,8 @@ public class FieldRequest {
     private String fieldType;
     private String selectValue;
     private Object value;
-    private String changeValue;
+    private Object changeValue;
     private boolean ignoreDisplay;
+    private String changeValueSelect;
     private List<FieldRequest> dependencies;
 }

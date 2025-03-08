@@ -22,6 +22,7 @@ public class CreateSoapField {
         soapidField.setId(UUID.randomUUID().toString());
         soapidField.setValueChange(fieldRequest.getChangeValue());
         field.setIdField(soapidField);
+        field.setChangeValueSelect(fieldRequest.getChangeValueSelect());
         field.setParentField(parentUUID);
         SOAPFieldEntity soapFieldEntity = new SOAPFieldEntity();
         soapFieldEntity.setValue(field);
