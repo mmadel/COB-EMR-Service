@@ -14,6 +14,8 @@ public class SOAPField {
     private String selectValue;
     private String changeValueSelect;
     private Integer checkBoxCol;
+    private String labelStyle;
+    private String checkBoxStyle;
     private String parentField;
 
 }

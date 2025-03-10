@@ -41,8 +41,13 @@ public class CreateSoapField {
         if (input == null || input.isEmpty()) {
             return input;
         }
-        // Remove special characters and split by spaces
-        String[] words = input.replaceAll("[^a-zA-Z ]", "").split(" ");
+
+        // Allow numbers and letters but remove special characters
+        String[] words = input.replaceAll("[^a-zA-Z0-9 ]", "").trim().split("\\s+");
+
+        if (words.length == 0) { // Handle case where all characters are removed
+            return "";
+        }
 
         if (words.length == 1) {
             return words[0].substring(0, 1).toLowerCase() + words[0].substring(1);
@@ -55,4 +60,6 @@ public class CreateSoapField {
             return sb.toString();
         }
     }
+
+
 }
