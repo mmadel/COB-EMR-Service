@@ -25,6 +25,8 @@ public class MedicalNoteController {
     CreateCategoryFieldUseCase createCategoryFieldUseCase;
     @Autowired
     GenerateSOAPFieldUseCase GenerateSOAPFieldUseCase;
+    @Autowired
+    CreateBillingSOAPFieldUseCase createBillingSOAPFieldUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -51,6 +53,12 @@ public class MedicalNoteController {
     public ResponseEntity addFullField(@RequestBody List<FieldRequest> requests, @PathVariable String category) {
         return ResponseEntity.ok()
                 .body(createCategoryFieldUseCase.create(requests, category));
+    }
+
+    @PostMapping("/create-billing-soap-field/category/{category}")
+    public ResponseEntity addBillingField(@RequestBody List<BillingFieldRequest> requests, @PathVariable String category) {
+        return ResponseEntity.ok()
+                .body(createBillingSOAPFieldUseCase.create(requests, category));
     }
 
     @GetMapping("/find/section/{section}")
