@@ -1,7 +1,6 @@
 package com.cob.emr.entity.medical.note.soap.field;
 
-import com.cob.emr.model.common.AddressDependencyModel;
-import com.cob.emr.model.medical.note.SOAPField;
+import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +9,6 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "soap_field")

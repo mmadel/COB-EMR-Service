@@ -2,8 +2,8 @@ package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionEntity;
-import com.cob.emr.model.medical.note.SOAPSection;
-import com.cob.emr.model.medical.note.SOAPSectionCategory;
+import com.cob.emr.model.medical.note.soap.field.SOAPSection;
+import com.cob.emr.model.medical.note.soap.field.SOAPSectionCategory;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionRepository;
 import org.modelmapper.ModelMapper;

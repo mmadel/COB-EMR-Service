@@ -3,7 +3,7 @@ package com.cob.emr.usecases.medical.note;
 import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionEntity;
-import com.cob.emr.model.medical.note.SOAPField;
+import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.cob.emr.repositories.medical.note.SOAPSectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

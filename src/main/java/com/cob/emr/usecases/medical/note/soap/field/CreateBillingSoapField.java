@@ -1,9 +1,9 @@
 package com.cob.emr.usecases.medical.note.soap.field;
 
 import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
-import com.cob.emr.model.medical.note.BillingFieldRequest;
-import com.cob.emr.model.medical.note.SOAPField;
-import com.cob.emr.model.medical.note.SOAPIDField;
+import com.cob.emr.model.medical.note.soap.field.SOAPField;
+import com.cob.emr.model.medical.note.soap.field.SOAPIDField;
+import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
 
 import java.util.UUID;
 

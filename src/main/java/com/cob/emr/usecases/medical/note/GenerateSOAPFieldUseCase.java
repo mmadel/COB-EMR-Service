@@ -1,9 +1,8 @@
 package com.cob.emr.usecases.medical.note;
 
-import com.cob.emr.model.medical.note.Item;
+import com.cob.emr.model.medical.note.soap.field.Item;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
