@@ -1,6 +1,6 @@
 package com.cob.emr.repositories.medical.note;
 
-import com.cob.emr.entity.medical.note.SOAPSectionCategoryEntity;
+import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

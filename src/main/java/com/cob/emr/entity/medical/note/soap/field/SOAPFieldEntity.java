@@ -1,4 +1,4 @@
-package com.cob.emr.entity.medical.note;
+package com.cob.emr.entity.medical.note.soap.field;
 
 import com.cob.emr.model.common.AddressDependencyModel;
 import com.cob.emr.model.medical.note.SOAPField;

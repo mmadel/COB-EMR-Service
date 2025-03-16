@@ -1,6 +1,6 @@
 package com.cob.emr.usecases.medical.note.soap.field;
 
-import com.cob.emr.entity.medical.note.SOAPFieldEntity;
+import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
 import com.cob.emr.model.medical.note.BillingFieldRequest;
 import com.cob.emr.model.medical.note.SOAPField;
 import com.cob.emr.model.medical.note.SOAPIDField;

@@ -1,4 +1,4 @@
-package com.cob.emr.entity.medical.note;
+package com.cob.emr.entity.medical.note.soap.field;
 
 import lombok.Getter;
 import lombok.Setter;
