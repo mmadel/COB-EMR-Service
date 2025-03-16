@@ -1,4 +1,4 @@
-package com.cob.emr.model.medical.note;
+package com.cob.emr.model.medical.note.soap.field;
 
 import java.util.ArrayList;
 import java.util.List;
