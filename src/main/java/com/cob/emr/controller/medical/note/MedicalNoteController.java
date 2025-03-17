@@ -1,5 +1,6 @@
 package com.cob.emr.controller.medical.note;
 
+import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.model.medical.note.soap.field.FieldRequest;
 import com.cob.emr.model.medical.note.soap.field.Item;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
@@ -32,6 +33,8 @@ public class MedicalNoteController {
     GenerateSOAPFieldUseCase GenerateSOAPFieldUseCase;
     @Autowired
     CreateBillingSOAPFieldUseCase createBillingSOAPFieldUseCase;
+    @Autowired
+    CreateMedicalNoteUseCase createMedicalNoteUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -81,5 +84,12 @@ public class MedicalNoteController {
         Item root = GenerateSOAPFieldUseCase.buildTree(request.dependencies);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.valueToTree(root);
+    }
+    @PostMapping("/create")
+    public ResponseEntity create(@RequestBody MedicalNoteRequest request){
+        createMedicalNoteUseCase.createMedicalNote(request);
+        return ResponseEntity.ok()
+                .build();
+
     }
 }

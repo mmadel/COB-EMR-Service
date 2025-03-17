@@ -1,17 +1,26 @@
 package com.cob.emr.entity.medical.note;
 
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.MedicalNoteType;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "medical_note")
-public class MedicalNote {
+@Setter
+@Getter
+public abstract class MedicalNote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "case_id")
+    private PatientCase patientCase;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "note_type")

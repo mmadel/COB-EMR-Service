@@ -6,6 +6,8 @@ import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
 import com.cob.emr.model.medical.note.types.initial.evaluation.plan.PlanOfCare;
 import com.cob.emr.model.medical.note.types.initial.evaluation.subjective.Subjective;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -19,6 +21,8 @@ import javax.persistence.Table;
 @TypeDefs({
         @TypeDef(name = "json", typeClass = JsonStringType.class)
 })
+@Setter
+@Getter
 public class InitialEvaluation extends MedicalNote {
     @Column(name = "subjective", columnDefinition = "json")
     @Type(type = "json")

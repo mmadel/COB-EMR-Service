@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 public class Billing {
-    private List<Object> supplies;
+    private Object supplies;
     private String post_Treatment;
     private String pre_Treatment;
     private String objective_findings;
