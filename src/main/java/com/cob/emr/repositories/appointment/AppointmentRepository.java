@@ -85,6 +85,15 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
             "AND a.clinic.id = :clinicId " +
             "AND a.patientCase.id = :patientCaseId " +
             "AND  (a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.NoShow OR a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.Cancel)")
+    List<Appointment> findAllNoShowAppointmentsWithoutPage(@Param(value = "patientId") long patientId,
+                                                           @Param(value = "clinicId") long clinicId,
+                                                           @Param(value = "patientCaseId") long patientCaseId);
+
+    @Query("select a from Appointment a where " +
+            "a.patient.id = :patientId " +
+            "AND a.clinic.id = :clinicId " +
+            "AND a.patientCase.id = :patientCaseId " +
+            "AND  (a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.NoShow OR a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.Cancel)")
     Page<List<Appointment>> findCancelNoShowAppointments(@Param(value = "patientId") long patientId,
                                                          @Param(value = "clinicId") long clinicId,
                                                          @Param(value = "patientCaseId") long patientCaseId, Pageable paging);
@@ -108,8 +117,9 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     @Modifying
     @Query("delete from Appointment a where a.seriesId =:seriesId")
     void deleteBySeriesId(@Param(value = "seriesId") Integer seriesId);
+
     @Modifying
     @Query("update Appointment a set a.appointmentStatus=:appointmentStatus where a.id =:appointmentId")
-    void updateAppointmentStatus(@Param(value = "appointmentStatus") AppointmentStatus appointmentStatus,@Param(value = "appointmentId") Long appointmentId);
+    void updateAppointmentStatus(@Param(value = "appointmentStatus") AppointmentStatus appointmentStatus, @Param(value = "appointmentId") Long appointmentId);
 
 }
