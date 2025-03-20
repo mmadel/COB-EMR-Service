@@ -42,7 +42,7 @@ public class FindPatientRecords {
                 .map(appointment -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(appointment.getId());
-                    patientRecord.setStatus(appointment.getAppointmentStatus().toString());
+                    patientRecord.setStatus(appointment.getAppointmentStatus().label);
                     patientRecord.setDate(appointment.getStartDate());
                     return patientRecord;
                 }).collect(Collectors.toList()));
@@ -54,7 +54,7 @@ public class FindPatientRecords {
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
-                    patientRecord.setStatus(medicalNote.getType().toString());
+                    patientRecord.setStatus(medicalNote.getType().label);
                     patientRecord.setDate(medicalNote.getCreatedAt());
                     return patientRecord;
                 }).collect(Collectors.toList()));
