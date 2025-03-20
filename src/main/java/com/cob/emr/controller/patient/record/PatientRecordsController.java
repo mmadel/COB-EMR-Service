@@ -13,9 +13,10 @@ public class PatientRecordsController {
     FindPatientRecords findPatientRecords;
 
     @GetMapping("/find")
-    public ResponseEntity getFieldBySection(@RequestBody PatientRecordRequest request) {
+    public ResponseEntity getFieldBySection(@RequestBody PatientRecordRequest request, @RequestParam(name = "offset") int offset
+            , @RequestParam(name = "limit") int limit) {
         return ResponseEntity.ok()
-                .body(findPatientRecords.construct(request));
+                .body(findPatientRecords.construct(request,offset + 1, limit));
     }
 
 }
