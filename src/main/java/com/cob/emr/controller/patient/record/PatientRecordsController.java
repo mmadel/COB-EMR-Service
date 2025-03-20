@@ -12,7 +12,7 @@ public class PatientRecordsController {
     @Autowired
     FindPatientRecords findPatientRecords;
 
-    @GetMapping("/find")
+    @PostMapping("/find")
     public ResponseEntity getFieldBySection(@RequestBody PatientRecordRequest request, @RequestParam(name = "offset") int offset
             , @RequestParam(name = "limit") int limit) {
         return ResponseEntity.ok()
