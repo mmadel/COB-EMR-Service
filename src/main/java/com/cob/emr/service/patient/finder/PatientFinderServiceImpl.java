@@ -2,7 +2,10 @@ package com.cob.emr.service.patient.finder;
 
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.enums.PatientRecordAction;
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.clinic.ClinicModel;
@@ -10,6 +13,7 @@ import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.clinic.ClinicRepository;
+import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
@@ -40,6 +44,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     ModelMapper mapper;
     @Autowired
     FindPatientCasesUseCase findPatientCasesUseCase;
+    @Autowired
+    MedicalNoteRepository medicalNoteRepository;
 
     @Override
     public PatientResponse findAll(Pageable pageable, Long clinicId) {
@@ -98,12 +104,16 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                 .orElseThrow(() -> new IllegalArgumentException("Clinic with id not found" + patientId));
 
         Optional<Patient> patient = patientRepository.findByIdAndClinicsIn(patientId, clinics).stream().findFirst();
-        if(patient.isPresent()) {
+        if (patient.isPresent()) {
             PatientModel model = mapper.map(patient.get(), PatientModel.class);
             model.setCases(patientCaseRepository
                     .findByPatient_Id(patientId)
                     .stream()
-                    .map(patientCase -> mapper.map(patientCase, PatientCaseModel.class))
+                    .map(patientCase -> {
+                        PatientCaseModel caseModel = mapper.map(patientCase, PatientCaseModel.class);
+                        setPatientCaseRecordActions(patientCase.getId(), caseModel);
+                        return caseModel;
+                    })
                     .collect(Collectors.toList()));
             List<Patient> patients = new ArrayList<>();
             patients.add(queriedPatient);
@@ -111,8 +121,25 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                     clinicRepository.findByPatientsIn(patients).stream().map(Clinic::getId).collect(Collectors.toList())
             );
             return model;
-        }else{
-            throw new PatientException(HttpStatus.CONFLICT, PatientException.PATIENT_NOTFOUND, new Object[]{patientId,clinicId});
+        } else {
+            throw new PatientException(HttpStatus.CONFLICT, PatientException.PATIENT_NOTFOUND, new Object[]{patientId, clinicId});
         }
+    }
+
+    private void setPatientCaseRecordActions(Long caseId, PatientCaseModel patientCase) {
+        Optional<List<MedicalNote>> optional = medicalNoteRepository.findByPatientCase_Id(caseId);
+        List<String> patientRecordActions = new ArrayList<>();
+        if (optional.get().isEmpty()) {
+            patientRecordActions.add(PatientRecordAction.Initial_Examination.toString());
+            patientRecordActions.add(PatientRecordAction.Quick_Discharge.toString());
+            patientRecordActions.add(PatientRecordAction.Case_Note.toString());
+        } else {
+            patientRecordActions.add(PatientRecordAction.Daily_Note.toString());
+            patientRecordActions.add(PatientRecordAction.Progress_Note.toString());
+            patientRecordActions.add(PatientRecordAction.Discharge.toString());
+            patientRecordActions.add(PatientRecordAction.Quick_Discharge.toString());
+            patientRecordActions.add(PatientRecordAction.Case_Note.toString());
+        }
+        patientCase.setPatientRecordActions(patientRecordActions);
     }
 }
