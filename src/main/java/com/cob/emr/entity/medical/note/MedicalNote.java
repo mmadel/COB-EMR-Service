@@ -1,11 +1,13 @@
 package com.cob.emr.entity.medical.note;
 
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -35,6 +37,11 @@ public abstract class MedicalNote {
     @Column(name = "note_date")
     private Long noteDate;
 
-    @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private MedicalNoteStatus status;
+
+    @PrePersist
+    private void beforeSaving() {
+        createdAt = new Date().getTime();
+    }
 }
