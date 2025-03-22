@@ -34,6 +34,9 @@ public abstract class MedicalNote {
     @Column(name = "created_by")
     private String createdBy;
 
+    @Column(name = "updated_at")
+    private Long updatedAt;
+
     @Column(name = "note_date")
     private Long noteDate;
 
@@ -43,5 +46,9 @@ public abstract class MedicalNote {
     @PrePersist
     private void beforeSaving() {
         createdAt = new Date().getTime();
+    }
+    @PreUpdate
+    private void beforeUpdating() {
+        updatedAt = new Date().getTime();
     }
 }

@@ -2,6 +2,7 @@ package com.cob.emr.enums;
 
 public enum MedicalNoteStatus {
     Create("create"),
+    Remove("remove"),
     Draft("draft"),
     Froward("Froward"),
     Finalized("Finalized");
