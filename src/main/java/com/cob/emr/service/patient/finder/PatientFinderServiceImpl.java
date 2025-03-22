@@ -4,10 +4,8 @@ import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.PatientRecordAction;
-import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
@@ -18,6 +16,7 @@ import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
+import com.cob.emr.usecases.patient.record.AssignPatientCaseRecordActionsUseCase;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,6 +46,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     FindPatientCasesUseCase findPatientCasesUseCase;
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    AssignPatientCaseRecordActionsUseCase assignPatientCaseRecordActionsUseCase;
 
     @Override
     public PatientResponse findAll(Pageable pageable, Long clinicId) {
@@ -112,7 +113,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                     .stream()
                     .map(patientCase -> {
                         PatientCaseModel caseModel = mapper.map(patientCase, PatientCaseModel.class);
-                        setPatientCaseRecordActions(patientCase.getId(), caseModel);
+                        List<String> actions = assignPatientCaseRecordActionsUseCase.assign(patientCase.getId());
+                        caseModel.setPatientRecordActions(actions);
                         return caseModel;
                     })
                     .collect(Collectors.toList()));
@@ -125,25 +127,5 @@ public class PatientFinderServiceImpl implements PatientFinderService {
         } else {
             throw new PatientException(HttpStatus.CONFLICT, PatientException.PATIENT_NOTFOUND, new Object[]{patientId, clinicId});
         }
-    }
-
-    private void setPatientCaseRecordActions(Long caseId, PatientCaseModel patientCase) {
-        List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId)
-                .orElseThrow(() -> new IllegalArgumentException("medical notes not found"))
-                .stream().filter(medicalNote -> !medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
-                .collect(Collectors.toList());
-        List<String> patientRecordActions = new ArrayList<>();
-        if (medicalNotes.isEmpty()) {
-            patientRecordActions.add(PatientRecordAction.Initial_Examination.toString());
-            patientRecordActions.add(PatientRecordAction.Quick_Discharge.toString());
-            patientRecordActions.add(PatientRecordAction.Case_Note.toString());
-        } else {
-            patientRecordActions.add(PatientRecordAction.Daily_Note.toString());
-            patientRecordActions.add(PatientRecordAction.Progress_Note.toString());
-            patientRecordActions.add(PatientRecordAction.Discharge.toString());
-            patientRecordActions.add(PatientRecordAction.Quick_Discharge.toString());
-            patientRecordActions.add(PatientRecordAction.Case_Note.toString());
-        }
-        patientCase.setPatientRecordActions(patientRecordActions);
     }
 }

@@ -25,8 +25,7 @@ public class MedicalNoteActionController {
 
     @DeleteMapping("/delete/id/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
-        removeMedicalNoteUseCase.remove(id);
         return ResponseEntity.ok()
-                .body(id);
+                .body(removeMedicalNoteUseCase.remove(id));
     }
 }
