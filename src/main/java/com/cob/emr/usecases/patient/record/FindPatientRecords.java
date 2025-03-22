@@ -57,6 +57,7 @@ public class FindPatientRecords {
     private void getNotes(Long caseId, List<PatientRecord> records) {
         List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
         records.addAll(medicalNotes.stream()
+                .filter(medicalNote -> !medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());

@@ -5,6 +5,7 @@ import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
+import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.PatientRecordAction;
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.PatientException;
@@ -127,9 +128,12 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     }
 
     private void setPatientCaseRecordActions(Long caseId, PatientCaseModel patientCase) {
-        Optional<List<MedicalNote>> optional = medicalNoteRepository.findByPatientCase_Id(caseId);
+        List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId)
+                .orElseThrow(() -> new IllegalArgumentException("medical notes not found"))
+                .stream().filter(medicalNote -> !medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
+                .collect(Collectors.toList());
         List<String> patientRecordActions = new ArrayList<>();
-        if (optional.get().isEmpty()) {
+        if (medicalNotes.isEmpty()) {
             patientRecordActions.add(PatientRecordAction.Initial_Examination.toString());
             patientRecordActions.add(PatientRecordAction.Quick_Discharge.toString());
             patientRecordActions.add(PatientRecordAction.Case_Note.toString());
