@@ -3,6 +3,8 @@ package com.cob.emr.usecases.patient.record;
 import com.cob.emr.Utils.PaginationUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.enums.MedicalNoteStatus;
+import com.cob.emr.enums.PatientRecordLineAction;
 import com.cob.emr.model.calendar.CalendarsListModel;
 import com.cob.emr.model.patient.record.PatientRecord;
 import com.cob.emr.model.patient.record.PatientRecordRequest;
@@ -44,6 +46,10 @@ public class FindPatientRecords {
                     patientRecord.setEntityId(appointment.getId());
                     patientRecord.setStatus(appointment.getAppointmentStatus().label);
                     patientRecord.setDate(appointment.getStartDate());
+                    List<String> actions = new ArrayList<>();
+                    actions.add(PatientRecordLineAction.View_Reason.label);
+                    actions.add(PatientRecordLineAction.View_PDF.label);
+                    patientRecord.setActions(actions);
                     return patientRecord;
                 }).collect(Collectors.toList()));
     }
@@ -56,8 +62,26 @@ public class FindPatientRecords {
                     patientRecord.setEntityId(medicalNote.getId());
                     patientRecord.setStatus(medicalNote.getType().label);
                     patientRecord.setDate(medicalNote.getCreatedAt());
+                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
-        System.out.println("");
+    }
+
+    private List<String> addPatientLineRecordAction(MedicalNoteStatus status) {
+        List<String> actions = new ArrayList<>();
+        switch (status) {
+            case Create:
+            case Draft:
+                actions.add(PatientRecordLineAction.Complete.label);
+                actions.add(PatientRecordLineAction.Remove.label);
+                break;
+            case Froward:
+                System.out.println("Froward");
+                break;
+            case Finalized:
+                System.out.println("Finalized");
+                break;
+        }
+        return actions;
     }
 }
