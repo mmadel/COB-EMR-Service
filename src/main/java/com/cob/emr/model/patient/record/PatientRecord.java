@@ -1,6 +1,5 @@
 package com.cob.emr.model.patient.record;
 
-import com.cob.emr.enums.PatientRecordLineAction;
 import lombok.Getter;
 import lombok.Setter;
 
