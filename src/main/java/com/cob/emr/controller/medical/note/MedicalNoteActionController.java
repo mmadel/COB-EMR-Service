@@ -2,10 +2,14 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.CreateMedicalNoteUseCase;
+import com.cob.emr.usecases.medical.note.FindMedicalNote;
 import com.cob.emr.usecases.medical.note.RemoveMedicalNoteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/medical/note/action")
@@ -14,6 +18,8 @@ public class MedicalNoteActionController {
     CreateMedicalNoteUseCase createMedicalNoteUseCase;
     @Autowired
     RemoveMedicalNoteUseCase removeMedicalNoteUseCase;
+    @Autowired
+    FindMedicalNote findMedicalNote;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) {
@@ -27,5 +33,12 @@ public class MedicalNoteActionController {
     public ResponseEntity delete(@PathVariable Long id) {
         return ResponseEntity.ok()
                 .body(removeMedicalNoteUseCase.remove(id));
+    }
+
+    @GetMapping("/find/id/{id}/type/{type}")
+    public ResponseEntity find(@PathVariable Long id,@PathVariable String type) {
+        String decodedType = URLDecoder.decode(type, StandardCharsets.UTF_8);
+        return ResponseEntity.ok()
+                .body(findMedicalNote.find(id,type));
     }
 }
