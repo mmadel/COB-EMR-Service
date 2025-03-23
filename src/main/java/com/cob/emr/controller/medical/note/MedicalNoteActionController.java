@@ -2,6 +2,7 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.CreateMedicalNoteUseCase;
+import com.cob.emr.usecases.medical.note.DraftMedicalNoteUseCase;
 import com.cob.emr.usecases.medical.note.FindMedicalNote;
 import com.cob.emr.usecases.medical.note.RemoveMedicalNoteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,20 @@ public class MedicalNoteActionController {
     RemoveMedicalNoteUseCase removeMedicalNoteUseCase;
     @Autowired
     FindMedicalNote findMedicalNote;
+    @Autowired
+    DraftMedicalNoteUseCase draftMedicalNoteUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) {
         createMedicalNoteUseCase.createMedicalNote(request);
+        return ResponseEntity.ok()
+                .build();
+
+    }
+
+    @PostMapping("/draft")
+    public ResponseEntity draft(@RequestBody MedicalNoteRequest request) {
+        draftMedicalNoteUseCase.draft(request);
         return ResponseEntity.ok()
                 .build();
 
@@ -36,9 +47,9 @@ public class MedicalNoteActionController {
     }
 
     @GetMapping("/find/id/{id}/type/{type}")
-    public ResponseEntity find(@PathVariable Long id,@PathVariable String type) {
+    public ResponseEntity find(@PathVariable Long id, @PathVariable String type) {
         String decodedType = URLDecoder.decode(type, StandardCharsets.UTF_8);
         return ResponseEntity.ok()
-                .body(findMedicalNote.find(id,type));
+                .body(findMedicalNote.find(id, type));
     }
 }

@@ -11,6 +11,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class MedicalNoteRequest {
+    private Long id;
     private Long caseId;
     private MedicalNoteType noteType;
     private String createdBy;
