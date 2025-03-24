@@ -4,18 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
 public class Pain {
-    public String painScale;
+    public String pain_scale;
+    public List<Object> evals;
     public List<String> aggravatingFactors;
     public String restrictionsAndPainAlleviators;
     public String worseWith;
-    public String worseWithSelect;
+    public List<String> worseWithSelect;
     public String worseWithText;
     public String betterWith;
-    public String betterWithSelect;
+    public List<String> betterwithSelect;
     public String betterWithText;
     public String restrictionsAndPainAlleviatorsTextArea;
 }

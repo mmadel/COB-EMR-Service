@@ -15,9 +15,9 @@ public class Basic {
     public String specificPhysicianOrders;
     public String specificPhysicianOrdersText;
     public String injuryOnsetDateChangeOfStatusDate;
-    public String chronic;
-    public String insidious;
-    public String newInjury;
+    public Boolean chronic;
+    public Boolean insidious;
+    public Boolean newInjury;
     public String newInjuryText;
     public String noNewAggravationInjury;
     public String surgeryPerformed;
