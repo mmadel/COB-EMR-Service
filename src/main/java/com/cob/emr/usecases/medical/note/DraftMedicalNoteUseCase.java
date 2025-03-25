@@ -21,10 +21,14 @@ public class DraftMedicalNoteUseCase {
 
     private void draftInitialEvaluation(MedicalNote medicalNote, MedicalNoteRequest request) {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNote;
-        initialEvaluation.setSubjective(request.getSubjective());
-        initialEvaluation.setAssessment(request.getAssessment());
-        initialEvaluation.setPlanOfCare(request.getPlanOfCare());
-        initialEvaluation.setBilling(request.getBilling());
+        if (request.getSubjective() != null)
+            initialEvaluation.setSubjective(request.getSubjective());
+        if (request.getAssessment() != null)
+            initialEvaluation.setAssessment(request.getAssessment());
+        if (request.getPlanOfCare() != null)
+            initialEvaluation.setPlanOfCare(request.getPlanOfCare());
+        if (request.getBilling() != null)
+            initialEvaluation.setBilling(request.getBilling());
         medicalNoteRepository.save(initialEvaluation);
     }
 }
