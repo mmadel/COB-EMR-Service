@@ -8,6 +8,7 @@ import com.cob.emr.model.medical.note.soap.field.SOAPSection;
 import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
 import com.cob.emr.model.medical.note.soap.field.request.DependencyRequest;
 import com.cob.emr.usecases.medical.note.*;
+import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,8 @@ public class MedicalNoteController {
     CreateBillingSOAPFieldUseCase createBillingSOAPFieldUseCase;
     @Autowired
     CreateMedicalNoteUseCase createMedicalNoteUseCase;
+    @Autowired
+    FindObjectiveProfileUseCase findObjectiveProfileUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -84,5 +87,11 @@ public class MedicalNoteController {
         Item root = GenerateSOAPFieldUseCase.buildTree(request.dependencies);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.valueToTree(root);
+    }
+
+    @GetMapping("/find/objective/profile")
+    public ResponseEntity getObjectiveProfile() {
+        return ResponseEntity.ok()
+                .body(findObjectiveProfileUseCase.findAll());
     }
 }
