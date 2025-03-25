@@ -3,12 +3,9 @@ package com.cob.emr.model.medical.note.types.initial.evaluation.billing;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Setter
 @Getter
 public class Billing {
-    private Object supplies;
     private String post_Treatment;
     private String pre_Treatment;
     private String objective_findings;
@@ -22,6 +19,7 @@ public class Billing {
     private NerveConduction nerveConduction;
     private Respiratory respiratory;
     private DirectTimedCodes directTimedCodes;
+    private Supplies supplies;
     private OtherTreatmentProcedures otherTreatmentProcedures;
     private Splintsorthotics splintsorthotics;
     private Casts casts;

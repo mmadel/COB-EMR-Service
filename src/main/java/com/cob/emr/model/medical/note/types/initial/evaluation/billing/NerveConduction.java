@@ -8,17 +8,17 @@ import lombok.Setter;
 @Getter
 public class NerveConduction {
     @JsonProperty("95907")
-    public Integer _95907;
+    public Boolean _95907;
     @JsonProperty("95908")
-    public Integer _95908;
+    public Boolean _95908;
     @JsonProperty("95909")
-    public Integer _95909;
+    public Boolean _95909;
     @JsonProperty("95910")
-    public Integer _95910;
+    public Boolean _95910;
     @JsonProperty("95911")
-    public Integer _95911;
+    public Boolean _95911;
     @JsonProperty("95912")
-    public Integer _95912;
+    public Boolean _95912;
     @JsonProperty("95913")
-    public Integer _95913;
+    public Boolean _95913;
 }
