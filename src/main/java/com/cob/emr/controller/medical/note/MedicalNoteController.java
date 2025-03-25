@@ -85,11 +85,4 @@ public class MedicalNoteController {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.valueToTree(root);
     }
-    @PostMapping("/create")
-    public ResponseEntity create(@RequestBody MedicalNoteRequest request){
-        createMedicalNoteUseCase.createMedicalNote(request);
-        return ResponseEntity.ok()
-                .build();
-
-    }
 }
