@@ -8,6 +8,7 @@ import com.cob.emr.model.medical.note.soap.field.SOAPSection;
 import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
 import com.cob.emr.model.medical.note.soap.field.request.DependencyRequest;
 import com.cob.emr.usecases.medical.note.*;
+import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileByNameUseCase;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -38,6 +39,8 @@ public class MedicalNoteController {
     CreateMedicalNoteUseCase createMedicalNoteUseCase;
     @Autowired
     FindObjectiveProfileUseCase findObjectiveProfileUseCase;
+    @Autowired
+    FindObjectiveProfileByNameUseCase findObjectiveProfileByNameUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -93,5 +96,10 @@ public class MedicalNoteController {
     public ResponseEntity getObjectiveProfile() {
         return ResponseEntity.ok()
                 .body(findObjectiveProfileUseCase.findAll());
+    }
+    @GetMapping("/find/objective/profile/name/{name}")
+    public ResponseEntity getObjectiveProfileByName(@PathVariable String name) {
+        return ResponseEntity.ok()
+                .body(findObjectiveProfileByNameUseCase.find(name));
     }
 }
