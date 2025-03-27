@@ -15,7 +15,8 @@ import java.util.stream.Collectors;
 public class CreateCategoryFieldUseCase {
     @Autowired
     SOAPSectionCategoryRepository soapSectionCategoryRepository;
-
+    @Autowired
+    PersistSOAPFieldsUseCase persistSOAPFieldsUseCase;
     public List<Map<String, String>> create(List<FieldRequest> requests, String categoryName) {
         SOAPSectionCategoryEntity sectionCategory = soapSectionCategoryRepository.findByName(categoryName)
                 .orElseThrow(() -> new IllegalArgumentException("SOAP Category not found"));
@@ -28,23 +29,7 @@ public class CreateCategoryFieldUseCase {
             }
             sectionCategory.getFields().add(field);
         }
-
-        List<SOAPFieldEntity> allEntities = levelMap.values()
-                .stream()
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
-        sectionCategory.getFields().addAll(allEntities);
-        soapSectionCategoryRepository.save(sectionCategory);
-        List<Map<String, String>> formattedList = levelMap.entrySet().stream()
-                .flatMap(entry -> entry.getValue().stream().map(field -> {
-                    Map<String, String> obj = new HashMap<>();
-                    obj.put("name", field.getFieldName()); // Level + Field Name
-                    obj.put("label_style", "white-space: nowrap; min-width: 500px;");
-                    obj.put("style", "margin-left: " + (10 * (entry.getKey() + 1)) + "px;"); // Adjust margin
-                    return obj;
-                }))
-                .collect(Collectors.toList());
-        return formattedList;
+        return persistSOAPFieldsUseCase.persist(sectionCategory,levelMap);
     }
 
     private void traverseFieldRequests(
