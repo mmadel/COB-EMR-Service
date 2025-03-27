@@ -27,6 +27,7 @@ public class CreateSoapField {
         SOAPFieldEntity soapFieldEntity = new SOAPFieldEntity();
         soapFieldEntity.setValue(field);
         soapFieldEntity.setFieldName(field.getName());
+        soapFieldEntity.setFieldDisplayName(fieldRequest.getFieldName());
         return soapFieldEntity;
     }
 

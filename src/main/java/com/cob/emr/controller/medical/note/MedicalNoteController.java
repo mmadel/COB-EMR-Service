@@ -7,6 +7,7 @@ import com.cob.emr.model.medical.note.soap.field.SOAPSection;
 import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
 import com.cob.emr.model.medical.note.soap.field.request.DependencyRequest;
 import com.cob.emr.usecases.medical.note.*;
+import com.cob.emr.usecases.medical.note.soap.FindSOAPFieldUseCase;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileByNameUseCase;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileUseCase;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,6 +43,8 @@ public class MedicalNoteController {
     FindObjectiveProfileByNameUseCase findObjectiveProfileByNameUseCase;
     @Autowired
     UpdateSOAPFieldDependenciesUseCase updateSOAPFieldDependenciesUseCase;
+    @Autowired
+    FindSOAPFieldUseCase findSOAPFieldUseCase;
 
     @PostMapping("/create/soap/section")
     public ResponseEntity createSection(@RequestBody SOAPSection model) {
@@ -74,6 +77,11 @@ public class MedicalNoteController {
     public ResponseEntity updateField(@RequestBody List<FieldRequest> requests, @PathVariable String fieldId, @PathVariable String category) {
         return ResponseEntity.ok()
                 .body(updateSOAPFieldDependenciesUseCase.update(requests, fieldId, category));
+    }
+    @GetMapping("/find-soap-field/field-name/{name}")
+    public ResponseEntity findField( @PathVariable String name) {
+        return ResponseEntity.ok()
+                .body(findSOAPFieldUseCase.find(name));
     }
 
     @PostMapping("/create-billing-soap-field/category/{category}")

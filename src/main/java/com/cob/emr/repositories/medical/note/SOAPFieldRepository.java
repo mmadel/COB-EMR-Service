@@ -11,4 +11,8 @@ import java.util.Optional;
 public interface SOAPFieldRepository extends CrudRepository<SOAPFieldEntity, Long> {
     @Query(value = "SELECT sf FROM SOAPFieldEntity sf WHERE JSON_EXTRACT(sf.value, '$.idField.id') = :id")
     SOAPFieldEntity findByIdFieldId(@Param("id") String id);
+
+
+    @Query("SELECT s FROM SOAPFieldEntity s WHERE s.fieldDisplayName LIKE %:name%")
+    Optional<SOAPFieldEntity> findByFieldDisplayName(@Param("name") String name);
 }
