@@ -17,5 +17,6 @@ public class SOAPField {
     private String labelStyle;
     private String checkBoxStyle;
     private String parentField;
+    private OMTFieldRequest omtFieldRequest;
 
 }

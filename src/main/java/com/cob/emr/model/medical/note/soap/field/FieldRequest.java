@@ -16,4 +16,5 @@ public class FieldRequest {
     private boolean ignoreDisplay;
     private String changeValueSelect;
     private List<FieldRequest> dependencies;
+    private OMTFieldRequest omtFieldRequest;
 }

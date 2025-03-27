@@ -18,6 +18,7 @@ public class CreateSoapField {
         field.setType(fieldRequest.getFieldType());
         field.setSelectValue(fieldRequest.getSelectValue());
         field.setValue(fieldRequest.getValue());
+        field.setOmtFieldRequest(fieldRequest.getOmtFieldRequest());
         SOAPIDField soapidField = new SOAPIDField();
         soapidField.setId(UUID.randomUUID().toString());
         soapidField.setValueChange(fieldRequest.getChangeValue());
