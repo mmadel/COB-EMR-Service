@@ -13,6 +13,6 @@ public interface SOAPFieldRepository extends CrudRepository<SOAPFieldEntity, Lon
     SOAPFieldEntity findByIdFieldId(@Param("id") String id);
 
 
-    @Query("SELECT s FROM SOAPFieldEntity s WHERE s.fieldDisplayName LIKE %:name%")
+    @Query("SELECT s FROM SOAPFieldEntity s WHERE s.fieldDisplayName = :name")
     Optional<SOAPFieldEntity> findByFieldDisplayName(@Param("name") String name);
 }
