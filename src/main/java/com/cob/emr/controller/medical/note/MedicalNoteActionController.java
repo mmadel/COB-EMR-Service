@@ -1,10 +1,8 @@
 package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
-import com.cob.emr.usecases.medical.note.CreateMedicalNoteUseCase;
-import com.cob.emr.usecases.medical.note.DraftMedicalNoteUseCase;
-import com.cob.emr.usecases.medical.note.FindMedicalNote;
-import com.cob.emr.usecases.medical.note.RemoveMedicalNoteUseCase;
+import com.cob.emr.usecases.medical.note.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +21,8 @@ public class MedicalNoteActionController {
     FindMedicalNote findMedicalNote;
     @Autowired
     DraftMedicalNoteUseCase draftMedicalNoteUseCase;
-
+    @Autowired
+    CreateROMUseCase createROMUseCase;
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) {
         createMedicalNoteUseCase.createMedicalNote(request);
@@ -51,5 +50,10 @@ public class MedicalNoteActionController {
         String decodedType = URLDecoder.decode(type, StandardCharsets.UTF_8);
         return ResponseEntity.ok()
                 .body(findMedicalNote.find(id, type));
+    }
+    @PostMapping("/create/rom/name/{name}")
+    public ResponseEntity createRangeOfMotion(@PathVariable String name,@RequestBody String htmlBody) throws JsonProcessingException {
+        return ResponseEntity.ok()
+                .body(createROMUseCase.create(name,htmlBody));
     }
 }
