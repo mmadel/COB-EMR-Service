@@ -23,6 +23,9 @@ public class MedicalNoteActionController {
     DraftMedicalNoteUseCase draftMedicalNoteUseCase;
     @Autowired
     CreateROMUseCase createROMUseCase;
+    @Autowired
+    FindROMUseCase findROMUseCase;
+
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) {
         createMedicalNoteUseCase.createMedicalNote(request);
@@ -51,9 +54,16 @@ public class MedicalNoteActionController {
         return ResponseEntity.ok()
                 .body(findMedicalNote.find(id, type));
     }
+
     @PostMapping("/create/rom/name/{name}")
-    public ResponseEntity createRangeOfMotion(@PathVariable String name,@RequestBody String htmlBody) throws JsonProcessingException {
+    public ResponseEntity createRangeOfMotion(@PathVariable String name, @RequestBody String htmlBody) throws JsonProcessingException {
         return ResponseEntity.ok()
-                .body(createROMUseCase.create(name,htmlBody));
+                .body(createROMUseCase.create(name, htmlBody));
+    }
+
+    @GetMapping("/find/rom/name/{name}")
+    public ResponseEntity findRangeOfMotionTest(@PathVariable String name) {
+        return ResponseEntity.ok()
+                .body(findROMUseCase.find(name));
     }
 }
