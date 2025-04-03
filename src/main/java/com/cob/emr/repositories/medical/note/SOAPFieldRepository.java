@@ -15,4 +15,7 @@ public interface SOAPFieldRepository extends CrudRepository<SOAPFieldEntity, Lon
 
     @Query("SELECT s FROM SOAPFieldEntity s WHERE s.fieldDisplayName = :name")
     Optional<SOAPFieldEntity> findByFieldDisplayName(@Param("name") String name);
+
+    @Query("SELECT s FROM SOAPFieldEntity s WHERE s.fieldName = :id")
+    Optional<SOAPFieldEntity> findByFieldId(@Param("id") String id);
 }
