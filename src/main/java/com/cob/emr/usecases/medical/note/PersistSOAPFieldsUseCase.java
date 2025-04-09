@@ -1,8 +1,12 @@
 package com.cob.emr.usecases.medical.note;
 
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPSectionCategoryEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
+import com.cob.emr.repositories.medical.note.SOAPSectionCategoryNewRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryRepository;
+import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,12 +18,17 @@ import java.util.stream.Collectors;
 @Component
 public class PersistSOAPFieldsUseCase {
     @Autowired
-    SOAPSectionCategoryRepository soapSectionCategoryRepository;
-    public List<Map<String, String>> persist(SOAPSectionCategoryEntity sectionCategory, Map<Integer, List<SOAPFieldEntity>> levelMap){
-        List<SOAPFieldEntity> allEntities = levelMap.values()
+    SOAPSectionCategoryNewRepository soapSectionCategoryRepository;
+
+    public List<Map<String, String>> persist(NewSOAPSectionCategoryEntity sectionCategory, Map<Integer, List<NewSOAPFieldEntity>> levelMap) {
+        List<NewSOAPFieldEntity> allEntities = levelMap.values()
                 .stream()
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
+        allEntities.stream()
+                        .forEach(newSOAPFieldEntity -> {
+                            CreateSOAPFieldName.create(newSOAPFieldEntity, sectionCategory.getName());
+                        });
         sectionCategory.getFields().addAll(allEntities);
         soapSectionCategoryRepository.save(sectionCategory);
         List<Map<String, String>> formattedList = levelMap.entrySet().stream()

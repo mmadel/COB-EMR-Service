@@ -1,19 +1,18 @@
 package com.cob.emr.usecases.medical.note.soap.field;
 
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
 import com.cob.emr.model.medical.note.soap.field.FieldRequest;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.cob.emr.model.medical.note.soap.field.SOAPIDField;
+import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
 
 import java.util.UUID;
 
 public class CreateSoapField {
-    static int counter = 0;
 
-    public static SOAPFieldEntity create(FieldRequest fieldRequest, String parentUUID) {
+    public static NewSOAPFieldEntity create(FieldRequest fieldRequest, String parentUUID) {
         SOAPField field = new SOAPField();
-        String fieldName = (counter++) + "_" + createFieldName(fieldRequest.getFieldName());
-        field.setName(fieldName);
         field.setDisplay(fieldRequest.isIgnoreDisplay() ? null : fieldRequest.getFieldName());
         field.setType(fieldRequest.getFieldType());
         field.setSelectValue(fieldRequest.getSelectValue());
@@ -25,10 +24,10 @@ public class CreateSoapField {
         field.setIdField(soapidField);
         field.setChangeValueSelect(fieldRequest.getChangeValueSelect());
         field.setParentField(parentUUID);
-        SOAPFieldEntity soapFieldEntity = new SOAPFieldEntity();
+        NewSOAPFieldEntity soapFieldEntity = new NewSOAPFieldEntity();
         soapFieldEntity.setValue(field);
-        soapFieldEntity.setFieldName(field.getName());
         soapFieldEntity.setFieldDisplayName(fieldRequest.getFieldName());
+
         return soapFieldEntity;
     }
 
@@ -62,6 +61,16 @@ public class CreateSoapField {
             return sb.toString();
         }
     }
-
+    public static void createName(NewSOAPFieldEntity soapFieldEntity,
+                                  String categoryName) {
+        StringBuilder name = new StringBuilder();
+        name.append(categoryName);
+        if (soapFieldEntity.getValue().getParentField() != null)
+            name.append("_" + soapFieldEntity.getValue().getParentField());
+        if (soapFieldEntity.getValue().getDisplay() != null)
+            name.append("_" + CreateSOAPFieldName.toCamelCase(soapFieldEntity.getValue().getDisplay()));
+        soapFieldEntity.getValue().setName(name.toString());
+        soapFieldEntity.setFieldName(name.toString());
+    }
 
 }

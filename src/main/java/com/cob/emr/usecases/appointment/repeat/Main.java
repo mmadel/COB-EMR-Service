@@ -1,4 +1,5 @@
 package com.cob.emr.usecases.appointment.repeat;
+import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.jsoup.Jsoup;
@@ -14,29 +15,29 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        File htmlFile = new File("C:\\Users\\HP\\Desktop\\move_shild\\rom.html");
-        if (!htmlFile.exists()) {
-            System.err.println("File not found: " + args[0]);
-            System.exit(1);
-        }
-
-        try {
-            Map<String, Map<String, String[]>> result = parseMovementOptions(htmlFile);
-            Gson gson = new Gson();
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            // Convert the map to JSON string
-            String json = objectMapper.writeValueAsString(result);
-
-            // Print the resulting JSON
-            System.out.println(json);
-
-
-
-        } catch (IOException e) {
-            System.err.println("Error reading or parsing the file: " + e.getMessage());
-            System.exit(1);
-        }
+//        File htmlFile = new File("C:\\Users\\HP\\Desktop\\move_shild\\rom.html");
+//        if (!htmlFile.exists()) {
+//            System.err.println("File not found: " + args[0]);
+//            System.exit(1);
+//        }
+//
+//        try {
+//            Map<String, Map<String, String[]>> result = parseMovementOptions(htmlFile);
+//            Gson gson = new Gson();
+//            ObjectMapper objectMapper = new ObjectMapper();
+//
+//            // Convert the map to JSON string
+//            String json = objectMapper.writeValueAsString(result);
+//
+//            // Print the resulting JSON
+//            System.out.println(json);
+//
+//
+//
+//        } catch (IOException e) {
+//            System.err.println("Error reading or parsing the file: " + e.getMessage());
+//            System.exit(1);
+//        }
     }
     public static Map<String, Map<String, String[]>> parseMovementOptions(File htmlFile) throws IOException {
         // Parse the HTML file with Jsoup
