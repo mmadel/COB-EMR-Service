@@ -29,6 +29,8 @@ public class DraftMedicalNoteUseCase {
             initialEvaluation.setPlanOfCare(request.getPlanOfCare());
         if (request.getBilling() != null)
             initialEvaluation.setBilling(request.getBilling());
+        if(request.getObjective() != null)
+            initialEvaluation.setObjective(request.getObjective());
         medicalNoteRepository.save(initialEvaluation);
     }
 }

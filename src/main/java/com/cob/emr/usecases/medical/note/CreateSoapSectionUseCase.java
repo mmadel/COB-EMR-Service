@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.medical.note;
 
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPSectionCategoryEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
 import com.cob.emr.entity.medical.note.soap.field.SOAPSectionEntity;
 import com.cob.emr.model.medical.note.soap.field.SOAPSection;
@@ -27,14 +28,14 @@ public class CreateSoapSectionUseCase {
     public void create(SOAPSection soapSection) {
         SOAPSectionEntity entity = new SOAPSectionEntity();
         entity.setName(soapSection.getName());
-        List<SOAPSectionCategoryEntity> categoryEntities = createCategoryEntities(soapSection.getCategories());
+        List<NewSOAPSectionCategoryEntity> categoryEntities = createCategoryEntities(soapSection.getCategories());
         entity.setCategories(categoryEntities);
         soapSectionRepository.save(entity);
     }
 
-    private List<SOAPSectionCategoryEntity> createCategoryEntities(List<SOAPSectionCategory> categories) {
+    private List<NewSOAPSectionCategoryEntity> createCategoryEntities(List<SOAPSectionCategory> categories) {
         return categories.stream()
-                .map(soapSectionCategory -> mapper.map(soapSectionCategory, SOAPSectionCategoryEntity.class))
+                .map(soapSectionCategory -> mapper.map(soapSectionCategory, NewSOAPSectionCategoryEntity.class))
                 .collect(Collectors.toList());
     }
 

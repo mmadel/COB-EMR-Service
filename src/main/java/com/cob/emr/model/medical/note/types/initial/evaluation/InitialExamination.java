@@ -12,7 +12,7 @@ import lombok.Setter;
 @Getter
 public class InitialExamination implements IMedicalNote {
     private Subjective subjective;
-
+    private Object objective;
     private Assessment assessment;
     private PlanOfCare planOfCare;
     private Billing billing;

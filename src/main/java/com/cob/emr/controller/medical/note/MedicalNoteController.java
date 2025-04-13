@@ -1,15 +1,10 @@
 package com.cob.emr.controller.medical.note;
 
-import com.cob.emr.model.medical.note.soap.field.Item;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.cob.emr.model.medical.note.soap.field.SOAPSection;
-import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
-import com.cob.emr.model.medical.note.soap.field.request.DependencyRequest;
 import com.cob.emr.usecases.medical.note.*;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileByNameUseCase;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileUseCase;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,7 +53,7 @@ public class MedicalNoteController {
         return ResponseEntity.ok()
                 .build();
     }
-    
+
     @GetMapping("/find/section/{section}")
     public ResponseEntity getFieldBySection(@PathVariable String section) {
         return ResponseEntity.ok()

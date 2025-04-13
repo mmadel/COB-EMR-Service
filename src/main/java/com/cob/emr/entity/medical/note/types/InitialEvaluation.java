@@ -39,4 +39,8 @@ public class InitialEvaluation extends MedicalNote {
     @Column(name = "billing", columnDefinition = "json")
     @Type(type = "json")
     private Billing billing;
+
+    @Column(name = "objective", columnDefinition = "json")
+    @Type(type = "json")
+    private Object objective;
 }

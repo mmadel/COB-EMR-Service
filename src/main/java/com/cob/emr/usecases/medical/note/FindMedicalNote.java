@@ -41,6 +41,7 @@ public class FindMedicalNote {
         initialExamination.setPlanOfCare(initialEvaluation.getPlanOfCare());
         initialExamination.setBilling(initialEvaluation.getBilling());
         initialExamination.setAssessment(initialEvaluation.getAssessment());
+        initialExamination.setObjective(initialEvaluation.getObjective());
         return initialExamination;
     }
 }

@@ -21,4 +21,5 @@ public class MedicalNoteRequest {
     private Assessment assessment;
     private PlanOfCare planOfCare;
     private Billing billing;
+    private Object objective;
 }

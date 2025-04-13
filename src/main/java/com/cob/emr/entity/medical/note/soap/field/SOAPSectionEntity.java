@@ -21,5 +21,5 @@ public class SOAPSectionEntity {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id", referencedColumnName = "id")
-    private List<SOAPSectionCategoryEntity> categories;
+    private List<NewSOAPSectionCategoryEntity> categories;
 }

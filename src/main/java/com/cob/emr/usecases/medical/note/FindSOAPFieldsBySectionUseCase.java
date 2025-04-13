@@ -1,8 +1,6 @@
 package com.cob.emr.usecases.medical.note;
 
-import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
-import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
-import com.cob.emr.entity.medical.note.soap.field.SOAPSectionEntity;
+import com.cob.emr.entity.medical.note.soap.field.*;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.cob.emr.repositories.medical.note.SOAPSectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,9 @@ public class FindSOAPFieldsBySectionUseCase {
                 .orElseThrow(() -> new IllegalArgumentException("SOAP section not found"));
         return soapSection.getCategories().stream()
                 .collect(Collectors.toMap(
-                        SOAPSectionCategoryEntity::getName, // Key: Category Name
+                        NewSOAPSectionCategoryEntity::getName, // Key: Category Name
                         category -> category.getFields().stream()
-                                .map(SOAPFieldEntity::getValue) // Extract SOAPField from SOAPFieldEntity
+                                .map(NewSOAPFieldEntity::getValue) // Extract SOAPField from SOAPFieldEntity
                                 .collect(Collectors.toList()) // Collect as List<SOAPField>
                 ));
     }
