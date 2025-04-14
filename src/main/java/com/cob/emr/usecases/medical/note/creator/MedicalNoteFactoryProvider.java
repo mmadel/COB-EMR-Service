@@ -8,11 +8,15 @@ import org.springframework.stereotype.Component;
 public class MedicalNoteFactoryProvider {
     @Autowired
     private InitialEvaluationCreator initialEvaluationFactory;
+    @Autowired
+    private DailyNoteCreator dailyNoteCreatorFactory;
 
     public MedicalNoteCreator getFactory(MedicalNoteType noteType) {
         switch (noteType) {
             case INITIAL_EVALUATION:
                 return initialEvaluationFactory;
+            case DAILY_NOTE:
+                return dailyNoteCreatorFactory;
             default:
                 throw new IllegalArgumentException("Unsupported Note Type");
         }
