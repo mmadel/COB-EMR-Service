@@ -44,9 +44,4 @@ public class DailyNoteCreator implements MedicalNoteCreator {
             throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_INIT_EXAM, new Object[]{});
         }
     }
-
-    private Boolean isInitialExaminationFinalized() {
-        Optional<MedicalNote> initExamNote = medicalNoteRepository.findByPatientCase_IdAndTypeAndStatus(58L, MedicalNoteType.INITIAL_EVALUATION, MedicalNoteStatus.Draft);
-        return initExamNote.isPresent();
-    }
 }

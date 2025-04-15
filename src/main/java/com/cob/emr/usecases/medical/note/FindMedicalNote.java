@@ -3,10 +3,12 @@ package com.cob.emr.usecases.medical.note;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.types.DailyNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
+import com.cob.emr.entity.medical.note.types.ProgressNote;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.model.medical.note.IMedicalNote;
 import com.cob.emr.model.medical.note.types.daily.note.DailyNoteModel;
 import com.cob.emr.model.medical.note.types.initial.evaluation.InitialExamination;
+import com.cob.emr.model.medical.note.types.progress.note.ProgressNoteModel;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,13 @@ public class FindMedicalNote {
 
         MedicalNote medicalNote = medicalNoteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("medical note not found"));
+
         if (medicalNote instanceof InitialEvaluation)
             return declareInitialEvaluation(medicalNote);
         if (medicalNote instanceof DailyNote)
             return declareDailyNote(medicalNote);
+        if(medicalNote instanceof ProgressNote)
+            return declareProgressNote(medicalNote);
         return null;
     }
 
@@ -58,5 +63,15 @@ public class FindMedicalNote {
         dailyNote.setAssessment(entity.getAssessment());
         dailyNote.setPlanOfCare(entity.getPlanOfCare());
         return dailyNote;
+    }
+    private ProgressNoteModel declareProgressNote(MedicalNote medicalNote){
+        ProgressNote entity = (ProgressNote )medicalNote;
+        ProgressNoteModel progressNote = new ProgressNoteModel();
+        progressNote.setSubjective(entity.getSubjective());
+        progressNote.setObjective(entity.getObjective());
+        progressNote.setAssessment(entity.getAssessment());
+        progressNote.setPlanOfCare(entity.getPlanOfCare());
+        progressNote.setBilling(entity.getBilling());
+        return progressNote;
     }
 }

@@ -10,6 +10,8 @@ public class MedicalNoteFactoryProvider {
     private InitialEvaluationCreator initialEvaluationFactory;
     @Autowired
     private DailyNoteCreator dailyNoteCreatorFactory;
+    @Autowired
+    private ProgressNoteCreator progressNoteCreatorFactory;
 
     public MedicalNoteCreator getFactory(MedicalNoteType noteType) {
         switch (noteType) {
@@ -17,6 +19,8 @@ public class MedicalNoteFactoryProvider {
                 return initialEvaluationFactory;
             case DAILY_NOTE:
                 return dailyNoteCreatorFactory;
+            case PROGRESS_NOTE:
+                return progressNoteCreatorFactory;
             default:
                 throw new IllegalArgumentException("Unsupported Note Type");
         }
