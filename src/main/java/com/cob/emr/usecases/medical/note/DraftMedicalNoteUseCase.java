@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.entity.medical.note.types.DailyNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
@@ -23,6 +24,8 @@ public class DraftMedicalNoteUseCase {
 
         if (medicalNote instanceof InitialEvaluation)
             draftInitialEvaluation(medicalNote, request);
+        if(medicalNote instanceof DailyNote)
+            draftDailyNote(medicalNote, request);
     }
 
     private void changeMedicalNoteStatus(MedicalNote medicalNote){
@@ -42,5 +45,17 @@ public class DraftMedicalNoteUseCase {
         if(request.getObjective() != null)
             initialEvaluation.setObjective(request.getObjective());
         medicalNoteRepository.save(initialEvaluation);
+    }
+    private void draftDailyNote(MedicalNote medicalNote, MedicalNoteRequest request) {
+        DailyNote dailyNote = (DailyNote) medicalNote;
+        if (request.getSubjective() != null)
+            dailyNote.setSubjective(request.getSubjective());
+        if (request.getAssessment() != null)
+            dailyNote.setAssessment(request.getAssessment());
+        if (request.getPlanOfCare() != null)
+            dailyNote.setPlanOfCare(request.getPlanOfCare());
+        if(request.getObjective() != null)
+            dailyNote.setObjective(request.getObjective());
+        medicalNoteRepository.save(dailyNote);
     }
 }
