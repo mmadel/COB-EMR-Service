@@ -1,5 +1,7 @@
 package com.cob.emr.controller.medical.note;
 
+import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -27,10 +29,10 @@ public class MedicalNoteActionController {
     FindROMUseCase findROMUseCase;
 
     @PostMapping("/create")
-    public ResponseEntity create(@RequestBody MedicalNoteRequest request) {
-        createMedicalNoteUseCase.createMedicalNote(request);
+    public ResponseEntity create(@RequestBody MedicalNoteRequest request) throws MedicalNoteException {
+        MedicalNote medicalNote = createMedicalNoteUseCase.createMedicalNote(request);
         return ResponseEntity.ok()
-                .build();
+                .body(medicalNote.getId());
 
     }
 
@@ -48,11 +50,10 @@ public class MedicalNoteActionController {
                 .body(removeMedicalNoteUseCase.remove(id));
     }
 
-    @GetMapping("/find/id/{id}/type/{type}")
-    public ResponseEntity find(@PathVariable Long id, @PathVariable String type) {
-        String decodedType = URLDecoder.decode(type, StandardCharsets.UTF_8);
+    @GetMapping("/find/id/{id}")
+    public ResponseEntity find(@PathVariable Long id) {
         return ResponseEntity.ok()
-                .body(findMedicalNote.find(id, type));
+                .body(findMedicalNote.find(id));
     }
 
     @PostMapping("/create/rom/name/{name}")

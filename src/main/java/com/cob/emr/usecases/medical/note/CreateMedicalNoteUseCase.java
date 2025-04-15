@@ -2,6 +2,7 @@ package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.enums.MedicalNoteStatus;
+import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.usecases.medical.note.creator.MedicalNoteCreator;
@@ -16,7 +17,7 @@ public class CreateMedicalNoteUseCase {
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
 
-    public MedicalNote createMedicalNote(MedicalNoteRequest request) {
+    public MedicalNote createMedicalNote(MedicalNoteRequest request) throws MedicalNoteException {
         MedicalNoteCreator creator = medicalNoteProvider.getFactory(request.getNoteType());
         MedicalNote note = creator.createNote(request);
         note.setStatus(MedicalNoteStatus.Create);
