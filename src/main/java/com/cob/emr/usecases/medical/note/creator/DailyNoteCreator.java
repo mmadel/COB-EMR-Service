@@ -34,8 +34,9 @@ public class DailyNoteCreator implements MedicalNoteCreator {
             dailyNote.setCreatedBy(medicalNoteRequest.getCreatedBy());
             dailyNote.setNoteDate(medicalNoteRequest.getNoteDate());
             dailyNote.setSubjective(initialEvaluation.getSubjective());
-            dailyNote.setAssessment(medicalNoteRequest.getAssessment());
-            dailyNote.setPlanOfCare(medicalNoteRequest.getPlanOfCare());
+            dailyNote.setObjective(initialEvaluation.getBilling());
+            dailyNote.setAssessment(initialEvaluation.getAssessment());
+            dailyNote.setPlanOfCare(initialEvaluation.getPlanOfCare());
             return dailyNote;
 
         } else {

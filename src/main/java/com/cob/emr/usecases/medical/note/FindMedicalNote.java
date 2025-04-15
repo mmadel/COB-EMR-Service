@@ -54,6 +54,7 @@ public class FindMedicalNote {
         DailyNote entity = (DailyNote) medicalNote;
         DailyNoteModel dailyNote = new DailyNoteModel();
         dailyNote.setSubjective(entity.getSubjective());
+        dailyNote.setObjective(entity.getObjective());
         dailyNote.setAssessment(entity.getAssessment());
         dailyNote.setPlanOfCare(entity.getPlanOfCare());
         return dailyNote;
