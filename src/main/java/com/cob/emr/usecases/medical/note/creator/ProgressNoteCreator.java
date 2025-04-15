@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
 import java.util.Optional;
 
 @Component
@@ -34,7 +35,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator{
             progressNote.setNoteDate(medicalNoteRequest.getNoteDate());
             progressNote.setSubjective(initialEvaluation.getSubjective());
             progressNote.setObjective(initialEvaluation.getObjective());
-            progressNote.setObjective(initialEvaluation.getBilling());
+            progressNote.setBilling(initialEvaluation.getBilling());
             progressNote.setAssessment(initialEvaluation.getAssessment());
             progressNote.setPlanOfCare(initialEvaluation.getPlanOfCare());
             return progressNote;
