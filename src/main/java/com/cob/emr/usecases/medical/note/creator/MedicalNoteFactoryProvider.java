@@ -21,6 +21,7 @@ public class MedicalNoteFactoryProvider {
                 return dailyNoteCreatorFactory;
             case PROGRESS_NOTE:
                 return progressNoteCreatorFactory;
+            case QUICK_DISCHARGE_NOTE:
             default:
                 throw new IllegalArgumentException("Unsupported Note Type");
         }
