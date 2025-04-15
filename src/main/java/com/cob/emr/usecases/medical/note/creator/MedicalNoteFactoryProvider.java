@@ -17,6 +17,7 @@ public class MedicalNoteFactoryProvider {
                 return initialEvaluationFactory;
             case DAILY_NOTE:
                 return dailyNoteCreatorFactory;
+            case PROGRESS_NOTE:
             default:
                 throw new IllegalArgumentException("Unsupported Note Type");
         }
