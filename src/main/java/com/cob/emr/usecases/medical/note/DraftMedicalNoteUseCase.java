@@ -3,6 +3,7 @@ package com.cob.emr.usecases.medical.note;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.types.DailyNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
+import com.cob.emr.entity.medical.note.types.ProgressNote;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
@@ -26,7 +27,10 @@ public class DraftMedicalNoteUseCase {
             draftInitialEvaluation(medicalNote, request);
         if(medicalNote instanceof DailyNote)
             draftDailyNote(medicalNote, request);
+        if(medicalNote instanceof ProgressNote)
+            draftProgressNote(medicalNote, request);
     }
+
 
     private void changeMedicalNoteStatus(MedicalNote medicalNote){
         medicalNote.setStatus(MedicalNoteStatus.Draft);
@@ -57,5 +61,19 @@ public class DraftMedicalNoteUseCase {
         if(request.getObjective() != null)
             dailyNote.setObjective(request.getObjective());
         medicalNoteRepository.save(dailyNote);
+    }
+    private void draftProgressNote(MedicalNote medicalNote, MedicalNoteRequest request) {
+        ProgressNote progressNote = (ProgressNote) medicalNote;
+        if (request.getSubjective() != null)
+            progressNote.setSubjective(request.getSubjective());
+        if (request.getAssessment() != null)
+            progressNote.setAssessment(request.getAssessment());
+        if (request.getPlanOfCare() != null)
+            progressNote.setPlanOfCare(request.getPlanOfCare());
+        if (request.getBilling() != null)
+            progressNote.setBilling(request.getBilling());
+        if(request.getObjective() != null)
+            progressNote.setObjective(request.getObjective());
+        medicalNoteRepository.save(progressNote);
     }
 }
