@@ -22,4 +22,6 @@ public class MedicalNoteRequest {
     private PlanOfCare planOfCare;
     private Billing billing;
     private Object objective;
+    private QuickDischargeRequest quickDischargeRequest;
+
 }

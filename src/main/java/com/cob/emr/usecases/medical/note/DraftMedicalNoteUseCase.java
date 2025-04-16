@@ -1,9 +1,7 @@
 package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
-import com.cob.emr.entity.medical.note.types.DailyNote;
-import com.cob.emr.entity.medical.note.types.InitialEvaluation;
-import com.cob.emr.entity.medical.note.types.ProgressNote;
+import com.cob.emr.entity.medical.note.types.*;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
@@ -29,8 +27,11 @@ public class DraftMedicalNoteUseCase {
             draftDailyNote(medicalNote, request);
         if(medicalNote instanceof ProgressNote)
             draftProgressNote(medicalNote, request);
+        if(medicalNote instanceof QuickDischargeNote)
+            draftQuickDischargeNote(medicalNote, request);
+        if(medicalNote instanceof FullDischargeNote)
+            draftFullDischargeNote(medicalNote, request);
     }
-
 
     private void changeMedicalNoteStatus(MedicalNote medicalNote){
         medicalNote.setStatus(MedicalNoteStatus.Draft);
@@ -75,5 +76,26 @@ public class DraftMedicalNoteUseCase {
         if(request.getObjective() != null)
             progressNote.setObjective(request.getObjective());
         medicalNoteRepository.save(progressNote);
+    }
+    private void draftQuickDischargeNote(MedicalNote medicalNote, MedicalNoteRequest request) {
+        QuickDischargeNote quickDischargeNote =  (QuickDischargeNote) medicalNote;
+        quickDischargeNote.setDischargeDate(request.getQuickDischargeRequest().getDischargeDate());
+        quickDischargeNote.setNumberOfVisits(request.getQuickDischargeRequest().getNumberOfVisits());
+        quickDischargeNote.setComment(request.getQuickDischargeRequest().getComment());
+        medicalNoteRepository.save(quickDischargeNote);
+    }
+    private void draftFullDischargeNote(MedicalNote medicalNote, MedicalNoteRequest request) {
+        FullDischargeNote fullDischargeNote = (FullDischargeNote) medicalNote;
+        if (request.getSubjective() != null)
+            fullDischargeNote.setSubjective(request.getSubjective());
+        if (request.getAssessment() != null)
+            fullDischargeNote.setAssessment(request.getAssessment());
+        if (request.getPlanOfCare() != null)
+            fullDischargeNote.setPlanOfCare(request.getPlanOfCare());
+        if (request.getBilling() != null)
+            fullDischargeNote.setBilling(request.getBilling());
+        if(request.getObjective() != null)
+            fullDischargeNote.setObjective(request.getObjective());
+        medicalNoteRepository.save(fullDischargeNote);
     }
 }
