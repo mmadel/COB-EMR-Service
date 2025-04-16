@@ -14,6 +14,8 @@ public class MedicalNoteFactoryProvider {
     private ProgressNoteCreator progressNoteCreatorFactory;
     @Autowired
     QuickDischargeCreator quickDischargeCreatorFactory;
+    @Autowired
+    FullDischargeNoteCreator fullDischargeNoteCreatorFactory;
 
     public MedicalNoteCreator getFactory(MedicalNoteType noteType) {
         switch (noteType) {
@@ -25,6 +27,8 @@ public class MedicalNoteFactoryProvider {
                 return progressNoteCreatorFactory;
             case QUICK_DISCHARGE_NOTE:
                 return quickDischargeCreatorFactory;
+            case DISCHARGE_NOTE:
+                return fullDischargeNoteCreatorFactory;
             default:
                 throw new IllegalArgumentException("Unsupported Note Type");
         }

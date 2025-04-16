@@ -1,13 +1,11 @@
 package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
-import com.cob.emr.entity.medical.note.types.DailyNote;
-import com.cob.emr.entity.medical.note.types.InitialEvaluation;
-import com.cob.emr.entity.medical.note.types.ProgressNote;
-import com.cob.emr.entity.medical.note.types.QuickDischargeNote;
+import com.cob.emr.entity.medical.note.types.*;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.model.medical.note.IMedicalNote;
 import com.cob.emr.model.medical.note.types.daily.note.DailyNoteModel;
+import com.cob.emr.model.medical.note.types.discharge.FullDischargeNoteModel;
 import com.cob.emr.model.medical.note.types.discharge.QuickDischargeNoteModel;
 import com.cob.emr.model.medical.note.types.initial.evaluation.InitialExamination;
 import com.cob.emr.model.medical.note.types.progress.note.ProgressNoteModel;
@@ -38,6 +36,8 @@ public class FindMedicalNote {
             return declareProgressNote(medicalNote);
         if(medicalNote instanceof QuickDischargeNote)
             return declareQuickDischargeNote(medicalNote);
+        if(medicalNote instanceof FullDischargeNote)
+            return declareFullDischargeNote(medicalNote);
         return null;
     }
 
@@ -81,5 +81,15 @@ public class FindMedicalNote {
     private QuickDischargeNoteModel declareQuickDischargeNote(MedicalNote medicalNote){
         QuickDischargeNote entity = (QuickDischargeNote )medicalNote;
         return mapper.map(entity,QuickDischargeNoteModel.class);
+    }
+    private IMedicalNote declareFullDischargeNote(MedicalNote medicalNote) {
+        FullDischargeNote entity = (FullDischargeNote )medicalNote;
+        FullDischargeNoteModel fullDischargeNote = new FullDischargeNoteModel();
+        fullDischargeNote.setSubjective(entity.getSubjective());
+        fullDischargeNote.setObjective(entity.getObjective());
+        fullDischargeNote.setAssessment(entity.getAssessment());
+        fullDischargeNote.setPlanOfCare(entity.getPlanOfCare());
+        fullDischargeNote.setBilling(entity.getBilling());
+        return fullDischargeNote;
     }
 }
