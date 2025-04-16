@@ -62,6 +62,7 @@ public class FindPatientRecords {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
                     patientRecord.setStatus(medicalNote.getType().label);
+                    patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getCreatedAt());
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
                     return patientRecord;
