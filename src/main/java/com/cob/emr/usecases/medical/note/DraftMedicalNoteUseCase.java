@@ -4,6 +4,7 @@ import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.types.DailyNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.entity.medical.note.types.ProgressNote;
+import com.cob.emr.entity.medical.note.types.QuickDischargeNote;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
@@ -29,6 +30,8 @@ public class DraftMedicalNoteUseCase {
             draftDailyNote(medicalNote, request);
         if(medicalNote instanceof ProgressNote)
             draftProgressNote(medicalNote, request);
+        if(medicalNote instanceof QuickDischargeNote)
+            draftQuickDischargeNote(medicalNote, request);
     }
 
 
@@ -75,5 +78,12 @@ public class DraftMedicalNoteUseCase {
         if(request.getObjective() != null)
             progressNote.setObjective(request.getObjective());
         medicalNoteRepository.save(progressNote);
+    }
+    private void draftQuickDischargeNote(MedicalNote medicalNote, MedicalNoteRequest request) {
+        QuickDischargeNote quickDischargeNote =  (QuickDischargeNote) medicalNote;
+        quickDischargeNote.setDischargeDate(request.getQuickDischargeRequest().getDischargeDate());
+        quickDischargeNote.setNumberOfVisits(request.getQuickDischargeRequest().getNumberOfVisits());
+        quickDischargeNote.setComment(request.getQuickDischargeRequest().getComment());
+        medicalNoteRepository.save(quickDischargeNote);
     }
 }
