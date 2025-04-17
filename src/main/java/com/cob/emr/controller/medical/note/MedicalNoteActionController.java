@@ -19,13 +19,14 @@ public class MedicalNoteActionController {
     @Autowired
     FindMedicalNote findMedicalNote;
     @Autowired
-    DraftMedicalNoteUseCase draftMedicalNoteUseCase;
+    SaveMedicalNoteUseCase saveMedicalNoteUseCase;
     @Autowired
     CreateROMUseCase createROMUseCase;
     @Autowired
     FindROMUseCase findROMUseCase;
     @Autowired
     ForwardMedicalNotUseCase forwardMedicalNotUseCase;
+
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) throws MedicalNoteException {
         MedicalNote medicalNote = createMedicalNoteUseCase.createMedicalNote(request);
@@ -36,7 +37,15 @@ public class MedicalNoteActionController {
 
     @PostMapping("/draft")
     public ResponseEntity draft(@RequestBody MedicalNoteRequest request) {
-        draftMedicalNoteUseCase.draft(request);
+        saveMedicalNoteUseCase.draft(request);
+        return ResponseEntity.ok()
+                .build();
+
+    }
+
+    @PutMapping("/finalize/provider/{uuid}")
+    public ResponseEntity finalize(@RequestBody MedicalNoteRequest request, @PathVariable String uuid) throws MedicalNoteException {
+        saveMedicalNoteUseCase.draftAndFinalize(request, uuid);
         return ResponseEntity.ok()
                 .build();
 
@@ -68,7 +77,7 @@ public class MedicalNoteActionController {
 
     @PutMapping("/forward/note/{note}/uuid/{uuid}")
     public ResponseEntity forward(@PathVariable Long note, @PathVariable String uuid) {
-        forwardMedicalNotUseCase.forward(note,uuid);
+        forwardMedicalNotUseCase.forward(note, uuid);
         return ResponseEntity.ok()
                 .build();
     }

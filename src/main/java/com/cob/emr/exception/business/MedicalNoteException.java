@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class MedicalNoteException extends EMRException{
     public static final String FINALIZE_INIT_EXAM = Category.Business.value() + getPrefix() +"_00";
+    public static final String CORRUPTED_FINALIZER = Category.Business.value() + getPrefix() +"_01";
 
     public MedicalNoteException(String code) {
         super(code);
