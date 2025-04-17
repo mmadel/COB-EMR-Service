@@ -37,6 +37,9 @@ public abstract class MedicalNote {
     @Column(name = "finalized_by")
     private String finalizedBy;
 
+    @Column(name="is_forward")
+    private Boolean isForward;
+
     @Column(name = "updated_at")
     private Long updatedAt;
 
