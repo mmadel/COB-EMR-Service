@@ -51,6 +51,9 @@ public class FindMedicalNote {
     private InitialExamination declareInitialEvaluation(MedicalNote medicalNote) {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNote;
         InitialExamination initialExamination = new InitialExamination();
+        initialExamination.setId(medicalNote.getId());
+        initialExamination.setCreatedBy(medicalNote.getCreatedBy());
+        initialExamination.setFinalizedBy(medicalNote.getFinalizedBy());
         initialExamination.setSubjective(initialEvaluation.getSubjective());
         initialExamination.setPlanOfCare(initialEvaluation.getPlanOfCare());
         initialExamination.setBilling(initialEvaluation.getBilling());
@@ -62,6 +65,9 @@ public class FindMedicalNote {
     private DailyNoteModel declareDailyNote(MedicalNote medicalNote) {
         DailyNote entity = (DailyNote) medicalNote;
         DailyNoteModel dailyNote = new DailyNoteModel();
+        dailyNote.setId(medicalNote.getId());
+        dailyNote.setCreatedBy(medicalNote.getCreatedBy());
+        dailyNote.setFinalizedBy(medicalNote.getFinalizedBy());
         dailyNote.setSubjective(entity.getSubjective());
         dailyNote.setObjective(entity.getObjective());
         dailyNote.setAssessment(entity.getAssessment());
@@ -71,6 +77,9 @@ public class FindMedicalNote {
     private ProgressNoteModel declareProgressNote(MedicalNote medicalNote){
         ProgressNote entity = (ProgressNote )medicalNote;
         ProgressNoteModel progressNote = new ProgressNoteModel();
+        progressNote.setId(medicalNote.getId());
+        progressNote.setCreatedBy(medicalNote.getCreatedBy());
+        progressNote.setFinalizedBy(medicalNote.getFinalizedBy());
         progressNote.setSubjective(entity.getSubjective());
         progressNote.setObjective(entity.getObjective());
         progressNote.setAssessment(entity.getAssessment());
@@ -80,11 +89,18 @@ public class FindMedicalNote {
     }
     private QuickDischargeNoteModel declareQuickDischargeNote(MedicalNote medicalNote){
         QuickDischargeNote entity = (QuickDischargeNote )medicalNote;
+        QuickDischargeNoteModel quickDischargeNote=mapper.map(entity,QuickDischargeNoteModel.class);
+        quickDischargeNote.setId(medicalNote.getId());
+        quickDischargeNote.setCreatedBy(medicalNote.getCreatedBy());
+        quickDischargeNote.setFinalizedBy(medicalNote.getFinalizedBy());
         return mapper.map(entity,QuickDischargeNoteModel.class);
     }
     private IMedicalNote declareFullDischargeNote(MedicalNote medicalNote) {
         FullDischargeNote entity = (FullDischargeNote )medicalNote;
         FullDischargeNoteModel fullDischargeNote = new FullDischargeNoteModel();
+        fullDischargeNote.setId(medicalNote.getId());
+        fullDischargeNote.setCreatedBy(medicalNote.getCreatedBy());
+        fullDischargeNote.setFinalizedBy(medicalNote.getFinalizedBy());
         fullDischargeNote.setSubjective(entity.getSubjective());
         fullDischargeNote.setObjective(entity.getObjective());
         fullDischargeNote.setAssessment(entity.getAssessment());

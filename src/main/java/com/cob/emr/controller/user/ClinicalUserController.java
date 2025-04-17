@@ -5,10 +5,7 @@ import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.response.ResponseHandler;
-import com.cob.emr.usecases.user.clinical.CreateClinicalUserUseCase;
-import com.cob.emr.usecases.user.clinical.DeleteClinicalUserUseCase;
-import com.cob.emr.usecases.user.clinical.FindClinicalUsersByClinicUseCase;
-import com.cob.emr.usecases.user.clinical.UpdateClinicalUserUseCase;
+import com.cob.emr.usecases.user.clinical.*;
 import com.cob.emr.usecases.user.keycloak.CreateKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.DeleteKeyCloakUserUseCase;
 import com.cob.emr.usecases.user.keycloak.UpdateKeyCloakUserUseCase;
@@ -46,6 +43,8 @@ public class ClinicalUserController {
     DeleteClinicalUserUseCase deleteClinicalUserUseCase;
     @Autowired
     UpdateClinicalUserUseCase updateClinicalUserUseCase;
+    @Autowired
+    FindClinicalUserWithFinalizationAuthUSeCase findClinicalUserWithFinalizationAuthUSeCase;
 
     @PostMapping("/create")
     public ResponseEntity createClinicalUser(@RequestBody ClinicalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -81,7 +80,7 @@ public class ClinicalUserController {
 
     @GetMapping("/find/uuid/{uuid}")
     public ResponseEntity<Object> find(@PathVariable String uuid) throws UserException {
-        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find( uuid), HttpStatus.OK);
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(uuid), HttpStatus.OK);
     }
 
     @GetMapping("/find-all/clinicId/{clinicId}")
@@ -93,4 +92,11 @@ public class ClinicalUserController {
     public ResponseEntity<Object> find() throws UserException {
         return new ResponseEntity<>(findClinicalUsersByClinicUseCase.find(), HttpStatus.OK);
     }
+
+    @GetMapping("/find/finalize/note/clinic/{clinic}/user/{user}")
+    public ResponseEntity findAuthProviderToFinalize(@PathVariable Long clinic, @PathVariable String user) throws UserException {
+        return ResponseEntity.ok()
+                .body(findClinicalUserWithFinalizationAuthUSeCase.find(clinic,user));
+    }
+
 }

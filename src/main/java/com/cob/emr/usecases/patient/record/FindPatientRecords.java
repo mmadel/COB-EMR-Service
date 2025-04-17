@@ -81,7 +81,7 @@ public class FindPatientRecords {
                 System.out.println("Froward");
                 break;
             case Finalized:
-                System.out.println("Finalized");
+                actions.add(PatientRecordLineAction.View_PDF.label);
                 break;
         }
         return actions;

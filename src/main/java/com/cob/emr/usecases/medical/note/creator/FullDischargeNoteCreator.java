@@ -23,9 +23,11 @@ public class FullDischargeNoteCreator implements MedicalNoteCreator{
     PatientCaseRepository patientCaseRepository;
     @Override
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
-        List<MedicalNote> medicalNotes = medicalNoteRepository.findLatestProgressNoteByTypeAndStatusAndCase( MedicalNoteType.PROGRESS_NOTE, MedicalNoteStatus.Draft,58L);
+        List<MedicalNote> medicalNotes = medicalNoteRepository.findLatestProgressNoteByTypeAndStatusAndCase( MedicalNoteType.PROGRESS_NOTE, MedicalNoteStatus.Finalized,medicalNoteRequest.getCaseId());
         if (!medicalNotes.isEmpty()) {
             ProgressNote progressNote =(ProgressNote)medicalNotes.stream().findFirst().get() ;
+            if(!progressNote.getStatus().equals(MedicalNoteStatus.Finalized))
+                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_PROGRESS_NOTE, new Object[]{});
             FullDischargeNote fullDischargeNote = new FullDischargeNote();
             fullDischargeNote.setPatientCase(patientCaseRepository.findById(medicalNoteRequest.getCaseId())
                     .orElseThrow(() -> new IllegalArgumentException("Case not found")));

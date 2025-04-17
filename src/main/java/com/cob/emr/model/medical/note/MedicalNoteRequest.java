@@ -16,7 +16,6 @@ public class MedicalNoteRequest {
     private MedicalNoteType noteType;
     private String createdBy;
     private Long noteDate;
-
     private Subjective subjective;
     private Assessment assessment;
     private PlanOfCare planOfCare;

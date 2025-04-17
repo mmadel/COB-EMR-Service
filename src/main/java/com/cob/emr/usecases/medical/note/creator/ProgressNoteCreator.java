@@ -24,7 +24,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator{
     PatientCaseRepository patientCaseRepository;
     @Override
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
-        Optional<MedicalNote> optional = medicalNoteRepository.findByPatientCase_IdAndTypeAndStatus(58L, MedicalNoteType.INITIAL_EVALUATION, MedicalNoteStatus.Draft);
+        Optional<MedicalNote> optional = medicalNoteRepository.findByPatientCase_IdAndTypeAndStatus(medicalNoteRequest.getCaseId(), MedicalNoteType.INITIAL_EVALUATION, MedicalNoteStatus.Finalized);
         if (optional.isPresent()) {
             InitialEvaluation initialEvaluation = (InitialEvaluation) optional.get();
             ProgressNote progressNote = new ProgressNote();
