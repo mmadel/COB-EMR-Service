@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class ProgressNoteModel implements IMedicalNote {
+public class ProgressNoteModel extends IMedicalNote {
     private Object subjective;
     private Object objective;
     private Object assessment;

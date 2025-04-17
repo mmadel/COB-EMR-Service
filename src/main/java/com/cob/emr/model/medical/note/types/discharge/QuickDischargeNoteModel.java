@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class QuickDischargeNoteModel implements IMedicalNote {
+public class QuickDischargeNoteModel extends IMedicalNote {
 
     private Long dischargeDate;
 

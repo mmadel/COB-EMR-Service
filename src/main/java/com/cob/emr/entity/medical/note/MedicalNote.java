@@ -34,6 +34,9 @@ public abstract class MedicalNote {
     @Column(name = "created_by")
     private String createdBy;
 
+    @Column(name = "finalized_by")
+    private String finalizedBy;
+
     @Column(name = "updated_at")
     private Long updatedAt;
 

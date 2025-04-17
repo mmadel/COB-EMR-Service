@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class InitialExamination implements IMedicalNote {
+public class InitialExamination extends IMedicalNote {
     private Subjective subjective;
     private Object objective;
     private Assessment assessment;
