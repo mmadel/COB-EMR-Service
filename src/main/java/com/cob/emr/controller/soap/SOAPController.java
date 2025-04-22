@@ -45,7 +45,9 @@ public class SOAPController {
     @Autowired
     UnAssignSOAPFieldFromProfileUseCase unAssignSOAPFieldFromProfileUseCase;
     @Autowired
-    findSOAPFieldIDUseCase findSOAPFieldIDUseCase;
+    FindSOAPFieldIDUseCase findSOAPFieldIDUseCase;
+    @Autowired
+    CreateFieldDependenciesUseCase createFieldDependenciesUseCase;
 
     @GetMapping("/find/field/name/{name}")
     public ResponseEntity findField(@PathVariable String name) {
@@ -64,10 +66,21 @@ public class SOAPController {
         return ResponseEntity.ok()
                 .body(createCategoryFieldUseCase.create(requests, category));
     }
+
     @GetMapping("/find/field/displayName/{displayName}/category/{category}")
     public ResponseEntity findFieldId(@PathVariable String displayName, @PathVariable String category) throws SOAPException {
         return ResponseEntity.ok()
                 .body(findSOAPFieldIDUseCase.find(displayName, category));
+    }
+
+    @GetMapping({"/create/field/dependencies/parent/{parentId}/category/{categoryName}",
+            "/create/field/dependencies/parent/{parentId}/category/{categoryName}/profile/{profile}"})
+    public ResponseEntity CreateFieldDependencies(@RequestBody List<FieldRequest> requests,
+                                                  @PathVariable String parentId,
+                                                  @PathVariable String categoryName,
+                                                  @PathVariable(name = "profile", required = false) String profile) throws SOAPException {
+        return ResponseEntity.ok()
+                .body(createFieldDependenciesUseCase.create(requests, parentId, categoryName,profile));
     }
 
     @PostMapping("/update/field/id/{fieldId}/category/name/{category}")

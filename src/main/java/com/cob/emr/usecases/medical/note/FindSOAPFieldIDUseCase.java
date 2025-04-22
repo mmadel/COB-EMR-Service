@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 @Component
-public class findSOAPFieldIDUseCase {
+public class FindSOAPFieldIDUseCase {
     @Autowired
     SOAPSectionCategoryNewRepository soapSectionCategoryNewRepository;
 

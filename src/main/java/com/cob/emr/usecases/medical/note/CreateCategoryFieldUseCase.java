@@ -9,6 +9,7 @@ import com.cob.emr.repositories.medical.note.SOAPSectionCategoryNewRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryRepository;
 import com.cob.emr.usecases.medical.note.soap.field.CreateSoapField;
 import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
+import com.cob.emr.usecases.medical.note.util.TraverseFieldRequests;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -29,8 +30,7 @@ public class CreateCategoryFieldUseCase {
         for (FieldRequest request : requests) {
             NewSOAPFieldEntity field = CreateSoapField.create(request, null);
             if (request.getDependencies() != null) {
-                traverseFieldRequests(request.getDependencies(), levelMap, field.getValue().getIdField().getId(), 0);
-                //sectionCategory.getFields().addAll(dependenciesFields);
+                TraverseFieldRequests.traverse(request.getDependencies(), levelMap, field.getValue().getIdField().getId(), 0);
             }
             CreateSOAPFieldName.create(field, sectionCategory.getName());
             sectionCategory.getFields().add(field);
@@ -41,31 +41,4 @@ public class CreateCategoryFieldUseCase {
         return result;
     }
 
-    private void traverseFieldRequests(
-            List<FieldRequest> dependencies,
-            Map<Integer, List<NewSOAPFieldEntity>> levelMap,
-            String uuid,
-            int level) {
-        if (dependencies == null || dependencies.isEmpty()) {
-            return;
-        }
-
-        for (FieldRequest fieldRequest : dependencies) {
-            NewSOAPFieldEntity toBeCreated = createField(fieldRequest, uuid);
-
-            // Add to the appropriate level in the map
-            levelMap.computeIfAbsent(level, k -> new ArrayList<>()).add(toBeCreated);
-
-            // Recursive call with the next level
-            traverseFieldRequests(fieldRequest.getDependencies(), levelMap,
-                    toBeCreated.getValue().getIdField().getId(), level + 1);
-        }
-    }
-
-    private NewSOAPFieldEntity createField(FieldRequest fieldRequest, String uuid) {
-        NewSOAPFieldEntity dependent = CreateSoapField.create(fieldRequest, uuid);
-        dependent.setFieldName(dependent.getFieldName());
-        dependent.setFieldDisplayName(fieldRequest.getFieldName());
-        return dependent;
-    }
 }
