@@ -1,5 +1,6 @@
 package com.cob.emr.controller.soap;
 
+import com.cob.emr.exception.business.SOAPException;
 import com.cob.emr.model.medical.note.soap.field.FieldRequest;
 import com.cob.emr.model.medical.note.soap.field.Item;
 import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
@@ -43,6 +44,8 @@ public class SOAPController {
     AssignSOAPFieldToProfileUseCase assignSOAPFieldToProfileUseCase;
     @Autowired
     UnAssignSOAPFieldFromProfileUseCase unAssignSOAPFieldFromProfileUseCase;
+    @Autowired
+    findSOAPFieldIDUseCase findSOAPFieldIDUseCase;
 
     @GetMapping("/find/field/name/{name}")
     public ResponseEntity findField(@PathVariable String name) {
@@ -60,6 +63,11 @@ public class SOAPController {
     public ResponseEntity addFullField(@RequestBody List<FieldRequest> requests, @PathVariable String category) {
         return ResponseEntity.ok()
                 .body(createCategoryFieldUseCase.create(requests, category));
+    }
+    @GetMapping("/find/field/displayName/{displayName}/category/{category}")
+    public ResponseEntity findFieldId(@PathVariable String displayName, @PathVariable String category) throws SOAPException {
+        return ResponseEntity.ok()
+                .body(findSOAPFieldIDUseCase.find(displayName, category));
     }
 
     @PostMapping("/update/field/id/{fieldId}/category/name/{category}")

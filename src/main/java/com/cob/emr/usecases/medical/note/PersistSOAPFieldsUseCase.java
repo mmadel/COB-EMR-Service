@@ -26,12 +26,23 @@ public class PersistSOAPFieldsUseCase {
                 .flatMap(List::stream)
                 .collect(Collectors.toList());
         allEntities.stream()
-                        .forEach(newSOAPFieldEntity -> {
-                            CreateSOAPFieldName.create(newSOAPFieldEntity, sectionCategory.getName());
-                        });
+                .forEach(newSOAPFieldEntity -> {
+                    CreateSOAPFieldName.create(newSOAPFieldEntity, sectionCategory.getName());
+                });
         sectionCategory.getFields().addAll(allEntities);
         soapSectionCategoryRepository.save(sectionCategory);
-        List<Map<String, String>> formattedList = levelMap.entrySet().stream()
+        List<Map<String, String>> formattedList = null;
+        if(levelMap.size() > 0)
+            formattedList = createStyles(levelMap);
+        else{
+            levelMap.put(0,sectionCategory.getFields());
+            formattedList =createStyles(levelMap);
+        }
+        return formattedList;
+    }
+
+    private List<Map<String, String>> createStyles(Map<Integer, List<NewSOAPFieldEntity>> levelMap) {
+        return levelMap.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream().map(field -> {
                     Map<String, String> obj = new HashMap<>();
                     obj.put("name", field.getFieldName()); // Level + Field Name
@@ -40,6 +51,5 @@ public class PersistSOAPFieldsUseCase {
                     return obj;
                 }))
                 .collect(Collectors.toList());
-        return formattedList;
     }
 }

@@ -20,3 +20,28 @@ select
 from new_soap_field
 where
         JSON_EXTRACT(field_value, '$.type') = 'non-material-handling';
+
+
+#query id,parent_id,display_name of the soap field display
+select
+    JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.idField.id')) AS 'field',
+        JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.parentField')) AS 'parent',
+        category_id,
+    JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.display')) AS 'display',
+        JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.name')) AS 'name'
+from new_soap_field
+where
+        JSON_EXTRACT(field_value, '$.display') = 'test';
+
+## get assign fields to profile
+SELECT sc.name,
+       sf.field_name,
+       sf.field_value
+FROM new_soap_field sf
+         INNER JOIN new_soap_section_category sc ON sf.category_id = sc.id
+WHERE sf.id IN
+      (SELECT soap_field_id
+       FROM objective_profile_soap_field sfp
+                INNER JOIN soap_objective_profile sp ON sfp.objective_profile_id = sp.id
+       WHERE sp.id = 4)
+ORDER BY sf.id DESC

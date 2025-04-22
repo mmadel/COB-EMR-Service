@@ -5,4 +5,3 @@ delete from progress_note;
 delete from quick_discharge_note;
 delete from full_discharge_note;
 delete from medical_note;
-select * from clinical_emr_user
