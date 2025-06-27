@@ -5,7 +5,7 @@ pipeline {
         APP_NAME = "emr"
         DEPLOY_DIR = "/opt/emr"
         SERVICE_NAME = "emr"
-        HEALTH_CHECK_URL = "http://161.97.126.192:8070/emr/api/actuator/health" // remote service URL
+        HEALTH_CHECK_URL = "http://localhost:8070/emr/api/actuator/health" // remote service URL
         REMOTE_USER = "root"
         REMOTE_HOST = "161.97.126.192" // use container name, IP, or hostname
         REMOTE_SSH_PORT = "22"   // change to 2222 if needed
@@ -18,40 +18,61 @@ pipeline {
             }
         }
 
-stage('Deploy') {
-    steps {
-        sshagent (credentials: ['test-env-user']) {
-            script {
-                def jarName = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
-                if (!jarName) {
-                    error "❌ No JAR file found in target directory!"
-                }
-                // Copy JAR to remote server
-                sh "scp -P ${REMOTE_SSH_PORT} ${jarName} ${REMOTE_USER}@${REMOTE_HOST}:${DEPLOY_DIR}/${APP_NAME}.jar"
+stages {
+        stage('Deploy') {
+            steps {
+                sshagent (credentials: ['test-env-user']) {
+                    script {
+                        echo "🚚 Preparing JAR for deployment..."
+                        def jarName = sh(script: "ls target/*.jar | head -n 1", returnStdout: true).trim()
+                        if (!jarName) {
+                            error "❌ No JAR file found in target directory!"
+                        }
 
-                // Restart service
-                sh "ssh -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'sudo systemctl restart ${SERVICE_NAME} && sleep 30'"
+                        echo "📦 Copying ${jarName} to ${REMOTE_HOST}:${DEPLOY_DIR}/${APP_NAME}.jar"
+                        sh """
+                            scp -P ${REMOTE_SSH_PORT} ${jarName} ${REMOTE_USER}@${REMOTE_HOST}:${DEPLOY_DIR}/${APP_NAME}.jar
+                        """
+
+                        echo "🔄 Restarting ${SERVICE_NAME} on remote host..."
+                        sh """
+                            ssh -o StrictHostKeyChecking=no -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} '
+                                set -e
+                                sudo systemctl restart ${SERVICE_NAME}
+                            '
+                        """
+                    }
+                }
             }
         }
-    }
-}
 
         stage('Sanity Check') {
             steps {
                 sshagent (credentials: ['test-env-user']) {
                     script {
-                        echo "Running SSH curl command..."
+                        echo "🔍 Performing health check on ${SERVICE_NAME}..."
+
                         def response = sh(
-                            script: "ssh -o StrictHostKeyChecking=no -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'curl -v  -s -o /dev/null -w \"%{http_code}\" ${HEALTH_CHECK_URL}'",
+                            script: """
+                                ssh -o StrictHostKeyChecking=no -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} '
+                                    echo "⏳ Waiting for service to become healthy..."
+                                    for i in {1..15}; do
+                                        STATUS=\$(curl -s -o /dev/null -w "%{http_code}" ${HEALTH_CHECK_URL})
+                                        echo "Attempt \$i: HTTP status \$STATUS"
+                                        if [ "\$STATUS" = "200" ]; then
+                                            echo "✅ Service is healthy."
+                                            exit 0
+                                        fi
+                                        sleep 2
+                                    done
+                                    echo "❌ Service failed to become healthy within 30 seconds."
+                                    exit 1
+                                '
+                            """,
                             returnStdout: true
                         ).trim()
-                        // Echo the response for visibility
-                        echo "🧪 Sanity Check - Response Code: ${response}"
-                        if (response != '200') {
-                            error "❌ Health check failed! Service did not return HTTP 200. Got ${response} instead."
-                        } else {
-                            echo "✅ Health check passed with status ${response}."
-                        }
+
+                        echo "🧪 Health Check Output:\n${response}"
                     }
                 }
             }
