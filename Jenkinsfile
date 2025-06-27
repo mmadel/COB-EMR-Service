@@ -5,7 +5,7 @@ pipeline {
         APP_NAME = "emr"
         DEPLOY_DIR = "/opt/emr"
         SERVICE_NAME = "emr"
-        HEALTH_CHECK_URL = "http://localhost:8070/emr/api/actuator/health" // remote service URL
+        HEALTH_CHECK_URL = "http://161.97.126.192:8070/emr/api/actuator/health" // remote service URL
         REMOTE_USER = "root"
         REMOTE_HOST = "161.97.126.192" // use container name, IP, or hostname
         REMOTE_SSH_PORT = "22"   // change to 2222 if needed
@@ -30,7 +30,7 @@ stage('Deploy') {
                 sh "scp -P ${REMOTE_SSH_PORT} ${jarName} ${REMOTE_USER}@${REMOTE_HOST}:${DEPLOY_DIR}/${APP_NAME}.jar"
 
                 // Restart service
-                sh "ssh -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'sudo systemctl restart ${SERVICE_NAME} && sleep 10'"
+                sh "ssh -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'sudo systemctl restart ${SERVICE_NAME} && sleep 30'"
             }
         }
     }
