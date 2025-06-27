@@ -44,7 +44,8 @@ stage('Deploy') {
                             script: "ssh -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'curl -s -o /dev/null -w \"%{http_code}\" ${HEALTH_CHECK_URL}'",
                             returnStdout: true
                         ).trim()
-                         echo response
+                        // Echo the response for visibility
+                        echo "🧪 Sanity Check - Response Code: ${response}"
                         if (response != '200') {
                             error "❌ Health check failed! Service did not return HTTP 200. Got ${response} instead."
                         } else {
