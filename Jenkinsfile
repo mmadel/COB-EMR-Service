@@ -42,7 +42,7 @@ stage('Deploy') {
                     script {
                         echo "Running SSH curl command..."
                         def response = sh(
-                            script: "ssh -o StrictHostKeyChecking=no -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'curl -s -o /dev/null -w \"%{http_code}\" ${HEALTH_CHECK_URL}'",
+                            script: "ssh -o StrictHostKeyChecking=no -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'curl -v  -s -o /dev/null -w \"%{http_code}\" ${HEALTH_CHECK_URL}'",
                             returnStdout: true
                         ).trim()
                         // Echo the response for visibility
