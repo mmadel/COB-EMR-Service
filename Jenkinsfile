@@ -40,6 +40,7 @@ stage('Deploy') {
             steps {
                 sshagent (credentials: ['test-env-user']) {
                     script {
+                        echo "Running SSH curl command..."
                         def response = sh(
                             script: "ssh -p ${REMOTE_SSH_PORT} ${REMOTE_USER}@${REMOTE_HOST} 'curl -s -o /dev/null -w \"%{http_code}\" ${HEALTH_CHECK_URL}'",
                             returnStdout: true
