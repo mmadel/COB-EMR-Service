@@ -48,7 +48,7 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody SchedulerAppointment model) {
-        //dummy comment-2
+        //dummy comment-3
         return ResponseEntity.ok()
                 .body(createSchedulerAppointment.create(model));
     }
