@@ -1,12 +1,12 @@
 package com.cob.emr.enums;
 
 public enum AppointmentStatus {
-    Created("created"),
-    Confirmed("confirmed"),
-    CheckIn("check-in"),
-    Checkout("check-out"),
-    Cancel("cancel"),
-    NoShow("no-show");
+    Created("Created"),
+    Confirmed("Confirmed"),
+    CheckIn("Check In"),
+    Checkout("Check Out"),
+    Cancel("Cancel"),
+    NoShow("No Show");
     public final String label;
 
     AppointmentStatus(String label) {

@@ -27,9 +27,20 @@ public class SecurityConfiguration {
                 new DelegatingJwtGrantedAuthoritiesConverter(
                         new JwtGrantedAuthoritiesConverter(),
                         new KeycloakJwtRolesConverter());
-        httpSecurity.oauth2ResourceServer().jwt().jwtAuthenticationConverter(
-                jwt -> new JwtAuthenticationToken(jwt, authoritiesConverter.convert(jwt)));
-        httpSecurity.authorizeRequests().anyRequest().authenticated();
+
+        httpSecurity
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/actuator/**").permitAll() // Allow actuator endpoints
+                        .anyRequest().authenticated()            // Secure all other endpoints
+                )
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt
+                                .jwtAuthenticationConverter(
+                                        jwtToken -> new JwtAuthenticationToken(jwtToken, authoritiesConverter.convert(jwtToken))
+                                )
+                        )
+                );
+
         return httpSecurity.build();
     }
 }

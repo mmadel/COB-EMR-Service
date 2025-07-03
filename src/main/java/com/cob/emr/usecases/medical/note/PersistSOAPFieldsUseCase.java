@@ -1,0 +1,46 @@
+package com.cob.emr.usecases.medical.note;
+
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPSectionCategoryEntity;
+import com.cob.emr.entity.medical.note.soap.field.SOAPFieldEntity;
+import com.cob.emr.entity.medical.note.soap.field.SOAPSectionCategoryEntity;
+import com.cob.emr.repositories.medical.note.SOAPSectionCategoryNewRepository;
+import com.cob.emr.repositories.medical.note.SOAPSectionCategoryRepository;
+import com.cob.emr.usecases.medical.note.util.CreateFieldsStyle;
+import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Component
+public class PersistSOAPFieldsUseCase {
+    @Autowired
+    SOAPSectionCategoryNewRepository soapSectionCategoryRepository;
+
+    public List<Map<String, String>> persist(NewSOAPSectionCategoryEntity sectionCategory, Map<Integer, List<NewSOAPFieldEntity>> levelMap) {
+        List<NewSOAPFieldEntity> allEntities = levelMap.values()
+                .stream()
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+        allEntities.stream()
+                .forEach(newSOAPFieldEntity -> {
+                    CreateSOAPFieldName.create(newSOAPFieldEntity, sectionCategory.getName());
+                });
+        sectionCategory.getFields().addAll(allEntities);
+        soapSectionCategoryRepository.save(sectionCategory);
+        List<Map<String, String>> formattedList = null;
+        Map<String,String>  styles = new HashMap<>();
+        styles.put("label_style", "white-space: nowrap; min-width: 500px;");
+        styles.put("style", "margin-left: " + (10 * (1)) + "px;");
+
+        if(levelMap.size() ==0)
+            levelMap.put(0,sectionCategory.getFields());
+        formattedList =CreateFieldsStyle.createStyles(levelMap);
+
+        return formattedList;
+    }
+}

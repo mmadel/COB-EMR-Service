@@ -1,32 +1,79 @@
 package com.cob.emr.usecases.appointment.repeat;
+import com.cob.emr.usecases.medical.note.util.CreateSOAPFieldName;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import com.cob.emr.entity.appointment.Appointment;
-
-import java.time.Duration;
-import java.time.Instant;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        long nowMillis = Instant.now().toEpochMilli();
-        long futureWithin15 = nowMillis + (10 * 60 * 1000); // 10 minutes ahead
-        long futureBeyond15 = nowMillis + (20 * 60 * 1000); // 20 minutes ahead
-        long pastWithin15 = nowMillis - (10 * 60 * 1000); // 10 minutes ago
-        long pastBeyond15 = nowMillis - (20 * 60 * 1000); // 20 minutes ago
-        System.out.println(isStatusChangeable(1738682100000L));
+
+//        File htmlFile = new File("C:\\Users\\HP\\Desktop\\move_shild\\rom.html");
+//        if (!htmlFile.exists()) {
+//            System.err.println("File not found: " + args[0]);
+//            System.exit(1);
+//        }
+//
+//        try {
+//            Map<String, Map<String, String[]>> result = parseMovementOptions(htmlFile);
+//            Gson gson = new Gson();
+//            ObjectMapper objectMapper = new ObjectMapper();
+//
+//            // Convert the map to JSON string
+//            String json = objectMapper.writeValueAsString(result);
+//
+//            // Print the resulting JSON
+//            System.out.println(json);
+//
+//
+//
+//        } catch (IOException e) {
+//            System.err.println("Error reading or parsing the file: " + e.getMessage());
+//            System.exit(1);
+//        }
     }
-    private static Boolean isStatusChangeable(Long date){
-        Instant appointmentTime = Instant.ofEpochMilli(date);
-        Instant now = Instant.now();
+    public static Map<String, Map<String, String[]>> parseMovementOptions(File htmlFile) throws IOException {
+        // Parse the HTML file with Jsoup
+        Document doc = Jsoup.parse(htmlFile, "UTF-8");
 
-        // Calculate the time difference in minutes
-        long minutesDifference = Duration.between(now, appointmentTime).toMinutes();
-
-        // If the appointment is more than 15 minutes in the future, return false
-        if (minutesDifference > 15) {
-            return false;
+        // Find the parent div with the specified ID and class
+        Element parentDiv = doc.select("div.rowdiv.inset-tests#divTShlAROM").first();
+        if (parentDiv == null) {
+            return new HashMap<>(); // Return an empty map if parent div is not found
         }
 
-        // If the appointment is within 15 minutes in the future or past, return true
-        return true;
+        Map<String, Map<String, String[]>> movementOptions = new HashMap<>();
+
+        // Get all "rowdiv" divs, skipping the first and second ones
+        Elements rowDivs = parentDiv.select("div.rowdiv");
+
+        // Loop through rowDivs starting from the third element (index 2)
+        for (int i = 2; i < rowDivs.size(); i++) {
+            Element rowDiv = rowDivs.get(i);
+
+            // Extract the movement name from col1div
+            String movementName = rowDiv.select("div.col1div").text().trim();
+
+            // Extract all options from the select element
+            Elements options = rowDiv.select("div.colRightdiv select option");
+            String[] optionValues = options.stream().map(option -> option.text().trim()).toArray(String[]::new);
+
+            if (!movementName.isEmpty() && optionValues.length > 0) {
+                // Map both 'right' and 'left' keys to the same options
+                movementOptions.put(movementName, new HashMap<String, String[]>() {{
+                    put("right", optionValues);
+                    put("left", optionValues);
+                }});
+            }
+        }
+
+        return movementOptions;
     }
 }

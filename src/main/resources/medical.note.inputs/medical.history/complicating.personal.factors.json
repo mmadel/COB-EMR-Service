@@ -1,0 +1,200 @@
+[
+  {
+    "changeValue": null,
+    "dependencies": null,
+    "fieldName": "Complicating/Personal Factors",
+    "fieldType": "mutliple-checkBox",
+    "value": [
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_NoKnownComplicatingFactorsAffectingThePlanOfCare_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_NoKnownComplicatingFactorsAffectingThePlanOfCare",
+        "view": "No Known Complicating Factors Affecting the Plan of Care"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_Allergies_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_Allergies",
+        "view": "Allergies"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_AttitudesMotivation_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_AttitudesMotivation",
+        "view": "Attitudes/Motivation"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_Character_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_Character",
+        "view": "Character"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_CopingStyle_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_CopingStyle",
+        "view": "Coping Style"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_EducationLevel_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_EducationLevel",
+        "view": "Education level"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_HomeEnvironment_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_HomeEnvironment",
+        "view": "Home Environment"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_Lifestyle_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_Lifestyle",
+        "view": "Lifestyle"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_Litigation_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_Litigation",
+        "view": "Litigation"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_Other_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_Other",
+        "view": "Other (enter description below)"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_MechanismOfInjuryIllness_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_MechanismOfInjuryIllness",
+        "view": "Mechanism of injury/ Illness"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_MultipleTreatmentAreas_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_MultipleTreatmentAreas",
+        "view": "Multiple Treatment Areas"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_PatientAge_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_PatientAge",
+        "view": "Patient age"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_PreviousTherapy_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_PreviousTherapy",
+        "view": "Previous Therapy"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_PsychoSocial_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_PsychoSocial",
+        "view": "Psycho-Social"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_RehabPotential_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_RehabPotential",
+        "view": "Rehab Potential"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_SocialBackground_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_SocialBackground",
+        "view": "Social background"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_SurgicalHistory_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_SurgicalHistory",
+        "view": "Surgical History"
+      },
+      {
+        "dependencies": [
+          {
+            "fieldFormName": "complicating_Personal_factors_TimeSinceOnsetOfInjuryIllness_txt_area",
+            "fieldType": "textArea"
+          }
+        ],
+        "val": "complicating_Personal_factors_TimeSinceOnsetOfInjuryIllness",
+        "view": "Time since onset of injury/illness"
+      }
+    ]
+  }
+]

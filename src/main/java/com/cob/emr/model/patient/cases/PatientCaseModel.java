@@ -1,6 +1,7 @@
 package com.cob.emr.model.patient.cases;
 
 import com.cob.emr.enums.InjuryCase;
+import com.cob.emr.enums.PatientRecordAction;
 import com.cob.emr.enums.PlaceOfService;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,4 +32,6 @@ public class PatientCaseModel {
     private CaseOtherInformation caseOtherInformation;
     private Long therapist;
     private String therapistUUID;
+
+    private List<String> patientRecordActions;
 }

@@ -1,0 +1,343 @@
+{
+	"fieldName": "Occupation Social History",
+	"fieldType": "radio",
+	"changeValue": "yes",
+	"dependencies": [
+		{
+			"fieldName": "Social History",
+			"fieldType": "radio",
+			"changeValue": "yes",
+			"dependencies": [
+				{
+					"fieldName": "Social History Select",
+					"fieldType": "multiple_select",
+					"value": [
+						{
+							"val": "SPTSH01",
+							"view": "Lives at Assisted Living Facility"
+						},
+						{
+							"val": "SPTSH02",
+							"view": "Lives with Family"
+						},
+						{
+							"val": "SPTSH03",
+							"view": "Lives with Caregiver"
+						},
+						{
+							"val": "SPTSH04",
+							"view": "Married"
+						},
+						{
+							"val": "SPTSH05",
+							"view": "Single"
+						},
+						{
+							"val": "SPTSH06",
+							"view": "Divorced"
+						},
+						{
+							"val": "SPTSH07",
+							"view": "Widowed"
+						}
+					],
+					"ignoreDisplay": true,
+					"changeValue": null,
+					"dependencies": null
+				}
+			]
+		},
+		{
+			"fieldName": "Occupation and Work Status",
+			"fieldType": "checkbox",
+			"changeValue": "true",
+			"dependencies": [
+				{
+					"fieldName": "Name of Occupation",
+					"fieldType": "text",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Status",
+					"fieldType": "select",
+					"value": [
+						{
+							"val": "OS1",
+							"view": "Full Time"
+						},
+						{
+							"val": "OS2",
+							"view": "Part Time"
+						},
+						{
+							"val": "OS3",
+							"view": "Light Duty"
+						},
+						{
+							"val": "OS4",
+							"view": "Transitional Duty"
+						},
+						{
+							"val": "OS5",
+							"view": "Out of Work"
+						},
+						{
+							"val": "OS6",
+							"view": "Retired"
+						},
+						{
+							"val": "OS7",
+							"view": "Not Working"
+						},
+						{
+							"val": "OS8",
+							"view": "Homemaker"
+						},
+						{
+							"val": "Custom",
+							"view": "Custom"
+						}
+					],
+					"selectValue": "OS1",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Duty Level",
+					"fieldType": "select",
+					"value": [
+						{
+							"val": "ODL00",
+							"view": "Sedentary"
+						},
+						{
+							"val": "ODL01",
+							"view": "Light"
+						},
+						{
+							"val": "ODL02",
+							"view": "Medium"
+						},
+						{
+							"val": "ODL03",
+							"view": "Heavy"
+						},
+						{
+							"val": "ODL04",
+							"view": "Very Heavy"
+						}
+					],
+					"selectValue": "ODL00",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Description",
+					"fieldType": "text",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Out of Work Since",
+					"fieldType": "date",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Return to Work Date",
+					"fieldType": "date",
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Workers Compensation",
+					"fieldType": "multiple_radio",
+					"value": [
+						"N/A",
+						"yes",
+						"no"
+					],
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Litigation",
+					"fieldType": "multiple_radio",
+					"value": [
+						"N/A",
+						"yes",
+						"no"
+					],
+					"changeValue": "true",
+					"dependencies": null
+				}
+			]
+		},
+		{
+			"fieldName": "Home Layout",
+			"fieldType": "checkbox",
+			"changeValue": "true",
+			"dependencies": [
+				{
+					"fieldName": "Home Layout Select",
+					"fieldType": "multiple_select",
+					"value": [
+						{
+							"val": "HL01",
+							"view": "1-story"
+						},
+						{
+							"val": "HL02",
+							"view": "2-story"
+						},
+						{
+							"val": "HL03",
+							"view": "Condo/Apt"
+						},
+						{
+							"val": "HL04",
+							"view": "Stairs/Steps"
+						},
+						{
+							"val": "HL05",
+							"view": "Shower Stall"
+						},
+						{
+							"val": "HL06",
+							"view": "Combo Bathtub Shower"
+						},
+						{
+							"val": "HL07",
+							"view": "W/C Accessible"
+						}
+					],
+					"ignoreDisplay": true,
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Home Layout Text",
+					"fieldType": "text",
+					"ignoreDisplay": true,
+					"changeValue": null,
+					"dependencies": null
+				}
+			]
+		},
+		{
+			"fieldName": "Durable Medical Equipment",
+			"fieldType": "checkbox",
+			"changeValue": "true",
+			"dependencies": [
+				{
+					"fieldName": "Durable Medical Equipment Select",
+					"fieldType": "multiple_select",
+					"value": [
+						{
+							"val": "DME01",
+							"view": "None"
+						},
+						{
+							"val": "DME02",
+							"view": "Tub Bench"
+						},
+						{
+							"val": "DME03",
+							"view": "Shower Chair"
+						},
+						{
+							"val": "DME04",
+							"view": "Grab Bars"
+						},
+						{
+							"val": "DME05",
+							"view": "Bedside Commode"
+						},
+						{
+							"val": "DME06",
+							"view": "Raised Toilet Seat"
+						},
+						{
+							"val": "DME07",
+							"view": "Standard Walker"
+						},
+						{
+							"val": "DME08",
+							"view": "Rolling Walker"
+						},
+						{
+							"val": "DME09",
+							"view": "Hemi-walker"
+						},
+						{
+							"val": "DME10",
+							"view": "Quad Cane"
+						},
+						{
+							"val": "DME11",
+							"view": "Straight Cane"
+						},
+						{
+							"val": "DME12",
+							"view": "Wheelchair"
+						}
+					],
+					"changeValue": null,
+					"dependencies": null
+				},
+				{
+					"fieldName": "Durable Medical Equipment Text",
+					"fieldType": "text",
+					"ignoreDisplay": true,
+					"changeValue": "true",
+					"dependencies": []
+				}
+			]
+		},
+		{
+			"fieldName": "Is Patient A Tobacco User",
+			"fieldType": "multiple_radio",
+			"value": [
+				"N/A",
+				"yes",
+				"no"
+			],
+			"changeValue": "yes",
+			"dependencies": [
+				{
+					"fieldName": "Does patient smoke cigarettes and or use other forms of tobacco",
+					"fieldType": "radio",
+					"changeValue": "yes",
+					"dependencies": [
+						{
+							"fieldName": "Recommendation made to stop using tobacco products",
+							"fieldType": "checkbox",
+							"changeValue": null,
+							"dependencies": null
+						},
+						{
+							"fieldName": "Advice and support provided for tobacco use cessation",
+							"fieldType": "checkbox",
+							"changeValue": null,
+							"dependencies": null
+						},
+						{
+							"fieldName": "Continued support for tobacco use cessation will be provided on all or most follow up visits",
+							"fieldType": "checkbox",
+							"changeValue": null,
+							"dependencies": null
+						},
+						{
+							"fieldName": "patient smoke cigarettes Text",
+							"ignoreDisplay": true,
+							"fieldType": "text",
+							"changeValue": null,
+							"dependencies": null
+						}
+					]
+				}
+			]
+		}
+	]
+}
