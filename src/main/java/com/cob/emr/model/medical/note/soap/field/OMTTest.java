@@ -13,4 +13,5 @@ public class OMTTest {
     private String style;
     private String type;
     private Object value;
+    private String selectValue;
 }

@@ -11,6 +11,8 @@ public class CreateSOAPFieldName {
             name.append("_" + soapFieldEntity.getValue().getParentField());
         if (soapFieldEntity.getValue().getDisplay() != null)
             name.append("_" + toCamelCase(soapFieldEntity.getValue().getDisplay()));
+        else
+            name.append("_" + toCamelCase(soapFieldEntity.getFieldDisplayName()));
         soapFieldEntity.getValue().setName(name.toString());
         soapFieldEntity.setFieldName(name.toString());
     }
