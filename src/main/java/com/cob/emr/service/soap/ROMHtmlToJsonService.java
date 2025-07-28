@@ -11,10 +11,10 @@ import java.nio.file.*;
 import java.util.*;
 
 @Service
-public class HtmlToJsonService {
+public class ROMHtmlToJsonService {
 
     // External file path (can be injected via application.properties)
-    @Value("${html.input.file:/home/mohamed/html/input.html}")
+    @Value("${html.input.file.rom:/home/mohamed/html/input.html}")
     private String htmlInputFile;
 
     public List<Map<String, Object>> convertHtml() {
