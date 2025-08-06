@@ -1,0 +1,90 @@
+package com.cob.emr.controller.clinic;
+
+import com.cob.emr.exception.business.ClinicException;
+import com.cob.emr.model.clinic.ClinicModel;
+import com.cob.emr.response.ResponseHandler;
+import com.cob.emr.usecases.clinic.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(value = "/clinic")
+public class ClinicController {
+
+
+    @Autowired
+    CreateClinicUseCase createClinicUseCase;
+    @Autowired
+    UpdateClinicUseCase updateClinicUseCase;
+    @Autowired
+    FindClinicsByListOfIdentificationUseCase findClinicsByListOfIdentification;
+    @Autowired
+    FindClinicsForUserUseCase findClinicsForUserUseCase;
+    @Autowired
+    FindClinicByOrganizationIdUseCase findClinicByOrganizationIdUseCase;
+
+    @Autowired
+    DeleteClinicUseCase deleteClinicUseCase;
+
+    @Autowired
+    FindClinicUseCase findClinicUseCase;
+    @Autowired
+    FindNotConfigurableSchedulerClinicsUseCase findNotConfigurableSchedulerClinicsUseCase;
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> create(@RequestBody ClinicModel clinicModel) {
+        return ResponseHandler
+                .generateResponse("Successfully added clinic!",
+                        HttpStatus.OK,
+                        createClinicUseCase.create(clinicModel));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Object> update(@RequestBody ClinicModel model) {
+        updateClinicUseCase.update(model);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping("/find/ids/{ids}")
+    public ResponseEntity<Object> findByIds(@PathVariable("ids") List<Long> ids) {
+        return ResponseHandler
+                .generateResponse("Successfully Find All Clinics By Ids",
+                        HttpStatus.OK,
+                        findClinicsByListOfIdentification.find(ids));
+    }
+
+    @GetMapping(path = "/find/user/{uuid}")
+    @ResponseBody
+    public ResponseEntity getByUserUUID(@PathVariable String uuid) {
+        return new ResponseEntity(findClinicsForUserUseCase.find(uuid), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/find/organization/{organizationId}")
+    @ResponseBody
+    public ResponseEntity<Object> findAllByOrganizationID(@PathVariable Long organizationId) {
+        return ResponseHandler
+                .generateResponse("Successfully Find All Clinics By Organization Id",
+                        HttpStatus.OK,
+                        findClinicByOrganizationIdUseCase.find(organizationId));
+    }
+
+    @DeleteMapping(path = "/delete/{clinicId}")
+    @ResponseBody
+    public void deleteClinic(@PathVariable Long clinicId) throws ClinicException {
+        deleteClinicUseCase.deleteById(clinicId);
+    }
+    @GetMapping(path = "/find/{clinicId}")
+    @ResponseBody
+    public ResponseEntity findClinicById(@PathVariable Long clinicId){
+        return new ResponseEntity(findClinicUseCase.find(clinicId), HttpStatus.OK);
+    }
+    @GetMapping(path = "/find-not-configurable/organization/{organizationId}")
+    @ResponseBody
+    public ResponseEntity findNotConfigurableClinic(@PathVariable Long organizationId){
+        return new ResponseEntity(findNotConfigurableSchedulerClinicsUseCase.find(organizationId), HttpStatus.OK);
+    }
+}

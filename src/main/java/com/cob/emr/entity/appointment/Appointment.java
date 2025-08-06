@@ -1,11 +1,11 @@
 package com.cob.emr.entity.appointment;
 
+import com.cob.emr.entity.calendar.CalendarEntity;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
-import com.cob.emr.enums.AppointmentRepetition;
 import com.cob.emr.enums.AppointmentStatus;
-import com.cob.emr.enums.AppointmentType;
+import com.cob.emr.model.appointment.AppointmentRepetitionType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -33,27 +33,32 @@ public class Appointment {
     @Column(name = "appointment_status")
     private AppointmentStatus appointmentStatus;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "appointment_repetition")
-    private AppointmentRepetition appointmentRepetition;
-
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "clinic_id", referencedColumnName = "id")
     private Clinic clinic;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "id")
     private Patient patient;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(name = "case_id", referencedColumnName = "id")
     private PatientCase patientCase;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "appointment_type")
+    @OneToOne
+    @JoinColumn(name = "appointment_type_id", referencedColumnName = "id")
     private AppointmentType appointmentType;
 
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment", fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "calendar_id")
+    private CalendarEntity calendar;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "appointment", fetch = FetchType.EAGER)
     private AppointmentCancelNoShowReason appointmentCancelNoShowReason;
+
+    @Column(name = "title")
+    private String title;
+    @Column
+    private Integer seriesId;
 }
 

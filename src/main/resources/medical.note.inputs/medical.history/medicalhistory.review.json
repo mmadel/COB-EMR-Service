@@ -1,0 +1,26 @@
+[
+  {
+    "fieldName": "Medical History Review",
+    "fieldType": "custom-mutliple-radio",
+    "value": [
+      {
+        "val": "medical_history_review_assessment_low_complexity",
+        "view": "Low Complexity - The patient has a history of present problem without any personal factors and/or comorbidities that impact the plan of care."
+      },
+      {
+        "val": "medical_history_review_assessment_moderate_complexity",
+        "view": "Moderate Complexity - The patient has a history of present problem with a history of 1-2 personal factors and/or comorbidities that impact the plan of care."
+      },
+      {
+        "val": "medical_history_review_assessment_high_complexity",
+        "view": "High Complexity - The patient has a history of present problem with a history of 3 or more factors and/or comorbidities that impact the plan of care."
+      },
+      {
+        "val": "medical_history_review_other",
+        "view": "Other"
+      }
+    ],
+    "changeValue": null,
+    "dependencies": null
+  }
+]

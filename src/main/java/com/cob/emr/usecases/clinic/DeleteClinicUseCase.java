@@ -1,8 +1,12 @@
 package com.cob.emr.usecases.clinic;
 
+import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.exception.business.ClinicException;
 import com.cob.emr.exception.business.EMRException;
 import com.cob.emr.repositories.clinic.ClinicRepository;
+import com.cob.emr.repositories.organization.OrganizationRepository;
+import com.cob.emr.usecases.patient.DeletePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -11,16 +15,21 @@ import org.springframework.stereotype.Component;
 public class DeleteClinicUseCase {
     @Autowired
     ClinicRepository clinicRepository;
-
-    public void delete(Long clinicId) throws ClinicException {
+    @Autowired
+    OrganizationRepository organizationRepository;
+    @Autowired
+    DeletePatientUseCase deletePatientUseCase;
+    public void deleteById(Long clinicId) throws ClinicException {
         try {
+            deletePatientUseCase.deleteByClinic(clinicId);
             clinicRepository.deleteById(clinicId);
         } catch (Exception emrException) {
             throw new ClinicException(HttpStatus.CONFLICT, ClinicException.CLINIC_ASSIGN_TO_USER, new Object[]{clinicId});
         }
     }
 
-    public void deleteByOrganization(Long clinicId, Long organizationId) {
-        clinicRepository.deleteByOrganization(clinicId, organizationId);
+    public void delete(Long organizationId) {
+        Organization organization = organizationRepository.findById(organizationId).get();
+        clinicRepository.deleteByOrganization(organization);
     }
 }

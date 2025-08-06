@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 public class CreatePatientUseCase {
     @Autowired
     PatientCreatorService creatorService;
-    @PreAuthorize("hasAnyRole(@roleEvaluator.findAuthorizedRoleForCreation('patient'))")
     public PatientModel create(PatientModel model){
         return creatorService.create(model);
     }

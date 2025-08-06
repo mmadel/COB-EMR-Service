@@ -1,7 +1,7 @@
 package com.cob.emr.entity.organization;
 
 import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -31,7 +31,7 @@ public class Organization {
 
     @Column(name = "billing_address", columnDefinition = "json")
     @Type(type = "json")
-    private AddressModel billingAddress;
+    private AddressDependencyModel billingAddress;
     @OneToMany(mappedBy = "organization")
     private List<Clinic> clinics = new ArrayList<>();
 

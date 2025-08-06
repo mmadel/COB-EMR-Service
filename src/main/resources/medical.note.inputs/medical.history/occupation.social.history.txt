@@ -1,0 +1,24 @@
+Occupation Social History
+	Social History
+		Social History Select
+	Occupation and Work Status
+		Name of Occupation
+		Status
+		Duty Level
+		Description
+		Out of Work Since
+		Return to Work Date
+		Workers Compensation
+		Litigation
+	Home Layout
+		Home Layout Select
+		Home Layout Text
+	Durable Medical Equipment
+		Durable Medical Equipment Select
+		Durable Medical Equipment Text
+	Is Patient A Tobacco User
+		Does patient smoke cigarettes and or use other forms of tobacco
+			Recommendation made to stop using tobacco products
+			Advice and support provided for tobacco use cessation
+			Continued support for tobacco use cessation will be provided on all or most follow up visits
+			patient smoke cigarettes Text

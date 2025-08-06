@@ -1,8 +1,10 @@
 package com.cob.emr.service.insurance.company.creator;
 
 import com.cob.emr.entity.insurance.InsuranceCompany;
+import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 import com.cob.emr.repositories.insurance.company.InsuranceCompanyRepository;
+import com.cob.emr.repositories.organization.OrganizationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,11 +18,15 @@ public class InsuranceCompanyCreatorServiceImpl implements InsuranceCompanyCreat
     @Autowired
     InsuranceCompanyRepository repository;
     @Autowired
+    OrganizationRepository organizationRepository;
+    @Autowired
     ModelMapper mapper;
 
     @Override
     public InsuranceCompanyModel createOrUpdate(InsuranceCompanyModel model) {
         InsuranceCompany toBeCreated = mapper.map(model, InsuranceCompany.class);
+        Organization organization = organizationRepository.findById(model.getOrganizationId()).get();
+        toBeCreated.setOrganization(organization);
         InsuranceCompany created = repository.save(toBeCreated);
         return mapper.map(created, InsuranceCompanyModel.class);
     }

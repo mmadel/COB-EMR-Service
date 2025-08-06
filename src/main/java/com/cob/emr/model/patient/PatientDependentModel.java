@@ -1,6 +1,6 @@
 package com.cob.emr.model.patient;
 
-import com.cob.emr.model.common.AddressModel;
+import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ public class PatientDependentModel implements Serializable {
 
     private Boolean isDependent;
 
-    private AddressModel address;
+    private AddressDependencyModel address;
 
     private String phone;
 }

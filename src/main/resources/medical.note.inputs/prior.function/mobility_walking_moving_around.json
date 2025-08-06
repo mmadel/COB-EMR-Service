@@ -1,0 +1,187 @@
+{
+  "dependencies": [
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Ability to Use Telephone"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Shopping"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Food Preparation"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Housekeeping"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Laundry"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Mode of Transportation"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Responsibility for Own Medications"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "IADLs",
+      "Ability to Handle Finances"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Use of an Assistive Device"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Forward"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Backward"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Sideways"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Strolling"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Walking on Different Surfaces"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Walking",
+      "Walking Around Obstacles"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Climbing"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Running"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Jogging"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Skipping"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Jumping"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around",
+      "Swimming"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Walking Between Rooms",
+      "Stairs"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Walking Between Rooms",
+      "In Home"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Walking Down the Street",
+      "Community Distances"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Walking Within a Building"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Equipment",
+      "Walker"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Equipment",
+      "Wheelchair"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Equipment",
+      "Skates"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Equipment",
+      "Skis"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Transportation",
+      "On/Off Bus"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Transportation",
+      "Subway"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Moving Around in Different Locations",
+      "Moving Around Using Transportation",
+      "Public Transportation"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Negotiate Obstacles",
+      "Bumped in Crowded Streets"
+    ],
+    [
+      "Mobility Walking and Moving Around",
+      "Negotiate Obstacles",
+      "Terrain"
+    ]
+  ]
+}

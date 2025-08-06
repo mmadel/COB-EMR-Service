@@ -22,9 +22,6 @@ public class PatientUpdaterServiceImpl implements PatientUpdaterService {
     @Autowired
     PatientClinicUpdaterService patientClinicUpdaterService;
     @Autowired
-    PatientInsuranceUpdaterService patientInsuranceUpdaterService;
-
-    @Autowired
     ModelMapper mapper;
 
     @Override
@@ -37,7 +34,7 @@ public class PatientUpdaterServiceImpl implements PatientUpdaterService {
 
         patientCaseUpdaterService.updatePatientCases(original, submitted.getCases());
 
-        patientInsuranceUpdaterService.updatePatientInsurances(original, submitted.getPatientInsuranceModels());
+//        patientInsuranceUpdaterService.updatePatientInsurances(original, submitted.getPatientInsuranceModels());
         Patient created = patientRepository.save(mapper.map(submitted, Patient.class));
         return mapper.map(created, PatientModel.class);
     }

@@ -9,7 +9,5 @@ public class AppointmentTypeModel {
     private Long id;
     private String name;
     private String color;
-    private Long duration;
-
-    private Long clinicId;
+    private String fontColor;
 }

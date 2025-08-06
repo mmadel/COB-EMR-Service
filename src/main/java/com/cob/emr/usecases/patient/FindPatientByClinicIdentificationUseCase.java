@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 public class FindPatientByClinicIdentificationUseCase {
     @Autowired
     PatientFinderService finderService;
-    @PreAuthorize("hasAnyRole(@roleEvaluator.findAuthorizedRoleForInquiring('patient'))")
     public PatientResponse find(Pageable paging, Long clinicId){
         return finderService.findAll(paging, clinicId);
     }

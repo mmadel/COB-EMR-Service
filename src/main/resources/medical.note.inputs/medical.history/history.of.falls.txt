@@ -1,0 +1,11 @@
+History of Falls
+    Falls Documented:Do you have documentation that supports the patient's fall history
+        fall history Text
+    Documentation on whether medications are a contributing factor or not to falls
+        Documentation on whether medications Text
+    Home fall hazards
+        Home fall hazards Text
+    Postural blood pressure
+        Postural blood pressure text
+    Vision
+        Vision Text

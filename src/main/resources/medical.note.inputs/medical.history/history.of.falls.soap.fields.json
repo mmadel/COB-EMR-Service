@@ -1,0 +1,91 @@
+{
+    "fieldName": "History of Falls",
+    "fieldType": "multiple_radio",
+    "value": [
+        "N/A",
+        "yes",
+        "no"
+    ],
+    "changeValue": [
+        "yes",
+        "no"
+    ],
+    "dependencies": [
+        {
+            "fieldName": "Falls Documented:Do you have documentation that supports the patient's fall history",
+            "fieldType": "radio",
+            "changeValue": "yes",
+            "changeValueSelect": "no",
+            "dependencies": [
+                {
+                    "fieldName": "fall history Text",
+                    "fieldType": "text",
+                    "ignoreDisplay": true,
+                    "changeValue": null,
+                    "dependencies": null
+                }
+            ]
+        },
+        {
+            "fieldName": "Falls Documented:Do you have documentation that supports the patient's fall history",
+            "fieldType": "radio",
+            "changeValue": "yes",
+            "changeValueSelect": "yes",
+            "dependencies": [
+                {
+                    "fieldName": "fall history Text",
+                    "fieldType": "text",
+                    "ignoreDisplay": true,
+                    "changeValue": null,
+                    "dependencies": null
+                }
+            ]
+        },
+        {
+            "fieldName": "Risk Assessment",
+            "fieldType": "mutliple-checkBox",
+            "value": [
+                {
+                    "val": "risk_assessment_documentation",
+                    "view": "Documentation on whether medications are a contributing factor or not to falls",
+                    "dependencies": [
+                        {
+                            "fieldFormName": "risk_assessment_documentation_txt",
+                            "fieldType": "text"
+                        }
+                    ]
+                },
+                {
+                    "val": "risk_assessment_home_fall_hazards",
+                    "view": "Home fall hazards",
+                    "dependencies": [
+                        {
+                            "fieldFormName": "risk_assessment_home_fall_hazards",
+                            "fieldType": "text"
+                        }
+                    ]
+                },
+                {
+                    "val": "risk_assessment_postural_blood_pressure",
+                    "view": " Postural blood pressure",
+                    "dependencies": [
+                        {
+                            "fieldFormName": "risk_assessment_postural_blood_pressure_txt",
+                            "fieldType": "text"
+                        }
+                    ]
+                },
+                {
+                    "val": "risk_assessment_vision",
+                    "view": " Vision",
+                    "dependencies": [
+                        {
+                            "fieldFormName": "risk_assessment_vision_txt",
+                            "fieldType": "text"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

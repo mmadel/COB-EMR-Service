@@ -1,6 +1,7 @@
 package com.cob.emr.entity.scheduler;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.entity.organization.Organization;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,4 +22,8 @@ public class SchedulerConfigurationEntity {
     private Long endHour;
     @Column
     private Long clinicId;
+
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }

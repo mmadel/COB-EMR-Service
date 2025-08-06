@@ -1,6 +1,7 @@
 package com.cob.emr.model.patient.cases;
 
 import com.cob.emr.enums.InjuryCase;
+import com.cob.emr.enums.PatientRecordAction;
 import com.cob.emr.enums.PlaceOfService;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +10,7 @@ import java.util.List;
 
 @Setter
 @Getter
-public class PatientCaseModel  {
+public class PatientCaseModel {
 
     private Long id;
 
@@ -29,4 +30,8 @@ public class PatientCaseModel  {
     private ReferralCase referralCase;
 
     private CaseOtherInformation caseOtherInformation;
+    private Long therapist;
+    private String therapistUUID;
+
+    private List<String> patientRecordActions;
 }

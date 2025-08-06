@@ -1,0 +1,63 @@
+package com.cob.emr.controller.organization;
+
+import com.cob.emr.exception.business.OrganizationException;
+import com.cob.emr.exception.business.UserException;
+import com.cob.emr.exception.business.UserKeyCloakException;
+import com.cob.emr.model.organization.OrganizationModel;
+import com.cob.emr.response.ResponseHandler;
+import com.cob.emr.usecases.organization.CreateOrganizationUseCase;
+import com.cob.emr.usecases.organization.DeleteOrganizationUserCase;
+import com.cob.emr.usecases.organization.FindOrganizationUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
+@RestController
+@RequestMapping(value = "/organization")
+@PreAuthorize("hasAnyRole(@role.ADMIN_ROLE)")
+public class OrganizationController {
+
+    @Autowired
+    DeleteOrganizationUserCase deleteOrganizationUserCase;
+    @Autowired
+    CreateOrganizationUseCase createOrganizationUseCase;
+    @Autowired
+    FindOrganizationUseCase findOrganizationUseCase;
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> create(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        return ResponseHandler.generateResponse("Successfully added Organization", HttpStatus.OK, createOrganizationUseCase.create(model));
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Object> update(@RequestBody OrganizationModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, OrganizationException {
+        return ResponseHandler.generateResponse("not implemented", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> delete(@PathVariable("id") Long id) throws OrganizationException {
+        deleteOrganizationUserCase.delete(id);
+        return ResponseHandler.generateResponse("Successfully deleted Organization!", HttpStatus.OK);
+    }
+
+    @GetMapping("/find")
+    public ResponseEntity<Object> findAll() {
+        return new ResponseEntity<>(findOrganizationUseCase.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping("/find/id/{id}")
+    public ResponseEntity<Object> findById(@PathVariable("id") Long id) {
+        return ResponseHandler
+                .generateResponse("Successfully find Organization",
+                        HttpStatus.OK);
+    }
+}

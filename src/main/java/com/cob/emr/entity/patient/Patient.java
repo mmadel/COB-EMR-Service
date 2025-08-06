@@ -2,10 +2,11 @@ package com.cob.emr.entity.patient;
 
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.enums.*;
-import com.cob.emr.model.common.AddressModel;
-import com.cob.emr.model.common.ContactModel;
+import com.cob.emr.model.common.AddressDependencyModel;
+import com.cob.emr.model.common.ContactDependencyModel;
 import com.cob.emr.model.patient.PatientDependentModel;
-import com.cob.emr.model.patient.PatientEmergencyModel;
+import com.cob.emr.model.patient.PatientEmergencyDependencyModel;
+import com.cob.emr.model.patient.insurance.PatientInsuranceDependencyModel;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -69,23 +70,32 @@ public class Patient {
 
     @Column(name = "patient_addresses", columnDefinition = "json")
     @Type(type = "json")
-    private List<AddressModel> addresses;
+    private List<AddressDependencyModel> addresses;
 
     @Column(name = "patient_contacts", columnDefinition = "json")
     @Type(type = "json")
-    private List<ContactModel> contacts;
+    private List<ContactDependencyModel> contacts;
     @Column(name = "patient_emergency", columnDefinition = "json")
     @Type(type = "json")
-    private List<PatientEmergencyModel> emergencies;
+    private List<PatientEmergencyDependencyModel> emergencies;
     @Column(name = "patient_dependent", columnDefinition = "json")
     @Type(type = "json")
     private PatientDependentModel dependent;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "patients")
+    @Column(name = "patient_insurances", columnDefinition = "json")
+    @Type(type = "json")
+    private List<PatientInsuranceDependencyModel> patientInsuranceModels;
+    @ManyToMany
+    @JoinTable(
+            name = "patient_clinic",
+            joinColumns = @JoinColumn(name = "patient_id"),
+            inverseJoinColumns = @JoinColumn(name = "clinic_id")
+    )
     private Set<Clinic> clinics = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<PatientCase> cases;
+    @OneToMany(mappedBy = "patient", cascade = {CascadeType.PERSIST,CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private Set<PatientCase> cases = new HashSet<>();
+
     public void addClinic(Clinic clinic) {
         this.clinics.add(clinic);
         clinic.getPatients().add(this);
@@ -94,6 +104,16 @@ public class Patient {
     public void removeClinic(Clinic clinic) {
         this.clinics.remove(clinic);
         clinic.getPatients().remove(this);
+    }
+
+    public void addCase(PatientCase patientCase) {
+        this.cases.add(patientCase);
+        patientCase.setPatient(this);
+    }
+
+    public void removeCase(PatientCase patientCase) {
+        this.cases.remove(patientCase);
+        patientCase.setPatient(null);
     }
 
 }

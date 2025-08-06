@@ -8,6 +8,9 @@ public class UserException extends EMRException{
     public static final String USER_ROLE_NOT_FOUND = Category.Business.value() + getPrefix() +"_02";
     public static final String USER_EMAIL_IS_EXISTS = Category.Business.value() + getPrefix() +"_03";
     public static final String USER_NOT_CREATED_IN_KC = Category.Business.value() + getPrefix() +"_04";
+    public static final String INVALID_PASSWORD = Category.Business.value() + getPrefix() +"_05";
+    public static final String INVALID_ROLE = Category.Business.value() + getPrefix() +"_06";
+    public static final String EMAIL_IS_EXISTS = Category.Business.value() + getPrefix() +"_07";
 
     public UserException(String code) {
         super(code);

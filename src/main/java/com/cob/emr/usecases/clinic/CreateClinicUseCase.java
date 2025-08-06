@@ -19,7 +19,6 @@ public class CreateClinicUseCase {
     @Autowired
     ModelMapper mapper;
 
-    @PreAuthorize("hasAnyRole(@roleEvaluator.findAuthorizedRoleForCreation('clinic'))")
     public Long create(ClinicModel model) {
         Organization organization = organizationRepository.findById(model.getOrganizationId()).get();
         Clinic toBeCreated = mapper.map(model, Clinic.class);

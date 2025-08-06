@@ -1,0 +1,93 @@
+{
+	"dependencies": [
+		[
+			"Occupation Social History",
+			"Social History",
+			"Social History Select"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Name of Occupation"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Status"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Duty Level"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Description"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Out of Work Since"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Return to Work Date"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Workers Compensation"
+		],
+		[
+			"Occupation Social History",
+			"Occupation and Work Status",
+			"Litigation"
+		],
+		[
+			"Occupation Social History",
+			"Home Layout",
+			"Home Layout Select"
+		],
+		[
+			"Occupation Social History",
+			"Home Layout",
+			"Home Layout Text"
+		],
+		[
+			"Occupation Social History",
+			"Durable Medical Equipment",
+			"Durable Medical Equipment Select"
+		],
+		[
+			"Occupation Social History",
+			"Durable Medical Equipment",
+			"Durable Medical Equipment Text"
+		],
+		[
+			"Occupation Social History",
+			"Is Patient A Tobacco User",
+			"Does patient smoke cigarettes and or use other forms of tobacco",
+			"Recommendation made to stop using tobacco products"
+		],
+		[
+			"Occupation Social History",
+			"Is Patient A Tobacco User",
+			"Does patient smoke cigarettes and or use other forms of tobacco",
+			"Advice and support provided for tobacco use cessation"
+		],
+		[
+			"Occupation Social History",
+			"Is Patient A Tobacco User",
+			"Does patient smoke cigarettes and or use other forms of tobacco",
+			"Continued support for tobacco use cessation will be provided on all or most follow up visits"
+		],
+		[
+			"Occupation Social History",
+			"Is Patient A Tobacco User",
+			"Does patient smoke cigarettes and or use other forms of tobacco",
+			"patient smoke cigarettes Text"
+		]
+	]
+}

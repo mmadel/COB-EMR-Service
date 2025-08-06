@@ -2,20 +2,21 @@ package com.cob.emr.service.patient.creator;
 
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.PatientCase;
-import com.cob.emr.entity.patient.PatientInsurance;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
-import com.cob.emr.model.patient.insurance.PatientInsuranceModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
-import com.cob.emr.repositories.patient.insurance.PatientInsuranceRepository;
+import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -26,15 +27,14 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
     PatientRepository patientRepository;
 
     @Autowired
-    PatientInsuranceRepository patientInsuranceRepository;
-
-    @Autowired
     PatientCaseRepository patientCaseRepository;
 
     @Autowired
     ClinicRepository clinicRepository;
     @Autowired
     ModelMapper mapper;
+    @Autowired
+    ClinicalEMRUserRepository clinicalEMRUserRepository;
 
     @Override
     public PatientModel create(PatientModel model) {
@@ -48,32 +48,26 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
 
     private PatientModel persistPatient(PatientModel model) {
-        Patient toBeCreated = mapper.map(model, Patient.class);
+        Patient patient = mapper.map(model, Patient.class);
         StreamSupport
                 .stream(clinicRepository.findAllById(model.getClinicsId()).spliterator(), false)
-                .forEach(clinic -> clinic.addPatient(toBeCreated));
-        Patient created = patientRepository.save(toBeCreated);
+                .forEach(clinic -> clinic.addPatient(patient));
 
-        persistPatientCases(created, model.getCases());
+        persistPatientCases(patient, model.getCases());
+        patientRepository.save(patient);
+        return mapper.map(patient, PatientModel.class);
 
-        persistPatientInsurances(created , model.getPatientInsuranceModels());
-
-        return mapper.map(created, PatientModel.class);
     }
 
-    private void persistPatientInsurances(Patient created, List<PatientInsuranceModel> models) {
-        models.forEach(patientInsuranceModel -> {
-            PatientInsurance patientInsurance = mapper.map(patientInsuranceModel, PatientInsurance.class);
-            patientInsurance.setPatient(created);
-            patientInsuranceRepository.save(patientInsurance);
-        });
-    }
-
-    private void persistPatientCases(Patient created, List<PatientCaseModel> models) {
+    private void persistPatientCases(Patient patient, List<PatientCaseModel> models) {
+        Set<PatientCase> patientCases = new HashSet<>();
         models.forEach(patientCaseModel -> {
             PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
-            patientCase.setPatient(created);
-            patientCaseRepository.save(patientCase);
+            ClinicalEMRUser clinicalEMRUser = clinicalEMRUserRepository.findById(patientCaseModel.getTherapist()).get();
+            patientCase.setClinicalEMRUser(clinicalEMRUser);
+            patientCase.setPatient(patient);
+            patientCases.add(patientCase);
         });
+        patient.setCases(patientCases);
     }
 }

@@ -3,7 +3,7 @@ package com.cob.emr.controller;
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.insurance.company.creator.InsuranceCompanyCreatorService;
-import com.cob.emr.service.insurance.company.finder.InsuranceCompanyFinderService;
+import com.cob.emr.usecases.insurancecompnay.FindInsuranceCompanyUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,7 +18,7 @@ public class InsuranceCompanyController {
     @Autowired
     InsuranceCompanyCreatorService insuranceCompanyCreatorService;
     @Autowired
-    InsuranceCompanyFinderService insuranceCompanyFinderService;
+    FindInsuranceCompanyUseCase findInsuranceCompanyUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody InsuranceCompanyModel model) {
@@ -44,28 +44,19 @@ public class InsuranceCompanyController {
                         HttpStatus.OK, id);
     }
 
-    @GetMapping("/find/all/clinicId/{clinicId}")
-    public ResponseEntity findAllWithoutPagination(@PathVariable("clinicId") Long clinicId) {
-        return new ResponseEntity(insuranceCompanyFinderService.findAllWithoutPagination(clinicId), HttpStatus.OK);
-    }
-
-    @GetMapping("/find/clinicId/{clinicId}")
+    @GetMapping("/find/organization/{organizationId}")
     public ResponseEntity<Object> findAll(@RequestParam(name = "offset") String offset,
                                           @RequestParam(name = "limit") String limit,
-                                          @PathVariable("clinicId") Long clinicId) {
+                                          @PathVariable("organizationId") Long organizationId) {
         Pageable paging = PageRequest.of(Integer.parseInt(offset), Integer.parseInt(limit));
         return ResponseHandler
                 .generateResponse("Successfully Find All Insurance Companies!",
                         HttpStatus.OK, null,
-                        insuranceCompanyFinderService.findAll(paging, clinicId));
+                        findInsuranceCompanyUseCase.find(paging, organizationId));
     }
 
-    @GetMapping("/find/clinicId/{clinicId}/company/{companyId}")
-    public ResponseEntity<Object> findById(@PathVariable("companyId") Long companyId,
-                                           @PathVariable("clinicId") Long clinicId) {
-        return ResponseHandler
-                .generateResponse("Successfully Find All Insurance Companies!",
-                        HttpStatus.OK,
-                        insuranceCompanyFinderService.findById(companyId, clinicId));
+    @GetMapping("/find/all/organization/{organizationId}")
+    public ResponseEntity<Object> findAll(@PathVariable("organizationId") Long organizationId) {
+        return new ResponseEntity<>(findInsuranceCompanyUseCase.find(organizationId),HttpStatus.OK);
     }
 }

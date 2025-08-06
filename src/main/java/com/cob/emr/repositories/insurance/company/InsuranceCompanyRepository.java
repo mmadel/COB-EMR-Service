@@ -1,17 +1,18 @@
 package com.cob.emr.repositories.insurance.company;
 
 import com.cob.emr.entity.insurance.InsuranceCompany;
+import com.cob.emr.entity.organization.Organization;
+import com.cob.emr.entity.patient.Patient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface InsuranceCompanyRepository extends PagingAndSortingRepository<InsuranceCompany, Long> {
-    Page<InsuranceCompany> findByClinicId(Pageable pageable, Long id);
+    void deleteByOrganization(Organization organization);
 
-    Optional<InsuranceCompany> findByIdAndClinic_Id(Long insuranceCompanyId, Long clinicId);
+    Page<InsuranceCompany> findByOrganization_Id(Pageable pageable, Long id);
 
-    List<InsuranceCompany> findByClinicId(Long clinicId);
+    List<InsuranceCompany> findByOrganization_Id(Long id);
 }
