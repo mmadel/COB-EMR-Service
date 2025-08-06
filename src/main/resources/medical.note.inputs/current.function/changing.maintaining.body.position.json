@@ -1,0 +1,84 @@
+{
+    "dependencies": [
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Remaining Seated"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Remaining Standing"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Squatting"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Kneeling"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Sitting"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Maintaining a Body Position",
+            "Standing"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Transfers",
+            "Moving From Bed to Chair"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "Transfers",
+            "Sliding Along a Bench"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Ability to Use Telephone"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Shopping"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Food Preparation"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Housekeeping"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Laundry"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Mode of Transportation"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Responsibility for Own Medications"
+        ],
+        [
+            "Changing Maintaining Body Position",
+            "IADLs",
+            "Ability to Handle Finances"
+        ]
+    ]
+}
