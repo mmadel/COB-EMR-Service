@@ -3,6 +3,8 @@ package com.cob.emr.model.medical.note.types.initial.evaluation.subjective;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 public class Basic {
@@ -42,13 +44,13 @@ public class Basic {
     public String commencedAsResultofText;
     public String noApparentReason;
     public String symptomsAtOnset;
-    public String symptomsAtOnsetSelect;
+    public List<String> symptomsAtOnsetSelect;
     public String symptomsAtOnsetText;
     public String constantSymptoms;
-    public String constantSymptomsSelect;
+    public List<String> constantSymptomsSelect;
     public String constantSymptomsText;
     public String intermittentSymptoms;
-    public String intermittentSymptomsSelect;
+    public List<String> intermittentSymptomsSelect;
     public String intermittentSymptomsText;
     public String bladder;
     public String bladderSelect;
