@@ -18,7 +18,7 @@ public class FindSOAPFieldIDUseCase {
                 .orElseThrow(() -> new SOAPException(HttpStatus.CONFLICT, SOAPException.CATEGORY_NOT_FOUND, new Object[]{}));
 
         NewSOAPFieldEntity soapField = category.getFields().stream()
-                .filter(field -> field.getFieldDisplayName().equals(displayName))
+                .filter(field -> field.getFieldDisplayName() !=null && field.getFieldDisplayName().equals(displayName))
                 .findFirst()
                 .orElseThrow(() -> new SOAPException(HttpStatus.CONFLICT, SOAPException.FIELD_NOT_FOUND, new Object[]{}));
         return soapField.getValue().getIdField().getId();

@@ -7,8 +7,168 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CurrentFunction {
-    @JsonProperty("95_selfCare")
-    private Object selfCare;
+    private Object selfCareCurrentFunctionalLimitations;
+    private Object volunteeringSelfCareCurrentFunctionalLimitations;
+
+    private Object householdChoresSelfCareCurrentFunctionalLimitations;
+    private Object cookAMealHouseholdChoresSelfCareCurrentFunctionalLimitations;
+    private Object laundryHouseholdChoresSelfCareCurrentFunctionalLimitations;
+
+    private Object caregivingSelfCareCurrentFunctionalLimitations;
+    private Object driveCommunityDistanceSelfCareCurrentFunctionalLimitations;
+
+    private Object sleepSelfCareCurrentFunctionalLimitations;
+
+    private Object pillowsSleepSelfCareCurrentFunctionalLimitations;
+
+    private Object surfacePillowsSleepSelfCareCurrentFunctionalLimitations;
+    private Object sagSurfacePillowsSleepSelfCareCurrentFunctionalLimitations;
+    private Object firmSurfacePillowsSleepSelfCareCurrentFunctionalLimitations;
+    private Object customSurfacePillowsSleepSelfCareCurrentFunctionalLimitations;
+    private Object softSurfacePillowsSleepSelfCareCurrentFunctionalLimitations;
+
+
+    private Object disturbedSleepSleepSelfCareCurrentFunctionalLimitations;
+
+    private Object sleepingPosturesSleepSelfCareCurrentFunctionalLimitations;
+    private Object proneSleepingPosturesSleepSelfCareCurrentFunctionalLimitations;
+    private Object supineSleepingPosturesSleepSelfCareCurrentFunctionalLimitations;
+    private Object sideRSleepingPosturesSleepSelfCareCurrentFunctionalLimitations;
+    private Object sideLSleepingPosturesSleepSelfCareCurrentFunctionalLimitations;
+
+    private Object iadlsSelfCareCurrentFunctionalLimitations;
+    private Object laundryIadlsSelfCareCurrentFunctionalLimitations;
+    private Object housekeepingIadlsSelfCareCurrentFunctionalLimitations;
+    private Object responsibilityForOwnMedicationsIadlsSelfCareCurrentFunctionalLimitations;
+    private Object abilityToHandleFinancesIadlsSelfCareCurrentFunctionalLimitations;
+    private Object abilityToUseTelephoneIadlsSelfCareCurrentFunctionalLimitations;
+    private Object foodPreparationIadlsSelfCareCurrentFunctionalLimitations;
+    private Object modeOfTransportationIadlsSelfCareCurrentFunctionalLimitations;
+    private Object shoppingIadlsSelfCareCurrentFunctionalLimitations;
+
+
+    private Object hygieneSelfCareCurrentFunctionalLimitations;
+
+    private Object groomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object caringForSkinGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object dryingOneselfGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object caringForHairGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object caringForNailsToeAndFingerGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object caringForTeethGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object washingBodyPartsGroomingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object washingWholeBodyGroomingHygieneSelfCareCurrentFunctionalLimitations;
+
+
+
+    private Object dressingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object puttingOnFootwearDressingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object puttingOnAppropriateClothingDressingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object removingClothesDressingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object puttingOnClothesDressingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object removingFootwearDressingHygieneSelfCareCurrentFunctionalLimitations;
+
+    private Object bathingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object dryingOneselfBathingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object washingBodyPartsBathingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object showeringBathingHygieneSelfCareCurrentFunctionalLimitations;
+
+
+    private Object toiletingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object regulatingDefecationToiletingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object regulatingUrinationToiletingHygieneSelfCareCurrentFunctionalLimitations;
+    private Object regulatingMenstrualCareToiletingHygieneSelfCareCurrentFunctionalLimitations;
+
+
+    private Object lookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+    private Object gettingRegularPhysicalExaminationsLookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+    private Object maintainingBalancedDietLookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+    private Object keepingWarmLookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+    private Object gettingImmunizationsLookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+    private Object keepingCoolLookingAfterOnesHealthHygieneSelfCareCurrentFunctionalLimitations;
+
+    private Object mobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object walkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object sidewaysWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object walkingAroundObstaclesWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object forwardWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object walkingOnDifferentSurfacesWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object strollingWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object backwardWalkingMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object movingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object movingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object skatesMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object skisMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object walkerMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object wheelchairMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object walkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object inHomeWalkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object stairsWalkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object walkingWithinABuildingMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object walkingDownTheStreetMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object communityDistancesWalkingDownTheStreetMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object movingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object subwayMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object publicTransportationMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object onOffBusMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+
+    private Object iadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object foodPreparationIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object shoppingIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object laundryIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object housekeepingIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object abilityToHandleFinancesIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object modeOfTransportationIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object abilityToUseTelephoneIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object responsibilityForOwnMedicationsIadlsMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object useOfAnAssistiveDeviceMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object movingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object climbingMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object joggingMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object runningMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object swimmingMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object jumpingMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object skippingMovingAroundMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object negotiateObstaclesMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object terrainNegotiateObstaclesMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+    private Object bumpedInCrowdedStreetsNegotiateObstaclesMobilityWalkingAndMovingAroundCurrentFunctionalLimitations;
+
+    private Object changingMaintainingBodyPositionCurrentFunctionalLimitations;
+
+    private Object maintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object kneelingMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object standingMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object sittingMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object remainingStandingMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object remainingSeatedMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object squattingMaintainingABodyPositionChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+
+    private Object iadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object abilityToUseTelephoneIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object responsibilityForOwnMedicationsIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object laundryIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object housekeepingIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object foodPreparationIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object abilityToHandleFinancesIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object shoppingIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object modeOfTransportationIadlsChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+
+    private Object transfersChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object movingFromBedToChairTransfersChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+    private Object slidingAlongABenchTransfersChangingMaintainingBodyPositionCurrentFunctionalLimitations;
+
+    private Object carryingMovingAndHandlingObjectsCurrentFunctionalLimitations;
+    private Object otherCurrentFunctionalLimitations;
 
     @JsonProperty("96_hygiene")
     private Object hygiene;
