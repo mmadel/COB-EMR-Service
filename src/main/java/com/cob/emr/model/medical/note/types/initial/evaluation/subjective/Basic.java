@@ -13,7 +13,7 @@ public class Basic {
     public String timeIn;
     public String timeOut;
     public String visit;
-    public String treatmentSide;
+    public Object treatmentSide;
     public String specificPhysicianOrders;
     public String specificPhysicianOrdersText;
     public String injuryOnsetDateChangeOfStatusDate;
