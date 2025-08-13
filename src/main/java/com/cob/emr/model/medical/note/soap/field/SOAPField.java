@@ -18,5 +18,5 @@ public class SOAPField {
     private String checkBoxStyle;
     private String parentField;
     private OMTFieldRequest omtFieldRequest;
-
+    private Long inputOrder;
 }
