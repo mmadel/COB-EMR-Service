@@ -57,4 +57,6 @@ public class Basic {
     public String bladderText;
     public String historyOfPresentConditionMechanismOfInjury;
     public String primaryConcernChiefComplaint;
+    private Object icdtenCodeDiagnosis;
+    private Object icdtenCodeTreatmentDiagnosis;
 }
