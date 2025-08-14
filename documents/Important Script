@@ -32,3 +32,7 @@ ORDER BY field_order;
  SELECT *
  FROM soap_field
  WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.type')) like '%special-tests-right-left-select%'
+
+ - Select Initial Evaluation Medical Note
+    select * from medical_note
+    select * from initial_evaluation
