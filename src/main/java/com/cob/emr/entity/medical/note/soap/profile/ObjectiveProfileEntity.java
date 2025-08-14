@@ -17,4 +17,7 @@ public class ObjectiveProfileEntity {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "active")
+    private boolean active;
 }

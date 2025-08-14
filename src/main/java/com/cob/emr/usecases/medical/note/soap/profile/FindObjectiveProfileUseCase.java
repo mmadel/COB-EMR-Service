@@ -22,6 +22,7 @@ public class FindObjectiveProfileUseCase {
         List<ObjectiveProfileEntity> objectiveProfileEntities = StreamSupport.stream(objectiveProfileRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
         return objectiveProfileEntities.stream()
+                .filter(ObjectiveProfileEntity::isActive)
                 .map(objectiveProfileEntity -> mapper.map(objectiveProfileEntity, ObjectiveProfile.class))
                 .collect(Collectors.toList());
     }
