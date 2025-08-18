@@ -23,7 +23,8 @@ public class SaveMedicalNoteUseCase {
         MedicalNote medicalNote = medicalNoteRepository.findById(request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Medical Note Not found"));
 
-        changeMedicalNoteStatus(medicalNote);
+        medicalNote.setStatus(MedicalNoteStatus.Draft);
+        medicalNoteRepository.save(medicalNote);
 
         if (medicalNote instanceof InitialEvaluation)
             draftInitialEvaluation(medicalNote, request);
@@ -36,27 +37,6 @@ public class SaveMedicalNoteUseCase {
         if (medicalNote instanceof FullDischargeNote)
             draftFullDischargeNote(medicalNote, request);
         return medicalNote;
-    }
-
-    @Transactional
-    public void draftAndFinalize(MedicalNoteRequest request, String uuid) throws MedicalNoteException {
-        MedicalNote medicalNote = draft(request);
-        if (medicalNote.getFinalizedBy() == null) {
-            medicalNote.setFinalizedBy(medicalNote.getCreatedBy());
-            medicalNote.setIsForward(false);
-        } else {
-            if (uuid.equals(medicalNote.getFinalizedBy()))
-                medicalNote.setIsForward(true);
-            else
-                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.CORRUPTED_FINALIZER, new Object[]{});
-        }
-        medicalNote.setStatus(MedicalNoteStatus.Finalized);
-        medicalNoteRepository.save(medicalNote);
-    }
-
-    private void changeMedicalNoteStatus(MedicalNote medicalNote) {
-        medicalNote.setStatus(MedicalNoteStatus.Draft);
-        medicalNoteRepository.save(medicalNote);
     }
 
     private void draftInitialEvaluation(MedicalNote medicalNote, MedicalNoteRequest request) {
