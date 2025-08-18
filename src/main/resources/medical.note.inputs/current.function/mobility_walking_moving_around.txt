@@ -1,0 +1,44 @@
+Mobility: Walking & Moving Around
+	IADLs
+		Ability to Use Telephone
+		Shopping
+		Food Preparation
+		Housekeeping
+		Laundry
+		Mode of Transportation
+		Responsibility for Own Medications
+		Ability to Handle Finances
+	Use of an Assistive Device
+	Walking
+	    Forward
+        Backward
+        Sideways
+        Strolling
+        Walking on Different Surfaces
+        Walking Around Obstacles
+	Moving Around
+	    Climbing
+        Running
+        Jogging
+        Skipping
+        Jumping
+        Swimming
+	Moving Around in Different Locations
+	    Walking Between Rooms
+	        Stairs
+            In Home
+        Walking Down the Street
+            Community Distances
+        Walking Within a Building
+        Moving Around Using Equipment
+            Walker
+            Wheelchair
+            Skates
+            Skis
+        Moving Around Using Transportation
+            On/Off Bus
+            Subway
+            Public Transportation
+	Negotiate Obstacles
+	    Bumped in Crowded Streets
+        Terrain

@@ -12,7 +12,7 @@ public class Billing {
     private String instructionsTxt;
     private String precautions;
     private String dn_nstructions;
-    private String dailyNoteIncluded;
+    private boolean dailyNoteIncluded;
 
     private UntimedCodes untimedCodes;
     private CalendarMonth calendarMonth;

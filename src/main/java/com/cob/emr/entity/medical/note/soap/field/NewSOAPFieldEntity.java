@@ -33,4 +33,7 @@ public class NewSOAPFieldEntity {
     @Column(name = "field_display_name")
     private String fieldDisplayName;
 
+    @Column(name = "field_order")
+    private Long inputOrder;
+
 }

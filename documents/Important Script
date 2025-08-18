@@ -1,0 +1,38 @@
+- Get first level of SOAP inputs for specific category
+SELECT *
+FROM new_soap_field
+WHERE category_id = 1
+  AND (
+       JSON_EXTRACT(field_value, '$.parentField') IS NULL
+       OR JSON_EXTRACT(field_value, '$.parentField') = CAST('null' AS JSON)
+      )
+ORDER BY field_order;
+
+- Change order of first level of SOAP inputs for specific category will be done on two steps
+-- 1. Get IDs of first level SOAP inputs
+SELECT id
+FROM new_soap_field
+WHERE category_id = 1
+  AND (
+       JSON_EXTRACT(field_value, '$.parentField') IS NULL
+       OR JSON_EXTRACT(field_value, '$.parentField') = CAST('null' AS JSON)
+      )
+ORDER BY field_order;
+-- 2. execute query for returned ids and change order in field_order
+ SELECT * FROM new_soap_field WHERE id IN (/* list of IDs from previous query */)
+
+ - Select soap input for specific parent
+ select * from new_soap_field
+ WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.parentField')) = '7fe65bfb-a574-42b7-a543-29af46411abd';
+ - Select specific SOAP input by field id
+ select * from new_soap_field
+ WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.idField.id')) = '12649eff-6e2e-4a35-91b1-e8f2d1604f0b';
+
+ - Select soap input by input type
+ SELECT *
+ FROM soap_field
+ WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.type')) like '%special-tests-right-left-select%'
+
+ - Select Initial Evaluation Medical Note
+    select * from medical_note
+    select * from initial_evaluation

@@ -6,11 +6,11 @@ import lombok.Setter;
 @Setter
 @Getter
 public class PlanOfCare {
-    private String createPlanOfCare;
+    private boolean createPlanOfCare;
     private String frequency;
     private String duration;
     private String plan;
-    private String physicianSignature;
+    private boolean physicianSignature;
     private Procedures procedures;
     private Modalities modalities;
     private Specialties specialties;

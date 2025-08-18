@@ -6,6 +6,7 @@ import com.cob.emr.repositories.medical.note.SOAPSectionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,6 +23,10 @@ public class FindSOAPFieldsBySectionUseCase {
                 .collect(Collectors.toMap(
                         NewSOAPSectionCategoryEntity::getName, // Key: Category Name
                         category -> category.getFields().stream()
+                                .sorted(Comparator.comparing(
+                                        NewSOAPFieldEntity::getInputOrder,
+                                        Comparator.nullsLast(Long::compareTo)
+                                ))
                                 .map(NewSOAPFieldEntity::getValue) // Extract SOAPField from SOAPFieldEntity
                                 .collect(Collectors.toList()) // Collect as List<SOAPField>
                 ));
