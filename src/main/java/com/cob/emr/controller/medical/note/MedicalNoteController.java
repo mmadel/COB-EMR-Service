@@ -55,10 +55,10 @@ public class MedicalNoteController {
                 .build();
     }
 
-    @GetMapping("/find/section/{section}")
-    public ResponseEntity getFieldBySection(@PathVariable String section) {
+    @GetMapping("/find/section/{section}/type/{type}")
+    public ResponseEntity getFieldBySection(@PathVariable String section, @PathVariable String type) {
         return ResponseEntity.ok()
-                .body(findSOAPFieldsBySectionUseCase.find(section));
+                .body(findSOAPFieldsBySectionUseCase.find(section,type));
     }
 
 
