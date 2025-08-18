@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long> {
+
+
+    Optional<MedicalNote> findByPatientCase_IdAndId(Long caseId , Long medicalNoteId);
     Optional<List<MedicalNote>> findByPatientCase_Id(Long caseId);
 
     Optional<MedicalNote> findByIdAndType(Long id, MedicalNoteType type);

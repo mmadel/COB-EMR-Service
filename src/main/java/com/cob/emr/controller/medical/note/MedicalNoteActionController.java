@@ -2,6 +2,7 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.exception.business.MedicalNoteException;
+import com.cob.emr.model.medical.note.FinalizeMedicalNoteRequest;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,6 +27,8 @@ public class MedicalNoteActionController {
     FindROMUseCase findROMUseCase;
     @Autowired
     ForwardMedicalNotUseCase forwardMedicalNotUseCase;
+    @Autowired
+    FinalizeMedialNoteUseCase finalizeMedialNoteUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) throws MedicalNoteException {
@@ -42,10 +45,9 @@ public class MedicalNoteActionController {
                 .build();
 
     }
-
-    @PutMapping("/finalize/provider/{uuid}")
-    public ResponseEntity finalize(@RequestBody MedicalNoteRequest request, @PathVariable String uuid) throws MedicalNoteException {
-        saveMedicalNoteUseCase.draftAndFinalize(request, uuid);
+    @PostMapping("/finalize")
+    public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) {
+        finalizeMedialNoteUseCase.finalize(request);
         return ResponseEntity.ok()
                 .build();
 
