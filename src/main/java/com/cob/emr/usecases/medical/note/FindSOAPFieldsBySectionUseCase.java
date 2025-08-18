@@ -18,7 +18,7 @@ public class FindSOAPFieldsBySectionUseCase {
     SOAPSectionRepository soapSectionRepository;
     @Autowired
     SOAPFieldFilterService filterService;
-    public Map<String, List<SOAPField>> find(String sectionName,String medicalNoteType) {
+    public Map<String, List<SOAPField>> find(String sectionName,Long medicalNoteType) {
         SOAPSectionEntity soapSection = soapSectionRepository.findByName(sectionName)
                 .orElseThrow(() -> new IllegalArgumentException("SOAP section not found"));
         return soapSection.getCategories().stream()
@@ -26,14 +26,15 @@ public class FindSOAPFieldsBySectionUseCase {
                         NewSOAPSectionCategoryEntity::getName,
                         category -> {
                             List<SOAPField> sortedFields = category.getFields().stream()
+                                    .filter(field -> field.getNoteTypes().stream()
+                                            .anyMatch(nt -> nt.getId().equals(medicalNoteType)))
                                     .sorted(Comparator.comparing(
                                             NewSOAPFieldEntity::getInputOrder,
                                             Comparator.nullsLast(Long::compareTo)
                                     ))
                                     .map(NewSOAPFieldEntity::getValue)
                                     .collect(Collectors.toList());
-
-                            return filterService.apply(medicalNoteType, sortedFields);
+                            return sortedFields;
                         }
                 ));
     }

@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.medical.note.soap.filter;
 
+import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class SOAPFieldFilterService {
     public SOAPFieldFilterService(Map<String, SOAPFieldFilterStrategy> strategies) {
         this.strategies = strategies;
     }
-    public List<SOAPField> apply(String context, List<SOAPField> fields) {
+    public List<NewSOAPFieldEntity> apply(String context, List<NewSOAPFieldEntity> fields) {
         SOAPFieldFilterStrategy strategy = strategies.get(context);
         if (strategy == null) {
             // Default: return unchanged list

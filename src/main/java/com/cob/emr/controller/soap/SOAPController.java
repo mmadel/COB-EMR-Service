@@ -3,6 +3,7 @@ package com.cob.emr.controller.soap;
 import com.cob.emr.exception.business.SOAPException;
 import com.cob.emr.model.medical.note.soap.field.FieldRequest;
 import com.cob.emr.model.medical.note.soap.field.Item;
+import com.cob.emr.model.medical.note.soap.field.SoapFieldsByMedicalNoteRequest;
 import com.cob.emr.model.medical.note.soap.field.request.BillingFieldRequest;
 import com.cob.emr.model.medical.note.soap.field.request.DependencyRequest;
 import com.cob.emr.usecases.medical.note.*;
@@ -49,10 +50,20 @@ public class SOAPController {
     @Autowired
     CreateFieldDependenciesUseCase createFieldDependenciesUseCase;
 
+    @Autowired
+    AssignSOAPFieldsToMedicalNoteUseCase assignSOAPFieldsToMedicalNoteUseCase;
+
     @GetMapping("/find/field/name/{name}")
     public ResponseEntity findField(@PathVariable String name) {
         return ResponseEntity.ok()
                 .body(findSOAPFieldUseCase.find(name));
+    }
+
+    @PutMapping("/assign/soap/note-type")
+    public ResponseEntity ddd(@RequestBody SoapFieldsByMedicalNoteRequest soapFieldsByMedicalNoteRequest) {
+        assignSOAPFieldsToMedicalNoteUseCase.assign(soapFieldsByMedicalNoteRequest);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @GetMapping("/find/field/id/{id}")
@@ -80,7 +91,7 @@ public class SOAPController {
                                                   @PathVariable String categoryName,
                                                   @PathVariable(name = "profile", required = false) String profile) throws SOAPException {
         return ResponseEntity.ok()
-                .body(createFieldDependenciesUseCase.create(requests, parentId, categoryName,profile));
+                .body(createFieldDependenciesUseCase.create(requests, parentId, categoryName, profile));
     }
 
     @PostMapping("/update/field/id/{fieldId}/category/name/{category}")

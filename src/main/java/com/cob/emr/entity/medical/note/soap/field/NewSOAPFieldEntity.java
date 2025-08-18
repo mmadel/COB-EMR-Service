@@ -9,6 +9,8 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "new_soap_field")
@@ -36,4 +38,11 @@ public class NewSOAPFieldEntity {
     @Column(name = "field_order")
     private Long inputOrder;
 
+    @ManyToMany
+    @JoinTable(
+            name = "soap_field_note_type",
+            joinColumns = @JoinColumn(name = "field_id"),
+            inverseJoinColumns = @JoinColumn(name = "note_type_id")
+    )
+    private Set<MedicalNoteTypeEntity> noteTypes = new HashSet<>();
 }
