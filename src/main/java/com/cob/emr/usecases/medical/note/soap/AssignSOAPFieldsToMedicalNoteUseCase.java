@@ -56,7 +56,7 @@ public class AssignSOAPFieldsToMedicalNoteUseCase {
     }
     private Integer getOrder(String name, List<OrderField> fields) {
         return fields.stream()
-                .filter(f -> name.equals(f.getName()))
+                .filter(f -> name !=null && name.equals(f.getName()))
                 .map(OrderField::getOrder)
                 .findFirst()
                 .orElse(null); // or .orElse(-1)

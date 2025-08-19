@@ -57,6 +57,8 @@ public class MedicalNoteController {
 
     @GetMapping("/find/section/{section}/type/{type}")
     public ResponseEntity getFieldBySection(@PathVariable String section, @PathVariable Long type) {
+//        return ResponseEntity.ok()
+//                .body(findSOAPFieldsBySectionUseCase.find(section));
         return ResponseEntity.ok()
                 .body(findSOAPFieldsBySectionUseCase.find(section,type));
     }
