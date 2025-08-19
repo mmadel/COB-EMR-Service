@@ -59,4 +59,6 @@ public class Basic {
     public String primaryConcernChiefComplaint;
     private Object icdtenCodeDiagnosis;
     private Object icdtenCodeTreatmentDiagnosis;
+
+    private Object currentcomplaintsgains;
 }
