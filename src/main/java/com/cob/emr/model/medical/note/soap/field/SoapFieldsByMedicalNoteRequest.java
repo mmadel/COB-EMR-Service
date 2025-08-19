@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 public class SoapFieldsByMedicalNoteRequest {
-    private List<String> fields;
+    private List<OrderField> fields;
     private Long categoryId;
     private Long medicalNotType;
 }

@@ -38,11 +38,21 @@ public class NewSOAPFieldEntity {
     @Column(name = "field_order")
     private Long inputOrder;
 
-    @ManyToMany
-    @JoinTable(
-            name = "soap_field_note_type",
-            joinColumns = @JoinColumn(name = "field_id"),
-            inverseJoinColumns = @JoinColumn(name = "note_type_id")
-    )
-    private Set<MedicalNoteTypeEntity> noteTypes = new HashSet<>();
+    @OneToMany(mappedBy = "field", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SoapFieldNoteType> noteTypes = new HashSet<>();
+
+    // convenience methods
+    public void addNoteType(MedicalNoteTypeEntity noteType, int order) {
+        SoapFieldNoteType link = new SoapFieldNoteType();
+        link.setField(this);
+        link.setNoteType(noteType);
+        link.setFieldOrder(order);
+        noteTypes.add(link);
+        noteType.getFields().add(link);
+    }
+
+    public void removeNoteType(MedicalNoteTypeEntity noteType) {
+        noteTypes.removeIf(link -> link.getNoteType().equals(noteType));
+        noteType.getFields().removeIf(link -> link.getField().equals(this));
+    }
 }

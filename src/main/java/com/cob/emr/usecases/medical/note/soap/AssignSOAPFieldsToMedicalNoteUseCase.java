@@ -3,10 +3,13 @@ package com.cob.emr.usecases.medical.note.soap;
 import com.cob.emr.entity.medical.note.soap.field.MedicalNoteTypeEntity;
 import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
 import com.cob.emr.entity.medical.note.soap.field.NewSOAPSectionCategoryEntity;
+import com.cob.emr.entity.medical.note.soap.field.SoapFieldNoteType;
+import com.cob.emr.model.medical.note.soap.field.OrderField;
 import com.cob.emr.model.medical.note.soap.field.SoapFieldsByMedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteTypeRepository;
 import com.cob.emr.repositories.medical.note.SOAPFieldNewRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryNewRepository;
+import com.cob.emr.repositories.medical.note.SoapFieldNoteTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +28,8 @@ public class AssignSOAPFieldsToMedicalNoteUseCase {
     MedicalNoteTypeRepository medicalNoteTypeRepository;
     @Autowired
     SOAPFieldNewRepository soapFieldRepository;
+    @Autowired
+    SoapFieldNoteTypeRepository soapFieldNoteTypeRepository;
 
     @Transactional
     public void assign(SoapFieldsByMedicalNoteRequest soapFieldsByMedicalNoteRequest) {
@@ -35,15 +40,27 @@ public class AssignSOAPFieldsToMedicalNoteUseCase {
         List<NewSOAPFieldEntity> categoryFields = category.getFields().stream()
                 .collect(Collectors.toList());
         List<NewSOAPFieldEntity> parentList = category.getFields().stream()
-                .filter(field -> soapFieldsByMedicalNoteRequest.getFields().contains(field.getValue().getDisplay()))
+                .filter(sf -> soapFieldsByMedicalNoteRequest.getFields().stream()
+                        .anyMatch(of -> of.getName().equals(sf.getValue().getDisplay())))
                 .collect(Collectors.toList());
         List<NewSOAPFieldEntity> fieldEntities = buildHierarchy(parentList, categoryFields);
+        List<SoapFieldNoteType> soapFieldNoteTypes = new ArrayList<>();
         fieldEntities.forEach(newSOAPFieldEntity -> {
-            newSOAPFieldEntity.getNoteTypes().add(medicalNoteType);
+            SoapFieldNoteType soapFieldNoteType = new SoapFieldNoteType();
+            soapFieldNoteType.setNoteType(medicalNoteType);
+            soapFieldNoteType.setField(newSOAPFieldEntity);
+            soapFieldNoteType.setFieldOrder(getOrder(newSOAPFieldEntity.getValue().getDisplay(),soapFieldsByMedicalNoteRequest.getFields()));
+            soapFieldNoteTypes.add(soapFieldNoteType);
         });
-        soapFieldRepository.saveAll(fieldEntities);
+        soapFieldNoteTypeRepository.saveAll(soapFieldNoteTypes);
     }
-
+    private Integer getOrder(String name, List<OrderField> fields) {
+        return fields.stream()
+                .filter(f -> name.equals(f.getName()))
+                .map(OrderField::getOrder)
+                .findFirst()
+                .orElse(null); // or .orElse(-1)
+    }
     public List<NewSOAPFieldEntity> buildHierarchy(
             List<NewSOAPFieldEntity> parentList,
             List<NewSOAPFieldEntity> categoryFields) {

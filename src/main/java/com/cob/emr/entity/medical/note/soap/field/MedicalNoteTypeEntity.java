@@ -19,6 +19,6 @@ public class MedicalNoteTypeEntity {
     @Column(nullable = false, unique = true)
     private String type;
 
-    @ManyToMany(mappedBy = "noteTypes")
-    private Set<NewSOAPFieldEntity> fields = new HashSet<>();
+    @OneToMany(mappedBy = "noteType", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SoapFieldNoteType> fields = new HashSet<>();
 }
