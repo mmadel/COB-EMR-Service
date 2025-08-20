@@ -36,3 +36,12 @@ Select soap input by input type
  - Select Initial Evaluation Medical Note
     select * from medical_note
     select * from initial_evaluation
+
+Assign SOAP Fields to Medical Note Type "Daily Note" by querying soap fields by category ID
+    INSERT INTO soap_field_note_type (field_order, field_id, medical_note_id)
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY id) AS field_order,
+        id AS field_id,
+        2 AS medical_note_id
+    FROM new_soap_field
+    WHERE category_id = 12;
