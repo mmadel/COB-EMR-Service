@@ -14,4 +14,7 @@ public class PlanOfCare {
     private Procedures procedures;
     private Modalities modalities;
     private Specialties specialties;
+
+    private Object instructions;
+    private Object instructionTxt;
 }
