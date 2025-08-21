@@ -13,7 +13,10 @@ import java.util.Optional;
 public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long> {
 
 
-    Optional<MedicalNote> findByPatientCase_IdAndId(Long caseId , Long medicalNoteId);
+    Optional<List<MedicalNote>> findByPatientCase_IdAndType(Long caseId, MedicalNoteType type);
+
+    Optional<MedicalNote> findByPatientCase_IdAndId(Long caseId, Long medicalNoteId);
+
     Optional<List<MedicalNote>> findByPatientCase_Id(Long caseId);
 
     Optional<MedicalNote> findByIdAndType(Long id, MedicalNoteType type);
@@ -30,6 +33,7 @@ public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long>
             @Param("status") MedicalNoteStatus status,
             @Param("patientCase") Long patientCase
     );
+
     Optional<MedicalNote> findTopByTypeAndStatusOrderByCreatedAtDesc(
             MedicalNoteType type,
             MedicalNoteStatus status
