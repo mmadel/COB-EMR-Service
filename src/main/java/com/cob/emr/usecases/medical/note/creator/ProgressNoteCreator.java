@@ -49,7 +49,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
         progressNote.setType(MedicalNoteType.PROGRESS_NOTE);
         progressNote.setCreatedBy(medicalNote.getCreatedBy());
         progressNote.setNoteDate(medicalNote.getNoteDate());
-        if (medicalNote instanceof DailyNote)
+        if (medicalNote instanceof ProgressNote)
             createFromProgress(progressNote, (ProgressNote) medicalNote);
         if (medicalNote instanceof InitialEvaluation)
             createFromInitialEvaluation(progressNote, (InitialEvaluation) medicalNote);

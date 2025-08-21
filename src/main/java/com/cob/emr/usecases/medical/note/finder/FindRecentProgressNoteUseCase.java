@@ -24,9 +24,9 @@ public class FindRecentProgressNoteUseCase {
         Optional<List<MedicalNote>> optionalList = medicalNoteRepository.findByPatientCase_IdAndType(caseId, MEDICAL_NOTE_TYPE);
         boolean isEmpty = optionalList.map(List::isEmpty).orElse(true);
         if (!isEmpty) {
-            Optional<MedicalNote> optional = findRecentFinalizeProgressNote(optionalList.get());
-            if (optional.isPresent())
-                return optional.get();
+            MedicalNote recentFinalized = getRecentIfFinalized(optionalList.get());
+            if (recentFinalized  !=null)
+                return recentFinalized;
             else
                 throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_PROGRESS, new Object[]{});
         } else {
@@ -34,9 +34,10 @@ public class FindRecentProgressNoteUseCase {
         }
     }
 
-    private Optional<MedicalNote> findRecentFinalizeProgressNote(List<MedicalNote> notes) {
+    public MedicalNote getRecentIfFinalized(List<MedicalNote> notes) {
         return notes.stream()
-                .filter(note -> note.getStatus() == MedicalNoteStatus.Finalized)
-                .max(Comparator.comparing(MedicalNote::getCreatedAt));
+                .max(Comparator.comparing(MedicalNote::getCreatedAt)) // get most recent
+                .filter(note -> note.getStatus() == MedicalNoteStatus.Finalized) // keep only if finalized
+                .orElse(null); // return null if not finalized or empty
     }
 }
