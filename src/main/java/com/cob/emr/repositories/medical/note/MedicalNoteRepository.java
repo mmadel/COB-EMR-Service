@@ -30,4 +30,8 @@ public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long>
             @Param("status") MedicalNoteStatus status,
             @Param("patientCase") Long patientCase
     );
+    Optional<MedicalNote> findTopByTypeAndStatusOrderByCreatedAtDesc(
+            MedicalNoteType type,
+            MedicalNoteStatus status
+    );
 }
