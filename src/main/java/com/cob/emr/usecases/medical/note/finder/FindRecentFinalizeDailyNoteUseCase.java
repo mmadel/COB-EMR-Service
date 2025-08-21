@@ -13,7 +13,7 @@ import java.util.Optional;
 public class FindRecentFinalizeDailyNoteUseCase {
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
-    private static final MedicalNoteType MEDICAL_NOTE_TYPE = MedicalNoteType.INITIAL_EVALUATION;
+    private static final MedicalNoteType MEDICAL_NOTE_TYPE = MedicalNoteType.DAILY_NOTE;
     private static final MedicalNoteStatus MEDICAL_NOTE_STATUS = MedicalNoteStatus.Finalized;
 
     public MedicalNote find(Long caseId) {
