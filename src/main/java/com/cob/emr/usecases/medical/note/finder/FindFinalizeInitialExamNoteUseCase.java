@@ -20,10 +20,10 @@ public class FindFinalizeInitialExamNoteUseCase {
     private static final MedicalNoteType MEDICAL_NOTE_TYPE = MedicalNoteType.INITIAL_EVALUATION;
     private static final MedicalNoteStatus MEDICAL_NOTE_STATUS = MedicalNoteStatus.Finalized;
 
-    public InitialEvaluation find(Long caseId) throws MedicalNoteException {
+    public MedicalNote find(Long caseId) throws MedicalNoteException {
         Optional<MedicalNote> optional = medicalNoteRepository.findByPatientCase_IdAndTypeAndStatus(caseId, MEDICAL_NOTE_TYPE, MEDICAL_NOTE_STATUS);
         if (optional.isPresent()) {
-            return (InitialEvaluation) optional.get();
+            return optional.get();
         }
         throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_INIT_EXAM, new Object[]{});
     }
