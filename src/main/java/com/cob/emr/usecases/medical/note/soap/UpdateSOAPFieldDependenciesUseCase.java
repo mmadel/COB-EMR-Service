@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note;
+package com.cob.emr.usecases.medical.note.soap;
 
 import com.cob.emr.entity.medical.note.soap.field.NewSOAPFieldEntity;
 import com.cob.emr.entity.medical.note.soap.field.NewSOAPSectionCategoryEntity;
@@ -9,6 +9,7 @@ import com.cob.emr.repositories.medical.note.SOAPFieldNewRepository;
 import com.cob.emr.repositories.medical.note.SOAPFieldRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryNewRepository;
 import com.cob.emr.repositories.medical.note.SOAPSectionCategoryRepository;
+import com.cob.emr.usecases.medical.note.PersistSOAPFieldsUseCase;
 import com.cob.emr.usecases.medical.note.soap.field.CreateSoapField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

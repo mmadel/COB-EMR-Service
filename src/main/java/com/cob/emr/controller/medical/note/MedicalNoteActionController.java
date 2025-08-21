@@ -5,6 +5,8 @@ import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.FinalizeMedicalNoteRequest;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.*;
+import com.cob.emr.usecases.medical.note.creator.CreateMedicalNoteUseCase;
+import com.cob.emr.usecases.medical.note.soap.CreateROMUseCase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
