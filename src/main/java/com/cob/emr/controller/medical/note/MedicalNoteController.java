@@ -2,8 +2,8 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.model.medical.note.soap.field.SOAPField;
 import com.cob.emr.model.medical.note.soap.field.SOAPSection;
-import com.cob.emr.usecases.medical.note.*;
-import com.cob.emr.usecases.medical.note.creator.DailyNoteCreator;
+import com.cob.emr.usecases.medical.note.creator.CreateMedicalNoteUseCase;
+import com.cob.emr.usecases.medical.note.soap.*;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileByNameUseCase;
 import com.cob.emr.usecases.medical.note.soap.profile.FindObjectiveProfileUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class MedicalNoteController {
     UpdateSOAPCategoryFieldUseCase updateSOAPCategoryFieldUseCase;
 
     @Autowired
-    GenerateSOAPFieldUseCase GenerateSOAPFieldUseCase;
+    com.cob.emr.usecases.medical.note.soap.GenerateSOAPFieldUseCase GenerateSOAPFieldUseCase;
 
     @Autowired
     CreateMedicalNoteUseCase createMedicalNoteUseCase;

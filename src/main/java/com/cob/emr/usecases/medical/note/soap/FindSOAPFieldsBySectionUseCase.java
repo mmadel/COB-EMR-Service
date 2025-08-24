@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note;
+package com.cob.emr.usecases.medical.note.soap;
 
 import com.cob.emr.entity.medical.note.soap.field.*;
 import com.cob.emr.model.medical.note.soap.field.SOAPField;

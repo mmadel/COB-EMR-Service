@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note;
+package com.cob.emr.usecases.medical.note.creator;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.enums.MedicalNoteStatus;
