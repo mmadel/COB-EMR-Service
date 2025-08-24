@@ -33,4 +33,7 @@ public class DailyNote extends MedicalNote {
     @Type(type = "json")
     private Object planOfCare;
 
+    @Column(name = "parent")
+    private Long parentNote;
+
 }
