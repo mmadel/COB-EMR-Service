@@ -15,6 +15,11 @@ public class PlanOfCare {
     private Modalities modalities;
     private Specialties specialties;
 
+    //Daily
     private Object instructions;
     private Object instructionTxt;
+
+    //Discharge
+    private String reason;
+    private String discharge;
 }
