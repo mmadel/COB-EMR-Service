@@ -12,22 +12,22 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class FindParentOfDailyNote {
+public class FindParentMedicalNote {
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
     private static final MedicalNoteType INITIAL_MEDICAL_NOTE = MedicalNoteType.INITIAL_EVALUATION;
     private static final MedicalNoteType PROGRESS_MEDICAL_NOTE = MedicalNoteType.PROGRESS_NOTE;
     private static final MedicalNoteStatus FINALIZED_MEDICAL_NOTE = MedicalNoteStatus.Finalized;
     public MedicalNote find(Long caseId) throws MedicalNoteException {
-        Optional<MedicalNote> optionalProgressNote =medicalNoteRepository.findTopByTypeAndStatusAndPatientCase_IdOrderByCreatedByDesc(PROGRESS_MEDICAL_NOTE,FINALIZED_MEDICAL_NOTE,caseId);
+        Optional<MedicalNote> optionalProgressNote =medicalNoteRepository.findTopByTypeAndStatusAndPatientCase_IdOrderByCreatedAtDesc(PROGRESS_MEDICAL_NOTE,FINALIZED_MEDICAL_NOTE,caseId);
         if(optionalProgressNote.isPresent())
             return optionalProgressNote.get();
         else{
-            Optional<MedicalNote> optionalInitialNote = medicalNoteRepository.findTopByTypeAndStatusAndPatientCase_IdOrderByCreatedByDesc(PROGRESS_MEDICAL_NOTE,FINALIZED_MEDICAL_NOTE,caseId);
+            Optional<MedicalNote> optionalInitialNote = medicalNoteRepository.findTopByTypeAndStatusAndPatientCase_IdOrderByCreatedAtDesc(INITIAL_MEDICAL_NOTE,FINALIZED_MEDICAL_NOTE,caseId);
             if (optionalInitialNote.isPresent()) {
                 return optionalInitialNote.get();
             }else{
-                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.DAILY_NOTE_WITH_NO_PARENT, new Object[]{});
+                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_INIT_EXAM, new Object[]{});
             }
         }
     }
