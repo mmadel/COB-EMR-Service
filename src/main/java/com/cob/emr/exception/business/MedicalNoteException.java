@@ -7,6 +7,7 @@ public class MedicalNoteException extends EMRException{
     public static final String CORRUPTED_FINALIZER = Category.Business.value() + getPrefix() +"_01";
     public static final String FINALIZE_PROGRESS_NOTE = Category.Business.value() + getPrefix() +"_02";
     public static final String FINALIZE_PROGRESS = Category.Business.value() + getPrefix() +"_03";
+    public static final String DAILY_NOTE_WITH_NO_PARENT = Category.Business.value() + getPrefix() +"_04";
 
     public MedicalNoteException(String code) {
         super(code);

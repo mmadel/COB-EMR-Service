@@ -28,7 +28,7 @@ public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long>
             "AND m.type = :type " +
             "AND m.status = :status " +
             "ORDER BY m.createdAt DESC")
-    List<MedicalNote> findLatestProgressNoteByTypeAndStatusAndCase(
+    List<MedicalNote> findRecentNoteByTypeAndStatusAndCase(
             @Param("type") MedicalNoteType type,
             @Param("status") MedicalNoteStatus status,
             @Param("patientCase") Long patientCase
@@ -37,5 +37,11 @@ public interface MedicalNoteRepository extends CrudRepository<MedicalNote, Long>
     Optional<MedicalNote> findTopByTypeAndStatusOrderByCreatedAtDesc(
             MedicalNoteType type,
             MedicalNoteStatus status
+    );
+
+    Optional<MedicalNote> findTopByTypeAndStatusAndPatientCase_IdOrderByCreatedByDesc(
+            MedicalNoteType type,
+            MedicalNoteStatus status,
+            Long patientCaseId
     );
 }
