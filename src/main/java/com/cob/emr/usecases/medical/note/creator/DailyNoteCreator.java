@@ -9,9 +9,7 @@ import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
-import com.cob.emr.usecases.medical.note.finder.FindFinalizeInitialExamNoteUseCase;
 import com.cob.emr.usecases.medical.note.finder.FindParentMedicalNote;
-import com.cob.emr.usecases.medical.note.finder.FindRecentFinalizeDailyNoteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,10 +17,6 @@ import java.util.Optional;
 
 @Component
 public class DailyNoteCreator implements MedicalNoteCreator {
-    @Autowired
-    FindRecentFinalizeDailyNoteUseCase findRecentFinalizeDailyNoteUseCase;
-    @Autowired
-    FindFinalizeInitialExamNoteUseCase findFinalizeInitialExamNoteUseCase;
     @Autowired
     FindParentMedicalNote findParentMedicalNote;
     @Autowired
