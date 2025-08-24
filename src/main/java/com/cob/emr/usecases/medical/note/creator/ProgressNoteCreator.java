@@ -1,33 +1,23 @@
 package com.cob.emr.usecases.medical.note.creator;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
-import com.cob.emr.entity.medical.note.types.DailyNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.entity.medical.note.types.ProgressNote;
-import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
-import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
-import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.usecases.medical.note.finder.FindFinalizeInitialExamNoteUseCase;
 import com.cob.emr.usecases.medical.note.finder.FindRecentProgressNoteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class ProgressNoteCreator implements MedicalNoteCreator {
+
     @Autowired
-    MedicalNoteRepository medicalNoteRepository;
+    private FindRecentProgressNoteUseCase findRecentProgressNoteUseCase;
     @Autowired
-    PatientCaseRepository patientCaseRepository;
-    @Autowired
-    FindRecentProgressNoteUseCase findRecentProgressNoteUseCase;
-    @Autowired
-    FindFinalizeInitialExamNoteUseCase findFinalizeInitialExamNoteUseCase;
+    private FindFinalizeInitialExamNoteUseCase findFinalizeInitialExamNoteUseCase;
 
     @Override
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {

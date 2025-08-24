@@ -28,7 +28,7 @@ public class FindRecentProgressNoteUseCase {
             if (recentFinalized  !=null)
                 return recentFinalized;
             else
-                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_PROGRESS, new Object[]{});
+                throw new MedicalNoteException(HttpStatus.CONFLICT, MedicalNoteException.FINALIZE_PROGRESS_NOTE, new Object[]{});
         } else {
             return null;
         }
