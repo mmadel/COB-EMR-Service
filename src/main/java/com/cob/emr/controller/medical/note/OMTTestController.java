@@ -5,12 +5,10 @@ import com.cob.emr.usecases.medical.note.test.DASHServiceTest;
 import com.cob.emr.usecases.medical.note.test.SPADIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEFIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEQDServiceTest;
+import com.cob.emr.usecases.medical.note.test.spine.SpineServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -25,6 +23,8 @@ public class OMTTestController {
     SPADIServiceTest spadiServiceTest;
     @Autowired
     DASHServiceTest dashServiceTest;
+    @Autowired
+    SpineServiceTest spineServiceTest;
 
     @PostMapping("/ueqd")
     public ResponseEntity ueqdTest(@RequestBody Map<String, Integer> answers) {
@@ -46,5 +46,10 @@ public class OMTTestController {
     public ResponseEntity dashTest(@RequestBody Map<String, Integer> answers) {
         return ResponseEntity.ok()
                 .body(dashServiceTest.test(answers));
+    }
+    @PostMapping("/spine/test/{testName}")
+    public ResponseEntity spineTest(@RequestBody Map<String, Integer> answers, @PathVariable String testName) {
+        return ResponseEntity.ok()
+                .body(spineServiceTest.test(answers,testName));
     }
 }
