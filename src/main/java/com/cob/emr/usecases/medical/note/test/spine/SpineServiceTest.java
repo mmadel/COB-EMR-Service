@@ -33,6 +33,11 @@ public class SpineServiceTest {
             Double value = exp.getValue(context, Double.class);
             results.put(formula.getFormulaName(), Math.round(value * 100.0) / 100.0);
         }
+        if(testName.equals("ndi"))
+            results.put("score",answers.values()
+                    .stream()
+                    .mapToDouble(Integer::doubleValue)
+                    .sum());
         return results;
     }
 }
