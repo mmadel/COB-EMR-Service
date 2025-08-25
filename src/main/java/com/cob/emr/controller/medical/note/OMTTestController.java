@@ -1,5 +1,6 @@
 package com.cob.emr.controller.medical.note;
 
+import com.cob.emr.usecases.medical.note.test.UEFIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEQDServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,17 @@ import java.util.Map;
 public class OMTTestController {
     @Autowired
     UEQDServiceTest ueqdServiceTest;
+    @Autowired
+    UEFIServiceTest uefiServiceTest;
 
     @PostMapping("/ueqd")
     public ResponseEntity ueqdTest(@RequestBody Map<String, Integer> answers) {
         return ResponseEntity.ok()
                 .body(ueqdServiceTest.test(answers));
+    }
+    @PostMapping("/uefi")
+    public ResponseEntity uefiTest(@RequestBody Map<String, Integer> answers) {
+        return ResponseEntity.ok()
+                .body(uefiServiceTest.test(answers));
     }
 }
