@@ -14,6 +14,9 @@ public class OMTTestEntity {
     @Column(name="test_name")
     private String testName;
 
+    @Column(name="test_description")
+    private String testDescription;
+
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<OMTTestFormulaEntity> formulas = new ArrayList<>();
 }
