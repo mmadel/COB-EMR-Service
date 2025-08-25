@@ -1,6 +1,7 @@
 package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.model.medical.note.omt.test.SPADIRequest;
+import com.cob.emr.usecases.medical.note.test.DASHServiceTest;
 import com.cob.emr.usecases.medical.note.test.SPADIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEFIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEQDServiceTest;
@@ -22,6 +23,8 @@ public class OMTTestController {
     UEFIServiceTest uefiServiceTest;
     @Autowired
     SPADIServiceTest spadiServiceTest;
+    @Autowired
+    DASHServiceTest dashServiceTest;
 
     @PostMapping("/ueqd")
     public ResponseEntity ueqdTest(@RequestBody Map<String, Integer> answers) {
@@ -37,5 +40,11 @@ public class OMTTestController {
     public ResponseEntity spadiTest(@RequestBody SPADIRequest spadiRequest) {
         return ResponseEntity.ok()
                 .body(spadiServiceTest.test(spadiRequest));
+    }
+
+    @PostMapping("/dash")
+    public ResponseEntity dashTest(@RequestBody Map<String, Integer> answers) {
+        return ResponseEntity.ok()
+                .body(dashServiceTest.test(answers));
     }
 }
