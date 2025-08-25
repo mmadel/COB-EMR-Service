@@ -1,5 +1,7 @@
 package com.cob.emr.controller.medical.note;
 
+import com.cob.emr.model.medical.note.omt.test.SPADIRequest;
+import com.cob.emr.usecases.medical.note.test.SPADIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEFIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEQDServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ public class OMTTestController {
     UEQDServiceTest ueqdServiceTest;
     @Autowired
     UEFIServiceTest uefiServiceTest;
+    @Autowired
+    SPADIServiceTest spadiServiceTest;
 
     @PostMapping("/ueqd")
     public ResponseEntity ueqdTest(@RequestBody Map<String, Integer> answers) {
@@ -28,5 +32,10 @@ public class OMTTestController {
     public ResponseEntity uefiTest(@RequestBody Map<String, Integer> answers) {
         return ResponseEntity.ok()
                 .body(uefiServiceTest.test(answers));
+    }
+    @PostMapping("/spadi")
+    public ResponseEntity spadiTest(@RequestBody SPADIRequest spadiRequest) {
+        return ResponseEntity.ok()
+                .body(spadiServiceTest.test(spadiRequest));
     }
 }
