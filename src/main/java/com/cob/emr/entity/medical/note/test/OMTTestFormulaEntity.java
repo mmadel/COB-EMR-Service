@@ -1,9 +1,14 @@
 package com.cob.emr.entity.medical.note.test;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "omt_test_formula")
+@Getter
+@Setter
 public class OMTTestFormulaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
