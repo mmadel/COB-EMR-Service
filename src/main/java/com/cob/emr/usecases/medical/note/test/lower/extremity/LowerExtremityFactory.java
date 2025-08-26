@@ -1,8 +1,6 @@
 package com.cob.emr.usecases.medical.note.test.lower.extremity;
 
 import com.cob.emr.usecases.medical.note.test.lower.extremity.tests.LowerExtremityTest;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -14,6 +12,7 @@ public class LowerExtremityFactory {
     public LowerExtremityFactory(Map<String, LowerExtremityTest> tests) {
         this.tests = tests;
     }
+
     public LowerExtremityTest getTest(String testName) {
         return tests.get(testName);
     }
