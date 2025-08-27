@@ -1,11 +1,13 @@
 package com.cob.emr.controller.medical.note;
 
+import com.cob.emr.model.medical.note.omt.test.BalanceRequest;
 import com.cob.emr.model.medical.note.omt.test.LowerExtremityRequest;
 import com.cob.emr.model.medical.note.omt.test.SPADIRequest;
 import com.cob.emr.usecases.medical.note.test.DASHServiceTest;
 import com.cob.emr.usecases.medical.note.test.SPADIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEFIServiceTest;
 import com.cob.emr.usecases.medical.note.test.UEQDServiceTest;
+import com.cob.emr.usecases.medical.note.test.balance.BalanceServiceTest;
 import com.cob.emr.usecases.medical.note.test.lower.extremity.LowerExtremityServiceTest;
 import com.cob.emr.usecases.medical.note.test.spine.SpineServiceTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class OMTTestController {
     SpineServiceTest spineServiceTest;
     @Autowired
     LowerExtremityServiceTest lowerExtremityServiceTest;
+    @Autowired
+    BalanceServiceTest BalanceRequest;
 
     @PostMapping("/ueqd")
     public ResponseEntity ueqdTest(@RequestBody Map<String, Integer> answers) {
@@ -61,5 +65,10 @@ public class OMTTestController {
     public ResponseEntity LowerExtremityTest(@RequestBody LowerExtremityRequest lowerExtremityRequest, @PathVariable String testName) {
         return ResponseEntity.ok()
                 .body(lowerExtremityServiceTest.execute(testName,lowerExtremityRequest));
+    }
+    @PostMapping("/balance")
+    public ResponseEntity balanceTest(@RequestBody BalanceRequest balanceRequest) {
+        return ResponseEntity.ok()
+                .body(BalanceRequest.test(balanceRequest));
     }
 }
