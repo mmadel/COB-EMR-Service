@@ -9,4 +9,5 @@ import java.util.Map;
 @Getter
 public class BalanceRequest {
     private Map<String, Integer> answers;
+    private String testType;
 }
