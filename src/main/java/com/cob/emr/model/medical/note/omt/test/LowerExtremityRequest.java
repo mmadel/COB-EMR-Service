@@ -9,4 +9,5 @@ import java.util.Map;
 @Getter
 public class LowerExtremityRequest {
     private Map<String, Integer> answers;
+    private String oosType;
 }

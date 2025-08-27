@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Component("hoos")
+@Component("oos")
 public class HOOSLowerExtremityTest implements LowerExtremityTest {
     @Autowired
     OMTTestEntityRepository omtTestEntityRepository;
     private final static String HOOS_TEST = "hoos";
+    private final static String KOOS_TEST = "koos";
 
     @Override
     public Map<String, Double> test(LowerExtremityRequest lowerExtremityRequest) {
@@ -31,19 +32,37 @@ public class HOOSLowerExtremityTest implements LowerExtremityTest {
         Map<String, Integer> sportMap = filterByPrefix(lowerExtremityRequest.getAnswers(), "SP");
         Map<String, Integer> adlMap = filterByPrefix(lowerExtremityRequest.getAnswers(), "A");
         Map<String, Integer> qualityOfLifeMap = filterByPrefix(lowerExtremityRequest.getAnswers(), "Q");
-        Map<String, Double> results = new LinkedHashMap<>();
 
-        OMTTestEntity test = omtTestEntityRepository.findByTestName(HOOS_TEST)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid test " + HOOS_TEST));
-        List<OMTTestFormulaEntity> formulas = test.getFormulas();
+        List<OMTTestFormulaEntity> formulas = pickTestFormulas(lowerExtremityRequest.getOosType());
+
+        Map<String, Double> results = new LinkedHashMap<>();
         Double pain = calculateSubScale(getFormulaByName(formulas, "pain"), painMap);
         Double symptoms = calculateSubScale(getFormulaByName(formulas, "symptoms"), symptomsMap);
         Double sport = calculateSubScale(getFormulaByName(formulas, "sport"), sportMap);
         Double adl = calculateSubScale(getFormulaByName(formulas, "adl"), adlMap);
         Double qualityOfLife = calculateSubScale(getFormulaByName(formulas, "qol"), qualityOfLifeMap);
         Double score = calculateScore(getFormulaByName(formulas, "score"), pain, symptoms, adl, sport, qualityOfLife);
+
         results.put("score", Math.round(score * 100.0) / 100.0);
         return results;
+    }
+
+    private List<OMTTestFormulaEntity> pickTestFormulas(String OOSType) {
+        switch (OOSType.toLowerCase()) {
+            case "hoos":
+                OMTTestEntity HOOSTest = omtTestEntityRepository.findByTestName(HOOS_TEST)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid test " + HOOS_TEST));
+                return HOOSTest.getFormulas();
+
+            case "koos":
+                OMTTestEntity KOOSTest = omtTestEntityRepository.findByTestName(KOOS_TEST)
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid test " + KOOS_TEST));
+                return KOOSTest.getFormulas();
+
+            default:
+                throw new IllegalArgumentException("Invalid OOS type: " + OOSType);
+        }
+
     }
 
     private double calculateSubScale(OMTTestFormulaEntity formula, Map<String, Integer> answers) {
