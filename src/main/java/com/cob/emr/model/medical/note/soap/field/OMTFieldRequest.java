@@ -10,5 +10,5 @@ import java.util.List;
 public class OMTFieldRequest {
     private List<OMTTest> list;
     private String layout;
-    private String testName;
+    private Object testData;
 }
