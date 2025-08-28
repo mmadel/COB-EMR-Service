@@ -14,13 +14,15 @@ public class FinalizeMedialNoteUseCase {
 
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
-
+    @Autowired
+    SaveMedicalNoteUseCase saveMedicalNoteUseCase;
     @Transactional
     public void finalize(FinalizeMedicalNoteRequest request) {
         MedicalNote medicalNote = medicalNoteRepository.findByPatientCase_IdAndId(request.getCaseId(), request.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Medical Note Not Found"));
         medicalNote.setFinalizedBy(request.getFinalizedBy());
         medicalNote.setStatus(MedicalNoteStatus.Finalized);
+        saveMedicalNoteUseCase.draft(request.getMedicalNoteRequest());
         medicalNoteRepository.save(medicalNote);
 
     }

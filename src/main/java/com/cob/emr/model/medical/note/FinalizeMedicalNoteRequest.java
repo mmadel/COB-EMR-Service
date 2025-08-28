@@ -11,4 +11,5 @@ public class FinalizeMedicalNoteRequest {
     private Long caseId;
     private MedicalNoteType noteType;
     private String finalizedBy;
+    private MedicalNoteRequest medicalNoteRequest;
 }
