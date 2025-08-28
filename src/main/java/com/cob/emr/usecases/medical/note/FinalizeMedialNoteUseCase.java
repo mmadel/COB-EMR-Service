@@ -22,7 +22,6 @@ public class FinalizeMedialNoteUseCase {
                 .orElseThrow(() -> new IllegalArgumentException("Medical Note Not Found"));
         medicalNote.setFinalizedBy(request.getFinalizedBy());
         medicalNote.setStatus(MedicalNoteStatus.Finalized);
-        saveMedicalNoteUseCase.draft(request.getMedicalNoteRequest());
         medicalNoteRepository.save(medicalNote);
 
     }
