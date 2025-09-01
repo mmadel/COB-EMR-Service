@@ -48,7 +48,7 @@ public class MedicalNoteActionController {
 
     }
     @PostMapping("/finalize")
-    public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) {
+    public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) throws MedicalNoteException {
         finalizeMedialNoteUseCase.finalize(request);
         return ResponseEntity.ok()
                 .build();
