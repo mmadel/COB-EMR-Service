@@ -1,0 +1,36 @@
+fields:
+  - id: 2e0f34d4-db5e-41ea-acd6-4b42aec889bf
+    display: "Spontaneous Nystagmus Test, w/ Gaze & Fixation Nystagmus, w/Recording"
+    name: 92541
+    parentId: null
+    children: []
+  - id: 62196bb4-bb82-4b09-bd08-fad021bfcc61
+    display: "Positional Nystagmus Test, Minimum, 4 Positions, w/Recording"
+    name: 92542
+    parentId: null
+    children: []
+  - id: 8e1a7300-a209-4c25-a1fe-8c5abb0d5523
+    display: "Unlisted procedure, musculoskeletal system, general"
+    name: 20999
+    parentId: null
+    children: []
+  - id: addd1325-1ae1-4a2b-a7c7-6b11d9425074
+    display: Initial Acupuncture Without E-Stim (15 mins)*
+    name: 97810
+    parentId: null
+    children: []
+  - id: df1efad5-1eb4-4ce5-bdd1-f6d3aff67b00
+    display: "Acupuncture with electrical stimulation, each additional 15 minutes*"
+    name: 97814
+    parentId: null
+    children: []
+  - id: e479bf01-7623-4ce3-a8e9-746055b83f0e
+    display: "Acupuncture, each additional 15 minutes*"
+    name: 97811
+    parentId: null
+    children: []
+  - id: ffccfd6c-3980-43c2-90f7-b5cda0fb48f7
+    display: Initial Acupuncture With E-Stim (15 mins)*
+    name: 97813
+    parentId: null
+    children: []

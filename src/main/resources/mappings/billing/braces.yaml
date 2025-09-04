@@ -1,0 +1,26 @@
+fields:
+  - id: 24381a17-15ba-4a27-8f2c-58cec464b047
+    display: Patellofemoral Sleeve
+    name: 1906
+    parentId: null
+    children: []
+  - id: 2a60257a-998f-4011-8ab8-8e56dbfd3f83
+    display: Clavicle Strap
+    name: L3670
+    parentId: null
+    children: []
+  - id: 69b0d974-09c7-4670-af64-06427812bc76
+    display: Ankle Brace
+    name: 1902
+    parentId: null
+    children: []
+  - id: 88e88157-70c5-4b24-90d5-eeaacbb591fc
+    display: Wrist/Thumb Neoprene
+    name: 3908
+    parentId: null
+    children: []
+  - id: c578c5f9-7430-42e3-ab0b-6fd915c8c44e
+    display: Knee Orthosis - Prefab
+    name: 1810
+    parentId: null
+    children: []

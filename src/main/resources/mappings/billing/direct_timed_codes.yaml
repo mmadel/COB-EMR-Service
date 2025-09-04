@@ -1,0 +1,180 @@
+fields:
+  - id: 0424d40e-1661-49a3-8375-e0ddeac9019c
+    display: Ultrasound/Phonophoresis
+    name: 97035
+    parentId: null
+    children: []
+  - id: 08057d16-1309-46c6-ab85-b0a93f6967b9
+    display: Remote therapeutic monitoring treatment management services by physician
+      or other qualified health care professional; first 20 minutes per calendar month
+    name: 98980
+    parentId: null
+    children: []
+  - id: 0a0435e2-f68c-44ae-a3b4-21fb1487a1c7
+    display: E-Stim Manual
+    name: 97032
+    parentId: null
+    children: []
+  - id: 126f8d62-f65e-427c-ae88-9e85e9bc5071
+    display: Self Care - ADLs
+    name: 97535
+    parentId: null
+    children: []
+  - id: 1c47d94b-f757-47c2-9652-3baf4a60caaa
+    display: Prosthetic training initial encounter
+    name: 97761
+    parentId: null
+    children: []
+  - id: 2819406d-cb6b-437f-b4b1-79ebbb3011d3
+    display: Iontophoresis
+    name: 97033
+    parentId: null
+    children: []
+  - id: 2846537d-81fc-4177-a000-c5961ef7bb83
+    display: Aquatic Exercise
+    name: 97113
+    parentId: null
+    children: []
+  - id: 28f7ddf5-ddb2-4ecf-a83a-1a38f5405304
+    display: "Biofeedback training, perineal muscles, anorectal or urethral sphincter,\
+    \ including EMG and/or manometry, when performed; initial 15 minutes"
+    name: 90912
+    parentId: null
+    children: []
+  - id: 3450bcda-a3ea-4125-b86a-38fc68e793a3
+    display: Developmental Testing Per Hour
+    name: 96110
+    parentId: null
+    children: []
+  - id: 35682baa-2e91-4caf-8ad2-44465b42e636
+    display: "Biofeedback training, perineal muscles, anorectal or urethral sphincter,\
+    \ including EMG and/or manometry, when performed; each additional 15 minutes"
+    name: 90913
+    parentId: null
+    children: []
+  - id: 47351ffb-2032-40b7-8f2d-aa0390cc9b34
+    display: "Community / work reintegration training direct, each 15 minutes"
+    name: 97537
+    parentId: null
+    children: []
+  - id: 4786e86e-aa21-47f3-85e1-e42e453efee8
+    display: Neuromuscular Re-Education
+    name: 97112
+    parentId: null
+    children: []
+  - id: 5c90104f-5536-456f-9528-990709b73a97
+    display: Developmental test by qualified healthcare professional; first hour
+    name: 96112
+    parentId: null
+    children: []
+  - id: 6131848d-e76b-47be-8d27-bbf1db528899
+    display: Therapeutic Exercise
+    name: 97110
+    parentId: null
+    children: []
+  - id: 6409d142-5c76-4231-8d36-0973db846a66
+    display: "Therapeutic interventions that focus on cognitive function (eg, attention,\
+    \ memory, reasoning, executive function) and compensatory strategies to manage\
+    \ the performance of an activity (eg, managing time), direct (one-on-one) patient\
+    \ contact; each additional 15 minutes"
+    name: 97130
+    parentId: null
+    children: []
+  - id: 6ff7bf1f-99d0-4091-b7c1-86ad7be33da6
+    display: Manual Therapy
+    name: 97140
+    parentId: null
+    children: []
+  - id: 72e8a2ca-bc9c-4770-8e9c-7bc28c13b45f
+    display: Developmental test by qualified healthcare professional; each add'l 30
+      min
+    name: 96113
+    parentId: null
+    children: []
+  - id: 7f497031-202a-4982-83aa-e1742010d440
+    display: Work hardening/conditioning; each additional hour
+    name: 97546
+    parentId: null
+    children: []
+  - id: 80e7516f-a085-49b4-b014-5b005b67bbe0
+    display: "Education and training for patient self-management, each 30 minutes"
+    name: 98960
+    parentId: null
+    children: []
+  - id: 914469e3-ef07-4438-95b9-6ce61c3a4596
+    display: "Therapeutic interventions that focus on cognitive function (eg, attention,\
+    \ memory, executive function) and compensatory strategies to manage the performance\
+    \ of an activity (eg, managing time), direct (one-on-one) patient contact; initial\
+    \ 15 minutes"
+    name: 97129
+    parentId: null
+    children: []
+  - id: 94dcd182-a34f-4db7-b872-5728f777e7c0
+    display: Remote therapeutic monitoring treatment management services by physician
+      or other qualified health care professional
+    name: 98981
+    parentId: null
+    children: []
+  - id: 9b1cb93d-88f3-40c7-8cc6-5faa24e6fe1d
+    display: Therapeutic Activity/Kinetic
+    name: 97530
+    parentId: null
+    children: []
+  - id: a1e6e8f4-978e-4243-8af6-85bfcea7889c
+    display: Orthotic management and training initial encounter
+    name: 97760
+    parentId: null
+    children: []
+  - id: a41401ee-7990-4943-8a4f-8d08d29e6f24
+    display: Debridement Area Each Additional 20 sq cm
+    name: 97598
+    parentId: null
+    children: []
+  - id: a925c734-a79e-43ec-bcb6-daa1483916fd
+    display: "Standardized cognitive performance testing (eg, Ross Information Processing\
+    \ Assessment) per hour of a qualified health care professional's time, both face-to-face\
+    \ time administering tests to the patient and time interpreting these test results\
+    \ and preparing the report"
+    name: 96125
+    parentId: null
+    children: []
+  - id: b0db6e8d-e6ec-4eac-b1ec-56d8720f9e14
+    display: Work hardening/conditioning; initial 2 hours
+    name: 97545
+    parentId: null
+    children: []
+  - id: b79a2ccd-4a81-459a-a012-10855d37aaf5
+    display: Gait Training
+    name: 97116
+    parentId: null
+    children: []
+  - id: b904d9a0-efdc-47d9-adad-0474f029459f
+    display: Orthotic/prosthetic management and/or training subsequent encounter
+    name: 97763
+    parentId: null
+    children: []
+  - id: c5256e82-6b00-4727-9106-40a67bca5425
+    display: Wheelchair Management Training
+    name: 97542
+    parentId: null
+    children: []
+  - id: cca5fb5c-72ea-4643-89c6-0addf36d3fcb
+    display: Sensory Integrative Techniques
+    name: 97533
+    parentId: null
+    children: []
+  - id: d1699ace-5f9e-467a-b73f-a1ff064038a0
+    display: Assistive Tech Assessment
+    name: 97755
+    parentId: null
+    children: []
+  - id: d85598ed-8f9c-48c5-b914-7837807bc30b
+    display: FCE/Performance Test
+    name: 97750
+    parentId: null
+    children: []
+  - id: f648a0f9-b496-4602-91f0-632b5d509e09
+    display: Massage
+    name: 97124
+    parentId: null
+    children: []

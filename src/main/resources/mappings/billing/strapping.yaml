@@ -1,0 +1,74 @@
+fields:
+  - id: 168be8f7-c529-4522-b139-3ce85897c8c8
+    display: Elbow or Wrist
+    name: 29260
+    parentId: null
+    children: []
+  - id: 18f45d99-e2b8-4018-b032-0861e4259f40
+    display: "Shoulder (eg, Velpeau)"
+    name: 29240
+    parentId: null
+    children: []
+  - id: 1c2cf614-9247-4d20-95cc-2a7b9abcfde2
+    display: Knee
+    name: 29530
+    parentId: null
+    children: []
+  - id: 447e8e45-1de0-4983-816e-90e93c4c7fd0
+    display: Application of multi-layer compression system; upper arm and forearm
+    name: 29583
+    parentId: null
+    children: []
+  - id: 4e4d5532-3fc2-4b2d-900d-90d615f86b5a
+    display: Unna Boot
+    name: 29580
+    parentId: null
+    children: []
+  - id: 7e933132-0340-4ddf-9b8d-7da481e8f388
+    display: Toes
+    name: 29550
+    parentId: null
+    children: []
+  - id: 9b44934c-0e26-4fb4-87fe-d9614cfaae59
+    display: "Application of multi-layer compression system; upper arm, forearm, hand,\
+    \ and fingers"
+    name: 29584
+    parentId: null
+    children: []
+  - id: 9e61ca62-f478-459c-98cb-e861dc19c501
+    display: "Application of multi-layer compression system; leg (below knee), including\
+    \ ankle and foot"
+    name: 29581
+    parentId: null
+    children: []
+  - id: c1e9e91f-d1ce-493a-a85a-068c20cec595
+    display: Hand or Finger
+    name: 29280
+    parentId: null
+    children: []
+  - id: d1334419-2274-4620-8752-8a8a0f70ece6
+    display: Low Back
+    name: 29799
+    parentId: null
+    children: []
+  - id: d6aa4a01-63a1-4a6e-a2a5-27a1426b2de1
+    display: Thorax
+    name: 29200
+    parentId: null
+    children: []
+  - id: f4193432-3fe1-4d79-a9de-203ff3b9354a
+    display: "Application of multi-layer compression system; thigh and leg, including\
+    \ ankle and foot, when performed"
+    name: 29582
+    parentId: null
+    children: []
+  - id: f6510175-7a2b-4d4c-b7aa-c226800bd472
+    display: Ankle or Foot
+    name: 29540
+    parentId: null
+    children: []
+  - id: f8774208-c732-4339-84d9-421865f04e24
+    display: Hip
+    name: 29520
+    parentId: null
+    children: []

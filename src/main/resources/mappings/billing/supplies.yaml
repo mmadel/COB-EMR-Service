@@ -1,0 +1,197 @@
+fields:
+  - id: 00a70562-02d8-4650-ab38-86131e3219ea
+    display: Collagen dressing > 48 sq in
+    name: A6023
+    parentId: null
+    children: []
+  - id: 02b0cc80-9e3f-45d0-9baa-cde62198ddba
+    display: Electrodes
+    name: A4595
+    parentId: null
+    children: []
+  - id: 150f4c2c-9a49-46dc-b73b-c79d32d5da9f
+    display: "Gradient compression stocking, waist length, 30-40 mmhg, each"
+    name: A6540
+    parentId: null
+    children: []
+  - id: 175dac6f-5e39-4d31-a070-356b33cc1749
+    display: Shoulder Pulley ROM
+    name: E0941
+    parentId: null
+    children: []
+  - id: 1e4ee578-f057-49ec-be57-1aba7953d7e5
+    display: "Padding bandage, non-elastic, non-woven/non-knitted, width greater than\
+    \ or equal to three inches and less than five inches, per yard"
+    name: A6441
+    parentId: null
+    children: []
+  - id: 2202b7db-b656-4f0f-8040-aed56dab6e31
+    display: "Gradient compression stocking, waist length, 40-50 mmhg, each"
+    name: A6541
+    parentId: null
+    children: []
+  - id: 2950271d-cc59-4344-80ae-171416ce3b3a
+    display: Otoform
+    name: A6025
+    parentId: null
+    children: []
+  - id: 3ec0dba7-b83f-4c93-9b51-9101b45e30ee
+    display: Collagen dressing > 16 sq in but ≤ 48 sq in
+    name: A6022
+    parentId: null
+    children: []
+  - id: 41d6fd5e-2195-4f78-b43b-01cf3e626ffe
+    display: "Foam dressing, wound cover, sterile, pad size more than 48 sq. in."
+    name: A6211
+    parentId: null
+    children: []
+  - id: 4a14df9d-a171-4dd4-a78e-6a26f3063c62
+    display: Gloves
+    name: A4927
+    parentId: null
+    children: []
+  - id: 4fd8549e-8dcf-460b-9b82-ee1f318a2157
+    display: "Gradient compression stocking, waist length, 18-30 mmhg, each"
+    name: A6539
+    parentId: null
+    children: []
+  - id: 5aac3e29-4234-469e-8ec4-52c0b7e5d859
+    display: "Composite dressing, sterile, pad size 16 sq. in. or less"
+    name: A6203
+    parentId: null
+    children: []
+  - id: 5ca5c1de-9896-455b-bf79-9d521b1749c4
+    display: "Gradient compression stocking, below knee, 30-40 mmhg, each"
+    name: A6531
+    parentId: null
+    children: []
+  - id: 61664c9e-ab4e-4c88-b447-31d2dc331dc4
+    display: Physioball
+    name: A9300
+    parentId: null
+    children: []
+  - id: 644b3ea2-8f98-4233-a4e2-e07631214c31
+    display: "Miscellaneous dme supply, accessory"
+    name: A9900
+    parentId: null
+    children: []
+  - id: 701158d2-8163-4d01-8781-9f2823aec997
+    display: "Foam dressing, wound cover, sterile, pad size more than 16 sq. in. but\
+    \ less than or equal to 48 sq. in."
+    name: A6210
+    parentId: null
+    children: []
+  - id: 765c4399-0ac3-455d-9be5-d2caf6025a0d
+    display: Collagen dressing <16 sq in
+    name: A6021
+    parentId: null
+    children: []
+  - id: 766f1375-cf60-4724-8bd3-c17e5eb398d2
+    display: "Conforming bandage, non-elastic, knitted/woven, non-sterile, width less\
+    \ than three inches, per yard"
+    name: A6442
+    parentId: null
+    children: []
+  - id: 7cc103c7-669b-42e8-bfc0-8e4e6ea8db27
+    display: Sport Cord
+    name: A9300
+    parentId: null
+    children: []
+  - id: 7ccc67b4-c4f6-4150-89c7-359300b56870
+    display: "Composite dressing, sterile, pad size more than 16 sq. in. but less than\
+    \ or equal to 48 sq. in."
+    name: A6204
+    parentId: null
+    children: []
+  - id: 7d73fe1d-742c-4c42-8861-c6b3c7caf0d2
+    display: "Light compression bandage, elastic, knitted/woven, width greater than\
+    \ or equal to three inches and less than five inches, per yard"
+    name: A6449
+    parentId: null
+    children: []
+  - id: 838e0428-656f-424a-8c07-3eba49d91fa3
+    display: "Gradient compression stocking, below knee, 40-50 mmhg, each"
+    name: A6532
+    parentId: null
+    children: []
+  - id: 84abc607-6e4a-4ee6-89ac-875f93d2a0ae
+    display: Theraband
+    name: A9300
+    parentId: null
+    children: []
+  - id: 8dc6b9c5-9d4c-46e0-8d2f-a1ffaa3bda32
+    display: "Gradient compression stocking, thigh length, 40-50 mmhg, each"
+    name: A6535
+    parentId: null
+    children: []
+  - id: 97c227e1-64f4-4957-ae9f-e2ed0e00b974
+    display: "Gradient compression stocking, below knee, 18-30 mmhg, each"
+    name: A6530
+    parentId: null
+    children: []
+  - id: 9aa7d6e5-9461-40e7-96fe-917afd2d27c9
+    display: "Breast prosthesis, mastectomy sleeve"
+    name: L8010
+    parentId: null
+    children: []
+  - id: a1855514-2391-4c0a-810f-6d2567b41358
+    display: Tens Unit
+    name: E0720
+    parentId: null
+    children: []
+  - id: ba67e21a-8046-4e62-bca0-499b4ba36e89
+    display: Special Supplies PHYS/QHP
+    name: 99070
+    parentId: null
+    children: []
+  - id: bb052a4c-1f43-4c20-804f-61ac727284e6
+    display: "Durable medical equipment, miscellaneous"
+    name: E1399
+    parentId: null
+    children: []
+  - id: c112493f-ba7a-48ba-904d-584cf3efbcee
+    display: "Tape, non-waterproof, per 18 square inches"
+    name: A4450
+    parentId: null
+    children: []
+  - id: cc51e7f1-2d9c-4e5a-ad6c-2577902ea3ea
+    display: "Foam dressing, wound cover, sterile, pad size 16 sq. in. or less"
+    name: A6209
+    parentId: null
+    children: []
+  - id: ce553836-1345-4c9f-b1fb-efa34663999a
+    display: "Gradient compression stocking/sleeve, not otherwise specified"
+    name: A6549
+    parentId: null
+    children: []
+  - id: cfa2d41c-c080-40f0-8528-d066b545a302
+    display: Educational Materials
+    name: 99071
+    parentId: null
+    children: []
+  - id: d5e4da74-6af0-49da-85c3-4c1afacc42ef
+    display: Theraputty
+    name: A9300
+    parentId: null
+    children: []
+  - id: da23cebe-72be-4589-9e37-a10fbe97e5f3
+    display: "Light compression bandage, elastic, knitted/woven, width less than three\
+    \ inches, per yard"
+    name: A6448
+    parentId: null
+    children: []
+  - id: db082894-b367-4b52-81cc-fa9123c28927
+    display: "Tubular dressing with or without elastic, any width, per linear yard"
+    name: A6457
+    parentId: null
+    children: []
+  - id: dc6ff141-32e2-420d-a30b-881e354161aa
+    display: "Gradient compression stocking, thigh length, 18-30 mmhg, each"
+    name: A6533
+    parentId: null
+    children: []
+  - id: dcad200d-503c-40b2-8a5e-cabb9382b39d
+    display: Dressing < 16in
+    name: A6402
+    parentId: null
+    children: []
