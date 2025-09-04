@@ -24,7 +24,7 @@ ORDER BY field_order;
 Select soap input for specific parent
  select * from new_soap_field
  WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.parentField')) = '7fe65bfb-a574-42b7-a543-29af46411abd';
- - Select specific SOAP input by field id
+Select specific SOAP input by field id
  select * from new_soap_field
  WHERE JSON_UNQUOTE(JSON_EXTRACT(field_value, '$.idField.id')) = '12649eff-6e2e-4a35-91b1-e8f2d1604f0b';
 

@@ -1,6 +1,7 @@
 package com.cob.emr.usecases.medical.note;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
@@ -23,5 +24,15 @@ public class PostFinalizeInitialNoteUseCase {
         note.setStatus(MedicalNoteStatus.Finalized);
         medicalNoteRepository.save(note);
 
+    }
+
+    private void createScoreRecords(Long initializeNoteId) {
+        InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
+                .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
+        // To be implemented
+    }
+
+    private void createCarePlans() {
+        // To be implemented
     }
 }
