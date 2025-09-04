@@ -8,4 +8,9 @@ import lombok.Setter;
 public class ScoreValue {
     private String scoreName;
     private Double scoreValue;
+
+    public ScoreValue(String key, Double aDouble) {
+        this.scoreName = key;
+        this.scoreValue = aDouble;
+    }
 }
