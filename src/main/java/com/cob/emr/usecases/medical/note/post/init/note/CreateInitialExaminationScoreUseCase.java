@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class CreateInitialExaminationScoreUseCase {
@@ -19,12 +17,11 @@ public class CreateInitialExaminationScoreUseCase {
     FieldMappingService fieldMappingService;
     @Autowired
     FindValueFromRawDataUseCase findValueFromRawDataUseCase;
-
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
+
     private final String SECTION = "objective";
     private final String CATEGORY = "omt";
-
 
     public Map<String, Object> create(Long initializeNoteId) throws IOException {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
@@ -32,16 +29,33 @@ public class CreateInitialExaminationScoreUseCase {
 
         Object objective = initialEvaluation.getObjective();
 
-        List<String> result = new ArrayList<>();
+        Map<String, String> testNameToOmtKey = new HashMap<>();
         Map<String, List<String>> omtTests = readActiveOMTTestUseCase.read();
+
         for (Map.Entry<String, List<String>> entry : omtTests.entrySet()) {
-            String name = entry.getKey();
-            List<String> score = entry.getValue();
-            List<String> list = fieldMappingService.lookupByDisplay(SECTION, CATEGORY, name)
-                    .orElseThrow(() -> new IllegalArgumentException("Field not found: " + name));
-            String omtTest = list.stream().findFirst().get();
-            result.add(omtTest);
+            String testName = entry.getKey();
+            List<String> list = fieldMappingService.lookupByDisplay(SECTION, CATEGORY, testName)
+                    .orElseThrow(() -> new IllegalArgumentException("Field not found: " + testName));
+            String omtKeyName = list.stream().findFirst().get();
+
+            testNameToOmtKey.put(testName, omtKeyName);
         }
-        return findValueFromRawDataUseCase.extractValues(objective, result);
+
+        // Extract values using omtKeyNames
+        Map<String, Object> rawResult = findValueFromRawDataUseCase.extractValues(objective,
+                new ArrayList<>(testNameToOmtKey.values()));
+
+        // Transform the result map so keys are human-readable test names
+        Map<String, Object> finalResult = new LinkedHashMap<>();
+        for (Map.Entry<String, String> entry : testNameToOmtKey.entrySet()) {
+            String testName = entry.getKey();
+            String omtKey = entry.getValue();
+            if (rawResult.containsKey(omtKey)) {
+                finalResult.put(testName, rawResult.get(omtKey));
+            }
+        }
+
+        return finalResult;
     }
 }
+
