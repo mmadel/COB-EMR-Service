@@ -1,0 +1,264 @@
+fields:
+  - id: 00aff2db-cf94-42ce-9d45-7d1771810745
+    display: "Additional supplies, materials, and clinical staff time over and above\
+    \ those usually included in an office visit or other non-facility service(s),\
+    \ when performed during a Public Health Emergency as defined by law, due to respiratory-transmitted\
+    \ infectious disease"
+    name: 99072
+    parentId: null
+    children: []
+  - id: 08ada66d-0905-40e5-a1e8-5b48ccda6cd7
+    display: E-Stim Medicare Wounds Unattended
+    name: G0282
+    parentId: null
+    children: []
+  - id: 0a1e383f-7127-4e64-9feb-8ae6c2c3f5cd
+    display: Group Caregiver Training
+    name: 97552
+    parentId: null
+    children: []
+  - id: 0a43cc08-7fa7-4d9e-8f9e-6786e51bf4e7
+    display: "PT Evaluation: High Complexity"
+    name: 97163
+    parentId: null
+    children: []
+  - id: 12eba299-d749-4257-a5f5-3f2e91fc789e
+    display: Laser/Other
+    name: 97039
+    parentId: null
+    children: []
+  - id: 18b0c35d-8411-4321-91c9-43d9514a1bcd
+    display: Mechanical Traction
+    name: 97012
+    parentId: null
+    children: []
+  - id: 1e5cd5cc-9a7e-4e51-9dd4-5ae7a5363391
+    display: "Remote assessment of recorded video and/or images submitted by an established\
+    \ patient (e.g., store and forward), including interpretation with follow-up with\
+    \ the patient within 24 business hours"
+    name: G2250
+    parentId: null
+    children: []
+  - id: 2455f88e-8e85-4d27-89e4-fc4306a618d1
+    display: "Qualified non-physician qualified healthcare professional assessment and\
+    \ management service, for an established patient, for up to seven days, cumulative\
+    \ time during the 7 days; 21 or more minutes"
+    name: G2063
+    parentId: null
+    children: []
+  - id: 306e5ab0-7323-4f4c-9cd1-e93293566eef
+    display: "Ultrasound; low frequency, non-thermal, non-contact (per day)"
+    name: 97610
+    parentId: null
+    children: []
+  - id: 35186f20-26e4-4e70-9d4e-0f592245bdb2
+    display: "Qualified non-physician healthcare professional online assessment and\
+    \ management, for an established patient, for up to seven days, cumulative time\
+    \ during the 7 days; 5–10 minutes"
+    name: G2061
+    parentId: null
+    children: []
+  - id: 35705861-ee8f-4ce2-9d1c-e12781d15ce9
+    display: Group Caregiver Training (Patient Not Present)
+    name: G0543
+    parentId: null
+    children: []
+  - id: 3d8b9474-3f40-4e60-8e6e-79b10a6068f5
+    display: Basic vestibular evaluation
+    name: 92540
+    parentId: null
+    children: []
+  - id: 3e9183e6-0f35-4365-94e1-665ff9ae999a
+    display: Light Therapy/Phototherapy
+    name: 96920
+    parentId: null
+    children: []
+  - id: 449bc5aa-4dfc-49bc-93a5-c87e90ca9901
+    display: "Telephone assessment and management service, 5-10 minutes of medical discussion"
+    name: 98966
+    parentId: null
+    children: []
+  - id: 559edcd4-04af-478f-97ca-91e166448de8
+    display: "PT Evaluation: Low Complexity"
+    name: 97161
+    parentId: null
+    children: []
+  - id: 56f9a9c2-2b87-40a3-a26f-0722804c3fab
+    display: Unlisted Physical Medicine/Rehab Service/Proc
+    name: 97799
+    parentId: null
+    children: []
+  - id: 58a65f80-2e80-4ccd-aef2-17f72268e107
+    display: Diathermy
+    name: 97024
+    parentId: null
+    children: []
+  - id: 5d6ac9fb-6142-4960-8a94-733d6677c449
+    display: Club Foot Serial Casting
+    name: 29450
+    parentId: null
+    children: []
+  - id: 65700a05-3936-464b-900e-6dd40961e49b
+    display: "Telephone assessment and management service, 21-30 minutes of medical\
+    \ discussion"
+    name: 98968
+    parentId: null
+    children: []
+  - id: 684c18ff-f55e-48fb-8546-a0bcbbe4fa97
+    display: Neg Press Wound Therapy
+    name: 97605
+    parentId: null
+    children: []
+  - id: 6c843fcb-ba82-4355-8e5f-fda9450e9e23
+    display: Neurobehavioral exam by qualified healthcare professional; first hour
+    name: 96116
+    parentId: null
+    children: []
+  - id: 72341c6f-59f5-43b8-ae8b-37bfe53fbcf1
+    display: "Needle insertion(s) without injection(s), 1-2 muscles"
+    name: 20560
+    parentId: null
+    children: []
+  - id: 77991362-0ef0-4c9e-9b97-2ddd74908515
+    display: Set-up and patient education on use of equipment for remote therapeutic
+      monitoring
+    name: 98975
+    parentId: null
+    children: []
+  - id: 78a86937-51c6-4b41-bd3b-0452c4f42c7d
+    display: "Brief communication technology-based service, e.g. virtual check-in, by\
+    \ a qualified health care professional, 5-10 minutes of medical discussion"
+    name: G2251
+    parentId: null
+    children: []
+  - id: 843574d7-11f1-46d4-bf6d-44f4a4576e91
+    display: "Qualified non-physician healthcare professional online assessment and\
+    \ management service, for an established patient, for up to seven days, cumulative\
+    \ time during the 7 days; 11–20 minutes"
+    name: G2062
+    parentId: null
+    children: []
+  - id: 85017c50-8d30-436a-a8e8-efddeb674fc4
+    display: Debridement Area < 20 sq cm
+    name: 97597
+    parentId: null
+    children: []
+  - id: 90f34b07-0aa4-4ba5-a7a0-18d4fc79b40e
+    display: Ultraviolet
+    name: 97028
+    parentId: null
+    children: []
+  - id: 9544bc47-4393-403c-a114-1608463d741f
+    display: E-Stim Unattended
+    name: 97014
+    parentId: null
+    children: []
+  - id: 9c3a2567-4dcf-4d37-ab06-2492245f157f
+    display: ROM Measurement
+    name: 95851
+    parentId: null
+    children: []
+  - id: 9f655b50-c930-4bf6-95ea-228bb8e98cac
+    display: "Device supply for data access or data transmissions to support monitoring\
+    \ of respiratory system, each 30 days"
+    name: 98976
+    parentId: null
+    children: []
+  - id: a1d0c612-0552-4a6b-a6ce-38f1ae03b122
+    display: PT Re-Evaluation
+    name: 97164
+    parentId: null
+    children: []
+  - id: a6fa98ac-3a7e-45da-827b-f290c33bc999
+    display: Canalith Repositioning
+    name: 95992
+    parentId: null
+    children: []
+  - id: aa2cac74-18f5-4d50-a9fe-2c857397b589
+    display: E-Stim Medicare Non-Wound Unattended
+    name: G0283
+    parentId: null
+    children: []
+  - id: ad5aef9f-25f6-4eab-8ecd-2f7aa2789695
+    display: "Device supply for data access or data transmissions to support monitoring\
+    \ of musculoskeletal system, each 30 days"
+    name: 98977
+    parentId: null
+    children: []
+  - id: bc53bede-a73f-47ed-944a-ebf57b2692f3
+    display: Hot/Cold Packs
+    name: 97010
+    parentId: null
+    children: []
+  - id: c54d8753-e3ef-429e-82c1-6ee29a7adc5a
+    display: Whirlpool
+    name: 97022
+    parentId: null
+    children: []
+  - id: c62c7feb-6664-42df-a0b1-df3ed5a5ffd0
+    display: Neg Press Wound Therapy >50 sq cm
+    name: 97606
+    parentId: null
+    children: []
+  - id: cb9f78f2-d6b2-4a02-b4f2-e5f3d5dde1e0
+    display: Infrared Light
+    name: 97026
+    parentId: null
+    children: []
+  - id: cf93789d-7098-4561-bb52-22cc56445173
+    display: Group Therapy
+    name: 97150
+    parentId: null
+    children: []
+  - id: cfc0bfdb-98ba-4f1b-989f-3a24a5384ad0
+    display: "Range of motion measurements and report (separate procedure); hand, with\
+    \ or without comparison with normal side"
+    name: 95852
+    parentId: null
+    children: []
+  - id: d172a6ca-23e4-4b2c-896a-897dd4403a9b
+    display: "PT Evaluation: Moderate Complexity"
+    name: 97162
+    parentId: null
+    children: []
+  - id: d2edf982-24e1-4184-90d8-039b54631a31
+    display: Biofeedback Training
+    name: 90901
+    parentId: null
+    children: []
+  - id: d462fb45-b43a-4858-8527-9a6f7f00bee8
+    display: E-Stim Medicare Chronic Wounds Unattended
+    name: G0281
+    parentId: null
+    children: []
+  - id: def8f6c7-a725-4c05-84ac-de2df9c48855
+    display: Vasopneumatic Device
+    name: 97016
+    parentId: null
+    children: []
+  - id: e2e771f3-5c42-4f3b-8257-bf4218adf562
+    display: Paraffin Bath
+    name: 97018
+    parentId: null
+    children: []
+  - id: ec15d7a0-fe69-4705-a2e4-76ef34ee1c2f
+    display: "Neg press wound therapy, utilizing disposable, non-DME < 50 sq cm"
+    name: 97607
+    parentId: null
+    children: []
+  - id: ec54ef83-d257-4f0b-8fae-d6e67caba6a7
+    display: "Needle insertion(s) without injection(s), 3 or more muscles"
+    name: 20561
+    parentId: null
+    children: []
+  - id: efcfe3cf-892f-495a-abb9-c38a36612f9c
+    display: "Telephone assessment and management service, 11-20 minutes of medical\
+    \ discussion"
+    name: 98967
+    parentId: null
+    children: []
+  - id: f40e943e-a953-4e85-b029-74c8d48cf954
+    display: "Neg press wound therapy, utilizing disposable, non-DME > 50 sq cm"
+    name: 97608
+    parentId: null
+    children: []
