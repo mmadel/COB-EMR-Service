@@ -58,7 +58,8 @@ public class TestController {
 
     @PostMapping("/create/record/note-id/{noteId}")
     public ResponseEntity createScoreRecord(@PathVariable Long noteId) throws IOException {
+        createInitialExaminationScoreUseCase.create(noteId);
         return ResponseEntity.ok()
-                .body(createInitialExaminationScoreUseCase.create(noteId));
+                .build();
     }
 }

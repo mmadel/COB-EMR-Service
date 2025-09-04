@@ -27,9 +27,6 @@ public class InitialExaminationScoreEntity {
     @Column(name = "initial_examination_note_id")
     private Long initialExaminationNoteId;
 
-    @Column(name = "patient_case_id")
-    private Long patientCaseId;
-
     @Column(name = "score_data", columnDefinition = "json")
     @Type(type = "json")
     private List<OMTScore> scoreData;

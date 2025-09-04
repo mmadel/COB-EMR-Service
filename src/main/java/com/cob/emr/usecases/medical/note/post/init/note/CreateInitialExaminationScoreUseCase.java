@@ -1,7 +1,9 @@
 package com.cob.emr.usecases.medical.note.post.init.note;
 
+import com.cob.emr.entity.medical.note.omt.score.InitialExaminationScoreEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.model.medical.note.omt.test.score.OMTScore;
+import com.cob.emr.repositories.medical.note.InitialExaminationScoreRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.service.mapper.FieldMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,13 @@ public class CreateInitialExaminationScoreUseCase {
     ConvertToOMTScoresModelUseCase convertToOMTScoresModelUseCase;
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    InitialExaminationScoreRepository initialExaminationScoreRepository;
 
     private final String SECTION = "objective";
     private final String CATEGORY = "omt";
 
-    public List<OMTScore> create(Long initializeNoteId) throws IOException {
+    public void create(Long initializeNoteId) throws IOException {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
 
@@ -56,7 +60,15 @@ public class CreateInitialExaminationScoreUseCase {
                 finalResult.put(testName, rawResult.get(omtKey));
             }
         }
-        return convertToOMTScoresModelUseCase.convert(finalResult, omtTests);
+        List<OMTScore> omtScores = convertToOMTScoresModelUseCase.convert(finalResult, omtTests);
+        persistEntity(omtScores, initializeNoteId);
+    }
+
+    private void persistEntity(List<OMTScore> omtScores, Long initializeNoteId) {
+        InitialExaminationScoreEntity initialExaminationScoreEntity = new InitialExaminationScoreEntity();
+        initialExaminationScoreEntity.setScoreData(omtScores);
+        initialExaminationScoreEntity.setInitialExaminationNoteId(initializeNoteId);
+        initialExaminationScoreRepository.save(initialExaminationScoreEntity);
     }
 }
 
