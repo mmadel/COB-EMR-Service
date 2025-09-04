@@ -1,0 +1,761 @@
+fields:
+  - id: 6d2cefe7-d900-4b2f-9197-db2130c18396
+    display: Other
+    name: otherPriorLevelOfFunction
+    parentId: null
+    children: []
+  - id: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+    display: Self Care
+    name: selfCarePriorLevelOfFunction
+    parentId: null
+    children:
+      - id: 00d071ba-edb8-48d0-b75f-e09f077e1219
+        display: Household Chores
+        name: householdChoresSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children:
+          - id: 96c72b4b-22ae-4b10-b219-d861bc92ac83
+            display: Cook a Meal
+            name: cookAMealHouseholdChoresSelfCarePriorLevelOfFunction
+            parentId: 00d071ba-edb8-48d0-b75f-e09f077e1219
+            children: []
+          - id: d963956b-7abe-43f6-ab21-768f0dbf21c8
+            display: Laundry
+            name: laundryHouseholdChoresSelfCarePriorLevelOfFunction
+            parentId: 00d071ba-edb8-48d0-b75f-e09f077e1219
+            children: []
+      - id: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+        display: Hygiene
+        name: hygieneSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children:
+          - id: 35ac7de6-a1d2-4b70-ab86-0c360df3983f
+            display: Dressing
+            name: dressingHygieneSelfCarePriorLevelOfFunction
+            parentId: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+            children:
+              - id: 7990f6cc-7120-42cb-af5f-a63053b25fee
+                display: Putting on Appropriate Clothing
+                name: puttingOnAppropriateClothingDressingHygieneSelfCarePriorLevelOfFunction
+                parentId: 35ac7de6-a1d2-4b70-ab86-0c360df3983f
+                children: []
+              - id: 88851fd8-1f81-4544-98fb-55a3f8ac18d3
+                display: Putting on Clothes
+                name: puttingOnClothesDressingHygieneSelfCarePriorLevelOfFunction
+                parentId: 35ac7de6-a1d2-4b70-ab86-0c360df3983f
+                children: []
+              - id: 8c3423da-0431-48c5-bf33-7ef28e1728df
+                display: Removing Clothes
+                name: removingClothesDressingHygieneSelfCarePriorLevelOfFunction
+                parentId: 35ac7de6-a1d2-4b70-ab86-0c360df3983f
+                children: []
+              - id: f0431aa7-3757-4c59-9768-2e5f7da0d9ac
+                display: Putting on Footwear
+                name: puttingOnFootwearDressingHygieneSelfCarePriorLevelOfFunction
+                parentId: 35ac7de6-a1d2-4b70-ab86-0c360df3983f
+                children: []
+          - id: 592402fc-34ad-4fad-a48a-0b8d0cff6b2c
+            display: Bathing
+            name: bathingHygieneSelfCarePriorLevelOfFunction
+            parentId: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+            children:
+              - id: 0a9665ed-0aba-47f5-9e19-0ef412aa326a
+                display: Drying Oneself
+                name: dryingOneselfBathingHygieneSelfCarePriorLevelOfFunction
+                parentId: 592402fc-34ad-4fad-a48a-0b8d0cff6b2c
+                children: []
+              - id: 94ab601d-79c7-4aa9-a4f9-8d57890bd862
+                display: Showering
+                name: showeringBathingHygieneSelfCarePriorLevelOfFunction
+                parentId: 592402fc-34ad-4fad-a48a-0b8d0cff6b2c
+                children: []
+              - id: 9fb8d03b-e7d7-4393-ac8d-9f80c1d41847
+                display: Washing Body Parts
+                name: washingBodyPartsBathingHygieneSelfCarePriorLevelOfFunction
+                parentId: 592402fc-34ad-4fad-a48a-0b8d0cff6b2c
+                children: []
+          - id: 893643e0-9af9-43b6-b30d-3589a149829d
+            display: Grooming
+            name: groomingHygieneSelfCarePriorLevelOfFunction
+            parentId: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+            children:
+              - id: 2d0f1d6f-fd2e-42e8-aa32-4b230bdd157a
+                display: Caring for Hair
+                name: caringForHairGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: 7b4c8321-23b5-4ec4-901d-91d511d0d364
+                display: Caring for Nails Toe And Finger
+                name: caringForNailsToeAndFingerGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: c3368b35-19da-499e-bdca-f8887a5282d2
+                display: Washing Body Parts
+                name: washingBodyPartsGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: e175cde4-7295-4690-be08-193dfcb03fa3
+                display: Washing Whole Body
+                name: washingWholeBodyGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: ecdad2ee-8e17-4e84-92a0-13212de721a4
+                display: Drying Oneself
+                name: dryingOneselfGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: fa8366f1-38a3-4dfc-ad08-578326ca3a62
+                display: Caring for Teeth
+                name: caringForTeethGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+              - id: ff3c423e-7d7c-46d4-a2cd-3d30820956de
+                display: Caring for Skin
+                name: caringForSkinGroomingHygieneSelfCarePriorLevelOfFunction
+                parentId: 893643e0-9af9-43b6-b30d-3589a149829d
+                children: []
+          - id: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+            display: Looking After One's Health
+            name: lookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+            parentId: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+            children:
+              - id: 2ebbb7ce-c9b7-4898-95ad-53f9e6062dc8
+                display: Keeping Warm
+                name: keepingWarmLookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+                parentId: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+                children: []
+              - id: 63be6edc-2ba8-424f-bdde-9e3cd90380c2
+                display: Keeping Cool
+                name: keepingCoolLookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+                parentId: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+                children: []
+              - id: 719a72e6-cbb5-4319-8a6b-d935a70d45e2
+                display: Getting Regular Physical Examinations
+                name: gettingRegularPhysicalExaminationsLookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+                parentId: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+                children: []
+              - id: 7bf79b19-10a6-462f-bf75-7ffcd25e242f
+                display: Maintaining Balanced Diet
+                name: maintainingBalancedDietLookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+                parentId: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+                children: []
+              - id: c5d0eaab-1486-42c6-bb31-3d7f52b2dcb0
+                display: Getting Immunizations
+                name: gettingImmunizationsLookingAfterOnesHealthHygieneSelfCarePriorLevelOfFunction
+                parentId: 94051576-e5e7-4afe-a9ea-6ed1aea914ab
+                children: []
+          - id: bd432338-8f21-4971-b866-6c053ec58c32
+            display: Toileting
+            name: toiletingHygieneSelfCarePriorLevelOfFunction
+            parentId: 02a0f1b6-060a-4e70-8cd7-1b228f93c271
+            children:
+              - id: 27d27c48-5090-450a-a264-2f11b3f62760
+                display: Regulating Defecation
+                name: regulatingDefecationToiletingHygieneSelfCarePriorLevelOfFunction
+                parentId: bd432338-8f21-4971-b866-6c053ec58c32
+                children: []
+              - id: 710c88b3-f5a2-4cb8-96f8-6d4923976c85
+                display: Regulating Urination
+                name: regulatingUrinationToiletingHygieneSelfCarePriorLevelOfFunction
+                parentId: bd432338-8f21-4971-b866-6c053ec58c32
+                children: []
+              - id: d36aeeab-6dfa-456a-98db-ee15e9bb103f
+                display: Regulating Menstrual Care
+                name: regulatingMenstrualCareToiletingHygieneSelfCarePriorLevelOfFunction
+                parentId: bd432338-8f21-4971-b866-6c053ec58c32
+                children: []
+      - id: 2b0680fc-afdd-4fdc-8122-f0b83f8536ef
+        display: Caregiving
+        name: caregivingSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children: []
+      - id: 4545b8ee-f313-421d-b59d-fb6f8124eecc
+        display: Sleep
+        name: sleepSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children:
+          - id: 55d71506-d052-4cb2-b954-78441ec088e6
+            display: Surface
+            name: surfaceSleepSelfCarePriorLevelOfFunction
+            parentId: 4545b8ee-f313-421d-b59d-fb6f8124eecc
+            children:
+              - id: 0349c9c3-09ef-4a28-a6ba-c594236e5a1b
+                display: Custom
+                name: customSurfaceSleepSelfCarePriorLevelOfFunction
+                parentId: 55d71506-d052-4cb2-b954-78441ec088e6
+                children: []
+              - id: 2e6fb991-8928-4981-ae5b-5f10e69699f2
+                display: Firm
+                name: firmSurfaceSleepSelfCarePriorLevelOfFunction
+                parentId: 55d71506-d052-4cb2-b954-78441ec088e6
+                children: []
+              - id: 9aca87d6-71ba-4caa-935f-9a92a67d3b57
+                display: Sag
+                name: sagSurfaceSleepSelfCarePriorLevelOfFunction
+                parentId: 55d71506-d052-4cb2-b954-78441ec088e6
+                children: []
+              - id: a120463f-d812-4720-8ee5-1287e04333aa
+                display: Soft
+                name: softSurfaceSleepSelfCarePriorLevelOfFunction
+                parentId: 55d71506-d052-4cb2-b954-78441ec088e6
+                children: []
+          - id: a51bf94c-8d19-46d3-871e-5ae7710beb03
+            display: Pillows
+            name: pillowsSleepSelfCarePriorLevelOfFunction
+            parentId: 4545b8ee-f313-421d-b59d-fb6f8124eecc
+            children: []
+          - id: e9192a21-62b3-4bed-a3a3-8c1c4401a1f6
+            display: Sleeping Postures
+            name: sleepingPosturesSleepSelfCarePriorLevelOfFunction
+            parentId: 4545b8ee-f313-421d-b59d-fb6f8124eecc
+            children:
+              - id: 1203eff5-0d68-403e-a3b7-264464b3cb34
+                display: Supine
+                name: supineSleepingPosturesSleepSelfCarePriorLevelOfFunction
+                parentId: e9192a21-62b3-4bed-a3a3-8c1c4401a1f6
+                children: []
+              - id: 137b264d-b332-4339-b93f-b8c609a9266c
+                display: Side R
+                name: sideRSleepingPosturesSleepSelfCarePriorLevelOfFunction
+                parentId: e9192a21-62b3-4bed-a3a3-8c1c4401a1f6
+                children: []
+              - id: bd97731f-a5c3-43f3-b6f1-95701ae2791d
+                display: Side L
+                name: sideLSleepingPosturesSleepSelfCarePriorLevelOfFunction
+                parentId: e9192a21-62b3-4bed-a3a3-8c1c4401a1f6
+                children: []
+              - id: fc0bb3d3-c154-4843-a220-00595b14f135
+                display: Prone
+                name: proneSleepingPosturesSleepSelfCarePriorLevelOfFunction
+                parentId: e9192a21-62b3-4bed-a3a3-8c1c4401a1f6
+                children: []
+          - id: ead69c32-eec1-4b2a-8e9d-c9f469709b37
+            display: Disturbed Sleep
+            name: disturbedSleepSleepSelfCarePriorLevelOfFunction
+            parentId: 4545b8ee-f313-421d-b59d-fb6f8124eecc
+            children: []
+      - id: 7d7e8b39-47a9-419a-871f-170c1ab377fc
+        display: Drive Community Distance
+        name: driveCommunityDistanceSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children: []
+      - id: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+        display: IADLs
+        name: iadlsSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children:
+          - id: 0773e415-a2ae-4c91-a200-b0551d8b0623
+            display: Laundry
+            name: laundryIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: 083d190e-eb65-41a1-b15c-e5b478b3d0fa
+            display: Food Preparation
+            name: foodPreparationIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: 0b2366fb-a3d2-481e-bd83-9fc8e7512ecf
+            display: Ability to Handle Finances
+            name: abilityToHandleFinancesIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: 0e8aa214-c42a-40ac-85a8-e74dcfd86ebe
+            display: Shopping
+            name: shoppingIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: 6494f53d-d84c-49e4-a830-307b0773cfce
+            display: Mode of Transportation
+            name: modeOfTransportationIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: ae90758e-2ee4-4cd7-a168-9bb9b18d3e3d
+            display: Responsibility for Own Medications
+            name: responsibilityForOwnMedicationsIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: d6946afa-d59f-44aa-b818-340c0a092a17
+            display: Ability to Use Telephone
+            name: abilityToUseTelephoneIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+          - id: dac8636b-aa3e-43e5-b6db-5fb3bb71593a
+            display: Housekeeping
+            name: housekeepingIadlsSelfCarePriorLevelOfFunction
+            parentId: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
+            children: []
+      - id: b79824aa-399f-4272-ab20-7ad91983afb7
+        display: Volunteering
+        name: volunteeringSelfCarePriorLevelOfFunction
+        parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
+        children: []
+  - id: a42e435d-5445-4585-b195-6ee50a41e27d
+    display: "Carrying, Moving and Handling Objects"
+    name: carryingMovingAndHandlingObjectsPriorLevelOfFunction
+    parentId: null
+    children:
+      - id: 09288ed6-1c2a-4587-8676-2eb815ef9a89
+        display: Moving Objects with Lower Extremities
+        name: movingObjectsWithLowerExtremitiesCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children:
+          - id: a519b692-c01b-40f1-aeeb-4b93dc31edcf
+            display: Pushing with Lower Extremities
+            name: pushingWithLowerExtremitiesMovingObjectsWithLowerExtremitiesCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 09288ed6-1c2a-4587-8676-2eb815ef9a89
+            children: []
+          - id: ce333d5a-b46b-49cd-899d-15a6bfe9ed8b
+            display: Kicking
+            name: kickingMovingObjectsWithLowerExtremitiesCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 09288ed6-1c2a-4587-8676-2eb815ef9a89
+            children: []
+      - id: 0e57b200-5cdd-48d9-8100-c11a9e4a1481
+        display: Fine Hand Use
+        name: fineHandUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children:
+          - id: 0b3e5ab4-bc0f-42ee-9f49-31f343540a34
+            display: Manipulating
+            name: manipulatingFineHandUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 0e57b200-5cdd-48d9-8100-c11a9e4a1481
+            children: []
+          - id: 1ca5fe93-4cb6-417e-95d9-45e3bbac1069
+            display: Releasing
+            name: releasingFineHandUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 0e57b200-5cdd-48d9-8100-c11a9e4a1481
+            children: []
+          - id: 2b3e491a-885f-4ad4-9486-78fbd0d41551
+            display: Grasping
+            name: graspingFineHandUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 0e57b200-5cdd-48d9-8100-c11a9e4a1481
+            children: []
+          - id: f35c4539-48e6-4ee9-aabd-6d4da0462cce
+            display: Picking Up
+            name: pickingUpFineHandUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 0e57b200-5cdd-48d9-8100-c11a9e4a1481
+            children: []
+      - id: 1c2478ee-93f2-4789-b9e7-69f44a2e191d
+        display: Community Integration/Access
+        name: communityIntegrationAccessCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children: []
+      - id: 43b4e420-c586-401d-98c1-8d3029c28b87
+        display: IADLs
+        name: iadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children:
+          - id: 092857f4-b12d-4cee-b493-e1abe7fdf916
+            display: Responsibility for Own Medications
+            name: responsibilityForOwnMedicationsIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: 2a1bbfa8-b643-442f-bd8f-5716220fe9da
+            display: Ability to Use Telephone
+            name: abilityToUseTelephoneIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: 733ddc4a-058e-4a1c-9ac1-13df9865d913
+            display: Laundry
+            name: laundryIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: 9d3c638f-2ecf-49b6-b54f-6a7a5cb4466f
+            display: Housekeeping
+            name: housekeepingIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: ac9af3b3-868c-44bd-8aa8-080f265e15a1
+            display: Shopping
+            name: shoppingIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: bf744727-2526-48c3-b3fd-c9b6558cc445
+            display: Ability to Handle Finances
+            name: abilityToHandleFinancesIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: fa45f65e-51a8-4b9a-a1ef-70554416f5e6
+            display: Mode of Transportation
+            name: modeOfTransportationIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+          - id: fa8d708b-3ca6-4cff-ab14-de523bb2a600
+            display: Food Preparation
+            name: foodPreparationIadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 43b4e420-c586-401d-98c1-8d3029c28b87
+            children: []
+      - id: 7086c81b-a6e8-4a5b-ad52-6ce0daeb9bb8
+        display: Recreation
+        name: recreationCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children:
+          - id: 6f20cec4-4b56-473b-a643-e1b36fd5ccb7
+            display: Sports
+            name: sportsRecreationCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: 7086c81b-a6e8-4a5b-ad52-6ce0daeb9bb8
+            children: []
+      - id: 888fa16b-5e93-49e3-8cdb-fafa2a09188e
+        display: Work/Vocation/Occupation
+        name: workVocationOccupationCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children: []
+      - id: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+        display: Hand and Arm Use
+        name: handAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+        parentId: a42e435d-5445-4585-b195-6ee50a41e27d
+        children:
+          - id: 06c3428e-e9db-4552-8e77-9a386cee2f3d
+            display: Catching
+            name: catchingHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: 4e17937a-2600-4fd0-b7bf-a8a3392af871
+            display: Throwing
+            name: throwingHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: 4ee0c687-6180-434d-9a8f-c0058c081265
+            display: Reaching
+            name: reachingHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: 6419bd7a-adc5-4f71-a8e3-387f2445141e
+            display: Pushing Objects
+            name: pushingObjectsHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: 7cad159e-ab58-4e89-9e0a-2abacd751b30
+            display: Twisting Hands or Arms
+            name: twistingHandsOrArmsHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: c78ba3bc-8387-41b3-81b9-ce6f392df8f1
+            display: Pulling Objects
+            name: pullingObjectsHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+          - id: e5ebeeb4-26ad-43b8-bdfe-aac94b745a89
+            display: Turning Hands or Arms
+            name: turningHandsOrArmsHandAndArmUseCarryingMovingAndHandlingObjectsPriorLevelOfFunction
+            parentId: b2b07dc4-0a12-4d4f-817d-6f3fee6056df
+            children: []
+  - id: dfa12f89-b227-4a6f-aacf-b558e15930ec
+    display: Mobility Walking and Moving Around
+    name: mobilityWalkingAndMovingAroundPriorLevelOfFunction
+    parentId: null
+    children:
+      - id: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+        display: Moving Around
+        name: movingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children:
+          - id: 10d47af6-e654-4241-8c30-338ce6ab9dfc
+            display: Swimming
+            name: swimmingMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+          - id: 4cbee261-5ab8-46b1-9a81-a59aa166ca27
+            display: Climbing
+            name: climbingMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+          - id: 8e607935-d67d-4a4e-8ad3-a07a55e0fb43
+            display: Jumping
+            name: jumpingMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+          - id: 99eaa8dd-00e4-4f80-93b7-ba08d11d3f40
+            display: Jogging
+            name: joggingMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+          - id: a17a7f3c-ddfd-467e-808d-944721b3b02f
+            display: Skipping
+            name: skippingMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+          - id: ba14918e-d37b-40f9-be60-626869738a94
+            display: Running
+            name: runningMovingAroundMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 232ffdd3-5c9a-4f4e-a714-b9359ad36a67
+            children: []
+      - id: 5833138f-fd79-4f23-9417-150d291ebec9
+        display: Moving Around in Different Locations
+        name: movingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children:
+          - id: 06bc2d21-6515-4767-bd9f-2cd5332a065f
+            display: Moving Around Using Transportation
+            name: movingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 5833138f-fd79-4f23-9417-150d291ebec9
+            children:
+              - id: 687e222f-4f7d-4ecb-80f2-6b08e0c8a38f
+                display: Subway
+                name: subwayMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 06bc2d21-6515-4767-bd9f-2cd5332a065f
+                children: []
+              - id: 776d813f-8118-42f7-bb51-95bc4a908670
+                display: Public Transportation
+                name: publicTransportationMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 06bc2d21-6515-4767-bd9f-2cd5332a065f
+                children: []
+              - id: c68ad3f4-0e05-44bb-8c7c-b8204f8e03a8
+                display: On/Off Bus
+                name: onOffBusMovingAroundUsingTransportationMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 06bc2d21-6515-4767-bd9f-2cd5332a065f
+                children: []
+          - id: 0938727b-802d-4a16-a036-fc3f4c151500
+            display: Walking Between Rooms
+            name: walkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 5833138f-fd79-4f23-9417-150d291ebec9
+            children:
+              - id: d491c27c-4e0d-4803-b7c7-6d7209d292c1
+                display: Stairs
+                name: stairsWalkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 0938727b-802d-4a16-a036-fc3f4c151500
+                children: []
+              - id: e4b9f389-2d27-4acb-b264-af8b017974d8
+                display: In Home
+                name: inHomeWalkingBetweenRoomsMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 0938727b-802d-4a16-a036-fc3f4c151500
+                children: []
+          - id: 2a68d746-560f-4d94-b9dc-a2852ad8409a
+            display: Walking Down the Street
+            name: walkingDownTheStreetMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 5833138f-fd79-4f23-9417-150d291ebec9
+            children:
+              - id: 66b80bb9-1e13-455b-a3c4-360bc6768bec
+                display: Community Distances
+                name: communityDistancesWalkingDownTheStreetMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: 2a68d746-560f-4d94-b9dc-a2852ad8409a
+                children: []
+          - id: d2de1fac-a68d-4118-b435-8a6d529cd534
+            display: Moving Around Using Equipment
+            name: movingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 5833138f-fd79-4f23-9417-150d291ebec9
+            children:
+              - id: 0271f7e2-8026-4b1b-8735-0629d8497a15
+                display: Wheelchair
+                name: wheelchairMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: d2de1fac-a68d-4118-b435-8a6d529cd534
+                children: []
+              - id: 47dd7cc1-c7cd-40e7-8d40-1de87fa0436a
+                display: Walker
+                name: walkerMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: d2de1fac-a68d-4118-b435-8a6d529cd534
+                children: []
+              - id: 5c48bc9a-94af-408a-85ce-0a28d760ea44
+                display: Skates
+                name: skatesMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: d2de1fac-a68d-4118-b435-8a6d529cd534
+                children: []
+              - id: e918577c-9808-4a5f-a02f-eea1b50ad3b4
+                display: Skis
+                name: skisMovingAroundUsingEquipmentMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+                parentId: d2de1fac-a68d-4118-b435-8a6d529cd534
+                children: []
+          - id: f4043e78-daf4-4969-b1ec-4b3b23cda9cd
+            display: Walking Within a Building
+            name: walkingWithinABuildingMovingAroundInDifferentLocationsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 5833138f-fd79-4f23-9417-150d291ebec9
+            children: []
+      - id: 5ae9cfeb-34f1-4341-92ab-c6e02991aa07
+        display: Use of an Assistive Device
+        name: useOfAnAssistiveDeviceMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children: []
+      - id: 794382ba-c451-45c6-a63f-fd5b07457948
+        display: IADLs
+        name: iadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children:
+          - id: 47a6858e-96ff-4720-a4d6-72ec4ba4e27b
+            display: Ability to Handle Finances
+            name: abilityToHandleFinancesIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: 56800a94-215b-4597-a03c-e83dc7252915
+            display: Ability to Use Telephone
+            name: abilityToUseTelephoneIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: 62c748b0-0a2a-46c4-a43f-69170aba5c99
+            display: Laundry
+            name: laundryIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: 6daecc09-6eda-49a0-8be2-c690bcf8a58f
+            display: Shopping
+            name: shoppingIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: a4eee98c-14e2-4e73-8a47-dab329103611
+            display: Food Preparation
+            name: foodPreparationIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: a983b872-7650-4382-93b9-183efd2c17f4
+            display: Responsibility for Own Medications
+            name: responsibilityForOwnMedicationsIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: ac730301-db3d-44f7-b4ca-7466e043035e
+            display: Housekeeping
+            name: housekeepingIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+          - id: dabbb6c7-475d-45ff-b4dc-55a8ffdcbbab
+            display: Mode of Transportation
+            name: modeOfTransportationIadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: 794382ba-c451-45c6-a63f-fd5b07457948
+            children: []
+      - id: d0e3d4e3-65e0-4805-a279-4be12982cc56
+        display: Negotiate Obstacles
+        name: negotiateObstaclesMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children:
+          - id: 794f39e9-62c6-4d1f-8a4a-2f6eebca9dda
+            display: Bumped in Crowded Streets
+            name: bumpedInCrowdedStreetsNegotiateObstaclesMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: d0e3d4e3-65e0-4805-a279-4be12982cc56
+            children: []
+          - id: 9a72b44a-6c50-43e6-83d9-94a376998b79
+            display: Terrain
+            name: terrainNegotiateObstaclesMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: d0e3d4e3-65e0-4805-a279-4be12982cc56
+            children: []
+      - id: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+        display: Walking
+        name: walkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+        parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
+        children:
+          - id: 9bde1bd0-ff4d-4f4c-882b-889907afa3e6
+            display: Sideways
+            name: sidewaysWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+          - id: b25039dd-eba3-4179-b34a-da48d5f286b3
+            display: Walking on Different Surfaces
+            name: walkingOnDifferentSurfacesWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+          - id: c0190c44-5bb7-411c-a9e1-bbc759f7074e
+            display: Backward
+            name: backwardWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+          - id: c672ccb6-7aed-472d-905c-1fd0024d42d7
+            display: Strolling
+            name: strollingWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+          - id: ce87a360-c65b-4f66-9af0-df4f0670c36d
+            display: Forward
+            name: forwardWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+          - id: e7ce87ee-f806-478d-9ad6-18e0526b58ab
+            display: Walking Around Obstacles
+            name: walkingAroundObstaclesWalkingMobilityWalkingAndMovingAroundPriorLevelOfFunction
+            parentId: fe6b5dfa-c16d-44a6-88e4-ca028226d0b0
+            children: []
+  - id: e95a7573-0bc7-484a-91ab-310a3776eb97
+    display: Changing Maintaining Body Position
+    name: changingMaintainingBodyPositionPriorLevelOfFunction
+    parentId: null
+    children:
+      - id: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+        display: Maintaining a Body Position
+        name: maintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+        parentId: e95a7573-0bc7-484a-91ab-310a3776eb97
+        children:
+          - id: 1a2be0f0-5d3c-458c-852e-c42c58547b1b
+            display: Standing
+            name: standingMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+          - id: 2eaa8859-2145-4643-bccd-bd97454914ea
+            display: Kneeling
+            name: kneelingMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+          - id: 3357c063-fe0e-40d6-a055-6ba006dbac61
+            display: Remaining Standing
+            name: remainingStandingMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+          - id: 6fa2d3e7-9895-469f-8d86-22c57b8b000d
+            display: Remaining Seated
+            name: remainingSeatedMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+          - id: 9075ae39-b35d-4c61-95d3-84378a7a7aea
+            display: Sitting
+            name: sittingMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+          - id: daa39793-8f70-4b58-8d00-90b1f2605872
+            display: Squatting
+            name: squattingMaintainingABodyPositionChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
+            children: []
+      - id: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+        display: IADLs
+        name: iadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+        parentId: e95a7573-0bc7-484a-91ab-310a3776eb97
+        children:
+          - id: 1ae269cd-ffae-447e-9f9d-4d2a2c3cc87b
+            display: Mode of Transportation
+            name: modeOfTransportationIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: 1ec05f02-a78b-46cc-9445-1d44c7dc700f
+            display: Housekeeping
+            name: housekeepingIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: 6f1f9c2e-ece3-4ffc-8077-991bd4c9de31
+            display: Ability to Use Telephone
+            name: abilityToUseTelephoneIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: 6f637324-8d42-40ad-8977-d024c31aeb39
+            display: Laundry
+            name: laundryIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: a6f9db49-f37f-4035-8af9-2e69c7e655e4
+            display: Food Preparation
+            name: foodPreparationIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: cbe2ec05-0c9a-4530-b61e-122c65ec4821
+            display: Shopping
+            name: shoppingIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: d73dd0dd-6848-4d68-8ec7-08b116adbeac
+            display: Responsibility for Own Medications
+            name: responsibilityForOwnMedicationsIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+          - id: fa4e5c68-ffda-4aff-b67d-df3c246046b8
+            display: Ability to Handle Finances
+            name: abilityToHandleFinancesIadlsChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
+            children: []
+      - id: cbd25a7b-ae99-4c45-bb18-826f3c7e40ed
+        display: Transfers
+        name: transfersChangingMaintainingBodyPositionPriorLevelOfFunction
+        parentId: e95a7573-0bc7-484a-91ab-310a3776eb97
+        children:
+          - id: 84d483dd-050b-480f-83f1-00a8730593bb
+            display: Moving From Bed to Chair
+            name: movingFromBedToChairTransfersChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: cbd25a7b-ae99-4c45-bb18-826f3c7e40ed
+            children: []
+          - id: 9028809e-865c-45b3-b1ec-7fdc94836408
+            display: Sliding Along a Bench
+            name: slidingAlongABenchTransfersChangingMaintainingBodyPositionPriorLevelOfFunction
+            parentId: cbd25a7b-ae99-4c45-bb18-826f3c7e40ed
+            children: []
