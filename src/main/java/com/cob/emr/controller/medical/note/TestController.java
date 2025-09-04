@@ -2,6 +2,7 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.service.mapper.CsvToYamlService;
 import com.cob.emr.service.mapper.FieldMappingService;
+import com.cob.emr.usecases.medical.note.post.init.note.CreateInitialExaminationScoreUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.ReadActiveOMTTestUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -14,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collections;
-import java.util.List;
 
 @RestController
 @RequestMapping("/map/field/test")
@@ -25,10 +25,13 @@ public class TestController {
     CsvToYamlService service;
     @Autowired
     ReadActiveOMTTestUseCase readActiveOMTTestUseCase;
+    @Autowired
+    CreateInitialExaminationScoreUseCase createInitialExaminationScoreUseCase;
+
     @GetMapping("/id")
     public ResponseEntity getId(@RequestParam String section,
-                                                       @RequestParam String category,
-                                                       @RequestParam String display) throws IOException, IOException {
+                                @RequestParam String category,
+                                @RequestParam String display) throws IOException, IOException {
         return ResponseEntity.ok()
                 .body(fieldMappingService.lookupByDisplay(section, category, display)
                         .orElse(Collections.singletonList("not Found")));
@@ -51,5 +54,11 @@ public class TestController {
     public ResponseEntity readOMTTest() throws IOException, IOException {
         return ResponseEntity.ok()
                 .body(readActiveOMTTestUseCase.read());
+    }
+
+    @PostMapping("/create/record/note-id/{noteId}")
+    public ResponseEntity createScoreRecord(@PathVariable Long noteId) throws IOException {
+        return ResponseEntity.ok()
+                .body(createInitialExaminationScoreUseCase.create(noteId));
     }
 }

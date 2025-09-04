@@ -73,7 +73,7 @@ public class FieldMappingService {
     /**
      * Build hierarchy from flat list of fields.
      */
-    public List<FieldDefinition> buildHierarchy(List<FieldDefinition> flatFields) {
+    private List<FieldDefinition> buildHierarchy(List<FieldDefinition> flatFields) {
         Map<String, FieldDefinition> lookup = flatFields.stream()
                 .collect(Collectors.toMap(FieldDefinition::getId, f -> f));
 
