@@ -1,0 +1,46 @@
+fields:
+  - id: 3b961a51-7818-42eb-b41d-74d29fa5f900
+    display: Aggravating Factors
+    name: aggravatingFactors
+    parentId: null
+    children: []
+  - id: d05b64c9-6d92-4583-bd6d-da6273970bfa
+    display: Restrictions and Pain Alleviators
+    name: restrictionsAndPainAlleviators
+    parentId: null
+    children:
+      - id: a02d1f88-73ca-4a95-9ba5-9520e00409e1
+        display: Better with
+        name: betterWith
+        parentId: d05b64c9-6d92-4583-bd6d-da6273970bfa
+        children:
+          - id: 3355c286-402c-48f5-8f5a-350d1eca5380
+            display: "null"
+            name: betterWithText
+            parentId: a02d1f88-73ca-4a95-9ba5-9520e00409e1
+            children: []
+          - id: 3a29084b-0453-48a7-839c-60fdd29c4d0e
+            display: "null"
+            name: betterwithSelect
+            parentId: a02d1f88-73ca-4a95-9ba5-9520e00409e1
+            children: []
+      - id: a151ac1b-23ab-4f29-9eb8-cbd2ccba5700
+        display: "null"
+        name: restrictionsAndPainAlleviatorsTextArea
+        parentId: d05b64c9-6d92-4583-bd6d-da6273970bfa
+        children: []
+      - id: a63d07a2-2440-4166-8c95-aaae99207ae4
+        display: Worse with
+        name: worseWith
+        parentId: d05b64c9-6d92-4583-bd6d-da6273970bfa
+        children:
+          - id: 07114c3a-60c6-4b48-9e54-d61d4517e96f
+            display: "null"
+            name: worseWithText
+            parentId: a63d07a2-2440-4166-8c95-aaae99207ae4
+            children: []
+          - id: 8028dad8-8788-475d-a2e2-72ca435ef18e
+            display: "null"
+            name: worseWithSelect
+            parentId: a63d07a2-2440-4166-8c95-aaae99207ae4
+            children: []
