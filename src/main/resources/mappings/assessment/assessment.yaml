@@ -1,0 +1,54 @@
+fields:
+  - id: 02834ed5-6706-4517-aab3-034f99027499
+    display: Contraindications to Therapy
+    name: contraindicationsToTherapyAssessment
+    parentId: null
+    children:
+      - id: 69e1931a-a4d8-4e02-b15e-7d9cfeb8323b
+        display: "null"
+        name: contraindicationsToTherapyTextContraindicationsToTherapyAssessment
+        parentId: 02834ed5-6706-4517-aab3-034f99027499
+        children: []
+  - id: 02cab675-2675-4439-8383-00f6fce75ab8
+    display: Reason
+    name: reasonAssessment
+    parentId: null
+    children: []
+  - id: 254be83b-fd74-44f2-a933-f334e54fd496
+    display: Assessment/Diagnosis
+    name: assessmentDiagnosisAssessment
+    parentId: null
+    children: []
+  - id: 31420329-fab5-404e-89e4-6bcd1fb86874
+    display: Parent/Patient Education
+    name: parentPatientEducationAssessment
+    parentId: null
+    children: []
+  - id: 410afb22-21ac-4fb4-b7ad-8920f4e16fb4
+    display: Patient Clinical Presentation
+    name: patientClinicalPresentationAssessment
+    parentId: null
+    children: []
+  - id: 7c9589aa-1daf-45bd-9ec7-f56e9d141185
+    display: Consent to care
+    name: consentToCareAssessment
+    parentId: null
+    children: []
+  - id: 8b58027c-6c81-4884-8265-3b9dfc729337
+    display: Rehab Potential
+    name: rehabPotentialAssessment
+    parentId: null
+    children:
+      - id: a01fcd44-d31f-4699-b3e3-89e8bf28cb73
+        display: "null"
+        name: rehabPotentialTxtareaRehabPotentialAssessment
+        parentId: 8b58027c-6c81-4884-8265-3b9dfc729337
+        children: []
+  - id: cdc40b2a-fe5c-484f-8898-5bfb9340a022
+    display: "Following the evaluation and extensive patient education regarding diagnosis,\
+    \ prognosis, and treatment goals, the patient (parent/guardian, power of attorney\
+    \ holder) actively participated in the creation of the current goals and agrees\
+    \ to the current treatment plan."
+    name: agreesToTheCurrentTreatmentPlanConcentAssessment
+    parentId: null
+    children: []
