@@ -2,6 +2,7 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.service.mapper.CsvToYamlService;
 import com.cob.emr.service.mapper.FieldMappingService;
+import com.cob.emr.usecases.medical.note.post.init.note.ReadActiveOMTTestUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -22,6 +23,8 @@ public class TestController {
     FieldMappingService fieldMappingService;
     @Autowired
     CsvToYamlService service;
+    @Autowired
+    ReadActiveOMTTestUseCase readActiveOMTTestUseCase;
     @GetMapping("/id")
     public ResponseEntity getId(@RequestParam String section,
                                                        @RequestParam String category,
@@ -42,5 +45,11 @@ public class TestController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=output.yaml")
                 .contentType(MediaType.parseMediaType("application/x-yaml"))
                 .body(yamlBytes);
+    }
+
+    @GetMapping("/omt-test")
+    public ResponseEntity readOMTTest() throws IOException, IOException {
+        return ResponseEntity.ok()
+                .body(readActiveOMTTestUseCase.read());
     }
 }
