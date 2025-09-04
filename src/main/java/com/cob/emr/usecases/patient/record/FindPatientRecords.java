@@ -5,10 +5,8 @@ import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.PatientRecordLineAction;
-import com.cob.emr.model.calendar.CalendarsListModel;
 import com.cob.emr.model.patient.record.PatientRecord;
 import com.cob.emr.model.patient.record.PatientRecordRequest;
-import com.cob.emr.model.response.CalendarResponse;
 import com.cob.emr.model.response.patient.record.PatientRecordResponse;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
@@ -67,6 +65,14 @@ public class FindPatientRecords {
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
+    }
+
+    private void getInitialExaminationScore() {
+
+    }
+
+    private void getInitialExaminationPlanOfCare() {
+
     }
 
     private List<String> addPatientLineRecordAction(MedicalNoteStatus status) {
