@@ -2,6 +2,8 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.service.mapper.CsvToYamlService;
 import com.cob.emr.service.mapper.FieldMappingService;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExaminationPlanOfCareUseCase;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.ReadPlanCategorisesUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.CreateInitialExaminationScoreUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.ReadActiveOMTTestUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,10 @@ public class TestController {
     ReadActiveOMTTestUseCase readActiveOMTTestUseCase;
     @Autowired
     CreateInitialExaminationScoreUseCase createInitialExaminationScoreUseCase;
+    @Autowired
+    ReadPlanCategorisesUseCase readPlanCategorisesUseCase;
+    @Autowired
+    CreateInitialExaminationPlanOfCareUseCase createInitialExaminationPlanOfCareUseCase;
 
     @GetMapping("/id")
     public ResponseEntity getId(@RequestParam String section,
@@ -61,5 +67,11 @@ public class TestController {
         createInitialExaminationScoreUseCase.create(noteId);
         return ResponseEntity.ok()
                 .build();
+    }
+
+    @GetMapping("/plan/note/{noteId}")
+    public ResponseEntity createPlanCategory(@PathVariable Long noteId) throws IOException {
+        return ResponseEntity.ok()
+                .body(createInitialExaminationPlanOfCareUseCase.create(noteId));
     }
 }

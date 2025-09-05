@@ -1,7 +1,7 @@
 package com.cob.emr.usecases.medical.note.post.init.note.score;
 
-import com.cob.emr.model.medical.note.omt.test.score.OMTScore;
-import com.cob.emr.model.medical.note.omt.test.score.ScoreValue;
+import com.cob.emr.model.medical.note.finalize.init.exam.score.InitOMTScore;
+import com.cob.emr.model.medical.note.finalize.init.exam.score.ScoreValue;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -11,11 +11,11 @@ import java.util.Map;
 
 @Component
 public class ConvertToOMTScoresModelUseCase {
-    public List<OMTScore> convert(
+    public List<InitOMTScore> convert(
             Map<String, Object> rawResult,
             Map<String, List<String>> omtTests) {
 
-        List<OMTScore> omtScores = new ArrayList<>();
+        List<InitOMTScore> initOmtScores = new ArrayList<>();
 
         for (Map.Entry<String, Object> entry : rawResult.entrySet()) {
             String examName = entry.getKey();
@@ -49,14 +49,14 @@ public class ConvertToOMTScoresModelUseCase {
                     ));
                 }
 
-                OMTScore omtScore = new OMTScore();
-                omtScore.setExamName(examName);
-                omtScore.setScoreValue(scoreValues);
+                InitOMTScore initOmtScore = new InitOMTScore();
+                initOmtScore.setExamName(examName);
+                initOmtScore.setScoreValue(scoreValues);
 
-                omtScores.add(omtScore);
+                initOmtScores.add(initOmtScore);
             }
         }
 
-        return omtScores;
+        return initOmtScores;
     }
 }

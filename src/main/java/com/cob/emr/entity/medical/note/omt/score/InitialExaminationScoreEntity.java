@@ -1,6 +1,6 @@
 package com.cob.emr.entity.medical.note.omt.score;
 
-import com.cob.emr.model.medical.note.omt.test.score.OMTScore;
+import com.cob.emr.model.medical.note.finalize.init.exam.score.InitOMTScore;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +30,7 @@ public class InitialExaminationScoreEntity {
 
     @Column(name = "score_data", columnDefinition = "json")
     @Type(type = "json")
-    private List<OMTScore> scoreData;
+    private List<InitOMTScore> scoreData;
 
     @Column(name = "created_at")
     private Long createdAt;

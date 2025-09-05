@@ -2,7 +2,7 @@ package com.cob.emr.usecases.medical.note.post.init.note.score;
 
 import com.cob.emr.entity.medical.note.omt.score.InitialExaminationScoreEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
-import com.cob.emr.model.medical.note.omt.test.score.OMTScore;
+import com.cob.emr.model.medical.note.finalize.init.exam.score.InitOMTScore;
 import com.cob.emr.repositories.medical.note.InitialExaminationScoreRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.service.mapper.FieldMappingService;
@@ -40,7 +40,6 @@ public class CreateInitialExaminationScoreUseCase {
             findValueFromRawDataUseCase.extractValues(objective,new ArrayList<>(testNameToOmtKey.values()))
         4- Convert to OMT Score Model
             convertToOMTScoresModelUseCase.convert(finalResult, omtTests)
-
      */
     public void create(Long initializeNoteId) throws IOException {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
@@ -72,13 +71,13 @@ public class CreateInitialExaminationScoreUseCase {
                 finalResult.put(testName, rawResult.get(omtKey));
             }
         }
-        List<OMTScore> omtScores = convertToOMTScoresModelUseCase.convert(finalResult, omtTests);
-        persistEntity(omtScores, initializeNoteId);
+        List<InitOMTScore> initOmtScores = convertToOMTScoresModelUseCase.convert(finalResult, omtTests);
+        persistEntity(initOmtScores, initializeNoteId);
     }
 
-    private void persistEntity(List<OMTScore> omtScores, Long initializeNoteId) {
+    private void persistEntity(List<InitOMTScore> initOmtScores, Long initializeNoteId) {
         InitialExaminationScoreEntity initialExaminationScoreEntity = new InitialExaminationScoreEntity();
-        initialExaminationScoreEntity.setScoreData(omtScores);
+        initialExaminationScoreEntity.setScoreData(initOmtScores);
         initialExaminationScoreEntity.setInitialExaminationNoteId(initializeNoteId);
         initialExaminationScoreRepository.save(initialExaminationScoreEntity);
     }
