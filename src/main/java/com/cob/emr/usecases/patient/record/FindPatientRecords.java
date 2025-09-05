@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -69,8 +70,8 @@ public class FindPatientRecords {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
                     patientRecord.setStatus(medicalNote.getType().label);
-                    if(medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION)){
-                        getInitialExaminationScore(medicalNote.getId(),records);
+                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION)) {
+                        getInitialExaminationScore(medicalNote.getId(), records);
                     }
                     patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getCreatedAt());
@@ -79,19 +80,22 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
 
-    private void getInitialExaminationScore(Long noteId,List<PatientRecord> records) {
+    private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
         final String INITIAL_EXAMINATION_SCORE = "Initial Examination Score";
-        InitialExaminationScoreEntity entity= initialExaminationScoreRepository.findByInitialExaminationNoteId(noteId)
-                .orElseThrow(() -> new IllegalArgumentException("Initial Examination Score Not Found"));
-        PatientRecord patientRecord = new PatientRecord();
-        patientRecord.setEntityId(entity.getId());
-        patientRecord.setNote(false);
-        List<String> actions = new ArrayList<>();
-        actions.add(PatientRecordLineAction.View_PDF.label);
-        patientRecord.setActions(actions);
-        patientRecord.setStatus(INITIAL_EXAMINATION_SCORE);
-        patientRecord.setDate(entity.getCreatedAt());
-        records.add(patientRecord);
+        Optional<InitialExaminationScoreEntity> optional = initialExaminationScoreRepository.findByInitialExaminationNoteId(noteId);
+        if (optional.isPresent()) {
+            InitialExaminationScoreEntity entity = optional.get();
+            PatientRecord patientRecord = new PatientRecord();
+            patientRecord.setEntityId(entity.getId());
+            patientRecord.setNote(false);
+            List<String> actions = new ArrayList<>();
+            actions.add(PatientRecordLineAction.View_PDF.label);
+            patientRecord.setActions(actions);
+            patientRecord.setStatus(INITIAL_EXAMINATION_SCORE);
+            patientRecord.setDate(entity.getCreatedAt());
+            records.add(patientRecord);
+        }
+
     }
 
     private void getInitialExaminationPlanOfCare() {
