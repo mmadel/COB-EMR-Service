@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note.post.init.note;
+package com.cob.emr.usecases.medical.note.post.init.note.score;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;

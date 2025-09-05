@@ -6,7 +6,7 @@ import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.FinalizeMedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
-import com.cob.emr.usecases.medical.note.post.init.note.PostFinalizeInitialNoteUseCase;
+import com.cob.emr.usecases.medical.note.post.init.note.score.PostFinalizeInitialNoteUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

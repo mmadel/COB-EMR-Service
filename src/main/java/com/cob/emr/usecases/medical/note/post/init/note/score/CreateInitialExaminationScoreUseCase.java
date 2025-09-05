@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note.post.init.note;
+package com.cob.emr.usecases.medical.note.post.init.note.score;
 
 import com.cob.emr.entity.medical.note.omt.score.InitialExaminationScoreEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
@@ -30,6 +30,18 @@ public class CreateInitialExaminationScoreUseCase {
     private final String SECTION = "objective";
     private final String CATEGORY = "omt";
 
+    /*
+        Steps
+        1- Read OMTTest that will be got, it will return omtTestKeyName :
+            readActiveOMTTestUseCase.read();
+        2- Find The omtTestDisplayName
+             fieldMappingService.lookupByDisplay(SECTION, CATEGORY, testName)
+        3- Extract Value from Raw Data
+            findValueFromRawDataUseCase.extractValues(objective,new ArrayList<>(testNameToOmtKey.values()))
+        4- Convert to OMT Score Model
+            convertToOMTScoresModelUseCase.convert(finalResult, omtTests)
+
+     */
     public void create(Long initializeNoteId) throws IOException {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));

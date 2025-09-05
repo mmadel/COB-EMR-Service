@@ -2,8 +2,8 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.service.mapper.CsvToYamlService;
 import com.cob.emr.service.mapper.FieldMappingService;
-import com.cob.emr.usecases.medical.note.post.init.note.CreateInitialExaminationScoreUseCase;
-import com.cob.emr.usecases.medical.note.post.init.note.ReadActiveOMTTestUseCase;
+import com.cob.emr.usecases.medical.note.post.init.note.score.CreateInitialExaminationScoreUseCase;
+import com.cob.emr.usecases.medical.note.post.init.note.score.ReadActiveOMTTestUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

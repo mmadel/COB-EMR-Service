@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note.post.init.note;
+package com.cob.emr.usecases.medical.note.post.init.note.score;
 
 import com.cob.emr.model.medical.note.omt.test.score.OMTScore;
 import com.cob.emr.model.medical.note.omt.test.score.ScoreValue;
