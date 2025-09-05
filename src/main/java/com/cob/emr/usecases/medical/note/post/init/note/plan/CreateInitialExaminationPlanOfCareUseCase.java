@@ -6,7 +6,9 @@ import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Procedures;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.service.mapper.FieldMappingService;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.ProcedureMapper;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ModalitiesReader;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ProceduresReader;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.SpecialtiesReader;
 import com.cob.emr.usecases.medical.note.post.init.note.score.FindValueFromRawDataUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -17,28 +19,29 @@ import java.util.*;
 @Component
 public class CreateInitialExaminationPlanOfCareUseCase {
     @Autowired
-    MedicalNoteRepository medicalNoteRepository;
+    private MedicalNoteRepository medicalNoteRepository;
     @Autowired
-    ReadPlanCategorisesUseCase readPlanCategorisesUseCase;
+    private ReadPlanCategorisesUseCase readPlanCategorisesUseCase;
     @Autowired
-    ProceduresReader proceduresReader;
-
-    private static final String SPECIALTIES = "Specialties";
-    private final String SECTION = "plan";
+    private ProceduresReader proceduresReader;
+    @Autowired
+    ModalitiesReader modalitiesReader;
+    @Autowired
+    SpecialtiesReader specialtiesReader;
 
     public InitPlanOfCare create(Long initializeNoteId) throws IOException {
         InitPlanOfCare initPlanOfCare = new InitPlanOfCare();
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
-        Map<String, List<String>> procedures =proceduresReader.read(initialEvaluation.getPlanOfCare().getProcedures());
-        initPlanOfCare.setProcedures(procedures);
+        Map<String, List<String>> procedures = proceduresReader.read(initialEvaluation.getPlanOfCare().getProcedures());
+        Map<String, List<String>> modalities = modalitiesReader.read(initialEvaluation.getPlanOfCare().getModalities());
+        Map<String, List<String>> specialties = specialtiesReader.read(initialEvaluation.getPlanOfCare().getSpecialties());
 
-        //        Map<String, List<String>>  modalities= readPlanCategorisesUseCase.get(MODALITIES);
-//        Map<String, List<String>>  specialties= readPlanCategorisesUseCase.get(SPECIALTIES);
-//        Object objective = initialEvaluation.getPlanOfCare();
+        initPlanOfCare.setProcedures(procedures);
+        initPlanOfCare.setModalities(modalities);
+        initPlanOfCare.setSpecialties(specialties);
         return initPlanOfCare;
     }
-
 
 
 }

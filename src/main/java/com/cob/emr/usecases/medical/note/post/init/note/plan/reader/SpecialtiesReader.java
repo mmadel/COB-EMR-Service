@@ -1,10 +1,8 @@
 package com.cob.emr.usecases.medical.note.post.init.note.plan.reader;
 
-import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Modalities;
 import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Specialties;
 import com.cob.emr.service.mapper.FieldMappingService;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.ReadPlanCategorisesUseCase;
-import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.ModalitiesMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.SpecialtiesMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,7 @@ public class SpecialtiesReader {
     ReadPlanCategorisesUseCase readPlanCategorisesUseCase;
     @Autowired
     FieldMappingService fieldMappingService;
+
     public Map<String, List<String>> read(Specialties specialtiesPlanOfCare) throws IOException {
         Map<String, List<String>> yamlSpecialties = readPlanCategorisesUseCase.get(SPECIALTIES);
         Map<String, List<String>> selectedSpecialties = new HashMap<>();
@@ -43,7 +42,7 @@ public class SpecialtiesReader {
 
                 // 3️⃣ Iterate through the sub-items (e.g., ROM, Strength, Endurance, Stability)
                 for (String subItemDisplayName : entry.getValue()) {
-                    String subItemFieldName = fieldMappingService.lookupKeyByParentAndChild(SECTION, SPECIALTIES,categoryDisplayName, subItemDisplayName)
+                    String subItemFieldName = fieldMappingService.lookupKeyByParentAndChild(SECTION, SPECIALTIES, categoryDisplayName, subItemDisplayName)
                             .orElseThrow(() -> new IllegalArgumentException("Field not found: " + subItemDisplayName));
 
                     Object subItemValue = SpecialtiesMapper.getFieldValue(specialtiesPlanOfCare, subItemFieldName);
