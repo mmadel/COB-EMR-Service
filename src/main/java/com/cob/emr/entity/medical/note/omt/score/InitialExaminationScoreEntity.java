@@ -9,6 +9,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -30,4 +31,19 @@ public class InitialExaminationScoreEntity {
     @Column(name = "score_data", columnDefinition = "json")
     @Type(type = "json")
     private List<OMTScore> scoreData;
+
+    @Column(name = "created_at")
+    private Long createdAt;
+
+    @Column(name = "updated_at")
+    private Long updatedAt;
+
+    @PrePersist
+    private void beforeSaving() {
+        createdAt = new Date().getTime();
+    }
+    @PreUpdate
+    private void beforeUpdating() {
+        updatedAt = new Date().getTime();
+    }
 }
