@@ -1,8 +1,10 @@
 package com.cob.emr.usecases.medical.note.post.init.note.plan;
 
+import com.cob.emr.entity.medical.note.finalize.init.exam.plan.InitialExaminationPlanOfCareEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.model.medical.note.finalize.init.exam.plan.InitPlanOfCare;
 import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Procedures;
+import com.cob.emr.repositories.medical.note.InitialExaminationPlanOfCareRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.service.mapper.FieldMappingService;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.ProcedureMapper;
@@ -31,8 +33,10 @@ public class CreateInitialExaminationPlanOfCareUseCase {
     ModalitiesReader modalitiesReader;
     @Autowired
     SpecialtiesReader specialtiesReader;
+    @Autowired
+    InitialExaminationPlanOfCareRepository initialExaminationPlanOfCareRepository;
 
-    public InitPlanOfCare create(Long initializeNoteId) throws IOException {
+    public void create(Long initializeNoteId) throws IOException {
         InitPlanOfCare initPlanOfCare = new InitPlanOfCare();
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
@@ -46,8 +50,13 @@ public class CreateInitialExaminationPlanOfCareUseCase {
         initPlanOfCare.setProcedures(procedures);
         initPlanOfCare.setModalities(modalities);
         initPlanOfCare.setSpecialties(specialties);
-        return initPlanOfCare;
+        persistEntity(initPlanOfCare, initializeNoteId);
     }
-
+    private void persistEntity(InitPlanOfCare initPlanOfCar, Long initializeNoteId){
+        InitialExaminationPlanOfCareEntity entity = new InitialExaminationPlanOfCareEntity();
+        entity.setInitPlanOfCareData(initPlanOfCar);
+        entity.setInitialExaminationNoteId(initializeNoteId);
+        initialExaminationPlanOfCareRepository.save(entity);
+    }
 
 }

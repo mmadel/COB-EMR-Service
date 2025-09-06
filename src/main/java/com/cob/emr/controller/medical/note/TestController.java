@@ -71,7 +71,8 @@ public class TestController {
 
     @GetMapping("/plan/note/{noteId}")
     public ResponseEntity createPlanCategory(@PathVariable Long noteId) throws IOException {
+        createInitialExaminationPlanOfCareUseCase.create(noteId);
         return ResponseEntity.ok()
-                .body(createInitialExaminationPlanOfCareUseCase.create(noteId));
+                .build();
     }
 }
