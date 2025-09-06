@@ -3,23 +3,20 @@ package com.cob.emr.usecases.medical.note.post.init.note.plan;
 import com.cob.emr.entity.medical.note.finalize.init.exam.plan.InitialExaminationPlanOfCareEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.model.medical.note.finalize.init.exam.plan.InitPlanOfCare;
-import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Procedures;
 import com.cob.emr.repositories.medical.note.InitialExaminationPlanOfCareRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
-import com.cob.emr.service.mapper.FieldMappingService;
-import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.ProcedureMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.DurationMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.FrequencyMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.PlanMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ModalitiesReader;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ProceduresReader;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.SpecialtiesReader;
-import com.cob.emr.usecases.medical.note.post.init.note.score.FindValueFromRawDataUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class CreateInitialExaminationPlanOfCareUseCase {
@@ -35,6 +32,8 @@ public class CreateInitialExaminationPlanOfCareUseCase {
     SpecialtiesReader specialtiesReader;
     @Autowired
     InitialExaminationPlanOfCareRepository initialExaminationPlanOfCareRepository;
+    @Autowired
+    CreateInitialExaminationAssessmentUseCase createInitialExaminationAssessmentUseCase;
 
     public void create(Long initializeNoteId) throws IOException {
         InitPlanOfCare initPlanOfCare = new InitPlanOfCare();
@@ -50,9 +49,11 @@ public class CreateInitialExaminationPlanOfCareUseCase {
         initPlanOfCare.setProcedures(procedures);
         initPlanOfCare.setModalities(modalities);
         initPlanOfCare.setSpecialties(specialties);
+        initPlanOfCare.setAssessment(createInitialExaminationAssessmentUseCase.create(initialEvaluation.getAssessment()));
         persistEntity(initPlanOfCare, initializeNoteId);
     }
-    private void persistEntity(InitPlanOfCare initPlanOfCar, Long initializeNoteId){
+
+    private void persistEntity(InitPlanOfCare initPlanOfCar, Long initializeNoteId) {
         InitialExaminationPlanOfCareEntity entity = new InitialExaminationPlanOfCareEntity();
         entity.setInitPlanOfCareData(initPlanOfCar);
         entity.setInitialExaminationNoteId(initializeNoteId);

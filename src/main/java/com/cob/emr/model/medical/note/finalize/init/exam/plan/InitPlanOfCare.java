@@ -17,4 +17,5 @@ public class InitPlanOfCare {
     private Map<String, List<String>> procedures;
     private Map<String, List<String>> modalities;
     private Map<String, List<String>> specialties;
+    private InitAssessment assessment;
 }

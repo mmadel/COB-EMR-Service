@@ -2,6 +2,7 @@ package com.cob.emr.controller.medical.note;
 
 import com.cob.emr.service.mapper.CsvToYamlService;
 import com.cob.emr.service.mapper.FieldMappingService;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExaminationAssessmentUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExaminationPlanOfCareUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.ReadPlanCategorisesUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.CreateInitialExaminationScoreUseCase;
@@ -33,6 +34,8 @@ public class TestController {
     ReadPlanCategorisesUseCase readPlanCategorisesUseCase;
     @Autowired
     CreateInitialExaminationPlanOfCareUseCase createInitialExaminationPlanOfCareUseCase;
+    @Autowired
+    CreateInitialExaminationAssessmentUseCase createInitialExaminationAssessmentUseCase;
 
     @GetMapping("/id")
     public ResponseEntity getId(@RequestParam String section,
