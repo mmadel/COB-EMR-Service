@@ -5,7 +5,7 @@ fields:
     parentId: null
     children:
       - id: 20fadc5d-5a5a-472b-8a70-69463fd08622
-        display: "null"
+        display: Biofeedback Training Comment
         name: biofeedbackTrainingTextBiofeedbackTrainingModalitiesPlan
         parentId: 060fd28e-0256-4154-87ff-57531d36ab0d
         children: []
@@ -25,7 +25,7 @@ fields:
         parentId: 12120457-479a-4b5a-8302-a13e8417ba72
         children: []
       - id: a51564ec-86ee-4415-a573-9ab8f1e88015
-        display: "null"
+        display: Whirlpool Comment
         name: biofeedbackTrainingTextWhirlpoolModalitiesPlan
         parentId: 12120457-479a-4b5a-8302-a13e8417ba72
         children: []
@@ -70,7 +70,7 @@ fields:
     parentId: null
     children:
       - id: 19c324f4-fc1e-4a19-829d-31221cad5501
-        display: "null"
+        display: Electrical Stimulation Comment
         name: electricalStimulationTextElectricalStimulationModalitiesPlan
         parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
         children: []

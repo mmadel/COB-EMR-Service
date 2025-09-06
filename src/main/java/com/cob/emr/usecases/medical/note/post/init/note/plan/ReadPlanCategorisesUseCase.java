@@ -17,7 +17,7 @@ public class ReadPlanCategorisesUseCase {
 
     public ReadPlanCategorisesUseCase() throws IOException {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-        try (InputStream inputStream = new ClassPathResource("plan/plan_of_care_procedures.yaml").getInputStream()) {
+        try (InputStream inputStream = new ClassPathResource("plan/plan_of_care_categories.yaml").getInputStream()) {
             this.yamlData = mapper.readValue(inputStream, Map.class);
         }
     }

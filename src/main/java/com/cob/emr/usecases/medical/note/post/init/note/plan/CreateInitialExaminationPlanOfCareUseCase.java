@@ -6,6 +6,9 @@ import com.cob.emr.model.medical.note.types.initial.evaluation.plan.Procedures;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.service.mapper.FieldMappingService;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.ProcedureMapper;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.DurationMapper;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.FrequencyMapper;
+import com.cob.emr.usecases.medical.note.post.init.note.plan.mappers.header.PlanMapper;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ModalitiesReader;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.ProceduresReader;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.reader.SpecialtiesReader;
@@ -37,6 +40,9 @@ public class CreateInitialExaminationPlanOfCareUseCase {
         Map<String, List<String>> modalities = modalitiesReader.read(initialEvaluation.getPlanOfCare().getModalities());
         Map<String, List<String>> specialties = specialtiesReader.read(initialEvaluation.getPlanOfCare().getSpecialties());
 
+        initPlanOfCare.setFrequency(FrequencyMapper.getFrequencyLabel(initialEvaluation.getPlanOfCare().getFrequency()).get());
+        initPlanOfCare.setDuration(DurationMapper.getDurationLabel(initialEvaluation.getPlanOfCare().getDuration()).get());
+        initPlanOfCare.setPlan(PlanMapper.getPlanLabel(initialEvaluation.getPlanOfCare().getPlan()).get());
         initPlanOfCare.setProcedures(procedures);
         initPlanOfCare.setModalities(modalities);
         initPlanOfCare.setSpecialties(specialties);

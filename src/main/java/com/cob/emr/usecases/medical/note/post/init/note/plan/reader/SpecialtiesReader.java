@@ -51,6 +51,11 @@ public class SpecialtiesReader {
                     if (Boolean.TRUE.equals(subItemValue)) {
                         selectedSubItems.add(subItemDisplayName);
                     }
+                    // 5️⃣ If the sub-item is string, add its value
+                    if(subItemValue instanceof String){
+                        selectedSubItems.add((String) "Comment:"+subItemValue);
+                    }
+
                 }
 
                 // 5️⃣ Put into result map only if sub-items exist

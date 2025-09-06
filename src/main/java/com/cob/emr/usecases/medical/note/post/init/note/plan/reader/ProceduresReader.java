@@ -50,6 +50,9 @@ public class ProceduresReader {
                     if (Boolean.TRUE.equals(subItemValue)) {
                         selectedSubItems.add(subItemDisplayName);
                     }
+                    if(subItemValue instanceof String){
+                        selectedSubItems.add((String) "Comment:"+subItemValue);
+                    }
                 }
 
                 // 5️⃣ Put into result map only if sub-items exist

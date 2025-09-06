@@ -12,7 +12,7 @@ public class ModalitiesMapper {
             field.setAccessible(true); // allow access to private/public fields
             return field.get(modalitiesObj); // return value
         } catch (NoSuchFieldException e) {
-            System.err.println("⚠ Field not found in Procedures: " + fieldName);
+            System.err.println("⚠ Field not found in Modalities: " + fieldName);
             return null;
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);

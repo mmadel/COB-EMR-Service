@@ -5,7 +5,7 @@ fields:
     parentId: null
     children:
       - id: 4ecd0e52-cdb5-47fd-ab1d-288e78cbd8f2
-        display: "null"
+        display: TENS Fitting Comment
         name: 33_orthoticFabricationText
         parentId: 26d7218c-85a0-4594-bcab-865aa4277120
         children: []
@@ -15,7 +15,7 @@ fields:
     parentId: null
     children:
       - id: ab75d6d3-7ec3-4b31-92f1-1d21b0892141
-        display: "null"
+        display: Other Comment
         name: 39_otherText
         parentId: 6a7d8c95-2bea-4e28-bddc-3a28e34fbdac
         children: []
@@ -25,7 +25,7 @@ fields:
     parentId: null
     children:
       - id: d8175932-c875-45f8-8788-cb5a83676237
-        display: "null"
+        display: Acupuncture Comment
         name: 37_acupunctureText
         parentId: 7669931e-c203-47de-b360-220802476ea5
         children: []
@@ -35,7 +35,7 @@ fields:
     parentId: null
     children:
       - id: 285e6d05-c316-49aa-81ef-1d4120a56436
-        display: "null"
+        display: Orthotic Fabrication Comment
         name: 31_orthoticFabricationText
         parentId: 962fad59-ba04-47a3-a313-3e5d259d9b38
         children: []
