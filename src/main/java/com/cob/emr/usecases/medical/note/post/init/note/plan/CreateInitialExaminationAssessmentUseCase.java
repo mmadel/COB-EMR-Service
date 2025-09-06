@@ -18,15 +18,29 @@ import java.util.stream.Collectors;
 public class CreateInitialExaminationAssessmentUseCase {
     @Autowired
     private MedicalNoteRepository medicalNoteRepository;
+
     public InitAssessment create(Assessment assessment) throws IOException {
         InitAssessment initAssessment = new InitAssessment();
-        initAssessment.setShortTermGoals(constructShortTerm(assessment.getGoals()));
-        initAssessment.setLongTermGoals(constructLongTerm(assessment.getGoals()));
-        initAssessment.setProblems(constructProblems(assessment.getProblems()));
-        initAssessment.setAssessmentDiagnosis(assessment.getAssessmentDiagnosisAssessment().toString());
+        if (assessment.getGoals() != null) {
+            initAssessment.setShortTermGoals(constructShortTerm(assessment.getGoals()));
+            initAssessment.setLongTermGoals(constructLongTerm(assessment.getGoals()));
+        }
+        if (assessment.getProblems() != null)
+            initAssessment.setProblems(constructProblems(assessment.getProblems()));
+        initAssessment.setAssessmentDiagnosis(assessment.getAssessmentDiagnosisAssessment() != null ?
+                assessment.getAssessmentDiagnosisAssessment().toString() : null);
         initAssessment.setRehabPotential(assessment.getRehabPotentialAssessment());
-        initAssessment.setPatientEducation(assessment.getParentPatientEducationAssessment().toString());
-        return initAssessment;
+        initAssessment.setPatientEducation(assessment.getParentPatientEducationAssessment() != null ?
+                assessment.getParentPatientEducationAssessment().toString() : null);
+        if (initAssessment.getAssessmentDiagnosis() != null
+                || initAssessment.getProblems() != null
+                || initAssessment.getLongTermGoals() != null
+                || initAssessment.getShortTermGoals() != null
+                || initAssessment.getRehabPotential() != null
+                || initAssessment.getPatientEducation() != null)
+            return initAssessment;
+        else
+            return null;
     }
 
     private List<String> constructShortTerm(ArrayList<Object> goals) {
@@ -44,7 +58,8 @@ public class CreateInitialExaminationAssessmentUseCase {
                 .map(g -> g.get("period") + " | " + g.get("met") + " | " + g.get("description"))
                 .collect(Collectors.toList());
     }
-    private List<String> constructProblems(ArrayList<Object> problems){
+
+    private List<String> constructProblems(ArrayList<Object> problems) {
         return problems.stream()
                 .map(Object::toString)   // convert each Object to String
                 .collect(Collectors.toList());

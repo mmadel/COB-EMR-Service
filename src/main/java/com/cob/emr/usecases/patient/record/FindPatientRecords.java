@@ -74,7 +74,8 @@ public class FindPatientRecords {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
                     patientRecord.setStatus(medicalNote.getType().label);
-                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION)) {
+                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION) &&
+                            medicalNote.getStatus().equals(MedicalNoteStatus.Finalized)) {
                         getInitialExaminationScore(medicalNote.getId(), records);
                         getInitialExaminationPlanOfCare(medicalNote.getId(), records);
                     }
@@ -87,11 +88,11 @@ public class FindPatientRecords {
 
 
     private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
-        final String INITIAL_EXAMINATION_SCORE = "Initial Examination Score";
+        final String INITIAL_EXAMINATION_SCORE = "Initial Examination Scores";
         Optional<InitialExaminationScoreEntity> optional = initialExaminationScoreRepository.findByInitialExaminationNoteId(noteId);
         if (optional.isPresent()) {
             InitialExaminationScoreEntity entity = optional.get();
-            PatientRecord scores = createInitialExaminationRecord(entity.getId(),INITIAL_EXAMINATION_SCORE,entity.getCreatedAt());
+            PatientRecord scores = createInitialExaminationRecord(entity.getId(), INITIAL_EXAMINATION_SCORE, entity.getCreatedAt());
             records.add(scores);
         }
 
@@ -102,11 +103,12 @@ public class FindPatientRecords {
         Optional<InitialExaminationPlanOfCareEntity> optional = initialExaminationPlanOfCareRepository.findByInitialExaminationNoteId(noteId);
         if (optional.isPresent()) {
             InitialExaminationPlanOfCareEntity entity = optional.get();
-            PatientRecord planOfCare = createInitialExaminationRecord(entity.getId(),INITIAL_EXAMINATION_PLAN_OF_CARE,entity.getCreatedAt());
+            PatientRecord planOfCare = createInitialExaminationRecord(entity.getId(), INITIAL_EXAMINATION_PLAN_OF_CARE, entity.getCreatedAt());
             records.add(planOfCare);
         }
     }
-    private PatientRecord createInitialExaminationRecord(Long entityId , String status , Long createdAt){
+
+    private PatientRecord createInitialExaminationRecord(Long entityId, String status, Long createdAt) {
         PatientRecord patientRecord = new PatientRecord();
         patientRecord.setEntityId(entityId);
         patientRecord.setNote(false);

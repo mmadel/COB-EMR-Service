@@ -35,22 +35,36 @@ public class CreateInitialExaminationPlanOfCareUseCase {
     @Autowired
     CreateInitialExaminationAssessmentUseCase createInitialExaminationAssessmentUseCase;
 
-    public void create(Long initializeNoteId) throws IOException {
+    public void create(InitialEvaluation initialEvaluation) throws IOException {
         InitPlanOfCare initPlanOfCare = new InitPlanOfCare();
-        InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(initializeNoteId)
-                .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
-        Map<String, List<String>> procedures = proceduresReader.read(initialEvaluation.getPlanOfCare().getProcedures());
-        Map<String, List<String>> modalities = modalitiesReader.read(initialEvaluation.getPlanOfCare().getModalities());
-        Map<String, List<String>> specialties = specialtiesReader.read(initialEvaluation.getPlanOfCare().getSpecialties());
+        if (initialEvaluation.getPlanOfCare().getProcedures() != null) {
+            Map<String, List<String>> procedures = proceduresReader.read(initialEvaluation.getPlanOfCare().getProcedures());
+            initPlanOfCare.setProcedures(procedures);
+        }
 
-        initPlanOfCare.setFrequency(FrequencyMapper.getFrequencyLabel(initialEvaluation.getPlanOfCare().getFrequency()).get());
-        initPlanOfCare.setDuration(DurationMapper.getDurationLabel(initialEvaluation.getPlanOfCare().getDuration()).get());
-        initPlanOfCare.setPlan(PlanMapper.getPlanLabel(initialEvaluation.getPlanOfCare().getPlan()).get());
-        initPlanOfCare.setProcedures(procedures);
-        initPlanOfCare.setModalities(modalities);
-        initPlanOfCare.setSpecialties(specialties);
+        if (initialEvaluation.getPlanOfCare().getModalities() != null) {
+            Map<String, List<String>> modalities = modalitiesReader.read(initialEvaluation.getPlanOfCare().getModalities());
+            initPlanOfCare.setModalities(modalities);
+        }
+
+        if (initialEvaluation.getPlanOfCare().getSpecialties() != null) {
+            Map<String, List<String>> specialties = specialtiesReader.read(initialEvaluation.getPlanOfCare().getSpecialties());
+            initPlanOfCare.setSpecialties(specialties);
+        }
+        if (initialEvaluation.getPlanOfCare().getFrequency() != null)
+            initPlanOfCare.setFrequency(FrequencyMapper.getFrequencyLabel(initialEvaluation.getPlanOfCare().getFrequency()).get());
+        if (initialEvaluation.getPlanOfCare().getDuration() != null)
+            initPlanOfCare.setDuration(DurationMapper.getDurationLabel(initialEvaluation.getPlanOfCare().getDuration()).get());
+        if (initialEvaluation.getPlanOfCare().getPlan() != null)
+            initPlanOfCare.setPlan(PlanMapper.getPlanLabel(initialEvaluation.getPlanOfCare().getPlan()).get());
+
+
         initPlanOfCare.setAssessment(createInitialExaminationAssessmentUseCase.create(initialEvaluation.getAssessment()));
-        persistEntity(initPlanOfCare, initializeNoteId);
+        if (initPlanOfCare.getProcedures() != null
+                || initPlanOfCare.getModalities() != null
+                || initPlanOfCare.getSpecialties() != null
+                || initPlanOfCare.getAssessment() != null)
+            persistEntity(initPlanOfCare, initialEvaluation.getId());
     }
 
     private void persistEntity(InitPlanOfCare initPlanOfCar, Long initializeNoteId) {

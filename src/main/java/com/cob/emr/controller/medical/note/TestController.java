@@ -65,17 +65,4 @@ public class TestController {
                 .body(readActiveOMTTestUseCase.read());
     }
 
-    @PostMapping("/create/record/note-id/{noteId}")
-    public ResponseEntity createScoreRecord(@PathVariable Long noteId) throws IOException {
-        createInitialExaminationScoreUseCase.create(noteId);
-        return ResponseEntity.ok()
-                .build();
-    }
-
-    @GetMapping("/plan/note/{noteId}")
-    public ResponseEntity createPlanCategory(@PathVariable Long noteId) throws IOException {
-        createInitialExaminationPlanOfCareUseCase.create(noteId);
-        return ResponseEntity.ok()
-                .build();
-    }
 }
