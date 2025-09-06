@@ -1,4 +1,4 @@
-package com.cob.emr.entity.medical.note.omt.score;
+package com.cob.emr.entity.medical.note.finalize.init.exam.score;
 
 import com.cob.emr.model.medical.note.finalize.init.exam.score.InitOMTScore;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;

@@ -1,6 +1,6 @@
 package com.cob.emr.usecases.medical.note.post.init.note.score;
 
-import com.cob.emr.entity.medical.note.omt.score.InitialExaminationScoreEntity;
+import com.cob.emr.entity.medical.note.finalize.init.exam.score.InitialExaminationScoreEntity;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.model.medical.note.finalize.init.exam.score.InitOMTScore;
 import com.cob.emr.repositories.medical.note.InitialExaminationScoreRepository;

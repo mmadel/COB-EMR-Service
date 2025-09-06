@@ -3,7 +3,7 @@ package com.cob.emr.usecases.patient.record;
 import com.cob.emr.Utils.PaginationUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.medical.note.MedicalNote;
-import com.cob.emr.entity.medical.note.omt.score.InitialExaminationScoreEntity;
+import com.cob.emr.entity.medical.note.finalize.init.exam.score.InitialExaminationScoreEntity;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.enums.PatientRecordLineAction;
