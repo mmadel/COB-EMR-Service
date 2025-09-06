@@ -1,0 +1,36 @@
+fields:
+  - id: 0a2c46f4-4547-4f7a-b79e-4ce67e58c36d
+    display: "Nerve conduction studies, 11-12 studies"
+    name: 95912
+    parentId: null
+    children: []
+  - id: 50789944-44ec-4ea7-967d-65e2f602aa2a
+    display: Nerve conduction studies; 1-2 studies
+    name: 95907
+    parentId: null
+    children: []
+  - id: 64c62615-0181-4919-8ab3-a32e4eca688d
+    display: "Nerve conduction studies, 5-6 studies"
+    name: 95909
+    parentId: null
+    children: []
+  - id: 8c625d53-0f16-46c9-be7a-04019735ee70
+    display: "Nerve conduction studies, 3-4 studies"
+    name: 95908
+    parentId: null
+    children: []
+  - id: 99a35f2f-a081-4392-bf00-09f3a63d1728
+    display: "Nerve conduction studies, 9-10 studies"
+    name: 95911
+    parentId: null
+    children: []
+  - id: b81f15d8-a785-4767-bef5-dd418bed8956
+    display: "Nerve conduction studies, 7-8 studies"
+    name: 95910
+    parentId: null
+    children: []
+  - id: ff264d72-fd1b-44dc-aa6b-743685f96eed
+    display: "Nerve conduction studies, 13 or more studies"
+    name: 95913
+    parentId: null
+    children: []

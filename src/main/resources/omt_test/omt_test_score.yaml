@@ -1,0 +1,51 @@
+category:
+  - name: "Upper Extremity"
+    OMTTest:
+      - name: "Shoulder Pain and Disability Index"
+        score: [pain, disability, total]
+        active: true
+      - name: "Upper Extremity Functional Index"
+        score: [empty_test]
+        active: true
+      - name: "DASH: Disabilities of Arm, Shoulder, Hand"
+        score: [empty_test]
+        active: true
+
+  - name: "Spine"
+    OMTTest:
+      - name: "Neck Disability Index Questionnaire"
+        score: [score, total]
+        active: true
+      - name: "Oswestry Low Back Pain"
+        score: [disability]
+        active: true
+      - name: "Modified Oswestry Low Back Pain"
+        score: [disability]
+        active: true
+      - name: "Quebec Back Pain Disability Scale"
+        score: []
+        active: false
+
+  - name: "Lower Extremity"
+    OMTTest:
+      - name: "Foot and Ankle Ability Measure - Sports Subscale"
+        score: [score]
+        active: true
+      - name: "Hip disability Osteoarthritis Outcomes Score"
+        score: [score]
+        active: true
+      - name: "Knee Injury Osteoarthritis Outcomes Score"
+        score: [score]
+        active: true
+
+  - name: "Balance"
+    OMTTest:
+      - name: "ABC Scale"
+        score: [empty]
+        active: true
+      - name: "Tinetti"
+        score: [empty]
+        active: true
+      - name: "Berg"
+        score: [empty]
+        active: true

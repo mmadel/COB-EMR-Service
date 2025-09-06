@@ -1,0 +1,26 @@
+fields:
+  - id: 2e1a59e2-1f45-48f5-9a63-881b6d28b9bf
+    display: Manipulation Chest Wall - Subsequent
+    name: 94668
+    parentId: null
+    children: []
+  - id: 6a12a4a4-2f93-4e72-adf2-e35ff2a51964
+    display: Other Therapeutic Procedures - Individual
+    name: G0238
+    parentId: null
+    children: []
+  - id: 71352ded-093c-41f3-ac7f-ae034a0f09ee
+    display: Therapeutic Procedure Resp Muscles
+    name: G0237
+    parentId: null
+    children: []
+  - id: 75b64862-1026-4e97-83ba-000e04ecaeb7
+    display: Aero/PPB/MDI; Init Demo or Eval
+    name: 94664
+    parentId: null
+    children: []
+  - id: 899ca2b8-d996-4fab-bb3b-010951382823
+    display: Pulmonary Stress Testing - Simple
+    name: 94620
+    parentId: null
+    children: []

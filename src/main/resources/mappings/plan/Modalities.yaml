@@ -1,0 +1,241 @@
+fields:
+  - id: 060fd28e-0256-4154-87ff-57531d36ab0d
+    display: Biofeedback Training
+    name: biofeedbackTrainingModalitiesPlan
+    parentId: null
+    children:
+      - id: 20fadc5d-5a5a-472b-8a70-69463fd08622
+        display: Biofeedback Training Comment
+        name: biofeedbackTrainingTextBiofeedbackTrainingModalitiesPlan
+        parentId: 060fd28e-0256-4154-87ff-57531d36ab0d
+        children: []
+      - id: 61d4b3f3-53ae-4d0e-94cf-dad48766575a
+        display: Duration
+        name: durationBiofeedbackTrainingModalitiesPlan
+        parentId: 060fd28e-0256-4154-87ff-57531d36ab0d
+        children: []
+  - id: 12120457-479a-4b5a-8302-a13e8417ba72
+    display: Whirlpool
+    name: whirlpoolModalitiesPlan
+    parentId: null
+    children:
+      - id: 29b150ab-d4a9-45b9-a4fc-19d5d3aaa412
+        display: Warm
+        name: warmWhirlpoolModalitiesPlan
+        parentId: 12120457-479a-4b5a-8302-a13e8417ba72
+        children: []
+      - id: a51564ec-86ee-4415-a573-9ab8f1e88015
+        display: Whirlpool Comment
+        name: biofeedbackTrainingTextWhirlpoolModalitiesPlan
+        parentId: 12120457-479a-4b5a-8302-a13e8417ba72
+        children: []
+      - id: a743968f-9f21-4e4c-bf59-6bb01f8bdc6d
+        display: Duration
+        name: durationWhirlpoolModalitiesPlan
+        parentId: 12120457-479a-4b5a-8302-a13e8417ba72
+        children: []
+      - id: f43cbd16-422f-4e38-8801-cd22c6a2e355
+        display: Cold
+        name: coldWhirlpoolModalitiesPlan
+        parentId: 12120457-479a-4b5a-8302-a13e8417ba72
+        children: []
+  - id: 14130226-8cac-435f-81f7-0e34ef071756
+    display: Hot Packs
+    name: hotPacksModalitiesPlan
+    parentId: null
+    children:
+      - id: 1d4ba30e-3f5a-416a-933f-4e85b22b0c58
+        display: Duration
+        name: durationHotPacksModalitiesPlan
+        parentId: 14130226-8cac-435f-81f7-0e34ef071756
+        children: []
+  - id: 1f02609b-42e3-478e-99db-bd1d94d9588b
+    display: Laser
+    name: laserModalitiesPlan
+    parentId: null
+    children:
+      - id: ac62bb01-eefb-4541-83eb-c12836792e2b
+        display: Cold Laser
+        name: coldLaserLaserModalitiesPlan
+        parentId: 1f02609b-42e3-478e-99db-bd1d94d9588b
+        children: []
+      - id: d53cd7ae-ee1a-480d-b3cb-df26a227770f
+        display: Class 4 Laser
+        name: class4LaserLaserModalitiesPlan
+        parentId: 1f02609b-42e3-478e-99db-bd1d94d9588b
+        children: []
+  - id: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+    display: Electrical Stimulation
+    name: electricalStimulationModalitiesPlan
+    parentId: null
+    children:
+      - id: 19c324f4-fc1e-4a19-829d-31221cad5501
+        display: Electrical Stimulation Comment
+        name: electricalStimulationTextElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+      - id: 65a2421a-bb60-4619-9cf7-9c2559246d4d
+        display: High Volt
+        name: highVoltElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+      - id: 6ccfdda6-3d62-4efb-97e2-9894e8a5380a
+        display: Other
+        name: otherElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+      - id: be6c3b78-873a-4b49-ae61-6f84071decb4
+        display: Pre-Modulated
+        name: preModulatedElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+      - id: dabd6058-614b-417f-8a12-0f7586f95487
+        display: Russian
+        name: russianElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+      - id: e43d2aa8-a9df-4ee8-bcb4-35bd6326c44d
+        display: Interferential
+        name: interferentialElectricalStimulationModalitiesPlan
+        parentId: 32701c9b-df31-4b76-bf6f-611dba4d4d90
+        children: []
+  - id: 341f1e28-d90c-42be-a4d1-33a493d6e383
+    display: Increase Blood Flow
+    name: increaseBloodFlowModalitiesPlan
+    parentId: null
+    children: []
+  - id: 7664eaba-15bb-42c4-9f7b-69f5aec6e4f0
+    display: Pain Relief
+    name: painReliefModalitiesPlan
+    parentId: null
+    children: []
+  - id: 7fe65bfb-a574-42b7-a543-29af46411abd
+    display: Infrared Light
+    name: infraredLightModalitiesPlan
+    parentId: null
+    children:
+      - id: 84310bb8-a9ba-4f07-aaae-7e3d0c88e4fd
+        display: Duration
+        name: durationInfraredLightModalitiesPlan
+        parentId: 7fe65bfb-a574-42b7-a543-29af46411abd
+        children: []
+  - id: 957611b0-06ee-4a2b-abf6-989782b96797
+    display: Mechanical Traction
+    name: mechanicalTractionModalitiesPlan
+    parentId: null
+    children:
+      - id: ef3e5f16-2d32-41d1-b11e-12c1d53b4ebe
+        display: Lumbar
+        name: lumbarMechanicalTractionModalitiesPlan
+        parentId: 957611b0-06ee-4a2b-abf6-989782b96797
+        children: []
+      - id: fd54aa2a-0ae9-464a-aa5b-873339e524c3
+        display: Cervical
+        name: cervicalMechanicalTractionModalitiesPlan
+        parentId: 957611b0-06ee-4a2b-abf6-989782b96797
+        children: []
+  - id: a080fa59-a606-4be4-92fc-ef712d1a2cdf
+    display: Paraffin Bath
+    name: paraffinBathModalitiesPlan
+    parentId: null
+    children:
+      - id: 23bb2ad8-dc50-4ef9-9197-9cf5f9e7e7e5
+        display: Duration
+        name: durationParaffinBathModalitiesPlan
+        parentId: a080fa59-a606-4be4-92fc-ef712d1a2cdf
+        children: []
+  - id: b5886d1c-2c8d-46dc-9a04-a87631394afd
+    display: Decrease Inflammation
+    name: decreaseInflammationModalitiesPlan
+    parentId: null
+    children: []
+  - id: b89d811a-9857-4cab-8a17-8feb63c5c00b
+    display: Improve Tissue Healing
+    name: improveTissueHealingModalitiesPlan
+    parentId: null
+    children: []
+  - id: bcc30d2c-9686-42f4-b430-b1b61662533a
+    display: Diathermy
+    name: diathermyModalitiesPlan
+    parentId: null
+    children:
+      - id: 44d33219-04e1-4e19-997e-b28d629040e7
+        display: Duration
+        name: durationDiathermyModalitiesPlan
+        parentId: bcc30d2c-9686-42f4-b430-b1b61662533a
+        children: []
+  - id: dcbab539-ccf6-4e0e-801a-3b914ea00865
+    display: Ultraviolet
+    name: ultravioletModalitiesPlan
+    parentId: null
+    children:
+      - id: ee975ebb-9f36-44d6-99d5-a9fdc117873a
+        display: Duration
+        name: durationUltravioletModalitiesPlan
+        parentId: dcbab539-ccf6-4e0e-801a-3b914ea00865
+        children: []
+  - id: e331ed38-5382-4d6d-be32-75420a4ddb52
+    display: Vasopneumatic
+    name: vasopneumaticModalitiesPlan
+    parentId: null
+    children:
+      - id: 31674418-2208-4c61-aefa-54665c457247
+        display: Duration
+        name: durationVasopneumaticModalitiesPlan
+        parentId: e331ed38-5382-4d6d-be32-75420a4ddb52
+        children: []
+  - id: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+    display: Ultrasound-Phonophoresis
+    name: ultrasoundPhonophoresisModalitiesPlan
+    parentId: null
+    children:
+      - id: 191da541-cf74-4ff7-bfd6-db2470483fa2
+        display: Duration
+        name: durationUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+      - id: 24d89424-0c6d-43f3-8503-6161ce4a0f55
+        display: Medication
+        name: medicationUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+      - id: 9acdc828-cc71-4da1-9c22-58677bb1eda5
+        display: Intensity
+        name: intensityUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+      - id: a0a9a248-1bbf-4147-a904-82809e5666e8
+        display: Location
+        name: locationUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+      - id: ed12e392-c77d-44ed-aa17-fe8e9eb8c70c
+        display: Duty Cycle
+        name: dutyCycleUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+      - id: f7c13bfa-5993-4924-bb7a-c532b64fb099
+        display: Depth
+        name: depthUltrasoundPhonophoresisModalitiesPlan
+        parentId: f4f01fa4-c5fe-44bb-8ee2-748fa6163d81
+        children: []
+  - id: f6eb871c-36d1-49ca-82db-94acf0b26064
+    display: Cryotherapy
+    name: cryotherapyModalitiesPlan
+    parentId: null
+    children:
+      - id: 6272f3be-61ac-4e93-8e84-912903777242
+        display: Duration
+        name: durationCryotherapyModalitiesPlan
+        parentId: f6eb871c-36d1-49ca-82db-94acf0b26064
+        children: []
+      - id: dd180600-3a9a-41c0-8134-bf88e7e71dcd
+        display: Ice Pack
+        name: icePackCryotherapyModalitiesPlan
+        parentId: f6eb871c-36d1-49ca-82db-94acf0b26064
+        children: []
+      - id: f7f6865d-75ae-4a01-94d8-9efa1fc9fa2f
+        display: Ice Massage
+        name: iceMassageCryotherapyModalitiesPlan
+        parentId: f6eb871c-36d1-49ca-82db-94acf0b26064
+        children: []

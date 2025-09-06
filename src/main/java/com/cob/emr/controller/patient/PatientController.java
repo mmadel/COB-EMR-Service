@@ -8,10 +8,7 @@ import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
 import com.cob.emr.service.patient.finder.PatientFinderService;
 import com.cob.emr.service.patient.updater.PatientUpdaterService;
-import com.cob.emr.usecases.patient.CreatePatientUseCase;
-import com.cob.emr.usecases.patient.DeletePatientUseCase;
-import com.cob.emr.usecases.patient.FindPatientByClinicIdentificationUseCase;
-import com.cob.emr.usecases.patient.FindPatientByNameUseCase;
+import com.cob.emr.usecases.patient.*;
 import com.cob.emr.usecases.patient.chart.PatientChartAccessibilityUseCase;
 import com.cob.emr.usecases.patient.update.UpdatePatientUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +98,9 @@ public class PatientController {
     }
 
     @GetMapping("/find/name/{name}/clinic-id/{clinic-id}")
-    public ResponseEntity findPatientByName(@PathVariable("name") String name,@PathVariable("clinic-id") Long clinicId) {
+    public ResponseEntity findPatientByName(@PathVariable("name") String name, @PathVariable("clinic-id") Long clinicId) {
         return ResponseEntity.ok()
-                .body(findPatientByNameUseCase.find(name,clinicId));
+                .body(findPatientByNameUseCase.find(name, clinicId));
     }
+
 }

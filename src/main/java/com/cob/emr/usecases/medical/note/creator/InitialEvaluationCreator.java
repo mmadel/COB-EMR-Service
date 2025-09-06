@@ -4,6 +4,7 @@ import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
+import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,9 @@ public class InitialEvaluationCreator implements MedicalNoteCreator {
         evaluation.setSubjective(medicalNoteRequest.getSubjective());
         evaluation.setAssessment(medicalNoteRequest.getAssessment());
         evaluation.setPlanOfCare(medicalNoteRequest.getPlanOfCare());
-        evaluation.setBilling(medicalNoteRequest.getBilling());
+        Billing billing = medicalNoteRequest.getBilling();
+        billing.setDailyNoteIncluded(true);
+        evaluation.setBilling(billing);
         return evaluation;
     }
 }

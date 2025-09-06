@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+
 @RestController
 @RequestMapping("/medical/note/action")
 public class MedicalNoteActionController {
@@ -48,7 +50,7 @@ public class MedicalNoteActionController {
 
     }
     @PostMapping("/finalize")
-    public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) {
+    public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) throws MedicalNoteException, IOException {
         finalizeMedialNoteUseCase.finalize(request);
         return ResponseEntity.ok()
                 .build();

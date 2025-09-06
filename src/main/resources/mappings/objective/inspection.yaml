@@ -1,0 +1,116 @@
+fields:
+  - id: 1090dee0-1201-400a-9cf0-d450797dd5b4
+    display: Patient Consent
+    name: inspection_patientConsent
+    parentId: null
+    children:
+      - id: f44ec73a-06bd-4b9a-8bc4-3c8441c26d52
+        display: Patient/Parent/Guardian Consent
+        name: inspection_1090dee0-1201-400a-9cf0-d450797dd5b4_patientparentguardianConsent
+        parentId: 1090dee0-1201-400a-9cf0-d450797dd5b4
+        children: []
+  - id: 2874b347-1608-41fe-84db-95cb5e1f66d9
+    display: Post Operative/Wound Healing
+    name: inspection_postOperativewoundHealing
+    parentId: null
+    children:
+      - id: 008a644c-1edf-40a5-90d3-f7bb92a19d21
+        display: Wound Description
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_woundDescription
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: 0ea5d19d-bda9-4f92-b54f-cf57850455fa
+        display: Incision Sites
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_incisionSites
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: 4566331e-009e-43f8-a542-b96c1b710771
+        display: Scar Type
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_scarType
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: 90c1bca7-7925-49ea-a696-fd03ca8fd548
+        display: Surgical Precautions
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_surgicalPrecautions
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: ba782469-3c1d-4177-b603-7adbfbb234d7
+        display: Scar Mobility
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_scarMobility
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: d22e29f8-1bd6-45ce-9b26-176b13f9ad61
+        display: Wound Measurements
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_woundMeasurements
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+      - id: f969c2a1-5259-4047-aa3b-c4a004a87919
+        display: Wound Measurements
+        name: inspection_2874b347-1608-41fe-84db-95cb5e1f66d9_woundMeasurements
+        parentId: 2874b347-1608-41fe-84db-95cb5e1f66d9
+        children: []
+  - id: 5754c5c3-1f81-42f8-92ec-a674dfd5b9a8
+    display: Surgical Scarring
+    name: inspection_surgicalScarring
+    parentId: null
+    children: []
+  - id: 829a7f5f-daf8-495f-b307-ea622e46abe3
+    display: Chaperone
+    name: inspection_chaperone
+    parentId: null
+    children:
+      - id: 5d89efca-a2db-4a94-98ac-d0e34fda97a4
+        display: Chaperone Present
+        name: inspection_829a7f5f-daf8-495f-b307-ea622e46abe3_chaperonePresent
+        parentId: 829a7f5f-daf8-495f-b307-ea622e46abe3
+        children: []
+      - id: ee6c4249-ef15-4314-a126-c7cef513bdf5
+        display: "null"
+        name: inspection_829a7f5f-daf8-495f-b307-ea622e46abe3
+        parentId: 829a7f5f-daf8-495f-b307-ea622e46abe3
+        children: []
+  - id: 91f3ce13-b570-43d8-9d88-42d3f624992a
+    display: Wound Care
+    name: inspection_woundCare
+    parentId: null
+    children:
+      - id: 5589c0b8-aa31-4739-a14a-18a4ab0d6cd5
+        display: Surface Culture Used To Exudate?
+        name: inspection_91f3ce13-b570-43d8-9d88-42d3f624992a_surfaceCultureUsedToExudate
+        parentId: 91f3ce13-b570-43d8-9d88-42d3f624992a
+        children: []
+  - id: 973ed0ab-ec9c-4738-b9ab-0b39f13638d0
+    display: Additional Comments
+    name: inspection_additionalComments
+    parentId: null
+    children: []
+  - id: a5fc5a75-14fd-46e5-aa20-0e5b298c6336
+    display: Body Mass Index
+    name: inspection_bodyMassIndex
+    parentId: null
+    children: []
+  - id: b323421f-3c72-4a95-994a-27853eb97e32
+    display: Girth Measurement Lower
+    name: inspection_girthMeasurementLower
+    parentId: null
+    children:
+      - id: 81a7c621-9f09-459c-80ce-d20ceb8ad4fd
+        display: "null"
+        name: inspection_b323421f-3c72-4a95-994a-27853eb97e32
+        parentId: b323421f-3c72-4a95-994a-27853eb97e32
+        children: []
+  - id: bd471778-6055-4366-9895-4ac73c15f3c7
+    display: Girth Measurement Upper
+    name: inspection_girthMeasurementUpper
+    parentId: null
+    children:
+      - id: 0753a272-5755-4ff9-b7d6-9a6d853c6b9d
+        display: "null"
+        name: inspection_bd471778-6055-4366-9895-4ac73c15f3c7
+        parentId: bd471778-6055-4366-9895-4ac73c15f3c7
+        children: []
+  - id: ee77da86-fdc1-469c-b791-18bb71b458ed
+    display: Inspection
+    name: inspection_inspection
+    parentId: null
+    children: []

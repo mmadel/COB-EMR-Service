@@ -1,0 +1,239 @@
+fields:
+  - id: 07523862-9540-497d-a443-462250d60336
+    display: Diagnostic Testing/Imaging
+    name: diagnosticTestingImagingMedicalHistory
+    parentId: null
+    children: []
+  - id: 3164d986-239a-4366-94ef-95194073401d
+    display: Complicating/Personal Factors
+    name: complicatingPersonalFactorsMedicalHistory
+    parentId: null
+    children: []
+  - id: 46be3044-750b-47d1-b44b-f6b69264f952
+    display: Home Health Care
+    name: homeHealthCareMedicalHistory
+    parentId: null
+    children:
+      - id: 53722eea-eaf8-42d3-8875-4caf8eb04d3b
+        display: "null"
+        name: homeHealthCareTextHomeHealthCareMedicalHistory
+        parentId: 46be3044-750b-47d1-b44b-f6b69264f952
+        children: []
+  - id: 473f19a5-7344-45d1-a3dc-489cf4c56728
+    display: Current Medications
+    name: currentMedicationsMedicalHistory
+    parentId: null
+    children: []
+  - id: 48710045-a358-46e5-ba1a-781a79549a8c
+    display: Medical History
+    name: medicalHistoryMedicalHistory
+    parentId: null
+    children: []
+  - id: 65dca0c5-c5af-4d44-aff3-957162457604
+    display: History of Falls
+    name: historyOfFallsMedicalHistory
+    parentId: null
+    children:
+      - id: 1d1f3850-eab1-4c63-9809-faef8bb92bbf
+        display: Risk Assessment
+        name: riskAssessmentHistoryOfFallsMedicalHistory
+        parentId: 65dca0c5-c5af-4d44-aff3-957162457604
+        children: []
+      - id: 3da52baa-5385-40da-a376-86096f648710
+        display: Falls Documented:Do you have documentation that supports the patient's
+          fall history
+        name: fallsDocumentedDoYouHaveDocumentationThatSupportsThePatientFallHistoryHistoryOfFallsMedicalHistoryYES
+        parentId: 65dca0c5-c5af-4d44-aff3-957162457604
+        children:
+          - id: deadd667-d865-4005-82bd-3cb85c8127ff
+            display: "null"
+            name: fallHistoryTextFallsDocumentedDoYouHaveDocumentationThatSupportsThePatientFallHistoryHistoryOfFallsMedicalHistoryTxtYES
+            parentId: 3da52baa-5385-40da-a376-86096f648710
+            children: []
+      - id: feb237bf-7c4f-4634-b3b4-86f9391bf6b4
+        display: Falls Documented:Do you have documentation that supports the patient's
+          fall history
+        name: fallsDocumentedDoYouHaveDocumentationThatSupportsThePatientFallHistoryHistoryOfFallsMedicalHistory
+        parentId: 65dca0c5-c5af-4d44-aff3-957162457604
+        children: []
+  - id: 6d5b4f59-ffdd-4f45-8e94-2e7a3f58b427
+    display: Previous History of Similar Symptoms
+    name: previousHistoryOfSimilarSymptomsMedicalHistory
+    parentId: null
+    children:
+      - id: c80596b1-e267-4cd5-937c-cf5549e1b324
+        display: Previous Episodes of Same Complaints
+        name: previousEpisodesOfSameComplaintsPreviousHistoryOfSimilarSymptomsMedicalHistory
+        parentId: 6d5b4f59-ffdd-4f45-8e94-2e7a3f58b427
+        children:
+          - id: 0dd89b13-51d5-47d5-989d-5f217c9700f1
+            display: Year of First Episode
+            name: yearOfFirstEpisodePreviousEpisodesOfSameComplaintsPreviousHistoryOfSimilarSymptomsMedicalHistory
+            parentId: c80596b1-e267-4cd5-937c-cf5549e1b324
+            children: []
+          - id: ae2b00aa-10c7-457d-bfd4-9077aed720cf
+            display: Age Range
+            name: ageRangePreviousEpisodesOfSameComplaintsPreviousHistoryOfSimilarSymptomsMedicalHistory
+            parentId: c80596b1-e267-4cd5-937c-cf5549e1b324
+            children: []
+      - id: f1fbde91-44b4-4868-9093-27ec1af155d9
+        display: Previous Treatments for Similar Symptoms
+        name: previousTreatmentsForSimilarSymptomsPreviousHistoryOfSimilarSymptomsMedicalHistory
+        parentId: 6d5b4f59-ffdd-4f45-8e94-2e7a3f58b427
+        children:
+          - id: ed48426a-68da-4a2b-bb77-5fa652e81948
+            display: "null"
+            name: commentPreviousTreatmentsForSimilarSymptomsPreviousHistoryOfSimilarSymptomsMedicalHistory
+            parentId: f1fbde91-44b4-4868-9093-27ec1af155d9
+            children: []
+  - id: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+    display: Occupation Social History
+    name: occupationSocialHistoryMedicalHistory
+    parentId: null
+    children:
+      - id: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+        display: Occupation and Work Status
+        name: occupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+        parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+        children:
+          - id: 031f5cb0-015e-4dd2-9570-99919f7e5a43
+            display: Out of Work Since
+            name: outOfWorkSinceOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: 74677606-d3eb-4d04-b3bb-c95bf252917d
+            display: Litigation
+            name: litigationOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: 80894c8e-5661-43d7-87cf-53637fcc4434
+            display: Return to Work Date
+            name: returnToWorkDateOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: 852e7f62-0d6c-4944-9611-7842783f7dbb
+            display: Duty Level
+            name: dutyLevelOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: 8d6baf4c-75c8-4e29-88bd-9e09de24c983
+            display: Description
+            name: descriptionOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: b69bdbea-1780-4f5e-8a9b-d33279899eb4
+            display: Name of Occupation
+            name: nameOfOccupationOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: d6475cd3-2ebe-4a17-b487-7c27cb66e5f2
+            display: Workers Compensation
+            name: workersCompensationOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+          - id: ece2f176-6ee1-442d-90b5-2c6814d3a9b4
+            display: Status
+            name: statusOccupationAndWorkStatusOccupationSocialHistoryMedicalHistory
+            parentId: 12649eff-6e2e-4a35-91b1-e8f2d1604f0b
+            children: []
+      - id: 187d13b2-8cfe-495f-9e13-811c49eff543
+        display: Home Layout
+        name: homeLayoutOccupationSocialHistoryMedicalHistory
+        parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+        children:
+          - id: 77a12960-52a4-4c66-9c05-1af49ccdc59b
+            display: "null"
+            name: homeLayoutTextHomeLayoutOccupationSocialHistoryMedicalHistory
+            parentId: 187d13b2-8cfe-495f-9e13-811c49eff543
+            children: []
+          - id: e5d2a8bc-322a-4035-80a4-ed7a060b4ee3
+            display: "null"
+            name: homeLayoutSelectHomeLayoutOccupationSocialHistoryMedicalHistory
+            parentId: 187d13b2-8cfe-495f-9e13-811c49eff543
+            children: []
+      - id: 3df3891a-9988-4345-bb50-9e5d5d084164
+        display: Durable Medical Equipment
+        name: durableMedicalEquipmentOccupationSocialHistoryMedicalHistory
+        parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+        children:
+          - id: 4ef1468c-624d-49cd-b2d1-1b16e434de88
+            display: Durable Medical Equipment Select
+            name: durableMedicalEquipmentSelectDurableMedicalEquipmentOccupationSocialHistoryMedicalHistory
+            parentId: 3df3891a-9988-4345-bb50-9e5d5d084164
+            children: []
+          - id: b21a62ea-e551-4a01-96ae-06495548d1b6
+            display: "null"
+            name: durableMedicalEquipmentTextDurableMedicalEquipmentOccupationSocialHistoryMedicalHistory
+            parentId: 3df3891a-9988-4345-bb50-9e5d5d084164
+            children: []
+      - id: 4a07eb11-4180-4755-a060-18ab40316c53
+        display: Is Patient A Tobacco User
+        name: isPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+        parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+        children:
+          - id: 74c01a2f-fd03-4ab2-880d-24a0c894128d
+            display: Does patient smoke cigarettes and or use other forms of tobacco
+            name: doesPatientSmokeCigarettesAndOrUseOtherFormsOfTobaccoIsPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+            parentId: 4a07eb11-4180-4755-a060-18ab40316c53
+            children:
+              - id: a4935bcd-266a-48c4-a4b1-9c99b492cb0c
+                display: "null"
+                name: patientSmokeCigarettesTextDoesPatientSmokeCigarettesAndOrUseOtherFormsOfTobaccoIsPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+                parentId: 74c01a2f-fd03-4ab2-880d-24a0c894128d
+                children: []
+              - id: c64391fb-5abb-4117-b01c-6872733e04c6
+                display: Continued support for tobacco use cessation will be provided on all
+                  or most follow up visits
+                name: continuedSupportForTobaccoUseCessationWillBeProvidedOnAllOrMostFollowUpVisitsDoesPatientSmokeCigarettesAndOrUseOtherFormsOfTobaccoIsPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+                parentId: 74c01a2f-fd03-4ab2-880d-24a0c894128d
+                children: []
+              - id: facd1f28-8a9c-4c60-9fa3-b52e9ee0c2dc
+                display: Recommendation made to stop using tobacco products
+                name: recommendationMadeToStopUsingTobaccoProductsDoesPatientSmokeCigarettesAndOrUseOtherFormsOfTobaccoIsPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+                parentId: 74c01a2f-fd03-4ab2-880d-24a0c894128d
+                children: []
+              - id: fc3bb569-8c1a-4b5f-9799-913426a27af8
+                display: Advice and support provided for tobacco use cessation
+                name: adviceAndSupportProvidedForTobaccoUseCessationDoesPatientSmokeCigarettesAndOrUseOtherFormsOfTobaccoIsPatientATobaccoUserOccupationSocialHistoryMedicalHistory
+                parentId: 74c01a2f-fd03-4ab2-880d-24a0c894128d
+                children: []
+      - id: 778d7965-2574-4dbc-802d-46e4bb55a6d5
+        display: Social History
+        name: socialHistoryOccupationSocialHistoryMedicalHistory
+        parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
+        children:
+          - id: 7b65532a-b21e-44e8-8fa9-6129f649947c
+            display: "null"
+            name: socialHistorySelectSocialHistoryOccupationSocialHistoryMedicalHistory
+            parentId: 778d7965-2574-4dbc-802d-46e4bb55a6d5
+            children: []
+  - id: b9ce3161-6c6c-4ccc-8cee-32b8553602b3
+    display: Patient Goals
+    name: patientGoalsMedicalHistory
+    parentId: null
+    children: []
+  - id: be5d8a34-9bc6-4218-983e-38a7558eedcd
+    display: General Health
+    name: generalHealthMedicalHistory
+    parentId: null
+    children: []
+  - id: d1d144b6-fbcb-413f-a363-135372ed11ca
+    display: Medical History Review
+    name: medicalHistoryReviewMedicalHistory
+    parentId: null
+    children: []
+  - id: d910dbec-3655-447c-8ab9-8212921fad2f
+    display: Unexplained Weight Loss
+    name: unexplainedWeightLossMedicalHistory
+    parentId: null
+    children: []
+  - id: e888a0bb-8690-4fdf-9c33-062c56a3997a
+    display: Mental Status/Cognitive Function Appears Impaired
+    name: mentalStatusCognitiveFunctionAppearsImpairedMedicalHistory
+    parentId: null
+    children:
+      - id: 7b57919a-8aa1-4ce9-8e79-aefe1ee7b9e3
+        display: "null"
+        name: mentalStatusCognitiveFunctionAppearsImpairedTxtMentalStatusCognitiveFunctionAppearsImpairedMedicalHistory
+        parentId: e888a0bb-8690-4fdf-9c33-062c56a3997a
+        children: []
