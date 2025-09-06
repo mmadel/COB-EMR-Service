@@ -3,6 +3,7 @@ package com.cob.emr.usecases.patient.record;
 import com.cob.emr.Utils.PaginationUtil;
 import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.entity.medical.note.finalize.init.exam.plan.InitialExaminationPlanOfCareEntity;
 import com.cob.emr.entity.medical.note.finalize.init.exam.score.InitialExaminationScoreEntity;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
@@ -11,6 +12,7 @@ import com.cob.emr.model.patient.record.PatientRecord;
 import com.cob.emr.model.patient.record.PatientRecordRequest;
 import com.cob.emr.model.response.patient.record.PatientRecordResponse;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
+import com.cob.emr.repositories.medical.note.InitialExaminationPlanOfCareRepository;
 import com.cob.emr.repositories.medical.note.InitialExaminationScoreRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class FindPatientRecords {
     MedicalNoteRepository medicalNoteRepository;
     @Autowired
     InitialExaminationScoreRepository initialExaminationScoreRepository;
+    @Autowired
+    InitialExaminationPlanOfCareRepository initialExaminationPlanOfCareRepository;
 
     public PatientRecordResponse construct(PatientRecordRequest request, int offset, int limit) {
         List<PatientRecord> patientRecords = new ArrayList<>();
@@ -72,6 +76,7 @@ public class FindPatientRecords {
                     patientRecord.setStatus(medicalNote.getType().label);
                     if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION)) {
                         getInitialExaminationScore(medicalNote.getId(), records);
+                        getInitialExaminationPlanOfCare(medicalNote.getId(), records);
                     }
                     patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getCreatedAt());
@@ -80,26 +85,37 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
 
+
     private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
         final String INITIAL_EXAMINATION_SCORE = "Initial Examination Score";
         Optional<InitialExaminationScoreEntity> optional = initialExaminationScoreRepository.findByInitialExaminationNoteId(noteId);
         if (optional.isPresent()) {
             InitialExaminationScoreEntity entity = optional.get();
-            PatientRecord patientRecord = new PatientRecord();
-            patientRecord.setEntityId(entity.getId());
-            patientRecord.setNote(false);
-            List<String> actions = new ArrayList<>();
-            actions.add(PatientRecordLineAction.View_PDF.label);
-            patientRecord.setActions(actions);
-            patientRecord.setStatus(INITIAL_EXAMINATION_SCORE);
-            patientRecord.setDate(entity.getCreatedAt());
-            records.add(patientRecord);
+            PatientRecord scores = createInitialExaminationRecord(entity.getId(),INITIAL_EXAMINATION_SCORE,entity.getCreatedAt());
+            records.add(scores);
         }
 
     }
 
-    private void getInitialExaminationPlanOfCare() {
-
+    private void getInitialExaminationPlanOfCare(Long noteId, List<PatientRecord> records) {
+        final String INITIAL_EXAMINATION_PLAN_OF_CARE = "Initial Examination Plan Of Care";
+        Optional<InitialExaminationPlanOfCareEntity> optional = initialExaminationPlanOfCareRepository.findByInitialExaminationNoteId(noteId);
+        if (optional.isPresent()) {
+            InitialExaminationPlanOfCareEntity entity = optional.get();
+            PatientRecord planOfCare = createInitialExaminationRecord(entity.getId(),INITIAL_EXAMINATION_PLAN_OF_CARE,entity.getCreatedAt());
+            records.add(planOfCare);
+        }
+    }
+    private PatientRecord createInitialExaminationRecord(Long entityId , String status , Long createdAt){
+        PatientRecord patientRecord = new PatientRecord();
+        patientRecord.setEntityId(entityId);
+        patientRecord.setNote(false);
+        List<String> actions = new ArrayList<>();
+        actions.add(PatientRecordLineAction.View_PDF.label);
+        patientRecord.setActions(actions);
+        patientRecord.setStatus(status);
+        patientRecord.setDate(createdAt);
+        return patientRecord;
     }
 
     private List<String> addPatientLineRecordAction(MedicalNoteStatus status) {
