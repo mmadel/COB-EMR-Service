@@ -38,7 +38,7 @@ public class FindPatientRecords {
     public PatientRecordResponse construct(PatientRecordRequest request, int offset, int limit) {
         List<PatientRecord> patientRecords = new ArrayList<>();
         getCancelAppointments(request.getPatientId(), request.getClinicId(), request.getCaseId(), patientRecords);
-        getNotes(request.getCaseId(), patientRecords);
+        getNotes(request.getCaseId(), patientRecords,request.getLoggedIn());
         List<PatientRecord> records = PaginationUtil.paginate(patientRecords, offset, limit)
                 .stream()
                 .sorted(Comparator.comparingLong(PatientRecord::getDate))
@@ -66,10 +66,11 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
 
-    private void getNotes(Long caseId, List<PatientRecord> records) {
+    private void getNotes(Long caseId, List<PatientRecord> records , String loggedInUser) {
         List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
         records.addAll(medicalNotes.stream()
-                .filter(medicalNote -> !medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
+                .filter(medicalNote -> (!medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
+                        && authorizedNote(loggedInUser, medicalNote))
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
@@ -85,7 +86,9 @@ public class FindPatientRecords {
                     return patientRecord;
                 }).collect(Collectors.toList()));
     }
-
+    private boolean authorizedNote(String loggedInUser , MedicalNote note){
+        return (loggedInUser.equals(note.getCreatedBy()) || (note.getForwardTo() !=null && loggedInUser.equals(note.getForwardTo())));
+    }
 
     private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
         final String INITIAL_EXAMINATION_SCORE = "Initial Examination Scores";

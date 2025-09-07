@@ -9,4 +9,5 @@ public class PatientRecordRequest {
     private Long patientId;
     private Long caseId;
     private Long clinicId;
+    private String loggedIn;
 }

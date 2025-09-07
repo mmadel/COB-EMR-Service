@@ -40,6 +40,9 @@ public abstract class MedicalNote {
     @Column(name="is_forward")
     private Boolean isForward;
 
+    @Column(name = "forward_to")
+    private String forwardTo;
+
     @Column(name = "updated_at")
     private Long updatedAt;
 
