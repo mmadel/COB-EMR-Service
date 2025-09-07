@@ -87,7 +87,7 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
     private boolean authorizedNote(String loggedInUser , MedicalNote note){
-        return (loggedInUser.equals(note.getCreatedBy()));
+        return (loggedInUser.equals(note.getCreatedBy()) || (note.getForwardTo() !=null && loggedInUser.equals(note.getForwardTo())));
     }
 
     private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
