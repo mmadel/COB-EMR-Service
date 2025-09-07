@@ -10,6 +10,8 @@ import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.usecases.medical.note.finder.FindParentMedicalNote;
+import com.cob.emr.usecases.medical.note.updater.objective.ResetAssessmentUseCase;
+import com.cob.emr.usecases.medical.note.updater.objective.ResetEvaluationReEvaluationCodeUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +20,14 @@ import java.util.Optional;
 @Component
 public class DailyNoteCreator implements MedicalNoteCreator {
     @Autowired
-    FindParentMedicalNote findParentMedicalNote;
+    private FindParentMedicalNote findParentMedicalNote;
+
     @Autowired
-    MedicalNoteRepository medicalNoteRepository;
+    private MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    private ResetEvaluationReEvaluationCodeUseCase resetEvaluationReEvaluationCodeUseCase;
+    @Autowired
+    private ResetAssessmentUseCase resetAssessmentUseCase;
 
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
         MedicalNote medicalNote = find(medicalNoteRequest.getCaseId());
@@ -53,6 +60,14 @@ public class DailyNoteCreator implements MedicalNoteCreator {
             createFromDailyNote(dailyNote, (DailyNote) medicalNote);
         else
             createParentNote(dailyNote, medicalNote);
+        //reset UntimedCodes val and re-val code
+        Object objective = resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(dailyNote.getObjective());
+        if (objective != null)
+            dailyNote.setObjective(objective);
+        //reset Assessment Diagnosis values
+        Object assessment = resetAssessmentUseCase.resetDiagnosis(dailyNote.getAssessment());
+        if (assessment != null)
+            dailyNote.setAssessment(assessment);
         return dailyNote;
     }
 
