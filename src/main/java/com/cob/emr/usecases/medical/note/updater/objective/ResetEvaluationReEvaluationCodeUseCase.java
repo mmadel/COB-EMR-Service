@@ -9,7 +9,7 @@ import java.util.Map;
 @Component
 public class ResetEvaluationReEvaluationCodeUseCase {
     private static final ObjectMapper mapper = new ObjectMapper();
-    public Object updateUntimedCodes(Object obj) {
+    public Object resetUntimedCodes(Object obj) {
         if (obj == null) {
             return null;
         }
