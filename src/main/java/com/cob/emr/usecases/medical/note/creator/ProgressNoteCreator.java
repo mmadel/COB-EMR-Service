@@ -50,17 +50,18 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
 
     private void createFromProgress(ProgressNote target, ProgressNote source) {
         target.setSubjective(source.getSubjective());
-        target.setObjective(source.getBilling());
+        target.setObjective(source.getObjective());
         target.setAssessment(source.getAssessment());
         target.setPlanOfCare(source.getPlanOfCare());
+        target.setBilling(source.getBilling());
     }
 
     private void createFromInitialEvaluation(ProgressNote target, InitialEvaluation source) {
         target.setSubjective(source.getSubjective());
-        target.setObjective(source.getBilling());
+        target.setObjective(source.getObjective());
         target.setAssessment(source.getAssessment());
         target.setPlanOfCare(source.getPlanOfCare());
-
+        target.setBilling(source.getBilling());
         Object subjective = cloneSubjectiveComplaintsUseCase.cloneComplaints(source.getSubjective());
         if(subjective !=null)
             target.setSubjective(subjective);
