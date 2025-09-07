@@ -12,7 +12,7 @@ public class ForwardMedicalNotUseCase {
     public void forward(Long medicalNoteId, String uuid){
         MedicalNote medicalNote = medicalNoteRepository.findById(medicalNoteId)
                 .orElseThrow(() -> new IllegalArgumentException("medical note note found"));
-        medicalNote.setFinalizedBy(uuid);
+        medicalNote.setForwardTo(uuid);
         medicalNoteRepository.save(medicalNote);
     }
 }
