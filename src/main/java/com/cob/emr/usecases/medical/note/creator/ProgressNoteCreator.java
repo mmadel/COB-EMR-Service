@@ -8,6 +8,7 @@ import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.usecases.medical.note.finder.FindFinalizeInitialExamNoteUseCase;
 import com.cob.emr.usecases.medical.note.finder.FindRecentProgressNoteUseCase;
+import com.cob.emr.usecases.medical.note.updater.objective.CloneSubjectiveComplaintsUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,8 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
     private FindRecentProgressNoteUseCase findRecentProgressNoteUseCase;
     @Autowired
     private FindFinalizeInitialExamNoteUseCase findFinalizeInitialExamNoteUseCase;
-
+    @Autowired
+    CloneSubjectiveComplaintsUseCase cloneSubjectiveComplaintsUseCase;
     @Override
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
         MedicalNote medicalNote = getProperMedicalNote(medicalNoteRequest.getCaseId());
@@ -58,5 +60,9 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
         target.setObjective(source.getBilling());
         target.setAssessment(source.getAssessment());
         target.setPlanOfCare(source.getPlanOfCare());
+
+        Object subjective = cloneSubjectiveComplaintsUseCase.cloneComplaints(source.getSubjective());
+        if(subjective !=null)
+            target.setSubjective(subjective);
     }
 }
