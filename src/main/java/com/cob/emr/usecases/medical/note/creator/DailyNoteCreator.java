@@ -10,6 +10,7 @@ import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.usecases.medical.note.finder.FindParentMedicalNote;
+import com.cob.emr.usecases.medical.note.updater.objective.ResetEvaluationReEvaluationCodeUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +19,12 @@ import java.util.Optional;
 @Component
 public class DailyNoteCreator implements MedicalNoteCreator {
     @Autowired
-    FindParentMedicalNote findParentMedicalNote;
+    private FindParentMedicalNote findParentMedicalNote;
+
     @Autowired
-    MedicalNoteRepository medicalNoteRepository;
+    private MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    private ResetEvaluationReEvaluationCodeUseCase resetEvaluationReEvaluationCodeUseCase;
 
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
         MedicalNote medicalNote = find(medicalNoteRequest.getCaseId());
@@ -53,6 +57,9 @@ public class DailyNoteCreator implements MedicalNoteCreator {
             createFromDailyNote(dailyNote, (DailyNote) medicalNote);
         else
             createParentNote(dailyNote, medicalNote);
+        Object objective = resetEvaluationReEvaluationCodeUseCase.updateUntimedCodes(dailyNote.getObjective());
+        if (objective != null)
+            dailyNote.setObjective(objective);
         return dailyNote;
     }
 
