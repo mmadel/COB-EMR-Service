@@ -24,11 +24,11 @@ public class FindClinicalUserWithFinalizationAuthUSeCase {
                 .get();
         return clinicalEMRUsers.stream()
                 .filter(user -> !user.getUuid().equals(uuid))
-                .filter(user -> user.getRoleScope().stream()
-                        .anyMatch(scope ->
-                                FINALIZE_MEDICAL_NOTE_ROLE.equals(scope.getRole()) &&
-                                        FINALIZE_MEDICAL_NOTE_ROLE_SCOPE.equals(scope.getScope()))
-                )
+//                .filter(user -> user.getRoleScope().stream()
+//                        .anyMatch(scope ->
+//                                FINALIZE_MEDICAL_NOTE_ROLE.equals(scope.getRole()) &&
+//                                        FINALIZE_MEDICAL_NOTE_ROLE_SCOPE.equals(scope.getScope()))
+//                )
                 .collect(Collectors.toList())
                 .stream()
                 .map(clinicalEMRUser -> mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class))
