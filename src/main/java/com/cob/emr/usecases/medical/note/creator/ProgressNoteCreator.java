@@ -6,10 +6,12 @@ import com.cob.emr.entity.medical.note.types.ProgressNote;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
+import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
 import com.cob.emr.usecases.medical.note.finder.FindFinalizeInitialExamNoteUseCase;
 import com.cob.emr.usecases.medical.note.finder.FindRecentProgressNoteUseCase;
 import com.cob.emr.usecases.medical.note.updater.objective.CloneSubjectiveComplaintsUseCase;
 import com.cob.emr.usecases.medical.note.updater.objective.ResetAssessmentUseCase;
+import com.cob.emr.usecases.medical.note.updater.objective.ResetEvaluationReEvaluationCodeUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,9 +23,12 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
     @Autowired
     private FindFinalizeInitialExamNoteUseCase findFinalizeInitialExamNoteUseCase;
     @Autowired
-    CloneSubjectiveComplaintsUseCase cloneSubjectiveComplaintsUseCase;
+    private CloneSubjectiveComplaintsUseCase cloneSubjectiveComplaintsUseCase;
     @Autowired
-    ResetAssessmentUseCase resetAssessmentUseCase;
+    private ResetAssessmentUseCase resetAssessmentUseCase;
+    @Autowired
+    private ResetEvaluationReEvaluationCodeUseCase resetEvaluationReEvaluationCodeUseCase;
+
     @Override
     public MedicalNote createNote(MedicalNoteRequest medicalNoteRequest) throws MedicalNoteException {
         MedicalNote medicalNote = getProperMedicalNote(medicalNoteRequest.getCaseId());
@@ -48,6 +53,12 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
             createFromProgress(progressNote, (ProgressNote) medicalNote);
         if (medicalNote instanceof InitialEvaluation)
             createFromInitialEvaluation(progressNote, (InitialEvaluation) medicalNote);
+
+        //reset UntimedCodes val and re-val code
+        Billing billing = (Billing) resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(progressNote.getBilling());
+        if (billing != null)
+            progressNote.setBilling(billing);
+        //reset Assessment Diagnosis values
         Object assessment = resetAssessmentUseCase.resetDiagnosis(progressNote.getAssessment());
         if (assessment != null)
             progressNote.setAssessment(assessment);
@@ -69,7 +80,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
         target.setPlanOfCare(source.getPlanOfCare());
         target.setBilling(source.getBilling());
         Object subjective = cloneSubjectiveComplaintsUseCase.cloneComplaints(source.getSubjective());
-        if(subjective !=null)
+        if (subjective != null)
             target.setSubjective(subjective);
     }
 }
