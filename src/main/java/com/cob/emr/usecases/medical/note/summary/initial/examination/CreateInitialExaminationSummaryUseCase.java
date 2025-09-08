@@ -4,6 +4,7 @@ import com.cob.emr.entity.medical.note.summary.InitialExaminationSummaryEntity;
 import com.cob.emr.entity.medical.note.summary.patient.summary.PatientSummaryModel;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.model.medical.note.finalize.init.exam.plan.InitAssessment;
 import com.cob.emr.model.medical.note.finalize.init.exam.plan.InitPlanOfCare;
 import com.cob.emr.model.medical.note.summary.soap.ObjectiveSummary;
 import com.cob.emr.model.medical.note.summary.soap.PlanOfCareSummary;
@@ -11,6 +12,7 @@ import com.cob.emr.model.medical.note.summary.soap.SubjectiveSummary;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.repositories.medical.note.summary.InitialExaminationSummaryRepository;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExaminationPlanOfCareUseCase;
+import com.cob.emr.usecases.medical.note.summary.section.assessment.CreateAssessmentSummaryUseCase;
 import com.cob.emr.usecases.medical.note.summary.section.objective.CreateObjectiveSummaryUseCase;
 import com.cob.emr.usecases.medical.note.summary.section.plan.CreatePlanOfCareSummaryUseCase;
 import com.cob.emr.usecases.medical.note.summary.section.subjective.CreateSubjectiveSummaryUseCase;
@@ -34,24 +36,30 @@ public class CreateInitialExaminationSummaryUseCase {
     CreateObjectiveSummaryUseCase createObjectiveSummaryUseCase;
     @Autowired
     CreatePlanOfCareSummaryUseCase createPlanOfCareSummaryUseCase;
+    @Autowired
+    CreateAssessmentSummaryUseCase createAssessmentSummaryUseCase;
+
     public void create(Long noteId) throws IOException {
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(noteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
         SubjectiveSummary subjectiveSummary = createSubjectiveSummaryUseCase.create(initialEvaluation.getSubjective());
         ObjectiveSummary objectiveSummary = createObjectiveSummaryUseCase.create(initialEvaluation);
         PlanOfCareSummary planOfCareSummary = createPlanOfCareSummaryUseCase.create(initialEvaluation);
+        InitAssessment assessmentSummary = createAssessmentSummaryUseCase.create(initialEvaluation);
         initialEvaluation.getPatientCase().getPatient();
-        persistEntity(subjectiveSummary, objectiveSummary,planOfCareSummary, initialEvaluation);
+        persistEntity(subjectiveSummary, objectiveSummary, planOfCareSummary, assessmentSummary, initialEvaluation);
     }
 
     private void persistEntity(SubjectiveSummary subjective,
                                ObjectiveSummary objectiveSummary,
-                               PlanOfCareSummary planOfCareSummary, InitialEvaluation initialEvaluation) {
+                               PlanOfCareSummary planOfCareSummary,
+                               InitAssessment assessmentSummary, InitialEvaluation initialEvaluation) {
         InitialExaminationSummaryEntity entity = new InitialExaminationSummaryEntity();
         entity.setNoteId(initialEvaluation.getId());
         entity.setSubjective(subjective);
         entity.setObjective(objectiveSummary);
         entity.setPlanOfCare(planOfCareSummary);
+        entity.setAssessmentSummary(assessmentSummary);
         entity.setPatientData(getPatientSummary(initialEvaluation.getPatientCase().getPatient()));
         initialExaminationSummaryRepository.save(entity);
     }

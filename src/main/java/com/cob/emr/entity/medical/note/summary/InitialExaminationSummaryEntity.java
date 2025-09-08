@@ -2,6 +2,7 @@ package com.cob.emr.entity.medical.note.summary;
 
 
 import com.cob.emr.entity.medical.note.summary.patient.summary.PatientSummaryModel;
+import com.cob.emr.model.medical.note.finalize.init.exam.plan.InitAssessment;
 import com.cob.emr.model.medical.note.summary.soap.ObjectiveSummary;
 import com.cob.emr.model.medical.note.summary.soap.PlanOfCareSummary;
 import com.cob.emr.model.medical.note.summary.soap.SubjectiveSummary;
@@ -39,6 +40,9 @@ public class InitialExaminationSummaryEntity {
     @Type(type = "json")
     private PlanOfCareSummary planOfCare;
 
+    @Column(name = "assessment_summary", columnDefinition = "json")
+    @Type(type = "json")
+    private InitAssessment assessmentSummary;
     @Column(name = "patient_date", columnDefinition = "json")
     @Type(type = "json")
     private PatientSummaryModel patientData;
