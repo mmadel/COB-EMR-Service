@@ -46,7 +46,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: d79428d0-e6eb-4288-9c87-a9d3b220b817
-            display: "null"
+            display: "Leisure: Mechanical Stresses Comment"
             name: leisureMechanicalStressesText
             parentId: 05138427-abd9-4ecc-b3ae-8d88c51c1fe7
             children: []
@@ -56,7 +56,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 2c0009b3-a9db-4de5-b638-d689a566ed6b
-            display: "null"
+            display: "Commenced as Result of Comment"
             name: commencedAsResultofText
             parentId: 1369c3ed-23b6-4631-a0ff-818540fe16ad
             children: []
@@ -71,12 +71,12 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 112d64f3-9721-4477-8323-c5170ff6a56b
-            display: "null"
+            display: "Bladder Comment"
             name: bladderText
             parentId: 2b347682-0d94-41e2-b260-38ac7da72bf2
             children: []
           - id: 86a25845-c87e-418e-9980-327cc4630ec2
-            display: "null"
+            display: "Bladder List"
             name: bladderSelect
             parentId: 2b347682-0d94-41e2-b260-38ac7da72bf2
             children: []
@@ -86,7 +86,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 7fd746cc-cf39-49fc-8e26-e2878b115ae1
-            display: "null"
+            display: "Work: Mechanical Stresses Comment"
             name: workMechanicalStressesText
             parentId: 7f14b1c5-c000-453a-a78e-dce84d9f721f
             children: []
@@ -96,12 +96,12 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 89493830-9fd2-4c41-90f1-5ee3461c8af3
-            display: "null"
+            display: "Constant Symptoms Comment"
             name: constantSymptomsText
             parentId: 844b2014-2d63-400d-bf14-f5bf0b2c33d9
             children: []
           - id: d9265e90-4f14-454a-89f9-6f7dc7535ef3
-            display: constantSymptomsSelect
+            display: "Constant Symptoms List"
             name: constantSymptomsSelect
             parentId: 844b2014-2d63-400d-bf14-f5bf0b2c33d9
             children: []
@@ -111,12 +111,12 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 30abfcec-8dff-4d7d-a8de-784f01a38631
-            display: "null"
+            display: "Intermittent Symptoms Comment"
             name: intermittentSymptomsText
             parentId: 9314e8a6-2012-445d-9d63-c7bc5c86fae0
             children: []
           - id: 9bddda90-e433-41e3-b843-8c15ea8e1788
-            display: intermittentSymptomsSelect
+            display: "Intermittent Symptoms List"
             name: intermittentSymptomsSelect
             parentId: 9314e8a6-2012-445d-9d63-c7bc5c86fae0
             children: []
@@ -126,7 +126,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 4f9129bf-d009-41f3-a41b-f78b45cfdad4
-            display: "null"
+            display: "Present Symptoms Comment"
             name: presentSymptomsSelect
             parentId: aeb93d83-4bc8-4df0-a7c6-0bcd428b0883
             children: []
@@ -136,12 +136,12 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: c321a9da-c2d7-4db1-a923-1cd00e32cc91
-            display: "null"
+            display: "Symptoms at Onset List"
             name: symptomsAtOnsetSelect
             parentId: ddf4d52b-7da9-4fe8-9561-b83b5adea294
             children: []
           - id: e3affc46-7f86-4255-ba50-47279d392c76
-            display: "null"
+            display: "Symptoms at Onset Comment"
             name: symptomsAtOnsetText
             parentId: ddf4d52b-7da9-4fe8-9561-b83b5adea294
             children: []
@@ -151,7 +151,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: 88bd6950-eab1-43f0-a97f-be0b3dba3397
-            display: "null"
+            display: "Functional Disability Score Comment"
             name: functionalDisabilityScoreText
             parentId: e1d3b1c7-50ff-4792-8a69-ab5a1a23542a
             children: []
@@ -161,7 +161,7 @@ fields:
         parentId: 2a6268e0-ee6b-43c8-80b0-50f4880081ff
         children:
           - id: d2549a56-f996-45b4-9a1a-fc1852f34a4a
-            display: "null"
+            display: "Functional Disability From Present Episode Comment"
             name: functionalDisabilityFromPresentEpisodeText
             parentId: fa83d9ea-f63d-474f-8609-e81d7b6488ce
             children: []
@@ -171,7 +171,7 @@ fields:
     parentId: null
     children:
       - id: 6224c7f0-c8c5-4bb7-9996-754bb4c6b196
-        display: "null"
+        display: "Specific Physician Orders Comment"
         name: specificPhysicianOrdersText
         parentId: 356e8104-4838-4b98-812a-b12319b8f1ba
         children: []

@@ -7,6 +7,8 @@ import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExamin
 import com.cob.emr.usecases.medical.note.post.init.note.plan.ReadPlanCategorisesUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.CreateInitialExaminationScoreUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.ReadActiveOMTTestUseCase;
+import com.cob.emr.usecases.medical.note.summary.initial.examination.CreateInitialExaminationSummaryUseCase;
+import com.cob.emr.usecases.medical.note.summary.reader.SubjectiveReaderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -36,6 +38,10 @@ public class TestController {
     CreateInitialExaminationPlanOfCareUseCase createInitialExaminationPlanOfCareUseCase;
     @Autowired
     CreateInitialExaminationAssessmentUseCase createInitialExaminationAssessmentUseCase;
+    @Autowired
+    SubjectiveReaderService subjectiveReaderService;
+    @Autowired
+    CreateInitialExaminationSummaryUseCase createInitialExaminationSummaryUseCase;
 
     @GetMapping("/id")
     public ResponseEntity getId(@RequestParam String section,
@@ -63,6 +69,15 @@ public class TestController {
     public ResponseEntity readOMTTest() throws IOException, IOException {
         return ResponseEntity.ok()
                 .body(readActiveOMTTestUseCase.read());
+    }
+
+    @GetMapping("/read/test/{noteId}")
+    public ResponseEntity readTest(@PathVariable Long noteId) throws IOException, IOException {
+//        String fileWithExt = fileName + ".yaml";
+//        return ResponseEntity.ok()
+//                .body(subjectiveReaderService.loadYaml(fileWithExt));
+        return  ResponseEntity.ok()
+                .body(createInitialExaminationSummaryUseCase.create(noteId));
     }
 
 }
