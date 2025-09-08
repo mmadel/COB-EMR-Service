@@ -3,7 +3,6 @@ package com.cob.emr.model.medical.note.summary.soap;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 @Setter
@@ -11,4 +10,5 @@ import java.util.Map;
 public class SubjectiveSummary {
     private Map<String, Object> basicInformation;
     private Map<String, Object> pain;
+    private Map<String, Object> priorFunction;
 }

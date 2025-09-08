@@ -240,7 +240,7 @@ fields:
         parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
         children: []
       - id: b292f9d1-9d78-4ee3-b129-81b9168b4e7a
-        display: IADLs
+        display: IADLs Self Care
         name: iadlsSelfCarePriorLevelOfFunction
         parentId: 88026f85-d6fa-4ad3-95f2-2c0761d1b4e8
         children:
@@ -340,7 +340,7 @@ fields:
         parentId: a42e435d-5445-4585-b195-6ee50a41e27d
         children: []
       - id: 43b4e420-c586-401d-98c1-8d3029c28b87
-        display: IADLs
+        display: IADLs Carrying, Moving and Handling Objects
         name: iadlsCarryingMovingAndHandlingObjectsPriorLevelOfFunction
         parentId: a42e435d-5445-4585-b195-6ee50a41e27d
         children:
@@ -565,7 +565,7 @@ fields:
         parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
         children: []
       - id: 794382ba-c451-45c6-a63f-fd5b07457948
-        display: IADLs
+        display: IADLs Mobility Walking and Moving Around
         name: iadlsMobilityWalkingAndMovingAroundPriorLevelOfFunction
         parentId: dfa12f89-b227-4a6f-aacf-b558e15930ec
         children:
@@ -700,7 +700,7 @@ fields:
             parentId: 029cd294-1618-49b9-a8aa-8fa93c6f67b3
             children: []
       - id: 65ca1bad-c1f0-4e7c-bfb3-d4e73eb2193b
-        display: IADLs
+        display: IADLs Changing Maintaining Body Position
         name: iadlsChangingMaintainingBodyPositionPriorLevelOfFunction
         parentId: e95a7573-0bc7-484a-91ab-310a3776eb97
         children:
