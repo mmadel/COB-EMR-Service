@@ -1,0 +1,45 @@
+Medical History:
+  Previous History of Similar Symptoms:
+    Previous Episodes of Same Complaints:
+      - "Age Range"
+      - "Year of First Episode"
+    Previous Treatments for Similar Symptoms:
+      - "Previous Treatments for Similar Symptoms Comment"
+    General Health:
+    Occupation Social History:
+      Social History:
+        - "Social History List"
+      Occupation and Work Status:
+        - "Name of Occupation"
+        - "Status"
+        - "Duty Level"
+        - "Description"
+        - "Out of Work Since"
+        - "Return to Work Date"
+        - "Workers Compensation"
+        - "Litigation"
+      Home Layout:
+        - "Home Layout List"
+        - "Home Layout Comment"
+      Durable Medical Equipment:
+        - "Durable Medical Equipment List"
+        - "Durable Medical Equipment Comment"
+      Is Patient A Tobacco User:
+        - "Does patient smoke cigarettes and or use other forms of tobacco:"
+    Home Health Care:
+      - "Home Health Care Comment"
+    History of Falls:
+      - "Risk Assessment"
+      - "Falls Documented:Do you have documentation that supports the patient's fall history"
+    Medical History:
+    Diagnostic Testing/Imaging:
+    Complicating/Personal Factors:
+    Medical History Review:
+    Mental Status/Cognitive Function Appears Impaired:
+      - "Mental Status/Cognitive Function Appears Impaired Comment"
+    Unexplained Weight Loss:
+    Current Medications:
+    Patient Goals:
+
+
+

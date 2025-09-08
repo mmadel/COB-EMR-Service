@@ -15,7 +15,7 @@ fields:
     parentId: null
     children:
       - id: 53722eea-eaf8-42d3-8875-4caf8eb04d3b
-        display: "null"
+        display: "Home Health Care Comment"
         name: homeHealthCareTextHomeHealthCareMedicalHistory
         parentId: 46be3044-750b-47d1-b44b-f6b69264f952
         children: []
@@ -82,7 +82,7 @@ fields:
         parentId: 6d5b4f59-ffdd-4f45-8e94-2e7a3f58b427
         children:
           - id: ed48426a-68da-4a2b-bb77-5fa652e81948
-            display: "null"
+            display: Previous Treatments for Similar Symptoms Comment
             name: commentPreviousTreatmentsForSimilarSymptomsPreviousHistoryOfSimilarSymptomsMedicalHistory
             parentId: f1fbde91-44b4-4868-9093-27ec1af155d9
             children: []
@@ -142,12 +142,12 @@ fields:
         parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
         children:
           - id: 77a12960-52a4-4c66-9c05-1af49ccdc59b
-            display: "null"
+            display: "Home Layout Comment"
             name: homeLayoutTextHomeLayoutOccupationSocialHistoryMedicalHistory
             parentId: 187d13b2-8cfe-495f-9e13-811c49eff543
             children: []
           - id: e5d2a8bc-322a-4035-80a4-ed7a060b4ee3
-            display: "null"
+            display: "Home Layout List"
             name: homeLayoutSelectHomeLayoutOccupationSocialHistoryMedicalHistory
             parentId: 187d13b2-8cfe-495f-9e13-811c49eff543
             children: []
@@ -157,12 +157,12 @@ fields:
         parentId: 74eb162c-e863-4346-86a4-d6e7b0e3413e
         children:
           - id: 4ef1468c-624d-49cd-b2d1-1b16e434de88
-            display: Durable Medical Equipment Select
+            display: "Durable Medical Equipment List"
             name: durableMedicalEquipmentSelectDurableMedicalEquipmentOccupationSocialHistoryMedicalHistory
             parentId: 3df3891a-9988-4345-bb50-9e5d5d084164
             children: []
           - id: b21a62ea-e551-4a01-96ae-06495548d1b6
-            display: "null"
+            display: "Durable Medical Equipment Comment"
             name: durableMedicalEquipmentTextDurableMedicalEquipmentOccupationSocialHistoryMedicalHistory
             parentId: 3df3891a-9988-4345-bb50-9e5d5d084164
             children: []
@@ -233,7 +233,7 @@ fields:
     parentId: null
     children:
       - id: 7b57919a-8aa1-4ce9-8e79-aefe1ee7b9e3
-        display: "null"
+        display: "Mental Status/Cognitive Function Appears Impaired Comment"
         name: mentalStatusCognitiveFunctionAppearsImpairedTxtMentalStatusCognitiveFunctionAppearsImpairedMedicalHistory
         parentId: e888a0bb-8690-4fdf-9c33-062c56a3997a
         children: []

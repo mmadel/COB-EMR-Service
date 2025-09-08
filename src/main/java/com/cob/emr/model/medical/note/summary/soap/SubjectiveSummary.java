@@ -12,4 +12,5 @@ public class SubjectiveSummary {
     private Map<String, Object> pain;
     private Map<String, Object> priorFunction;
     private Map<String, Object> currentFunction;
+    private Map<String, Object> medicalHistory;
 }

@@ -18,6 +18,7 @@ public class CreateSubjectiveSummaryUseCase {
     private final String PAIN_CATEGORY = "pain";
     private final String PRIOR_FUNCTION_CATEGORY = "prior_level_of_function";
     private final String CURRENT_FUNCTION_CATEGORY = "current_functional_limitations";
+    private final String MEDICAL_HISTORY_CATEGORY = "medical_history";
     private final String FUNCTION_FIELD_FILE = "prior.function" + ".yaml";
 
     @Autowired
@@ -33,6 +34,7 @@ public class CreateSubjectiveSummaryUseCase {
         subjectiveSummary.setPain(constructPain(subjective.getPain()));
         subjectiveSummary.setPriorFunction(constructPriorLevelOfFunction(subjective.getPriorFunction()));
         subjectiveSummary.setCurrentFunction(constructCurrentFunction(subjective.getCurrentFunction()));
+        subjectiveSummary.setMedicalHistory(constructMedicalHistory(subjective.getMedicalHistory()));
         return subjectiveSummary;
     }
 
@@ -67,12 +69,19 @@ public class CreateSubjectiveSummaryUseCase {
         return fieldProcessorService.processFields(fields, priorFunction, SECTION, PRIOR_FUNCTION_CATEGORY);
     }
     private Map<String, Object> constructCurrentFunction(CurrentFunction currentFunction) throws IOException {
-
         Map<String, Object> currentFunctionData = subjectiveReaderService.loadYaml(FUNCTION_FIELD_FILE);
         Map.Entry<String, Object> entry = currentFunctionData.entrySet().iterator().next();
         String key = entry.getKey();
         Map<String, Object> fields = (Map<String, Object>) entry.getValue();
         return fieldProcessorService.processFields(fields, currentFunction, SECTION, CURRENT_FUNCTION_CATEGORY);
+    }
+    private Map<String, Object> constructMedicalHistory(MedicalHistory medicalHistory) throws IOException {
+        String file = "medical_history" + ".yaml";
+        Map<String, Object> medicalHistoryData = subjectiveReaderService.loadYaml(file);
+        Map.Entry<String, Object> entry = medicalHistoryData.entrySet().iterator().next();
+        String key = entry.getKey();
+        Map<String, Object> fields = (Map<String, Object>) entry.getValue();
+        return fieldProcessorService.processFields(fields, medicalHistory, SECTION, MEDICAL_HISTORY_CATEGORY);
     }
 
 }
