@@ -76,8 +76,9 @@ public class TestController {
 //        String fileWithExt = fileName + ".yaml";
 //        return ResponseEntity.ok()
 //                .body(subjectiveReaderService.loadYaml(fileWithExt));
+        createInitialExaminationSummaryUseCase.create(noteId);
         return  ResponseEntity.ok()
-                .body(createInitialExaminationSummaryUseCase.create(noteId));
+                .build();
     }
 
 }
