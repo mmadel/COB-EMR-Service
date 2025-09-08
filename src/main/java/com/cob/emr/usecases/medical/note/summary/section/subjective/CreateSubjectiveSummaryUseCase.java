@@ -1,4 +1,4 @@
-package com.cob.emr.usecases.medical.note.summary.initial.examination.sction.subjective;
+package com.cob.emr.usecases.medical.note.summary.section.subjective;
 
 import com.cob.emr.model.medical.note.summary.soap.SubjectiveSummary;
 import com.cob.emr.model.medical.note.types.initial.evaluation.subjective.*;
