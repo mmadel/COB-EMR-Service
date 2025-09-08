@@ -1,0 +1,140 @@
+Prior Function:
+  Self Care:
+    Hygiene:
+      Grooming:
+        - "Washing Body Parts"
+        - "Washing Whole Body"
+        - "Drying Oneself"
+        - "Caring for Skin"
+        - "Caring for Teeth"
+        - "Caring for Hair"
+        - "Caring for Nails Toe And Finger"
+      Looking After One's Health:
+        - "Maintaining Balanced Diet"
+        - "Keeping Warm"
+        - "Keeping Cool"
+        - "Getting Immunizations"
+        - "Getting Regular Physical Examinations"
+      Dressing:
+        - "Putting on Clothes"
+        - "Putting on Footwear"
+        - "Putting on Appropriate Clothing"
+        - "Removing Clothes"
+      Bathing:
+        - "Showering"
+        - "Washing Body Parts"
+        - "Drying Oneself"
+      Toileting:
+        - "Regulating Urination"
+        - "Regulating Defecation"
+        - "Regulating Menstrual Care"
+    Sleep:
+      Sleeping Postures:
+        - "Prone"
+        - "Supine"
+        - "Side R"
+        - "Side L"
+      Surface:
+       - "Firm"
+       - "Soft"
+       - "Sag"
+       - "Custom"
+      Disturbed Sleep:
+      Pillows:
+    IADLs Self Care:
+      - "Shopping"
+      - "Food Preparation"
+      - "Housekeeping"
+      - "Laundry"
+      - "Mode of Transportation"
+      - "Responsibility for Own Medications"
+      - "Ability to Handle Finances"
+    Household Chores:
+      - "Cook a Meal"
+      - "Laundry"
+    Drive Community Distance:
+    Volunteering:
+    Caregiving:
+  Mobility Walking and Moving Around:
+    IADLs Mobility Walking and Moving Around:
+      - "Shopping"
+      - "Food Preparation"
+      - "Housekeeping"
+      - "Laundry"
+      - "Mode of Transportation"
+      - "Responsibility for Own Medications"
+      - "Ability to Handle Finances"
+    Use of an Assistive Device:
+        - "Walking"
+        - "Forward"
+        - "Backward"
+        - "Sideways"
+        - "Strolling"
+        - "Walking on Different Surfaces"
+        - "Walking Around Obstacles"
+    Moving Around:
+        - "Climbing"
+        - "Running"
+        - "Jogging"
+        - "Skipping"
+        - "Jumping"
+        - "Swimming"
+    Moving Around in Different Locations:
+        - "Walking Between Rooms"
+        - "Walking Down the Street"
+        - "Walking Within a Building"
+        - "Moving Around Using Equipment"
+        - "Moving Around Using Transportation"
+    Negotiate Obstacles:
+      - "Bumped in Crowded Streets"
+      - "Terrain"
+  Changing Maintaining Body Position:
+    Maintaining a Body Position:
+      - "Remaining Seated"
+      - "Remaining Standing"
+      - "Squatting"
+      - "Kneeling"
+      - "Sitting"
+      - "Standing"
+    Transfers:
+      - "Moving From Bed to Chair"
+      - "Sliding Along a Bench"
+    IADLs Changing Maintaining Body Position:
+      - "Ability to Use Telephone"
+      - "Shopping"
+      - "Food Preparation"
+      - "Housekeeping"
+      - "Laundry"
+      - "Mode of Transportation"
+      - "Responsibility for Own Medications"
+      - "Ability to Handle Finances"
+  Carrying, Moving and Handling Objects:
+    IADLs Carrying, Moving and Handling Objects:
+      - "Ability to Use Telephone"
+      - "Shopping"
+      - "Food Preparation"
+      - "Housekeeping"
+      - "Laundry"
+      - "Mode of Transportation"
+      - "Responsibility for Own Medications"
+      - "Ability to Handle Finances"
+    Hand and Arm Use:
+      - "Pulling Objects"
+      - "Pushing Objects"
+      - "Reaching"
+      - "Turning Hands or Arms"
+      - "Twisting Hands or Arms"
+      - "Throwing"
+      - "Catching"
+    Fine Hand Use:
+      - "Picking Up"
+      - "Grasping"
+      - "Manipulating"
+      - "Releasing"
+    Moving Objects with Lower Extremities:
+      - "Kicking"
+      - "Pushing with Lower Extremities"
+    Community Integration/Access:
+    Work/Vocation/Occupation:
+    Recreation:
+      - Sports

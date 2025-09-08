@@ -35,6 +35,7 @@ public class CreateInitialExaminationPlanOfCareUseCase {
     @Autowired
     CreateInitialExaminationAssessmentUseCase createInitialExaminationAssessmentUseCase;
 
+
     public void create(InitialEvaluation initialEvaluation) throws IOException {
         InitPlanOfCare initPlanOfCare = new InitPlanOfCare();
         if (initialEvaluation.getPlanOfCare().getProcedures() != null) {
