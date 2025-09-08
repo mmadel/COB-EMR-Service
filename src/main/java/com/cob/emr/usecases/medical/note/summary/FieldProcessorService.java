@@ -67,7 +67,8 @@ public class FieldProcessorService {
             field.setAccessible(true);
             return field.get(dto);
         } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException("Error getting field value for: " + fieldName + " from class " + dto.getClass().getSimpleName(), e);
+            System.out.println("Error getting field value for: " + fieldName + " from class " + dto.getClass().getSimpleName());
+            return null;
         }
     }
 }
