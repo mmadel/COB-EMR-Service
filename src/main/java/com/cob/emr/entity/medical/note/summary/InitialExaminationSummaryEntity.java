@@ -3,6 +3,7 @@ package com.cob.emr.entity.medical.note.summary;
 
 import com.cob.emr.entity.medical.note.summary.patient.summary.PatientSummaryModel;
 import com.cob.emr.model.medical.note.summary.soap.ObjectiveSummary;
+import com.cob.emr.model.medical.note.summary.soap.PlanOfCareSummary;
 import com.cob.emr.model.medical.note.summary.soap.SubjectiveSummary;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
@@ -33,6 +34,10 @@ public class InitialExaminationSummaryEntity {
     @Column(name = "objective_summary", columnDefinition = "json")
     @Type(type = "json")
     private ObjectiveSummary objective;
+
+    @Column(name = "plan_of_care_summary", columnDefinition = "json")
+    @Type(type = "json")
+    private PlanOfCareSummary planOfCare;
 
     @Column(name = "patient_date", columnDefinition = "json")
     @Type(type = "json")
