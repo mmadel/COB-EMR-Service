@@ -45,7 +45,7 @@ public class UtilController {
         this.urls = urls;
         return urls.stream().sorted().collect(Collectors.toList());
     }
-
+    // generate proxy file
     @GetMapping(value = "/generate/proxy-file", produces = "text/plain")
     public String  generateProxyFile(@RequestParam String backendURL) {
         if (urls == null || urls.isEmpty()) {
