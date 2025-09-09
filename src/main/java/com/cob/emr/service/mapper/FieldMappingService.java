@@ -25,7 +25,7 @@ public class FieldMappingService {
     private FieldYamlWrapper loadYaml(String section, String category) throws IOException {
         String path = String.format("mappings/%s/%s.yaml",
                 section.toLowerCase(),
-                category.replace(" ", "-"));
+                category.replace(" ", "-")); //remove lowercase
         ClassPathResource resource = new ClassPathResource(path);
         return mapper.readValue(resource.getInputStream(), FieldYamlWrapper.class);
     }
