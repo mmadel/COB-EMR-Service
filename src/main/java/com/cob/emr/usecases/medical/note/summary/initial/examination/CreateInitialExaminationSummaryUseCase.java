@@ -19,6 +19,7 @@ import com.cob.emr.usecases.medical.note.summary.section.subjective.CreateSubjec
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -39,11 +40,10 @@ public class CreateInitialExaminationSummaryUseCase {
     @Autowired
     CreateAssessmentSummaryUseCase createAssessmentSummaryUseCase;
 
-    public void create(Long noteId) throws IOException {
-        InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(noteId)
-                .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
+    @Transactional
+    public void create(InitialEvaluation initialEvaluation , Long scoreId) throws IOException {
         SubjectiveSummary subjectiveSummary = createSubjectiveSummaryUseCase.create(initialEvaluation.getSubjective());
-        ObjectiveSummary objectiveSummary = createObjectiveSummaryUseCase.create(initialEvaluation);
+        ObjectiveSummary objectiveSummary = createObjectiveSummaryUseCase.create(initialEvaluation,scoreId);
         PlanOfCareSummary planOfCareSummary = createPlanOfCareSummaryUseCase.create(initialEvaluation);
         InitAssessment assessmentSummary = createAssessmentSummaryUseCase.create(initialEvaluation);
         initialEvaluation.getPatientCase().getPatient();

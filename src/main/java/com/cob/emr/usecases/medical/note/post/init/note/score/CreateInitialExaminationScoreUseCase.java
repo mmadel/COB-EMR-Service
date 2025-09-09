@@ -41,7 +41,7 @@ public class CreateInitialExaminationScoreUseCase {
         4- Convert to OMT Score Model
             convertToOMTScoresModelUseCase.convert(finalResult, omtTests)
      */
-    public List<InitOMTScore> create(InitialEvaluation initialEvaluation) throws IOException {
+    public Long create(InitialEvaluation initialEvaluation) throws IOException {
 
         Object objective = initialEvaluation.getObjective();
 
@@ -70,16 +70,18 @@ public class CreateInitialExaminationScoreUseCase {
             }
         }
         List<InitOMTScore> initOmtScores = convertToOMTScoresModelUseCase.convert(finalResult, omtTests);
+        Long savedEntityId = null;
         if (initOmtScores != null && initOmtScores.size() > 0)
-            persistEntity(initOmtScores, initialEvaluation.getId());
-        return initOmtScores;
+            savedEntityId= persistEntity(initOmtScores, initialEvaluation.getId());
+
+        return savedEntityId;
     }
 
-    private void persistEntity(List<InitOMTScore> initOmtScores, Long initializeNoteId) {
+    private Long persistEntity(List<InitOMTScore> initOmtScores, Long initializeNoteId) {
         InitialExaminationScoreEntity initialExaminationScoreEntity = new InitialExaminationScoreEntity();
         initialExaminationScoreEntity.setScoreData(initOmtScores);
         initialExaminationScoreEntity.setInitialExaminationNoteId(initializeNoteId);
-        initialExaminationScoreRepository.save(initialExaminationScoreEntity);
+        return initialExaminationScoreRepository.save(initialExaminationScoreEntity).getId();
     }
 }
 
