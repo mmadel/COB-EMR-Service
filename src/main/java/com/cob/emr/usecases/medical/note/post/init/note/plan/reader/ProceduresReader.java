@@ -22,6 +22,7 @@ public class ProceduresReader {
 
     private static final String PROCEDURES = "Procedures";
     private final String SECTION = "plan";
+
     public Map<String, List<String>> read(Procedures proceduresPlanOfCare) throws IOException {
         Map<String, List<String>> yamlProcedures = readPlanCategorisesUseCase.get(PROCEDURES);
         Map<String, List<String>> selectedProcedures = new HashMap<>();
@@ -41,7 +42,9 @@ public class ProceduresReader {
 
                 // 3️⃣ Iterate through the sub-items (e.g., ROM, Strength, Endurance, Stability)
                 for (String subItemDisplayName : entry.getValue()) {
-                    String subItemFieldName = fieldMappingService.lookupKeyByParentAndChild(SECTION, PROCEDURES,categoryDisplayName, subItemDisplayName)
+                    System.out.println("categoryDisplayName " + categoryDisplayName);
+                    System.out.println("subItemDisplayName " + subItemDisplayName);
+                    String subItemFieldName = fieldMappingService.lookupKeyByParentAndChild(SECTION, PROCEDURES, categoryDisplayName, subItemDisplayName)
                             .orElseThrow(() -> new IllegalArgumentException("Field not found: " + subItemDisplayName));
 
                     Object subItemValue = ProcedureMapper.getFieldValue(proceduresPlanOfCare, subItemFieldName);
@@ -50,8 +53,8 @@ public class ProceduresReader {
                     if (Boolean.TRUE.equals(subItemValue)) {
                         selectedSubItems.add(subItemDisplayName);
                     }
-                    if(subItemValue instanceof String){
-                        selectedSubItems.add((String) "Comment:"+subItemValue);
+                    if (subItemValue instanceof String) {
+                        selectedSubItems.add((String) "Comment:" + subItemValue);
                     }
                 }
 

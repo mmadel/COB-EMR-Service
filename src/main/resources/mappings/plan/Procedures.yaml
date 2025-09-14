@@ -470,7 +470,7 @@ fields:
     parentId: null
     children:
       - id: 53599458-11b0-4ff9-8d26-95576680afa2
-        display: Canalith Repositioning Comment
+        display: Splinting Taping Comment
         name: splintingTapingTextSplintingTapingPlan
         parentId: e99506a1-00c4-4faf-9691-327cf6808baf
         children: []
