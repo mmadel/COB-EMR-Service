@@ -19,15 +19,15 @@ public class PatientCaseAuthorizationController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<List<PatientCaseAuthorizationDTO>> create(@Valid @RequestBody List<PatientCaseAuthorizationDTO> dtos) {
+    @PostMapping("/case/{id}")
+    public ResponseEntity<List<PatientCaseAuthorizationDTO>> create(@Valid @RequestBody List<PatientCaseAuthorizationDTO> dtos, @PathVariable Long id) {
         return ResponseEntity.ok()
-                .body(service.saveOrUpdateList(dtos));
+                .body(service.saveOrUpdateList(dtos,id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<PatientCaseAuthorizationDTO>> list() {
-        List<PatientCaseAuthorizationDTO> list = service.getAll();
+    @GetMapping("/case/{id}")
+    public ResponseEntity<List<PatientCaseAuthorizationDTO>> list(@PathVariable Long id) {
+        List<PatientCaseAuthorizationDTO> list = service.getAll(id);
         return ResponseEntity.ok(list);
     }
 }

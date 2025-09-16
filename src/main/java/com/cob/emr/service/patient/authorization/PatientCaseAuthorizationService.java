@@ -1,30 +1,33 @@
 package com.cob.emr.service.patient.authorization;
 
 
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.entity.patient.authorization.PatientCaseAuthorization;
 import com.cob.emr.model.patient.authorization.PatientCaseAuthorizationDTO;
 import com.cob.emr.repositories.patient.authorization.PatientCaseAuthorizationRepository;
+import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
 public class PatientCaseAuthorizationService {
 
     private final PatientCaseAuthorizationRepository repository;
+    private final PatientCaseRepository patientCaseRepository;
+    PatientCase patientCase;
 
-    public PatientCaseAuthorizationService(PatientCaseAuthorizationRepository repository) {
+    public PatientCaseAuthorizationService(PatientCaseAuthorizationRepository repository, PatientCaseRepository patientCaseRepository) {
         this.repository = repository;
+        this.patientCaseRepository = patientCaseRepository;
     }
 
     @Transactional
-    public List<PatientCaseAuthorizationDTO> saveOrUpdateList(List<PatientCaseAuthorizationDTO> dtos) {
+    public List<PatientCaseAuthorizationDTO> saveOrUpdateList(List<PatientCaseAuthorizationDTO> dtos, Long patientCaseId) {
+        patientCase = patientCaseRepository.findById(patientCaseId).get();
         // Collect incoming IDs
         List<Long> incomingIds = dtos.stream()
                 .map(PatientCaseAuthorizationDTO::getId)
@@ -32,9 +35,8 @@ public class PatientCaseAuthorizationService {
                 .collect(Collectors.toList());
 
         // Find all existing records
-        List<PatientCaseAuthorization> existing = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
-
-
+        List<PatientCaseAuthorization> existing = repository.findByPatientCase_Id(patientCaseId)
+                .orElseThrow(() -> new IllegalArgumentException("Auths not found for patient case id" + patientCaseId));
         // Delete ones not in incoming list
         existing.stream()
                 .filter(e -> !incomingIds.contains(e.getId()))
@@ -51,8 +53,9 @@ public class PatientCaseAuthorizationService {
                 .collect(Collectors.toList());
     }
 
-    public List<PatientCaseAuthorizationDTO> getAll() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
+    public List<PatientCaseAuthorizationDTO> getAll(Long patientCaseId) {
+        return repository.findByPatientCase_Id(patientCaseId)
+                .orElseThrow(() -> new IllegalArgumentException("Auths not found for patient case id" + patientCaseId)).stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
 
@@ -82,6 +85,7 @@ public class PatientCaseAuthorizationService {
         entity.setAuthNumber(dto.getAuthNumber());
         entity.setInsuranceName(dto.getInsuranceName());
         entity.setInsuranceId(dto.getInsuranceId());
+        entity.setPatientCase(patientCase);
 
         return entity;
     }

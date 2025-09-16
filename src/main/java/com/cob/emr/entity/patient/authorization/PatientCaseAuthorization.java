@@ -1,6 +1,7 @@
 package com.cob.emr.entity.patient.authorization;
 
 
+import com.cob.emr.entity.patient.PatientCase;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -39,7 +40,11 @@ public class PatientCaseAuthorization {
 
     @Column(name = "insurance_id")
     private Long insuranceId;
+    @ManyToOne // Indicates a many-to-one relationship
+    @JoinColumn(name = "patient_case_id") // Specifies the foreign key column in the Student table
+    private PatientCase patientCase;
 
     // Constructors
-    public PatientCaseAuthorization() {}
+    public PatientCaseAuthorization() {
+    }
 }
