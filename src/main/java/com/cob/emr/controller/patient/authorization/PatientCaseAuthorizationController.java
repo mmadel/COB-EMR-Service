@@ -20,22 +20,14 @@ public class PatientCaseAuthorizationController {
     }
 
     @PostMapping
-    public ResponseEntity<PatientCaseAuthorizationDTO> create(@Valid @RequestBody PatientCaseAuthorizationDTO dto) {
-        PatientCaseAuthorizationDTO created = service.create(dto);
-        return ResponseEntity.ok(created);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<PatientCaseAuthorizationDTO> update(
-            @PathVariable Long id,
-            @Valid @RequestBody PatientCaseAuthorizationDTO dto) {
-        PatientCaseAuthorizationDTO updated = service.update(id, dto);
-        return ResponseEntity.ok(updated);
+    public ResponseEntity<List<PatientCaseAuthorizationDTO>> create(@Valid @RequestBody List<PatientCaseAuthorizationDTO> dtos) {
+        return ResponseEntity.ok()
+                .body(service.saveOrUpdateList(dtos));
     }
 
     @GetMapping
     public ResponseEntity<List<PatientCaseAuthorizationDTO>> list() {
-        List<PatientCaseAuthorizationDTO> list = service.listAll();
+        List<PatientCaseAuthorizationDTO> list = service.getAll();
         return ResponseEntity.ok(list);
     }
 }

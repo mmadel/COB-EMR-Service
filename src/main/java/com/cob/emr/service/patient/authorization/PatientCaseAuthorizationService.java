@@ -6,10 +6,10 @@ import com.cob.emr.model.patient.authorization.PatientCaseAuthorizationDTO;
 import com.cob.emr.repositories.patient.authorization.PatientCaseAuthorizationRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-import org.springframework.http.HttpStatus;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -23,57 +23,74 @@ public class PatientCaseAuthorizationService {
         this.repository = repository;
     }
 
-    public PatientCaseAuthorizationDTO create(PatientCaseAuthorizationDTO dto) {
-        PatientCaseAuthorization entity = toEntity(dto);
-        PatientCaseAuthorization saved = repository.save(entity);
-        return toDTO(saved);
-    }
+    public List<PatientCaseAuthorizationDTO> saveOrUpdateList(List<PatientCaseAuthorizationDTO> dtos) {
+        // Convert incoming DTOs to entities
+        List<PatientCaseAuthorization> incoming = dtos.stream()
+                .map(this::mapToEntity)
+                .collect(Collectors.toList());
 
-    public PatientCaseAuthorizationDTO update(Long id, PatientCaseAuthorizationDTO dto) {
-        PatientCaseAuthorization existing = repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Authorization not found"));
-        // update fields
-        existing.setAuthName(dto.getAuthName());
-        existing.setAuthType(dto.getAuthType());
-        existing.setAuthNumber(dto.getAuthNumber());
-        existing.setEffectiveStart(dto.getEffectiveStart());
-        existing.setEffectiveEnd(dto.getEffectiveEnd());
-        existing.setInsuranceName(dto.getInsuranceName());
-        existing.setInsuranceId(dto.getInsuranceId());
-        PatientCaseAuthorization saved = repository.save(existing);
-        return toDTO(saved);
-    }
+        // Fetch all existing auths from DB
 
-    @Transactional(readOnly = true)
-    public List<PatientCaseAuthorizationDTO> listAll() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .map(this::toDTO)
+        List<PatientCaseAuthorization> existing = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
+        ;
+
+        // Determine IDs present in the incoming list
+        Set<Long> incomingIds = incoming.stream()
+                .map(PatientCaseAuthorization::getId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+
+        // Delete entities not present in incoming list
+        List<PatientCaseAuthorization> toDelete = existing.stream()
+                .filter(e -> e.getId() != null && !incomingIds.contains(e.getId()))
+                .collect(Collectors.toList());
+
+        if (!toDelete.isEmpty()) {
+            repository.deleteAll(toDelete);
+        }
+
+        // Save new/updated entities
+        List<PatientCaseAuthorization> saved = StreamSupport.stream(repository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+
+        // Return as DTOs
+        return saved.stream()
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    // Mapping helpers
-    private PatientCaseAuthorizationDTO toDTO(PatientCaseAuthorization e) {
-        PatientCaseAuthorizationDTO d = new PatientCaseAuthorizationDTO();
-        d.setId(e.getId());
-        d.setAuthName(e.getAuthName());
-        d.setAuthType(e.getAuthType());
-        d.setAuthNumber(e.getAuthNumber());
-        d.setEffectiveStart(e.getEffectiveStart());
-        d.setEffectiveEnd(e.getEffectiveEnd());
-        d.setInsuranceName(e.getInsuranceName());
-        d.setInsuranceId(e.getInsuranceId());
-        return d;
+    public List<PatientCaseAuthorizationDTO> getAll() {
+        return StreamSupport.stream(repository.findAll().spliterator(), false)
+                .map(this::mapToDTO)
+                .collect(Collectors.toList());
+
     }
 
-    private PatientCaseAuthorization toEntity(PatientCaseAuthorizationDTO d) {
-        PatientCaseAuthorization e = new PatientCaseAuthorization();
-        e.setAuthName(d.getAuthName());
-        e.setAuthType(d.getAuthType());
-        e.setAuthNumber(d.getAuthNumber());
-        e.setEffectiveStart(d.getEffectiveStart());
-        e.setEffectiveEnd(d.getEffectiveEnd());
-        e.setInsuranceName(d.getInsuranceName());
-        e.setInsuranceId(d.getInsuranceId());
-        return e;
+    private PatientCaseAuthorizationDTO mapToDTO(PatientCaseAuthorization entity) {
+        PatientCaseAuthorizationDTO dto = new PatientCaseAuthorizationDTO();
+        dto.setId(entity.getId());
+        dto.setAuthName(entity.getAuthName());
+        dto.setEffectiveStart(entity.getEffectiveStart());
+        dto.setEffectiveEnd(entity.getEffectiveEnd());
+        dto.setAuthType(entity.getAuthType());
+        dto.setAuthNumber(entity.getAuthNumber());
+        dto.setInsuranceName(entity.getInsuranceName());
+        dto.setInsuranceId(entity.getInsuranceId());
+        return dto;
+    }
+
+    private PatientCaseAuthorization mapToEntity(PatientCaseAuthorizationDTO dto) {
+        PatientCaseAuthorization entity = new PatientCaseAuthorization();
+
+        entity.setId(dto.getId());  // important for update vs create
+        entity.setAuthName(dto.getAuthName());
+        entity.setEffectiveStart(dto.getEffectiveStart());
+        entity.setEffectiveEnd(dto.getEffectiveEnd());
+        entity.setAuthType(dto.getAuthType());
+        entity.setAuthNumber(dto.getAuthNumber());
+        entity.setInsuranceName(dto.getInsuranceName());
+        entity.setInsuranceId(dto.getInsuranceId());
+
+        return entity;
     }
 }
