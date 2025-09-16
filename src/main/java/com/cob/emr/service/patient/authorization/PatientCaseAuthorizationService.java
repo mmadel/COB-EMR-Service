@@ -23,37 +23,29 @@ public class PatientCaseAuthorizationService {
         this.repository = repository;
     }
 
+    @Transactional
     public List<PatientCaseAuthorizationDTO> saveOrUpdateList(List<PatientCaseAuthorizationDTO> dtos) {
-        // Convert incoming DTOs to entities
-        List<PatientCaseAuthorization> incoming = dtos.stream()
-                .map(this::mapToEntity)
+        // Collect incoming IDs
+        List<Long> incomingIds = dtos.stream()
+                .map(PatientCaseAuthorizationDTO::getId)
+                .filter(id -> id != null)
                 .collect(Collectors.toList());
 
-        // Fetch all existing auths from DB
-
+        // Find all existing records
         List<PatientCaseAuthorization> existing = StreamSupport.stream(repository.findAll().spliterator(), false).collect(Collectors.toList());
-        ;
 
-        // Determine IDs present in the incoming list
-        Set<Long> incomingIds = incoming.stream()
-                .map(PatientCaseAuthorization::getId)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
 
-        // Delete entities not present in incoming list
-        List<PatientCaseAuthorization> toDelete = existing.stream()
-                .filter(e -> e.getId() != null && !incomingIds.contains(e.getId()))
+        // Delete ones not in incoming list
+        existing.stream()
+                .filter(e -> !incomingIds.contains(e.getId()))
+                .forEach(repository::delete);
+
+        // Save new or updated records
+        List<PatientCaseAuthorization> saved = dtos.stream()
+                .map(this::mapToEntity) // ensures id is set if exists
+                .map(repository::save)
                 .collect(Collectors.toList());
 
-        if (!toDelete.isEmpty()) {
-            repository.deleteAll(toDelete);
-        }
-
-        // Save new/updated entities
-        List<PatientCaseAuthorization> saved = StreamSupport.stream(repository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-
-        // Return as DTOs
         return saved.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
