@@ -59,11 +59,9 @@ public class TempController {
                 .build();
     }
 
-    @GetMapping("/count/case/{caseId}")
-    public ResponseEntity findAll(@PathVariable("caseId") Long caseId,
-                                  @RequestParam(name = "dos") String dos,
-                                  @RequestParam(name = "tz") String zoneIdString) {
-        updatePatientCaseAuthorizationUseCase.update(dos, caseId, zoneIdString);
+    @GetMapping("/count/noteId/{noteId}")
+    public ResponseEntity findAll(@PathVariable("noteId") Long noteId) {
+        updatePatientCaseAuthorizationUseCase.update(noteId);
         return ResponseEntity.ok()
                 .build();
 
