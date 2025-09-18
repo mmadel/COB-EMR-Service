@@ -8,6 +8,7 @@ import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
+import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,8 @@ public class UpdatePatientCaseUseCase {
     PatientCaseRepository patientCaseRepository;
     @Autowired
     AppointmentRepository appointmentRepository;
-
+    @Autowired
+    ClinicalEMRUserRepository clinicalEMRUserRepository;
     @Transactional
     public void update(PatientModel model, Patient patient) throws PatientCaseException {
 
@@ -45,6 +47,8 @@ public class UpdatePatientCaseUseCase {
         if (!addedItems.isEmpty()) {
             addedItems.forEach(patientCaseModel -> {
                 PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
+                patientCase.setClinicalEMRUser(clinicalEMRUserRepository.findById(patientCaseModel.getTherapist())
+                        .orElseThrow(() -> new IllegalArgumentException("Therapist Not Found for id " +patientCaseModel.getTherapist() )));
                 patient.addCase(patientCase);
             });
         }
@@ -67,7 +71,9 @@ public class UpdatePatientCaseUseCase {
                 .filter(item -> item.getId() == null)
                 .collect(Collectors.toList());
     }
+    private void getClinicalEMRUser(Long id){
 
+    }
     protected List<Long> findDeleted(List<Long> updated, List<Long> original) {
         return original.stream()
                 .filter(item -> !updated.contains(item))

@@ -27,10 +27,6 @@ public class PatientCase {
     @Column(name = "place_of_service")
     private PlaceOfService placeOfService;
 
-    @Column(name = "treating_doctor", columnDefinition = "json")
-    @Type(type = "json")
-    private TreatingDoctorModel treatingDoctor;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "injury_case")
     private InjuryCase injuryCase;
