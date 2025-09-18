@@ -4,11 +4,13 @@ import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
 import com.cob.emr.entity.patient.Patient;
 import com.cob.emr.entity.patient.authorization.PatientCaseAuthorization;
+import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.cases.PatientCaseAuthorizationData;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
+import com.cob.emr.model.patient.cases.TreatingDoctorModel;
 import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
@@ -119,6 +121,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                         caseModel.setPatientRecordActions(actions);
                         PatientCaseAuthorizationData authorizationData = populatePatientCaseAuthorization(patientCase.getId(), patientCase.getAuthorizationCounter());
                         caseModel.setAuthorizationData(authorizationData);
+                        fillPatientTherapist(patientCase.getClinicalEMRUser(),caseModel);
                         return caseModel;
                     })
                     .collect(Collectors.toList()));
@@ -145,5 +148,13 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                     .build();
         } else
             return null;
+    }
+    private void fillPatientTherapist(ClinicalEMRUser clinicalEMRUser , PatientCaseModel patientCaseModel){
+        TreatingDoctorModel treatingDoctorModel = new TreatingDoctorModel();
+        treatingDoctorModel.setFirstName(clinicalEMRUser.getFirstName());
+        treatingDoctorModel.setMiddleName(clinicalEMRUser.getMiddleName());
+        treatingDoctorModel.setLastName(clinicalEMRUser.getLastName());
+        treatingDoctorModel.setNPI(clinicalEMRUser.getNpi());
+        patientCaseModel.setTreatingDoctor(treatingDoctorModel);
     }
 }
