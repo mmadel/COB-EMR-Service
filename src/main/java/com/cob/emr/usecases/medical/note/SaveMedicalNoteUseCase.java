@@ -51,6 +51,7 @@ public class SaveMedicalNoteUseCase {
             initialEvaluation.setBilling(request.getBilling());
         if (request.getObjective() != null)
             initialEvaluation.setObjective(request.getObjective());
+        initialEvaluation.setDateOfService(request.getDateOfService());
         medicalNoteRepository.save(initialEvaluation);
     }
 
@@ -64,6 +65,7 @@ public class SaveMedicalNoteUseCase {
             dailyNote.setPlanOfCare(request.getPlanOfCare());
         if (request.getObjective() != null)
             dailyNote.setObjective(request.getObjective());
+        dailyNote.setDateOfService(request.getDateOfService());
         medicalNoteRepository.save(dailyNote);
     }
 
@@ -79,6 +81,7 @@ public class SaveMedicalNoteUseCase {
             progressNote.setBilling(request.getBilling());
         if (request.getObjective() != null)
             progressNote.setObjective(request.getObjective());
+        progressNote.setDateOfService(request.getDateOfService());
         medicalNoteRepository.save(progressNote);
     }
 
@@ -102,6 +105,7 @@ public class SaveMedicalNoteUseCase {
             fullDischargeNote.setBilling(request.getBilling());
         if (request.getObjective() != null)
             fullDischargeNote.setObjective(request.getObjective());
+        fullDischargeNote.setDateOfService(request.getDateOfService());
         medicalNoteRepository.save(fullDischargeNote);
     }
 }

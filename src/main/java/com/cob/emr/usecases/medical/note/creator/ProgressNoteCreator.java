@@ -48,7 +48,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
         progressNote.setPatientCase(medicalNote.getPatientCase());
         progressNote.setType(MedicalNoteType.PROGRESS_NOTE);
         progressNote.setCreatedBy(medicalNote.getCreatedBy());
-        progressNote.setNoteDate(medicalNote.getNoteDate());
+        progressNote.setDateOfService(medicalNote.getDateOfService());
         if (medicalNote instanceof ProgressNote)
             createFromProgress(progressNote, (ProgressNote) medicalNote);
         if (medicalNote instanceof InitialEvaluation)

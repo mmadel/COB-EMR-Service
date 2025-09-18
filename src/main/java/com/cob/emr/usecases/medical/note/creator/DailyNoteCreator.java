@@ -55,7 +55,7 @@ public class DailyNoteCreator implements MedicalNoteCreator {
         dailyNote.setPatientCase(medicalNote.getPatientCase());
         dailyNote.setType(MedicalNoteType.DAILY_NOTE);
         dailyNote.setCreatedBy(medicalNote.getCreatedBy());
-        dailyNote.setNoteDate(medicalNote.getNoteDate());
+        dailyNote.setDateOfService(medicalNote.getDateOfService());
         if (medicalNote instanceof DailyNote)
             createFromDailyNote(dailyNote, (DailyNote) medicalNote);
         else

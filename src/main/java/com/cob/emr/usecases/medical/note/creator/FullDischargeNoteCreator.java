@@ -37,7 +37,7 @@ public class FullDischargeNoteCreator implements MedicalNoteCreator{
         fullDischargeNote.setPatientCase(medicalNote.getPatientCase());
         fullDischargeNote.setType(MedicalNoteType.DISCHARGE_NOTE);
         fullDischargeNote.setCreatedBy(medicalNoteRequest.getCreatedBy());
-        fullDischargeNote.setNoteDate(medicalNoteRequest.getNoteDate());
+        fullDischargeNote.setDateOfService(medicalNoteRequest.getDateOfService());
         fullDischargeNote.setSubjective(progressNote.getSubjective());
         fullDischargeNote.setObjective(progressNote.getObjective());
         fullDischargeNote.setBilling(progressNote.getBilling());

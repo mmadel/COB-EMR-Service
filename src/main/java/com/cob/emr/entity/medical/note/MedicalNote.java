@@ -46,8 +46,8 @@ public abstract class MedicalNote {
     @Column(name = "updated_at")
     private Long updatedAt;
 
-    @Column(name = "note_date")
-    private Long noteDate;
+    @Column(name = "date_of_service")
+    private Long dateOfService;
 
     @Enumerated(EnumType.STRING)
     private MedicalNoteStatus status;
