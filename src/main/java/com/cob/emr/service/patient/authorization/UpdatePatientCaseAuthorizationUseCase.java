@@ -1,6 +1,7 @@
 package com.cob.emr.service.patient.authorization;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.entity.patient.authorization.PatientCaseAuthorization;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.repositories.patient.authorization.PatientCaseAuthorizationRepository;
@@ -23,8 +24,10 @@ public class UpdatePatientCaseAuthorizationUseCase {
     MedicalNoteRepository medicalNoteRepository;
     @Autowired
     PatientCaseAuthorizationRepository patientCaseAuthorizationRepository;
+    @Autowired
+    PatientCaseRepository patientCaseRepository;
 
-    public void update( Long medicalNotId) {
+    public void update(Long medicalNotId) {
         MedicalNote medicalNote = medicalNoteRepository.findById(medicalNotId)
                 .orElseThrow(() -> new IllegalArgumentException("Medical Not is not found ID : " + medicalNotId));
         List<PatientCaseAuthorization> opt = patientCaseAuthorizationRepository.findByPatientCase_Id(medicalNote.getPatientCase().getId())
@@ -32,12 +35,21 @@ public class UpdatePatientCaseAuthorizationUseCase {
 
         PatientCaseAuthorization authorization = opt.get(0);
 
-        if(medicalNote.getDateOfService().longValue() > authorization.getEffectiveStart().longValue())
-            System.out.println("dos > auth effective date , auth counter must be increment ");
-        if(medicalNote.getDateOfService().longValue() == authorization.getEffectiveStart().longValue())
+        if (medicalNote.getDateOfService().longValue() > authorization.getEffectiveStart().longValue())
+            updateAuthorizationCounter(medicalNote.getPatientCase().getId());
+        if (medicalNote.getDateOfService().longValue() <= authorization.getEffectiveStart().longValue())
             System.out.println("dos == auth effective date , auth counter must not  be increment ");
-        if(medicalNote.getDateOfService().longValue() < authorization.getEffectiveStart().longValue())
-            System.out.println("dos < auth effective date , auth counter must not  be increment ");
+    }
 
+    private void updateAuthorizationCounter(Long caseId) {
+        PatientCase patientCase = patientCaseRepository.findById(caseId)
+                .orElseThrow(() -> new IllegalArgumentException("Patient Case is not found for id : " + caseId));
+        Long caseAuthorizationCounter = patientCase.getAuthorizationCounter();
+        if (caseAuthorizationCounter == null)
+            caseAuthorizationCounter = 1L;
+        else
+            caseAuthorizationCounter = caseAuthorizationCounter+1;
+        patientCase.setAuthorizationCounter(caseAuthorizationCounter);
+        patientCaseRepository.save(patientCase);
     }
 }
