@@ -21,7 +21,7 @@ public class InitialEvaluationCreator implements MedicalNoteCreator {
                 .orElseThrow(() -> new IllegalArgumentException("Case not found")));
         evaluation.setType(MedicalNoteType.INITIAL_EVALUATION);
         evaluation.setCreatedBy(medicalNoteRequest.getCreatedBy());
-        evaluation.setNoteDate(medicalNoteRequest.getNoteDate());
+        evaluation.setDateOfService(medicalNoteRequest.getDateOfService());
         evaluation.setSubjective(medicalNoteRequest.getSubjective());
         evaluation.setAssessment(medicalNoteRequest.getAssessment());
         evaluation.setPlanOfCare(medicalNoteRequest.getPlanOfCare());

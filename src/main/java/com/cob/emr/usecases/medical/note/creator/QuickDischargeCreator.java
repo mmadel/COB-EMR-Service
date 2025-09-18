@@ -21,7 +21,7 @@ public class QuickDischargeCreator implements MedicalNoteCreator{
                 .orElseThrow(() -> new IllegalArgumentException("Case not found")));
         quickDischargeNote.setType(MedicalNoteType.QUICK_DISCHARGE_NOTE);
         quickDischargeNote.setCreatedBy(medicalNoteRequest.getCreatedBy());
-        quickDischargeNote.setNoteDate(medicalNoteRequest.getNoteDate());
+        quickDischargeNote.setDateOfService(medicalNoteRequest.getDateOfService());
         quickDischargeNote.setDischargeDate(medicalNoteRequest.getQuickDischargeRequest().getDischargeDate());
         quickDischargeNote.setNumberOfVisits(medicalNoteRequest.getQuickDischargeRequest().getNumberOfVisits());
         quickDischargeNote.setComment(medicalNoteRequest.getQuickDischargeRequest().getComment());
