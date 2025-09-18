@@ -2,18 +2,18 @@ package com.cob.emr.service.patient.finder;
 
 import com.cob.emr.Utils.PatientUtil;
 import com.cob.emr.entity.clinic.Clinic;
-import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.patient.Patient;
-import com.cob.emr.enums.MedicalNoteStatus;
-import com.cob.emr.enums.PatientRecordAction;
+import com.cob.emr.entity.patient.authorization.PatientCaseAuthorization;
 import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.clinic.ClinicModel;
 import com.cob.emr.model.patient.PatientModel;
+import com.cob.emr.model.patient.cases.PatientCaseAuthorizationData;
 import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
+import com.cob.emr.repositories.patient.authorization.PatientCaseAuthorizationRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.usecases.patient.cases.FindPatientCasesUseCase;
 import com.cob.emr.usecases.patient.record.AssignPatientCaseRecordActionsUseCase;
@@ -48,6 +48,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
     MedicalNoteRepository medicalNoteRepository;
     @Autowired
     AssignPatientCaseRecordActionsUseCase assignPatientCaseRecordActionsUseCase;
+    @Autowired
+    PatientCaseAuthorizationRepository patientCaseAuthorizationRepository;
 
     @Override
     public PatientResponse findAll(Pageable pageable, Long clinicId) {
@@ -115,6 +117,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                         PatientCaseModel caseModel = mapper.map(patientCase, PatientCaseModel.class);
                         List<String> actions = assignPatientCaseRecordActionsUseCase.assign(patientCase.getId());
                         caseModel.setPatientRecordActions(actions);
+                        PatientCaseAuthorizationData authorizationData = populatePatientCaseAuthorization(patientCase.getId(), patientCase.getAuthorizationCounter());
+                        caseModel.setAuthorizationData(authorizationData);
                         return caseModel;
                     })
                     .collect(Collectors.toList()));
@@ -127,5 +131,19 @@ public class PatientFinderServiceImpl implements PatientFinderService {
         } else {
             throw new PatientException(HttpStatus.CONFLICT, PatientException.PATIENT_NOTFOUND, new Object[]{patientId, clinicId});
         }
+    }
+
+    private PatientCaseAuthorizationData populatePatientCaseAuthorization(Long caseId, Long counter) {
+        Optional<PatientCaseAuthorization> authorization = patientCaseAuthorizationRepository.findByPatientCase_Id(caseId)
+                .orElseThrow(() -> new IllegalArgumentException(" PatientCaseAuthorization entity not found for case : " + caseId))
+                .stream().findFirst();
+        if (authorization.isPresent()) {
+            return PatientCaseAuthorizationData.builder()
+                    .counter(counter)
+                    .numberAuthorized(authorization.get().getAuthNumber())
+                    .effectiveEndtDate(authorization.get().getEffectiveEnd())
+                    .build();
+        } else
+            return null;
     }
 }
