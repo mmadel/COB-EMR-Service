@@ -59,4 +59,6 @@ public class PatientCase {
     @JoinColumn(name="patient_id")
     private Patient patient;
 
+    @Column(name = "authorization_counter")
+    private Long authorizationCounter;
 }
