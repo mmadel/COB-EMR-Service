@@ -57,4 +57,7 @@ public class PatientCase {
 
     @Column(name = "authorization_counter")
     private Long authorizationCounter;
+
+    @Column(name = "additional_info", length = 700)
+    private String additionalInfo	;
 }

@@ -23,4 +23,5 @@ public class PatientCaseModel {
     private String therapistUUID;
     private List<String> patientRecordActions;
     private PatientCaseAuthorizationData authorizationData;
+    private String additionalInfo;
 }
