@@ -3,9 +3,11 @@ package com.cob.emr.usecases.medical.note.post.init.note;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.types.InitialEvaluation;
 import com.cob.emr.enums.MedicalNoteStatus;
+import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
+import com.cob.emr.service.patient.authorization.UpdatePatientCaseAuthorizationUseCase;
 import com.cob.emr.usecases.medical.note.creator.DailyNoteCreator;
 import com.cob.emr.usecases.medical.note.post.init.note.plan.CreateInitialExaminationPlanOfCareUseCase;
 import com.cob.emr.usecases.medical.note.post.init.note.score.CreateInitialExaminationScoreUseCase;
@@ -28,18 +30,21 @@ public class PostFinalizeInitialNoteUseCase {
     private CreateInitialExaminationScoreUseCase createInitialExaminationScoreUseCase;
     @Autowired
     private CreateInitialExaminationSummaryUseCase createInitialExaminationSummaryUseCase;
+    @Autowired
+    UpdatePatientCaseAuthorizationUseCase updatePatientCaseAuthorizationUseCase;
 
     public void execute(Long caseId, Long noteId) throws MedicalNoteException, IOException {
         MedicalNoteRequest medicalNoteRequest = new MedicalNoteRequest();
         medicalNoteRequest.setCaseId(caseId);
         MedicalNote note = dailyNoteCreator.createNote(medicalNoteRequest);
         note.setStatus(MedicalNoteStatus.Finalized);
-        medicalNoteRepository.save(note);
+        MedicalNote dailyNote = medicalNoteRepository.save(note);
+        updatePatientCaseAuthorizationUseCase.update(dailyNote.getId());
         InitialEvaluation initialEvaluation = (InitialEvaluation) medicalNoteRepository.findById(noteId)
                 .orElseThrow(() -> new IllegalArgumentException("Initial Evaluation Note Not Found"));
         Long scoreId = createInitialExaminationScoreUseCase.create(initialEvaluation);
         createInitialExaminationPlanOfCareUseCase.create(initialEvaluation);
-        createInitialExaminationSummaryUseCase.create(initialEvaluation , scoreId);
+        createInitialExaminationSummaryUseCase.create(initialEvaluation, scoreId);
 
     }
 }

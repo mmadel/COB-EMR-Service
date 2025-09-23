@@ -18,11 +18,15 @@ public class PatientCaseAuthorizationService {
 
     private final PatientCaseAuthorizationRepository repository;
     private final PatientCaseRepository patientCaseRepository;
+    private final UpdatePatientCaseAuthorizationUseCase updatePatientCaseAuthorizationUseCase;
     PatientCase patientCase;
 
-    public PatientCaseAuthorizationService(PatientCaseAuthorizationRepository repository, PatientCaseRepository patientCaseRepository) {
+    public PatientCaseAuthorizationService(PatientCaseAuthorizationRepository repository
+            , PatientCaseRepository patientCaseRepository
+            , UpdatePatientCaseAuthorizationUseCase updatePatientCaseAuthorizationUseCase) {
         this.repository = repository;
         this.patientCaseRepository = patientCaseRepository;
+        this.updatePatientCaseAuthorizationUseCase = updatePatientCaseAuthorizationUseCase;
     }
 
     @Transactional
@@ -47,7 +51,7 @@ public class PatientCaseAuthorizationService {
                 .map(this::mapToEntity) // ensures id is set if exists
                 .map(repository::save)
                 .collect(Collectors.toList());
-
+        updatePatientCaseAuthorizationUseCase.updateByCase(patientCaseId);
         return saved.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());

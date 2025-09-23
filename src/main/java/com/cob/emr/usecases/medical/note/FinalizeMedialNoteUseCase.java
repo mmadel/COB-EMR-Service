@@ -23,6 +23,7 @@ public class FinalizeMedialNoteUseCase {
     PostFinalizeInitialNoteUseCase postFinalizeInitialNoteUseCase;
     @Autowired
     UpdatePatientCaseAuthorizationUseCase updatePatientCaseAuthorizationUseCase;
+
     @Transactional
     public void finalize(FinalizeMedicalNoteRequest request) throws MedicalNoteException, IOException {
         MedicalNote medicalNote = medicalNoteRepository.findByPatientCase_IdAndId(request.getCaseId(), request.getId())
@@ -30,9 +31,10 @@ public class FinalizeMedialNoteUseCase {
         medicalNote.setFinalizedBy(request.getFinalizedBy());
         medicalNote.setStatus(MedicalNoteStatus.Finalized);
         medicalNoteRepository.save(medicalNote);
-        updatePatientCaseAuthorizationUseCase.update(request.getId());
-        if(medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION))
-            postFinalizeInitialNoteUseCase.execute(request.getCaseId(),medicalNote.getId());
+        if (request.getNoteType().equals(MedicalNoteType.DAILY_NOTE))
+            updatePatientCaseAuthorizationUseCase.update(request.getId());
+        if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION))
+            postFinalizeInitialNoteUseCase.execute(request.getCaseId(), medicalNote.getId());
 
     }
 }
