@@ -17,6 +17,8 @@ import javax.transaction.Transactional;
 public class SaveMedicalNoteUseCase {
     @Autowired
     MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    UpdateCaseDiagnosisUseCase updateCaseDiagnosisUseCase;
 
     @Transactional
     public MedicalNote draft(MedicalNoteRequest request) {
@@ -25,7 +27,7 @@ public class SaveMedicalNoteUseCase {
 
         medicalNote.setStatus(MedicalNoteStatus.Draft);
         medicalNoteRepository.save(medicalNote);
-
+        updateCaseDiagnosisUseCase.update(request.getCaseId(), request.getSubjective().getBasic());
         if (medicalNote instanceof InitialEvaluation)
             draftInitialEvaluation(medicalNote, request);
         if (medicalNote instanceof DailyNote)
