@@ -27,7 +27,8 @@ public class SaveMedicalNoteUseCase {
 
         medicalNote.setStatus(MedicalNoteStatus.Draft);
         medicalNoteRepository.save(medicalNote);
-        updateCaseDiagnosisUseCase.update(request.getCaseId(), request.getSubjective().getBasic());
+        if (request.getSubjective() != null)
+            updateCaseDiagnosisUseCase.update(request.getCaseId(), request.getSubjective().getBasic());
         if (medicalNote instanceof InitialEvaluation)
             draftInitialEvaluation(medicalNote, request);
         if (medicalNote instanceof DailyNote)
