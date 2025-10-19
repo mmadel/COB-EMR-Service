@@ -37,7 +37,7 @@ public abstract class MedicalNote {
     @Column(name = "finalized_by")
     private String finalizedBy;
 
-    @Column(name="is_forward")
+    @Column(name = "is_forward")
     private Boolean isForward;
 
     @Column(name = "forward_to")
@@ -49,6 +49,9 @@ public abstract class MedicalNote {
     @Column(name = "date_of_service")
     private Long dateOfService;
 
+    @Column(name = "visit_number")
+    private Integer visitNumber;
+
     @Enumerated(EnumType.STRING)
     private MedicalNoteStatus status;
 
@@ -56,6 +59,7 @@ public abstract class MedicalNote {
     private void beforeSaving() {
         createdAt = new Date().getTime();
     }
+
     @PreUpdate
     private void beforeUpdating() {
         updatedAt = new Date().getTime();
