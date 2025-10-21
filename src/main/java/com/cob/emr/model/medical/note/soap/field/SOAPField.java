@@ -19,4 +19,6 @@ public class SOAPField {
     private String parentField;
     private OMTFieldRequest omtFieldRequest;
     private Long inputOrder;
+    private Boolean isAll;
+    private Integer order;
 }

@@ -1,6 +1,5 @@
 package com.cob.emr.controller.medical.note;
 
-import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.FinalizeMedicalNoteRequest;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
@@ -36,9 +35,8 @@ public class MedicalNoteActionController {
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody MedicalNoteRequest request) throws MedicalNoteException {
-        MedicalNote medicalNote = createMedicalNoteUseCase.createMedicalNote(request);
         return ResponseEntity.ok()
-                .body(medicalNote.getId());
+                .body(createMedicalNoteUseCase.createMedicalNote(request));
 
     }
 
@@ -49,6 +47,7 @@ public class MedicalNoteActionController {
                 .build();
 
     }
+
     @PostMapping("/finalize")
     public ResponseEntity finalize(@RequestBody FinalizeMedicalNoteRequest request) throws MedicalNoteException, IOException {
         finalizeMedialNoteUseCase.finalize(request);

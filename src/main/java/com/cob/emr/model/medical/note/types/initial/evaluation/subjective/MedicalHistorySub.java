@@ -48,4 +48,24 @@ public class MedicalHistorySub {
     public String medical_history_TraumaticBrainInjury_txt;
     public boolean medical_history_Other;
     public String medical_history_Other_txt;
+    public boolean medical_history_Dysmenorrhea;
+    public String Dysmenorrhea_txt;
+    public boolean medical_history_endometriosis;
+    public String endometriosis_txt;
+    public boolean medical_history_fibroids;
+    public String fibroids_txt;
+    public boolean medical_history_menopause;
+    public String menopause_txt;
+    public boolean medical_history_pelvic_congesion;
+    public String pelvic_congesion_txt;
+    public boolean medical_history_pid;
+    public String pid_txt;
+    public boolean medical_history_prostate_ca;
+    public String prostate_ca_txt;
+    public boolean medical_history_pudendal_neuralgia;
+    public String pudendal_neuralgia_txt;
+    public boolean medical_history_vestibulitis;
+    public String vestibulitis_txt;
+    public boolean medical_history_vulvodynia;
+    public String vulvodynia_txt;
 }

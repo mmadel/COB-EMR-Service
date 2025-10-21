@@ -68,4 +68,13 @@ public class MedicalHistory {
     public Object unexplainedWeightLossMedicalHistory;
     public CurrentMedications currentMedicationsMedicalHistory;
     public Object patientGoalsMedicalHistory;
+    public Object pelvicFloorMedicalHistory;
+
+    public Object abusePelvicFloorMedicalHistory;
+    public Object sexualHistoryPelvicFloorMedicalHistory;
+    public Object menstrualHistoryPelvicFloorMedicalHistory;
+    public Object birthControlPelvicFloorMedicalHistory;
+    public Object pregnancyPelvicFloorMedicalHistory;
+    public Object bladderPelvicFloorMedicalHistory;
+    public Object sexualActivityPelvicFloorMedicalHistory;
 }

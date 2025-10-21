@@ -40,4 +40,6 @@ public interface MedicalNoteRepository extends JpaRepository<MedicalNote, Long> 
             MedicalNoteStatus status,
             Long patientCaseId
     );
+    @Query("SELECT MAX(m.visitNumber) FROM MedicalNote m WHERE m.patientCase.id = :caseId")
+    Integer findMaxVisitByCaseId(@Param("caseId") Long caseId);
 }
