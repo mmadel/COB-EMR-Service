@@ -31,4 +31,7 @@ public class ObjectiveProfileSOAPField {
     // Additional fields if needed
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @Column(name = "order_index")
+    private Integer orderIndex;
 }
