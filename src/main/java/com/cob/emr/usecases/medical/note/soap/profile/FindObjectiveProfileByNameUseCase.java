@@ -81,22 +81,4 @@ public class FindObjectiveProfileByNameUseCase {
                         Collectors.mapping(opf -> opf.getSoapField().getValue(), Collectors.toList())
                 ));
     }
-    public Map<String, List<SOAPField>> findFieldss(String name){
-
-        Map<Long, String> fieldIdToCategoryMap = StreamSupport.stream(soapSectionCategoryNewRepository.findAll().spliterator(),false)
-                .collect(Collectors.toList())
-                .stream()
-                .flatMap(category -> category.getFields().stream()
-                        .map(field -> new AbstractMap.SimpleEntry<>(field.getId(), category.getName()))
-                )
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-
-        List<NewSOAPFieldEntity> fields = objectiveProfileSOAPFieldRepository.findFieldsByProfileName(name);
-        return fields.stream()
-                .filter(field -> fieldIdToCategoryMap.containsKey(field.getId()))
-                .collect(Collectors.groupingBy(
-                        field -> fieldIdToCategoryMap.get(field.getId()),
-                        Collectors.mapping(NewSOAPFieldEntity::getValue, Collectors.toList())
-                ));
-    }
 }
