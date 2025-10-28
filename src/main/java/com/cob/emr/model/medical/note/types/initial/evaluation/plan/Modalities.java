@@ -47,6 +47,8 @@ public class Modalities {
     public Object laserModalitiesPlan;
 
     public Object coldLaserLaserModalitiesPlan;
+    public Object coldLaserLaserModalitiesPlanDuration;
+    public Object class4LaserLaserModalitiesPlanDuration;
 
     public Object class4LaserLaserModalitiesPlan;
 
