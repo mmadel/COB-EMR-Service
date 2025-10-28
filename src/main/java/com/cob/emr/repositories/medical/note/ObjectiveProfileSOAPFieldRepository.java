@@ -14,7 +14,15 @@ public interface ObjectiveProfileSOAPFieldRepository extends CrudRepository<Obje
     @Query("select opf.soapField from ObjectiveProfileSOAPField opf where  opf.objectiveProfile.name =:profileName")
     List<NewSOAPFieldEntity> findFieldsByProfileName(@Param("profileName") String profileName);
 
+    @Query("SELECT opf\n" +
+            "    FROM ObjectiveProfileSOAPField opf\n" +
+            "    JOIN FETCH opf.soapField sf\n" +
+            "    JOIN FETCH NewSOAPSectionCategoryEntity cat ON sf MEMBER OF cat.fields\n" +
+            "    WHERE opf.objectiveProfile.name = :profileName\n" +
+            "    ORDER BY cat.id ASC, opf.orderIndex ASC")
+    List<ObjectiveProfileSOAPField> findByProfileNameOrdered(@Param("profileName") String profileName);
+
     @Modifying
     @Query("delete from ObjectiveProfileSOAPField opf where  opf.soapField.id in :ids and opf.objectiveProfile.id =:profileId")
-    void deleteFieldsFromProfile(@Param("ids") List<Long> ids ,@Param("profileId")  Long profileId);
+    void deleteFieldsFromProfile(@Param("ids") List<Long> ids, @Param("profileId") Long profileId);
 }

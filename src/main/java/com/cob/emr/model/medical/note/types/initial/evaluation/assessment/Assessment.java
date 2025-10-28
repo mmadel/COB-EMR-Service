@@ -41,7 +41,11 @@ public class Assessment {
 
 
     public Object agreesToTheCurrentTreatmentPlanConcentAssessment;
-
+    public Object patientDemonstratesComplianceAssessment;
+    public Object patientDemonstratesCompliancenormalActivitiesAssessment;
+    public Object patientDemonstratesCompliancerestLastingFourAssessment;
+    public Object patientDemonstratesCompliancenormalActivitiesAssessmentText;
+    public Object patientDemonstratesCompliancerestLastingFourAssessmentText;
 
     public Object consentToCareAssessment;
 }
