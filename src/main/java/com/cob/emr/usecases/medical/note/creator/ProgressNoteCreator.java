@@ -7,6 +7,7 @@ import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
 import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
+import com.cob.emr.model.medical.note.types.initial.evaluation.subjective.Subjective;
 import com.cob.emr.usecases.medical.note.finder.FindFinalizeInitialExamNoteUseCase;
 import com.cob.emr.usecases.medical.note.finder.FindRecentProgressNoteUseCase;
 import com.cob.emr.usecases.medical.note.updater.objective.CloneSubjectiveComplaintsUseCase;
@@ -79,7 +80,7 @@ public class ProgressNoteCreator implements MedicalNoteCreator {
         target.setAssessment(source.getAssessment());
         target.setPlanOfCare(source.getPlanOfCare());
         target.setBilling(source.getBilling());
-        Object subjective = cloneSubjectiveComplaintsUseCase.cloneComplaints(source.getSubjective());
+        Subjective subjective = cloneSubjectiveComplaintsUseCase.cloneComplaints(source.getSubjective());
         if (subjective != null)
             target.setSubjective(subjective);
     }

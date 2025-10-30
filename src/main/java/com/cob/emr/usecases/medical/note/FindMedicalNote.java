@@ -10,16 +10,11 @@ import com.cob.emr.model.medical.note.types.discharge.QuickDischargeNoteModel;
 import com.cob.emr.model.medical.note.types.initial.evaluation.InitialExamination;
 import com.cob.emr.model.medical.note.types.progress.note.ProgressNoteModel;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
-import com.cob.emr.usecases.medical.note.creator.SetVisitToMedicalNote;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class FindMedicalNote {
@@ -27,8 +22,7 @@ public class FindMedicalNote {
     MedicalNoteRepository medicalNoteRepository;
     @Autowired
     ModelMapper mapper;
-    @Autowired
-    SetVisitToMedicalNote setVisitToMedicalNote;
+
 
 
     public IMedicalNote find(Long id) {
@@ -39,19 +33,16 @@ public class FindMedicalNote {
         if (medicalNote instanceof InitialEvaluation)
             return declareInitialEvaluation(medicalNote);
         if (medicalNote instanceof DailyNote) {
-            setVisitToMedicalNote.setVisitForNonInitialNote(medicalNote, medicalNote.getVisitNumber());
             return declareDailyNote(medicalNote);
         }
 
         if (medicalNote instanceof ProgressNote) {
-            setVisitToMedicalNote.setVisitForNonInitialNote(medicalNote, medicalNote.getVisitNumber());
             return declareProgressNote(medicalNote);
         }
 
         if (medicalNote instanceof QuickDischargeNote)
             return declareQuickDischargeNote(medicalNote);
         if (medicalNote instanceof FullDischargeNote) {
-            setVisitToMedicalNote.setVisitForNonInitialNote(medicalNote, medicalNote.getVisitNumber());
             return declareFullDischargeNote(medicalNote);
         }
 

@@ -67,7 +67,7 @@ public class SaveMedicalNoteUseCase {
         if (request.getPlanOfCare() != null)
             dailyNote.setPlanOfCare(request.getPlanOfCare());
         if (request.getObjective() != null)
-            dailyNote.setObjective(request.getObjective());
+            dailyNote.setObjective(request.getBilling());
         dailyNote.setDateOfService(request.getDateOfService());
         medicalNoteRepository.save(dailyNote);
     }

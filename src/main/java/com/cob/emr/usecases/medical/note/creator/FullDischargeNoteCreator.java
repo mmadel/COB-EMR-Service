@@ -46,7 +46,7 @@ public class FullDischargeNoteCreator implements MedicalNoteCreator{
         fullDischargeNote.setPlanOfCare(progressNote.getPlanOfCare());
 
         //reset UntimedCodes val and re-val code
-        Billing billing = (Billing) resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(fullDischargeNote.getBilling());
+        Billing billing =  resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(fullDischargeNote.getBilling());
         if (billing != null)
             fullDischargeNote.setBilling(billing);
         //reset Assessment Diagnosis values
