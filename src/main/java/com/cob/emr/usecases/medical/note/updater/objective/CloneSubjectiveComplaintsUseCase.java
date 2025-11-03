@@ -1,5 +1,6 @@
 package com.cob.emr.usecases.medical.note.updater.objective;
 
+import com.cob.emr.model.medical.note.types.initial.evaluation.subjective.Subjective;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ public class CloneSubjectiveComplaintsUseCase {
     private static final ObjectMapper mapper = new ObjectMapper();
     private static final String sourceFieldName = "primaryConcernChiefComplaint";
     private static final String destinationFileName = "currentcomplaintsgains";
-    public Object cloneComplaints(Object obj){
+    public Subjective cloneComplaints(Subjective obj){
         if (obj == null) {
             return null;
         }

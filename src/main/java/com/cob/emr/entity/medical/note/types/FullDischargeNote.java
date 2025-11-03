@@ -38,7 +38,7 @@ public class FullDischargeNote extends MedicalNote {
 
     @Column(name = "billing", columnDefinition = "json")
     @Type(type = "json")
-    private Object billing;
+    private Billing billing;
 
     @Column(name = "objective", columnDefinition = "json")
     @Type(type = "json")

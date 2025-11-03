@@ -8,6 +8,7 @@ import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.exception.business.MedicalNoteException;
 import com.cob.emr.model.medical.note.MedicalNoteRequest;
+import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
 import com.cob.emr.usecases.medical.note.finder.FindParentMedicalNote;
 import com.cob.emr.usecases.medical.note.updater.objective.ResetAssessmentUseCase;
@@ -61,7 +62,7 @@ public class DailyNoteCreator implements MedicalNoteCreator {
         else
             createParentNote(dailyNote, medicalNote);
         //reset UntimedCodes val and re-val code
-        Object objective = resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(dailyNote.getObjective());
+        Billing objective = resetEvaluationReEvaluationCodeUseCase.resetUntimedCodes(dailyNote.getObjective());
         if (objective != null)
             dailyNote.setObjective(objective);
         //reset Assessment Diagnosis values

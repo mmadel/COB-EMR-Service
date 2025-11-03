@@ -2,6 +2,7 @@ package com.cob.emr.entity.medical.note.types;
 
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.model.medical.note.types.initial.evaluation.billing.Billing;
+import com.cob.emr.model.medical.note.types.initial.evaluation.subjective.Subjective;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Type;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 public class ProgressNote extends MedicalNote {
     @Column(name = "subjective", columnDefinition = "json")
     @Type(type = "json")
-    private Object subjective;
+    private Subjective subjective;
 
     @Column(name = "objective", columnDefinition = "json")
     @Type(type = "json")
