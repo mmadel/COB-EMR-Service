@@ -29,8 +29,11 @@ public class SecurityConfiguration {
                         new KeycloakJwtRolesConverter());
 
         httpSecurity
+                .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorize -> authorize
-                        .antMatchers("/actuator/**").permitAll() // Allow actuator endpoints
+                        .antMatchers("/note-events").permitAll()
+                        .antMatchers("/actuator/**").permitAll()
+                        // Allow actuator endpoints
                         .anyRequest().authenticated()            // Secure all other endpoints
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2

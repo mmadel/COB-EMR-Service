@@ -1,0 +1,1 @@
+package com.cob.emr.ddd.domain.medicalnote.model.valueobjects;public enum GoalType {    SHORT_TERM("Short Term"),    LONG_TERM("Long Term");    private final String displayName;    GoalType(String displayName) {        this.displayName = displayName;    }    public String getDisplayName() {        return displayName;    }}

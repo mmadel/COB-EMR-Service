@@ -1,0 +1,1 @@
+package com.cob.emr.ddd.domain.medicalnote.model.valueobjects;public enum ModalityType {    LASER,    HOT_PACKS,    CRYOTHERAPY,    ELECTRICAL_STIMULATION,    ULTRASOUND,    WHIRLPOOL,    DIATHERMY,    MECHANICAL_TRACTION,    BIOFEEDBACK,    PARAFFIN_BATH,    INFRARED_LIGHT,    VASOPNEUMATIC,    ULTRAVIOLET}

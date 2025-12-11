@@ -1,0 +1,1 @@
+package com.cob.emr.ddd.domain.medicalnote.exception;public class NoteNotFoundException extends DomainException {    private final Long noteId;    public NoteNotFoundException(Long noteId) {        super(String.format("Medical note not found with ID: %d", noteId));        this.noteId = noteId;    }    public Long getNoteId() {        return noteId;    }}

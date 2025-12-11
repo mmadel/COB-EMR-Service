@@ -1,0 +1,1 @@
+package com.cob.emr.ddd.domain.medicalnote.exception;public class MissingPrerequisiteNoteException extends DomainException {    public MissingPrerequisiteNoteException(String message) {        super(message);    }}

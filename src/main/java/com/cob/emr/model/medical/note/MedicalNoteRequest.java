@@ -15,12 +15,15 @@ public class MedicalNoteRequest {
     private Long caseId;
     private MedicalNoteType noteType;
     private String createdBy;
+    private String createdAt;
     private Long dateOfService;
     private Subjective subjective;
     private Assessment assessment;
     private PlanOfCare planOfCare;
     private Billing billing;
     private Object objective;
+    private Integer visitNumber;
+    private String status;
     private QuickDischargeRequest quickDischargeRequest;
 
 }

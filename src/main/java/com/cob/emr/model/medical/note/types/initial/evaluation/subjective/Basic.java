@@ -43,7 +43,7 @@ public class Basic {
     public String commencedAsResultOf;
     public String commencedAsResultofText;
     public String noApparentReason;
-    public String symptomsAtOnset;
+    public List<String> symptomsAtOnset;
     public List<String> symptomsAtOnsetSelect;
     public String symptomsAtOnsetText;
     public String constantSymptoms;
