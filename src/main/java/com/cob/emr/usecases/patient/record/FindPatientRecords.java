@@ -15,6 +15,7 @@ import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.medical.note.InitialExaminationPlanOfCareRepository;
 import com.cob.emr.repositories.medical.note.InitialExaminationScoreRepository;
 import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
+import com.cob.emr.repositories.patient.chart.note.PatientChartNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +35,8 @@ public class FindPatientRecords {
     InitialExaminationScoreRepository initialExaminationScoreRepository;
     @Autowired
     InitialExaminationPlanOfCareRepository initialExaminationPlanOfCareRepository;
+    @Autowired
+    PatientChartNoteRepository patientChartNoteRepository;
 
     public PatientRecordResponse construct(PatientRecordRequest request, int offset, int limit) {
         List<PatientRecord> patientRecords = new ArrayList<>();
@@ -67,6 +70,7 @@ public class FindPatientRecords {
     }
 
     private void getNotes(Long caseId, List<PatientRecord> records , String loggedInUser) {
+
         List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
         records.addAll(medicalNotes.stream()
                 .filter(medicalNote -> (!medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
