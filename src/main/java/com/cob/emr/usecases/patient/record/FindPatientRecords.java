@@ -20,6 +20,7 @@ import com.cob.emr.repositories.patient.chart.note.PatientChartNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -77,9 +78,12 @@ public class FindPatientRecords {
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
-                    patientRecord.setStatus(medicalNote.getNoteStatus());
+                    patientRecord.setStatus(convertNoteType(medicalNote.getNoteType()));
                     patientRecord.setNote(true);
-                    patientRecord.setDate(null);
+                    patientRecord.setDate(medicalNote.getEncounterDate()
+                            .atZone(ZoneId.systemDefault())   // convert to a ZonedDateTime
+                            .toInstant()                      // get Instant
+                            .toEpochMilli());
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
@@ -157,5 +161,20 @@ public class FindPatientRecords {
                 break;
         }
         return actions;
+    }
+
+    private String convertNoteType(String noteType) {
+        switch (noteType) {
+            case "INITIAL_EXAM":
+                return "Initial Examination";
+            case "DAILY_NOTE":
+                return "Daily Note";
+            case "FOLLOW_UP":
+                return "Follow Up";
+            case "DISCHARGE":
+                return "Discharge";
+            default:
+                throw new IllegalArgumentException("Note Type is not defined");
+        }
     }
 }
