@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Data
 public class NoteCreatedWebhookPayload {
@@ -36,5 +37,8 @@ public class NoteCreatedWebhookPayload {
 
         @JsonProperty("status")
         private String status;
+
+        @JsonProperty("encounter_date")
+        private LocalDateTime encounterDate;
     }
 }

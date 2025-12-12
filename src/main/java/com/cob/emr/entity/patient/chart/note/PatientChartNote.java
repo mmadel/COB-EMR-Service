@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "patient_chart_note")
 @Getter
@@ -28,4 +29,7 @@ public class PatientChartNote {
 
     @Column(name = "note_type")
     private String noteType;
+
+    @Column(name = "encounter_date")
+    private LocalDateTime encounterDate;
 }

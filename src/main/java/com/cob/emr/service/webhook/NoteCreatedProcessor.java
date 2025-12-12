@@ -28,6 +28,7 @@ public class NoteCreatedProcessor implements WebhookEventProcessor<NoteCreatedWe
                     .noteId(payload.getNote().getNoteId())
                     .noteStatus(payload.getNote().getStatus())
                     .noteType(payload.getNote().getNoteType())
+                    .encounterDate(payload.getNote().getEncounterDate())
                     .build());
 
             log.info("Successfully added note {} to patient chart for patient {}",

@@ -24,6 +24,7 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
         patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
         patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
         patientChartNote.setNoteType(patientChartNoteRequest.getNoteType());
+        patientChartNote.setEncounterDate(patientChartNoteRequest.getEncounterDate());
         return patientChartNote;
     }
 }

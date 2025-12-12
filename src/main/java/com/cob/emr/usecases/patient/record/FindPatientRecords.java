@@ -5,6 +5,7 @@ import com.cob.emr.entity.appointment.Appointment;
 import com.cob.emr.entity.medical.note.MedicalNote;
 import com.cob.emr.entity.medical.note.finalize.init.exam.plan.InitialExaminationPlanOfCareEntity;
 import com.cob.emr.entity.medical.note.finalize.init.exam.score.InitialExaminationScoreEntity;
+import com.cob.emr.entity.patient.chart.note.PatientChartNote;
 import com.cob.emr.enums.MedicalNoteStatus;
 import com.cob.emr.enums.MedicalNoteType;
 import com.cob.emr.enums.PatientRecordLineAction;
@@ -41,7 +42,7 @@ public class FindPatientRecords {
     public PatientRecordResponse construct(PatientRecordRequest request, int offset, int limit) {
         List<PatientRecord> patientRecords = new ArrayList<>();
         getCancelAppointments(request.getPatientId(), request.getClinicId(), request.getCaseId(), patientRecords);
-        getNotes(request.getCaseId(), patientRecords,request.getLoggedIn());
+        getNotes(request.getCaseId(), patientRecords, request.getLoggedIn());
         List<PatientRecord> records = PaginationUtil.paginate(patientRecords, offset, limit)
                 .stream()
                 .sorted(Comparator.comparingLong(PatientRecord::getDate))
@@ -69,29 +70,42 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
 
-    private void getNotes(Long caseId, List<PatientRecord> records , String loggedInUser) {
-
-        List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
-        records.addAll(medicalNotes.stream()
-                .filter(medicalNote -> (!medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
-                        && authorizedNote(loggedInUser, medicalNote))
+    private void getNotes(Long caseId, List<PatientRecord> records, String loggedInUser) {
+        List<PatientChartNote> chartNoteList = patientChartNoteRepository.findByPatientCaseId(caseId)
+                .orElseThrow(() -> new IllegalArgumentException("Medical Note is not found for passed case"));
+        records.addAll(chartNoteList.stream()
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
-                    patientRecord.setStatus(medicalNote.getType().label);
-                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION) &&
-                            medicalNote.getStatus().equals(MedicalNoteStatus.Finalized)) {
-                        getInitialExaminationScore(medicalNote.getId(), records);
-                        getInitialExaminationPlanOfCare(medicalNote.getId(), records);
-                    }
+                    patientRecord.setStatus(medicalNote.getNoteStatus());
                     patientRecord.setNote(true);
-                    patientRecord.setDate(medicalNote.getCreatedAt());
-                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
+                    patientRecord.setDate(null);
+                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
+
+//        List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
+//        records.addAll(medicalNotes.stream()
+//                .filter(medicalNote -> (!medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
+//                        && authorizedNote(loggedInUser, medicalNote))
+//                .map(medicalNote -> {
+//                    PatientRecord patientRecord = new PatientRecord();
+//                    patientRecord.setEntityId(medicalNote.getId());
+//                    patientRecord.setStatus(medicalNote.getType().label);
+//                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION) &&
+//                            medicalNote.getStatus().equals(MedicalNoteStatus.Finalized)) {
+//                        getInitialExaminationScore(medicalNote.getId(), records);
+//                        getInitialExaminationPlanOfCare(medicalNote.getId(), records);
+//                    }
+//                    patientRecord.setNote(true);
+//                    patientRecord.setDate(medicalNote.getCreatedAt());
+//                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
+//                    return patientRecord;
+//                }).collect(Collectors.toList()));
     }
-    private boolean authorizedNote(String loggedInUser , MedicalNote note){
-        return (loggedInUser.equals(note.getCreatedBy()) || (note.getForwardTo() !=null && loggedInUser.equals(note.getForwardTo())));
+
+    private boolean authorizedNote(String loggedInUser, MedicalNote note) {
+        return (loggedInUser.equals(note.getCreatedBy()) || (note.getForwardTo() != null && loggedInUser.equals(note.getForwardTo())));
     }
 
     private void getInitialExaminationScore(Long noteId, List<PatientRecord> records) {
@@ -127,18 +141,18 @@ public class FindPatientRecords {
         return patientRecord;
     }
 
-    private List<String> addPatientLineRecordAction(MedicalNoteStatus status) {
+    private List<String> addPatientLineRecordAction(String status) {
         List<String> actions = new ArrayList<>();
         switch (status) {
-            case Create:
-            case Draft:
+            case "CREATED":
+            case "DRAFT":
                 actions.add(PatientRecordLineAction.Complete.label);
                 actions.add(PatientRecordLineAction.Remove.label);
                 break;
-            case Froward:
-                System.out.println("Froward");
-                break;
-            case Finalized:
+//            case Froward:
+//                System.out.println("Froward");
+//                break;
+            case "FINALIZED":
                 actions.add(PatientRecordLineAction.View_PDF.label);
                 break;
         }
