@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 public class PatientRecord {
     private Long entityId;
+    private String noteId;
     private String status;
     private Long date;
     private boolean isNote;

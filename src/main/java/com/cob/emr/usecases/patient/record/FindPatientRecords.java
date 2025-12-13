@@ -78,6 +78,7 @@ public class FindPatientRecords {
                 .map(medicalNote -> {
                     PatientRecord patientRecord = new PatientRecord();
                     patientRecord.setEntityId(medicalNote.getId());
+                    patientRecord.setNoteId(medicalNote.getNoteId());
                     patientRecord.setStatus(convertNoteType(medicalNote.getNoteType()));
                     patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getEncounterDate()
