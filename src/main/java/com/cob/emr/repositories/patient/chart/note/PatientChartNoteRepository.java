@@ -8,4 +8,7 @@ import java.util.Optional;
 
 public interface PatientChartNoteRepository extends PagingAndSortingRepository<PatientChartNote, Long> {
     Optional<List<PatientChartNote>> findByPatientCaseId(Long patientCaseId);
+    boolean existsByPatientCaseId(Long patientCaseId);
+    boolean existsByPatientCaseIdAndNoteType(Long patientCaseId, String noteType);
+
 }
