@@ -16,7 +16,7 @@ public class FindPatientCaseNoteActions {
     public List<String> find(Long patientCaseId) {
         // 1. Case not found → exception
         if (!patientChartNoteRepository.existsByPatientCaseId(patientCaseId)) {
-            throw new IllegalArgumentException("Case not found");
+            return handleCaseWithoutInitialExam();
         }
 
         // 2. Case has INITIAL_EXAM
