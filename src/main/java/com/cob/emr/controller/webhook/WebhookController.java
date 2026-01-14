@@ -63,12 +63,12 @@ public class WebhookController {
         try {
             JsonNode payload = objectMapper.readTree(body);
 
-            if (!payload.has("event_type")) {
+            if (!payload.has("eventType")) {
                 log.error("Missing event_type in payload for event: {}", eventId);
                 return ResponseEntity.badRequest().body("missing event_type");
             }
 
-            String eventType = payload.get("event_type").asText();
+            String eventType = payload.get("eventType").asText();
 
             // 5) Save event as RECEIVED before processing
             WebhookEvent event = new WebhookEvent();
