@@ -17,6 +17,15 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
         patientChartNoteRepository.save(tobeSaved);
     }
 
+    @Override
+    public void update(PatientChartNoteRequest patientChartNoteRequest) {
+        patientChartNoteRepository.findByNoteId(patientChartNoteRequest.getNoteId())
+                .ifPresent(patientChartNote -> {
+                    patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
+                    patientChartNoteRepository.save(patientChartNote);
+                });
+    }
+
     private PatientChartNote toEntity(PatientChartNoteRequest patientChartNoteRequest) {
         PatientChartNote patientChartNote = new PatientChartNote();
         patientChartNote.setPatientId(patientChartNoteRequest.getPatientId());

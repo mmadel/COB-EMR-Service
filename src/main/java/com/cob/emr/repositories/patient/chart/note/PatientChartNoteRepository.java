@@ -10,5 +10,5 @@ public interface PatientChartNoteRepository extends PagingAndSortingRepository<P
     Optional<List<PatientChartNote>> findByPatientCaseId(Long patientCaseId);
     boolean existsByPatientCaseId(Long patientCaseId);
     boolean existsByPatientCaseIdAndNoteType(Long patientCaseId, String noteType);
-
+    Optional<PatientChartNote> findByNoteId(String noteId);
 }
