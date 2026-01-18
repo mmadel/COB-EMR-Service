@@ -1,47 +1,59 @@
 package com.cob.emr.usecases.patient.record.revamp;
 
 import com.cob.emr.enums.PatientRecordAction;
+import com.cob.emr.model.response.patient.PatientCaseNoteActionResponse;
 import com.cob.emr.repositories.patient.chart.note.PatientChartNoteRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-@Component
-@AllArgsConstructor
+@Service
+@RequiredArgsConstructor
 public class FindPatientCaseNoteActions {
     private static final String INITIAL_EXAM = "INITIAL_EXAM";
+
     private final PatientChartNoteRepository patientChartNoteRepository;
 
-    public List<String> find(String patientCaseUuid) {
-        // 1. Case not found → exception
-        if (!patientChartNoteRepository.existsByPatientCaseUuid(patientCaseUuid)) {
-            return handleCaseWithoutInitialExam();
-        }
+    public List<PatientCaseNoteActionResponse> find(String patientCaseUuid) {
+        boolean hasInitialExam = patientChartNoteRepository
+                .existsByPatientCaseUuidAndNoteType(patientCaseUuid, INITIAL_EXAM);
 
-        // 2. Case has INITIAL_EXAM
-        if (patientChartNoteRepository.existsByPatientCaseUuidAndNoteType(patientCaseUuid, INITIAL_EXAM)) {
-            return handleCaseWithInitialExam();
-        }
-
-        // 3. Case exists but no INITIAL_EXAM
-        return handleCaseWithoutInitialExam();
+        return hasInitialExam
+                ? getActionsWithInitialExam()
+                : getActionsWithoutInitialExam();
     }
 
-    private List<String> handleCaseWithoutInitialExam() {
-        return List.of(
-                PatientRecordAction.Initial_Examination.toString(),
-                PatientRecordAction.Quick_Discharge.toString(),
-                PatientRecordAction.Case_Note.toString()
+    private List<PatientCaseNoteActionResponse> getActionsWithoutInitialExam() {
+        return toActionResponses(
+                PatientRecordAction.Initial_Examination,
+                PatientRecordAction.Quick_Discharge,
+                PatientRecordAction.Case_Note
         );
     }
-    private List<String> handleCaseWithInitialExam() {
-        return List.of(
-                PatientRecordAction.Daily_Note.toString(),
-                PatientRecordAction.Progress_Note.toString(),
-                PatientRecordAction.Discharge.toString(),
-                PatientRecordAction.Quick_Discharge.toString(),
-                PatientRecordAction.Case_Note.toString()
+
+    private List<PatientCaseNoteActionResponse> getActionsWithInitialExam() {
+        return toActionResponses(
+                PatientRecordAction.Daily_Note,
+                PatientRecordAction.Progress_Note,
+                PatientRecordAction.Discharge,
+                PatientRecordAction.Quick_Discharge,
+                PatientRecordAction.Case_Note
         );
+    }
+
+    private List<PatientCaseNoteActionResponse> toActionResponses(PatientRecordAction... actions) {
+        return Stream.of(actions)
+                .map(this::toActionResponse)
+                .collect(Collectors.toList());
+    }
+
+    private PatientCaseNoteActionResponse toActionResponse(PatientRecordAction action) {
+        return PatientCaseNoteActionResponse.builder()
+                .key(action.name())
+                .label(action.toString())
+                .build();
     }
 }
