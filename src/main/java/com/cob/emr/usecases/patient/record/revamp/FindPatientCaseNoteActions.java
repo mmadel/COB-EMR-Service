@@ -13,14 +13,14 @@ public class FindPatientCaseNoteActions {
     private static final String INITIAL_EXAM = "INITIAL_EXAM";
     private final PatientChartNoteRepository patientChartNoteRepository;
 
-    public List<String> find(Long patientCaseId) {
+    public List<String> find(String patientCaseUuid) {
         // 1. Case not found → exception
-        if (!patientChartNoteRepository.existsByPatientCaseId(patientCaseId)) {
+        if (!patientChartNoteRepository.existsByPatientCaseUuid(patientCaseUuid)) {
             return handleCaseWithoutInitialExam();
         }
 
         // 2. Case has INITIAL_EXAM
-        if (patientChartNoteRepository.existsByPatientCaseIdAndNoteType(patientCaseId, INITIAL_EXAM)) {
+        if (patientChartNoteRepository.existsByPatientCaseUuidAndNoteType(patientCaseUuid, INITIAL_EXAM)) {
             return handleCaseWithInitialExam();
         }
 

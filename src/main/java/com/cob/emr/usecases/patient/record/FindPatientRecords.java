@@ -55,7 +55,7 @@ public class FindPatientRecords {
                 .build();
     }
 
-    private void getCancelAppointments(long patientId, long clinicId, long patientCaseId, List<PatientRecord> records) {
+    private void getCancelAppointments(long patientId, long clinicId, String patientCaseId, List<PatientRecord> records) {
         List<Appointment> appointments = appointmentRepository.findAllNoShowAppointmentsWithoutPage(patientId, clinicId, patientCaseId);
         records.addAll(appointments.stream()
                 .map(appointment -> {
@@ -71,8 +71,8 @@ public class FindPatientRecords {
                 }).collect(Collectors.toList()));
     }
 
-    private void getNotes(Long caseId, List<PatientRecord> records, String loggedInUser) {
-        List<PatientChartNote> chartNoteList = patientChartNoteRepository.findByPatientCaseId(caseId)
+    private void getNotes(String caseId, List<PatientRecord> records, String loggedInUser) {
+        List<PatientChartNote> chartNoteList = patientChartNoteRepository.findByPatientCaseUuid(caseId)
                 .orElseThrow(() -> new IllegalArgumentException("Medical Note is not found for passed case"));
         records.addAll(chartNoteList.stream()
                 .map(medicalNote -> {
@@ -81,32 +81,11 @@ public class FindPatientRecords {
                     patientRecord.setNoteId(medicalNote.getNoteId());
                     patientRecord.setStatus(convertNoteType(medicalNote.getNoteType()));
                     patientRecord.setNote(true);
-                    patientRecord.setDate(medicalNote.getEncounterDate()
-                            .atZone(ZoneId.systemDefault())   // convert to a ZonedDateTime
-                            .toInstant()                      // get Instant
-                            .toEpochMilli());
+                    patientRecord.setDate(null);
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
 
-//        List<MedicalNote> medicalNotes = medicalNoteRepository.findByPatientCase_Id(caseId).orElseThrow(() -> new IllegalArgumentException("Case is not found "));
-//        records.addAll(medicalNotes.stream()
-//                .filter(medicalNote -> (!medicalNote.getStatus().equals(MedicalNoteStatus.Remove))
-//                        && authorizedNote(loggedInUser, medicalNote))
-//                .map(medicalNote -> {
-//                    PatientRecord patientRecord = new PatientRecord();
-//                    patientRecord.setEntityId(medicalNote.getId());
-//                    patientRecord.setStatus(medicalNote.getType().label);
-//                    if (medicalNote.getType().equals(MedicalNoteType.INITIAL_EVALUATION) &&
-//                            medicalNote.getStatus().equals(MedicalNoteStatus.Finalized)) {
-//                        getInitialExaminationScore(medicalNote.getId(), records);
-//                        getInitialExaminationPlanOfCare(medicalNote.getId(), records);
-//                    }
-//                    patientRecord.setNote(true);
-//                    patientRecord.setDate(medicalNote.getCreatedAt());
-//                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getStatus()));
-//                    return patientRecord;
-//                }).collect(Collectors.toList()));
     }
 
     private boolean authorizedNote(String loggedInUser, MedicalNote note) {

@@ -2,18 +2,17 @@ package com.cob.emr.model.webhook;
 
 import lombok.Data;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
 public class NoteDraftedWebhookPayload {
-
+    private String eventId;
     private String eventType;
-
+    private Instant occurredAt;
     private String noteId;
-
-    private Long patientId;
-
-    private String status;
-
-    private LocalDateTime draftedAt;
+    private String patientCaseId;
+    private String noteType;
+    private String noteStatus;
+    private LocalDateTime encounterDate;
 }

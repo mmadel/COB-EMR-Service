@@ -83,11 +83,11 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
     @Query("select a from Appointment a where " +
             "a.patient.id = :patientId " +
             "AND a.clinic.id = :clinicId " +
-            "AND a.patientCase.id = :patientCaseId " +
+            "AND a.patientCase.uuid = :patientCaseId " +
             "AND  (a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.NoShow OR a.appointmentStatus = com.cob.emr.enums.AppointmentStatus.Cancel)")
     List<Appointment> findAllNoShowAppointmentsWithoutPage(@Param(value = "patientId") long patientId,
                                                            @Param(value = "clinicId") long clinicId,
-                                                           @Param(value = "patientCaseId") long patientCaseId);
+                                                           @Param(value = "patientCaseId") String patientCaseId);
 
     @Query("select a from Appointment a where " +
             "a.patient.id = :patientId " +

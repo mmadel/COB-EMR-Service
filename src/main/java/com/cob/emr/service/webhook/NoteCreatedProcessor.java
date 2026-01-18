@@ -18,26 +18,25 @@ public class NoteCreatedProcessor implements WebhookEventProcessor<NoteCreatedWe
     @Transactional
     @Override
     public void process(NoteCreatedWebhookPayload payload) {
-        log.info("Processing note.created event for noteId: {}", payload.getNote().getNoteId());
+        log.info("Processing note.created event for noteId: {}", payload.getNoteId());
 
         try {
             patientCaseNoteService.create(PatientChartNoteRequest
                     .builder()
-                    .patientId(payload.getNote().getPatientId())
-                    .patientCaseId(payload.getNote().getCaseId())
-                    .noteId(payload.getNote().getNoteId())
-                    .noteStatus(payload.getNote().getStatus())
-                    .noteType(payload.getNote().getNoteType())
-                    .encounterDate(payload.getNote().getEncounterDate())
+                    .patientCaseUuid(payload.getPatientCaseId())
+                    .noteId(payload.getNoteId())
+                    .noteStatus(payload.getNoteStatus())
+                    .noteType(payload.getNoteType())
+                    .encounterDate(payload.getEncounterDate())
                     .build());
 
-            log.info("Successfully added note {} to patient chart for patient {}",
-                    payload.getNote().getNoteId(),
-                    payload.getNote().getPatientId());
+            log.info("Successfully added note {} to patient chart for case {}",
+                    payload.getNoteId(),
+                    payload.getPatientCaseId());
 
         } catch (Exception e) {
             log.error("Failed to process note.created event for noteId: {}",
-                    payload.getNote().getNoteId(), e);
+                    payload.getNoteId(), e);
             throw e; // Re-throw to trigger retry
         }
     }

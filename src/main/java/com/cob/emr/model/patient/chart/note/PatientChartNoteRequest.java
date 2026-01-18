@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class PatientChartNoteRequest {
-    private Long patientId;
-    private Long patientCaseId;
+    private String patientCaseUuid;
     private String noteId;
     private String noteStatus;
     private String noteType;

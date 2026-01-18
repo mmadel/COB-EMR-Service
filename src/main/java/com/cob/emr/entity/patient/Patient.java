@@ -18,6 +18,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity(name = "patient")
 @TypeDefs({
@@ -30,6 +31,10 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "uuid", unique = true, nullable = false, updatable = false)
+    private String uuid;
+
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "middle_name")
@@ -114,6 +119,13 @@ public class Patient {
     public void removeCase(PatientCase patientCase) {
         this.cases.remove(patientCase);
         patientCase.setPatient(null);
+    }
+
+    @PrePersist
+    public void generateUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
     }
 
 }

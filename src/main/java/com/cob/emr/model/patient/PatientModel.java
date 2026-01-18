@@ -34,6 +34,7 @@ public class PatientModel {
     private String patientId;
     private Long effectiveFromDate;
     private Long effectiveToDate;
+    private String uuid;
     private List<AddressDependencyModel> addresses;
     private List<ContactDependencyModel> contacts;
     private List<PatientEmergencyDependencyModel> emergencies;

@@ -5,6 +5,7 @@ import com.cob.emr.model.patient.chart.note.PatientChartNoteRequest;
 import com.cob.emr.repositories.patient.chart.note.PatientChartNoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -18,18 +19,30 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
     }
 
     @Override
+    @Transactional
     public void update(PatientChartNoteRequest patientChartNoteRequest) {
-        patientChartNoteRepository.findByNoteId(patientChartNoteRequest.getNoteId())
-                .ifPresent(patientChartNote -> {
-                    patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
-                    patientChartNoteRepository.save(patientChartNote);
-                });
+        PatientChartNote patientChartNote = patientChartNoteRepository
+                .findByNoteId(patientChartNoteRequest.getNoteId())
+                .orElse(null);
+        if (patientChartNote != null) {
+            patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
+            patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
+            patientChartNote.setPatientCaseUuid(patientChartNoteRequest.getPatientCaseUuid());
+            patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
+            patientChartNoteRepository.save(patientChartNote);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete(String noteId) {
+        patientChartNoteRepository.findByNoteId(noteId)
+                .ifPresent(patientChartNoteRepository::delete);
     }
 
     private PatientChartNote toEntity(PatientChartNoteRequest patientChartNoteRequest) {
         PatientChartNote patientChartNote = new PatientChartNote();
-        patientChartNote.setPatientId(patientChartNoteRequest.getPatientId());
-        patientChartNote.setPatientCaseId(patientChartNoteRequest.getPatientCaseId());
+        patientChartNote.setPatientCaseUuid(patientChartNoteRequest.getPatientCaseUuid());
         patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
         patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
         patientChartNote.setNoteType(patientChartNoteRequest.getNoteType());

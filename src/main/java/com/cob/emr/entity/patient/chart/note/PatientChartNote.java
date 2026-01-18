@@ -15,21 +15,41 @@ public class PatientChartNote {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "patient_id")
-    private Long patientId;
-
-    @Column(name = "patient_case_id")
-    private Long patientCaseId;
+    @Column(name = "patient_case_uuid")
+    private String patientCaseUuid;
 
     @Column(name = "note_id")
     private String noteId;
 
     @Column(name = "note_status")
+    @Setter(lombok.AccessLevel.NONE)
     private String noteStatus;
+
+    public void setNoteStatus(String noteStatus) {
+        this.noteStatus = noteStatus;
+        this.updatedAt = LocalDateTime.now();
+    }
 
     @Column(name = "note_type")
     private String noteType;
 
     @Column(name = "encounter_date")
     private LocalDateTime encounterDate;
+
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

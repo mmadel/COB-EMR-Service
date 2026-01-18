@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 public class PatientRecordRequest {
     private Long patientId;
-    private Long caseId;
+    private String caseId;
     private Long clinicId;
     private String loggedIn;
 }

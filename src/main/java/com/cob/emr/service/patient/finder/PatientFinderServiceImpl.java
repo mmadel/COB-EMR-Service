@@ -121,6 +121,7 @@ public class PatientFinderServiceImpl implements PatientFinderService {
                         caseModel.setPatientRecordActions(actions);
                         PatientCaseAuthorizationData authorizationData = populatePatientCaseAuthorization(patientCase.getId(), patientCase.getAuthorizationCounter());
                         caseModel.setAuthorizationData(authorizationData);
+                        caseModel.setUuid(patientCase.getUuid());
                         fillPatientTherapist(patientCase.getClinicalEMRUser(),caseModel);
                         return caseModel;
                     })

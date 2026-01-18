@@ -18,7 +18,7 @@ public class PatientChartNoteController {
     private final FindPatientCaseNoteActions findPatientCaseNoteActions;
 
     @GetMapping("/find/actions/case-id/{caseId}")
-    public ResponseEntity<Object> find(@PathVariable("caseId") Long caseId) {
+    public ResponseEntity<Object> find(@PathVariable("caseId") String caseId) {
         List<String> actions = findPatientCaseNoteActions.find(caseId);
         return ResponseEntity.ok().body(actions);
     }

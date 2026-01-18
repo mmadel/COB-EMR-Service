@@ -2,6 +2,7 @@ package com.cob.emr.service.webhook;
 
 
 import com.cob.emr.model.webhook.NoteCreatedWebhookPayload;
+import com.cob.emr.model.webhook.NoteDeletedWebhookPayload;
 import com.cob.emr.model.webhook.NoteDraftedWebhookPayload;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +59,8 @@ public class WebhookEventDispatcher {
                 return (Class<T>) NoteCreatedWebhookPayload.class;
             case "note.drafted":
                 return (Class<T>) NoteDraftedWebhookPayload.class;
+            case "note.deleted":
+                return (Class<T>) NoteDeletedWebhookPayload.class;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }

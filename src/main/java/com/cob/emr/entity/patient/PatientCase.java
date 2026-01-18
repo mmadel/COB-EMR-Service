@@ -10,6 +10,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "patient_case")
 @Getter
@@ -19,6 +20,9 @@ public class PatientCase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
+    @Column(name = "uuid", unique = true, nullable = false, updatable = false)
+    private String uuid;
 
     @Column(name = "title")
     private String title;
@@ -60,4 +64,11 @@ public class PatientCase {
 
     @Column(name = "additional_info", length = 700)
     private String additionalInfo	;
+
+    @PrePersist
+    public void generateUuid() {
+        if (uuid == null) {
+            uuid = UUID.randomUUID().toString();
+        }
+    }
 }

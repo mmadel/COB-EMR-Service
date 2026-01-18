@@ -23,13 +23,15 @@ public class NoteDraftedProcessor implements WebhookEventProcessor<NoteDraftedWe
         try {
             patientCaseNoteService.update(PatientChartNoteRequest
                     .builder()
+                    .patientCaseUuid(payload.getPatientCaseId())
+                    .noteType(payload.getNoteType())
+                    .noteStatus(payload.getNoteStatus())
                     .noteId(payload.getNoteId())
-                    .noteStatus(payload.getStatus())
                     .build());
 
-            log.info("Successfully updated note {} status for patient {}",
+            log.info("Successfully updated note {} status to {}",
                     payload.getNoteId(),
-                    payload.getPatientId());
+                    payload.getNoteStatus());
 
         } catch (Exception e) {
             log.error("Failed to process note.drafted event for noteId: {}",
