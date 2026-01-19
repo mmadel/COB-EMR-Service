@@ -28,6 +28,7 @@ public class ConstructLoggedInUserUseCase {
                 .lastName(emrUser.getLastName())
                 .userRoleScope(emrUser.getRoleScope())
                 .clinics(clinics)
+                .providerInfo(emrUser.getProviderInfo())
                 .organizationId(clinics.stream().findFirst().get().getOrganizationId())
                 .build();
         return loggedInUser;

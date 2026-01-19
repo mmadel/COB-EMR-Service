@@ -19,5 +19,6 @@ public class EMRUser {
     private String uuid;
     private UserType userType;
     private List<EMRUseRoleScope> roleScope;
+    private ProviderInfo providerInfo;
     private List<Long> clinicIds = new ArrayList<>();
 }

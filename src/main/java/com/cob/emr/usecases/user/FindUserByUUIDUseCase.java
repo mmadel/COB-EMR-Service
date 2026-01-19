@@ -6,6 +6,7 @@ import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.enums.UserType;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.user.EMRUser;
+import com.cob.emr.model.user.ProviderInfo;
 import com.cob.emr.repositories.security.AdministratorUserRepository;
 import com.cob.emr.repositories.security.ClericalEMRUserRepository;
 import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
@@ -60,7 +61,12 @@ public class FindUserByUUIDUseCase {
         emrUser.setUuid(user.getUuid());
         emrUser.setRoleScope(user.getRoleScope());
         emrUser.setUserType(UserType.Clinical);
-
+        emrUser.setProviderInfo(ProviderInfo.builder()
+                .npi(user.getNpi())
+                .credential(user.getCredential())
+                .license(user.getLicence())
+                .speciality(user.getSpeciality())
+                .build());
         return emrUser;
     }
 
@@ -76,6 +82,7 @@ public class FindUserByUUIDUseCase {
         emrUser.setUserType(UserType.Clerical);
         return emrUser;
     }
+
     private EMRUser map(AdministratorUser user) {
         EMRUser emrUser = new EMRUser();
         emrUser.setAccountName(user.getAccountName());

@@ -19,4 +19,5 @@ public class LoggedInUser {
     private Long organizationId;
     private List<EMRUseRoleScope> userRoleScope;
     private List<ClinicModel> clinics;
+    private ProviderInfo providerInfo;
 }
