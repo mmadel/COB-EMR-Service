@@ -12,4 +12,5 @@ public interface PatientCaseRepository extends PagingAndSortingRepository<Patien
     void deleteByPatient(Patient patient);
 
     Optional<PatientCase> findByIdAndPatient_Id(Long id , Long patientId);
+    Optional<PatientCase> findByUuid(String uuid);
 }
