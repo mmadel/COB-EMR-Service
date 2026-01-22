@@ -20,6 +20,7 @@ import com.cob.emr.repositories.patient.chart.note.PatientChartNoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -81,7 +82,7 @@ public class FindPatientRecords {
                     patientRecord.setNoteId(medicalNote.getNoteId());
                     patientRecord.setStatus(convertNoteType(medicalNote.getNoteType()));
                     patientRecord.setNote(true);
-                    patientRecord.setDate(null);
+                    patientRecord.setDate(medicalNote.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
