@@ -65,6 +65,8 @@ public class WebhookEventDispatcher {
                 return (Class<T>) NoteAssignedDiagnosisWebhookPayload.class;
             case "daily_note.created":
                 return (Class<T>) DailyNoteCreatedWebhookPayload.class;
+            case "daily_note.drafted":
+                return (Class<T>) DailyNoteDraftedWebhookPayload.class;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }
