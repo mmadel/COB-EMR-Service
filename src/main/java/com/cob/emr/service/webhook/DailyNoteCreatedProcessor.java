@@ -26,7 +26,7 @@ public class DailyNoteCreatedProcessor implements WebhookEventProcessor<DailyNot
                     .patientCaseUuid(payload.getPatientCaseId())
                     .noteId(payload.getNoteId())
                     .noteStatus(payload.getNoteStatus())
-                    .noteType(payload.getNoteType())
+                    .noteType(payload.getNoteType().equals("DAILY")? "DAILY_NOTE":payload.getNoteType())
                     .encounterDate(payload.getEncounterDate())
                     .build());
 
