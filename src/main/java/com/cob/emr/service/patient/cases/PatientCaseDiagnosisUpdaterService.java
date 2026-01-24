@@ -45,32 +45,22 @@ public class PatientCaseDiagnosisUpdaterService {
             existingDiagnoses = new ArrayList<>();
         }
 
-        Set<String> payloadCodes = icdDiagnoses.stream()
-                .map(Diagnosis::getCode)
-                .map(String::toLowerCase)
-                .collect(Collectors.toSet());
-
         Set<String> existingCodes = existingDiagnoses.stream()
                 .map(CaseDiagnosis::getDiagnosisCode)
                 .map(String::toLowerCase)
                 .collect(Collectors.toSet());
-
-        List<CaseDiagnosis> toRemove = existingDiagnoses.stream()
-                .filter(diagnosis -> !payloadCodes.contains(diagnosis.getDiagnosisCode().toLowerCase()))
-                .collect(Collectors.toList());
 
         List<CaseDiagnosis> newDiagnoses = icdDiagnoses.stream()
                 .filter(diagnosis -> !existingCodes.contains(diagnosis.getCode().toLowerCase()))
                 .map(this::toCaseDiagnosis)
                 .collect(Collectors.toList());
 
-        if (!newDiagnoses.isEmpty() || !toRemove.isEmpty()) {
-            existingDiagnoses.removeAll(toRemove);
+        if (!newDiagnoses.isEmpty()) {
             existingDiagnoses.addAll(newDiagnoses);
             patientCase.setCaseDiagnosis(existingDiagnoses);
             patientCaseRepository.save(patientCase);
-            log.info("Updated diagnoses for patient case uuid: {} - added: {}, removed: {}",
-                    patientCaseUuid, newDiagnoses.size(), toRemove.size());
+            log.info("Updated diagnoses for patient case uuid: {} - added: {}",
+                    patientCaseUuid, newDiagnoses.size());
         } else {
             log.info("No diagnosis changes for patient case uuid: {}", patientCaseUuid);
         }
