@@ -154,6 +154,8 @@ public class FindPatientRecords {
                 return "Follow Up";
             case "DISCHARGE":
                 return "Discharge";
+            case "PROGRESS":
+                return "Progress Note";
             default:
                 throw new IllegalArgumentException("Note Type is not defined");
         }
