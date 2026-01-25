@@ -84,7 +84,7 @@ public class FindPatientRecords {
                     patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
                     patientRecord.setDos(medicalNote.getDos());
-                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
+                    patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus(), medicalNote.getNoteType()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
 
@@ -127,8 +127,12 @@ public class FindPatientRecords {
         return patientRecord;
     }
 
-    private List<String> addPatientLineRecordAction(String status) {
+    private List<String> addPatientLineRecordAction(String status, String noteType) {
         List<String> actions = new ArrayList<>();
+        if ("INITIAL_EXAM_PLAN".equals(noteType)) {
+            actions.add(PatientRecordLineAction.View_PDF.label);
+            return actions;
+        }
         switch (status) {
             case "CREATED":
             case "DRAFT":
@@ -159,6 +163,8 @@ public class FindPatientRecords {
                 return "Progress Note";
             case "QUICK_DISCHARGE":
                 return "Quick_Discharge";
+            case "INITIAL_EXAM_PLAN":
+                return "Initial Exam Plan";
             default:
                 throw new IllegalArgumentException("Note Type is not defined");
         }

@@ -63,6 +63,8 @@ public class WebhookEventDispatcher {
                 return (Class<T>) NoteDeletedWebhookPayload.class;
             case "note.diagnosis.assigned":
                 return (Class<T>) NoteAssignedDiagnosisWebhookPayload.class;
+            case "planofcare.record.created":
+                return (Class<T>) PlanOfCareRecordCreatedWebhookPayload.class;
             default:
                 throw new IllegalArgumentException("Unknown event type: " + eventType);
         }
