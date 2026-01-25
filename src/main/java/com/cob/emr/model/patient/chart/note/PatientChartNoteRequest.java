@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Setter
@@ -16,5 +17,6 @@ public class PatientChartNoteRequest {
     private String noteStatus;
     private String noteType;
     private LocalDateTime encounterDate;
+    private LocalDate dos;
 
 }

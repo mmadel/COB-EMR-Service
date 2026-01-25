@@ -3,6 +3,7 @@ package com.cob.emr.model.webhook;
 import lombok.Data;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -15,4 +16,5 @@ public class NoteFinalizedWebhookPayload {
     private String noteType;
     private String noteStatus;
     private LocalDateTime encounterDate;
+    private LocalDate dos;
 }

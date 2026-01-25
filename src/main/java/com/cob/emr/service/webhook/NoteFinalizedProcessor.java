@@ -27,6 +27,7 @@ public class NoteFinalizedProcessor implements WebhookEventProcessor<NoteFinaliz
                     .noteType(payload.getNoteType())
                     .noteStatus(payload.getNoteStatus())
                     .noteId(payload.getNoteId())
+                    .dos(payload.getDos())
                     .build());
 
             log.info("Successfully finalized note {} with status {}",

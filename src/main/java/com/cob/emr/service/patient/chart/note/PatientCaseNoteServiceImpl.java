@@ -29,6 +29,7 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
             patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
             patientChartNote.setPatientCaseUuid(patientChartNoteRequest.getPatientCaseUuid());
             patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
+            patientChartNote.setDos(patientChartNoteRequest.getDos());
             patientChartNoteRepository.save(patientChartNote);
         }
     }
@@ -47,6 +48,7 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
         patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
         patientChartNote.setNoteType(patientChartNoteRequest.getNoteType());
         patientChartNote.setEncounterDate(patientChartNoteRequest.getEncounterDate());
+        patientChartNote.setDos(patientChartNoteRequest.getDos());
         return patientChartNote;
     }
 }

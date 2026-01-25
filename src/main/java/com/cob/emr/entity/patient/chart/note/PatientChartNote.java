@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity(name = "patient_chart_note")
@@ -35,6 +36,9 @@ public class PatientChartNote {
 
     @Column(name = "encounter_date")
     private LocalDateTime encounterDate;
+
+    @Column(name = "dos")
+    private LocalDate dos;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
