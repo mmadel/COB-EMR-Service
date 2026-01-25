@@ -83,6 +83,7 @@ public class FindPatientRecords {
                     patientRecord.setStatus(convertNoteType(medicalNote.getNoteType()));
                     patientRecord.setNote(true);
                     patientRecord.setDate(medicalNote.getCreatedAt().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+                    patientRecord.setDos(medicalNote.getDos());
                     patientRecord.setActions(addPatientLineRecordAction(medicalNote.getNoteStatus()));
                     return patientRecord;
                 }).collect(Collectors.toList()));
