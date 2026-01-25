@@ -51,7 +51,7 @@ public class PatientCaseAuthorizationService {
                 .map(this::mapToEntity) // ensures id is set if exists
                 .map(repository::save)
                 .collect(Collectors.toList());
-        updatePatientCaseAuthorizationUseCase.updateByCase(patientCaseId);
+        updatePatientCaseAuthorizationUseCase.updateByCase(patientCase.getUuid());
         return saved.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());

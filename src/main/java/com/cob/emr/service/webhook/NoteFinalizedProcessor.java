@@ -2,6 +2,7 @@ package com.cob.emr.service.webhook;
 
 import com.cob.emr.model.patient.chart.note.PatientChartNoteRequest;
 import com.cob.emr.model.webhook.NoteFinalizedWebhookPayload;
+import com.cob.emr.service.patient.authorization.UpdatePatientCaseAuthorizationUseCase;
 import com.cob.emr.service.patient.chart.note.PatientCaseNoteService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import javax.transaction.Transactional;
 @Slf4j
 public class NoteFinalizedProcessor implements WebhookEventProcessor<NoteFinalizedWebhookPayload> {
     private final PatientCaseNoteService patientCaseNoteService;
+    private final UpdatePatientCaseAuthorizationUseCase updatePatientCaseAuthorizationUseCase;
 
     @Transactional
     @Override
@@ -33,6 +35,11 @@ public class NoteFinalizedProcessor implements WebhookEventProcessor<NoteFinaliz
             log.info("Successfully finalized note {} with status {}",
                     payload.getNoteId(),
                     payload.getNoteStatus());
+
+            if ("DAILY_NOTE".equals(payload.getNoteType())) {
+                updatePatientCaseAuthorizationUseCase.update(payload.getNoteId());
+                log.info("Updated authorization counter for note {}", payload.getNoteId());
+            }
 
         } catch (Exception e) {
             log.error("Failed to process note.finalized event for noteId: {}",
