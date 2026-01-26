@@ -23,15 +23,13 @@ public class PatientCaseNoteServiceImpl implements PatientCaseNoteService {
     public void update(PatientChartNoteRequest patientChartNoteRequest) {
         PatientChartNote patientChartNote = patientChartNoteRepository
                 .findByNoteId(patientChartNoteRequest.getNoteId())
-                .orElse(null);
-        if (patientChartNote != null) {
-            patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
-            patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
-            patientChartNote.setPatientCaseUuid(patientChartNoteRequest.getPatientCaseUuid());
-            patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
-            patientChartNote.setDos(patientChartNoteRequest.getDos());
-            patientChartNoteRepository.save(patientChartNote);
-        }
+                .orElseGet(() -> toEntity(patientChartNoteRequest));
+        patientChartNote.setNoteStatus(patientChartNoteRequest.getNoteStatus());
+        patientChartNote.setNoteId(patientChartNoteRequest.getNoteId());
+        patientChartNote.setPatientCaseUuid(patientChartNoteRequest.getPatientCaseUuid());
+        patientChartNote.setNoteType(patientChartNoteRequest.getNoteType());
+        patientChartNote.setDos(patientChartNoteRequest.getDos());
+        patientChartNoteRepository.save(patientChartNote);
     }
 
     @Override
