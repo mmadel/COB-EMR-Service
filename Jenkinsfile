@@ -5,7 +5,7 @@ pipeline {
         APP_NAME = "patient-chart"
         DEPLOY_DIR = "/opt/patient-chart"
         SERVICE_NAME = "patient-chart"
-        HEALTH_CHECK_URL = "http://161.97.126.192:8071/patient-chart/api/actuator/health" // TODO: update port if different
+        HEALTH_CHECK_URL = "http://161.97.126.192:9060/emr/api/actuator/health" // TODO: update port if different
         REMOTE_USER = "root"
         REMOTE_HOST = "161.97.126.192"
         REMOTE_SSH_PORT = "22"
