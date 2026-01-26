@@ -9,6 +9,7 @@ pipeline {
         REMOTE_USER = "root"
         REMOTE_HOST = "161.97.126.192"
         REMOTE_SSH_PORT = "22"
+        MAVEN_OPTS = "-Xmx512m -Xms256m"  // Add this line
     }
 
     stages {
