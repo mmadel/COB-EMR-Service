@@ -20,6 +20,10 @@ public class ConstructLoggedInUserUseCase {
     public LoggedInUser construct(String uuid) throws UserException {
         EMRUser emrUser = findUserByUUIDUseCase.find(uuid);
         List<ClinicModel> clinics = findClinicsForUserUseCase.find(uuid);
+        Long organizationId = null;
+        if (clinics != null && !clinics.isEmpty()) {
+            organizationId = clinics.stream().findFirst().get().getOrganizationId();
+        }
         LoggedInUser loggedInUser = LoggedInUser.builder()
                 .uuid(uuid)
                 .userName(emrUser.getAccountName())
@@ -29,7 +33,7 @@ public class ConstructLoggedInUserUseCase {
                 .userRoleScope(emrUser.getRoleScope())
                 .clinics(clinics)
                 .providerInfo(emrUser.getProviderInfo())
-                .organizationId(clinics.stream().findFirst().get().getOrganizationId())
+                .organizationId(organizationId)
                 .build();
         return loggedInUser;
     }
