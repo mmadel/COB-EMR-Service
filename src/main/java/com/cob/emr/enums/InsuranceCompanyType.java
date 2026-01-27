@@ -9,6 +9,9 @@ public enum InsuranceCompanyType {
     HMO("HMO"),
     EPO("EPO"),
     POS("POS"),
+    Commercial("Commercial"),
+    WCOMP("WCOMP"),
+    AutoPIP("Auto/PIP"),
     HDHPS("HDHPS");
 
     private final String value;

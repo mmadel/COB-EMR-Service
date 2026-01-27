@@ -1,6 +1,5 @@
 package com.cob.emr.model.insurancecompnay;
 
-import com.cob.emr.enums.InsuranceCompanyType;
 import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +15,7 @@ public class InsuranceCompanyModel {
 
     private String name;
 
-    private InsuranceCompanyType insuranceType;
+    private String insuranceType;
 
     private String phone;
 

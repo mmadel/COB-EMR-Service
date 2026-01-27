@@ -1,7 +1,6 @@
 package com.cob.emr.entity.insurance;
 
 import com.cob.emr.entity.organization.Organization;
-import com.cob.emr.enums.InsuranceCompanyType;
 import com.cob.emr.model.common.AddressDependencyModel;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,9 +19,8 @@ public class InsuranceCompany {
     private Long id;
     @Column(name = "name")
     private String name;
-    @Enumerated(EnumType.STRING)
     @Column(name = "insurance_company_type")
-    private InsuranceCompanyType insuranceType;
+    private String insuranceType;
     @Column(name = "phone")
     private String phone;
     @Column(name = "fax")
