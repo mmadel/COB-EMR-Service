@@ -3,13 +3,16 @@ package com.cob.emr.controller;
 import com.cob.emr.model.insurancecompnay.InsuranceCompanyModel;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.insurance.company.creator.InsuranceCompanyCreatorService;
+import com.cob.emr.service.insurance.company.importer.InsuranceCompanyImportService;
 import com.cob.emr.usecases.insurancecompnay.FindInsuranceCompanyUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/insurance/company")
@@ -17,6 +20,8 @@ public class InsuranceCompanyController {
 
     @Autowired
     InsuranceCompanyCreatorService insuranceCompanyCreatorService;
+    @Autowired
+    InsuranceCompanyImportService insuranceCompanyImportService;
     @Autowired
     FindInsuranceCompanyUseCase findInsuranceCompanyUseCase;
 
@@ -42,6 +47,15 @@ public class InsuranceCompanyController {
         return ResponseHandler.
                 generateResponse("Successfully deleted Insurance Company!",
                         HttpStatus.OK, id);
+    }
+
+    @PostMapping(value = "/import/organization/{organizationId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Object> importFromExcel(@RequestParam("file") MultipartFile file,
+                                                  @PathVariable("organizationId") Long organizationId) throws Exception {
+        int importedCount = insuranceCompanyImportService.importFromExcel(file, organizationId);
+        return ResponseHandler.generateResponse(
+                "Successfully imported " + importedCount + " Insurance Companies!",
+                HttpStatus.OK, importedCount);
     }
 
     @GetMapping("/find/organization/{organizationId}")
