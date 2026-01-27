@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface PatientCaseAuthorizationRepository extends CrudRepository<PatientCaseAuthorization, Long> {
     Optional<List<PatientCaseAuthorization>> findByPatientCase_Id(Long id);
-
+    void deleteByPatientCase_Patient_Id(Long patientId);
 }

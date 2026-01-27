@@ -7,7 +7,11 @@ import com.cob.emr.repositories.appointment.AppointmentRepository;
 import com.cob.emr.repositories.appointment.AppointmentTypeRepository;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.patient.PatientRepository;
+import com.cob.emr.repositories.medical.note.MedicalNoteRepository;
+import com.cob.emr.repositories.patient.authorization.PatientCaseAuthorizationRepository;
+import com.cob.emr.repositories.patient.cancellation.fee.PatientCancellationFeeRepository;
 import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
+import com.cob.emr.repositories.patient.payment.PatientPaymentRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,9 +29,21 @@ public class DeletePatientUseCase {
     ClinicRepository clinicRepository;
     @Autowired
     PatientCaseRepository patientCaseRepository;
+    @Autowired
+    PatientPaymentRecordRepository patientPaymentRecordRepository;
+    @Autowired
+    PatientCaseAuthorizationRepository patientCaseAuthorizationRepository;
+    @Autowired
+    MedicalNoteRepository medicalNoteRepository;
+    @Autowired
+    PatientCancellationFeeRepository patientCancellationFeeRepository;
+
     @Transactional
     public void delete(Long id) {
         deletePatientAppointments(id);
+        deletePatientPaymentRecords(id);
+        deletePatientCaseAuthorizations(id);
+        deleteMedicalNotes(id);
         deletePatientCases(id);
         patientRepository.deleteById(id);
     }
@@ -39,6 +55,8 @@ public class DeletePatientUseCase {
                 .forEach(patient -> {
                     delete(patient.getId());
                 });
+        appointmentRepository.deleteByClinic_Id(clinicId);
+        patientCancellationFeeRepository.deleteByClinicId(clinicId);
     }
 
     private void deletePatientAppointments(Long patientId) {
@@ -49,8 +67,19 @@ public class DeletePatientUseCase {
     }
 
 
+    private void deletePatientPaymentRecords(Long patientId) {
+        patientPaymentRecordRepository.deleteByPatient_Id(patientId);
+    }
+
+    private void deletePatientCaseAuthorizations(Long patientId) {
+        patientCaseAuthorizationRepository.deleteByPatientCase_Patient_Id(patientId);
+    }
+
+    private void deleteMedicalNotes(Long patientId) {
+        medicalNoteRepository.deleteByPatientCase_Patient_Id(patientId);
+    }
+
     private void deletePatientCases(Long patientId) {
-        Patient patient = patientRepository.findById(patientId).get();
-        patientCaseRepository.deleteByPatient(patient);
+        patientCaseRepository.deleteByPatient_Id(patientId);
     }
 }

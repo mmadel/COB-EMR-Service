@@ -9,7 +9,7 @@ public class DeleteAppointmentTypeUseCase {
     @Autowired
     AppointmentTypeRepository appointmentTypeRepository;
 
-    public void delete(Long clinicId) {
+    public void deleteByClinic(Long clinicId) {
 
     }
 }

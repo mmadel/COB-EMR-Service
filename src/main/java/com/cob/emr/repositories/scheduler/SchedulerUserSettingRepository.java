@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface SchedulerUserSettingRepository extends CrudRepository<SchedulerUserSettingsEntity, Long> {
     Optional<SchedulerUserSettingsEntity> findByClinic_IdAndUser(Long clinicId, String uuid);
+    void deleteByClinic_Id(Long clinicId);
 }

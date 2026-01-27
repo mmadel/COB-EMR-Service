@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface PatientCaseRepository extends PagingAndSortingRepository<PatientCase, Long> {
     List<PatientCase> findByPatient_Id(Long id);
     void deleteByPatient(Patient patient);
+    void deleteByPatient_Id(Long patientId);
 
     Optional<PatientCase> findByIdAndPatient_Id(Long id , Long patientId);
     Optional<PatientCase> findByUuid(String uuid);

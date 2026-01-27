@@ -7,6 +7,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 public interface PatientPaymentRecordRepository extends PagingAndSortingRepository<PatientPaymentRecord, Long> {
     Page<PatientPaymentRecord> findByPatient_IdAndPatientCase_Id(Long patientId,Long patientCaseId,  Pageable paging);
-
+    void deleteByPatient_Id(Long patientId);
 }
 

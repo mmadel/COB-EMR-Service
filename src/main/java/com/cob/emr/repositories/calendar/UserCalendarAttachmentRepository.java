@@ -17,4 +17,6 @@ public interface UserCalendarAttachmentRepository extends CrudRepository<UserCal
             "and c.clinic.id =:clinicId " +
             "and uca.isAttached =true " )
     List<CalendarEntity> findAttached(@Param("clinicId") Long clinicId , @Param("userUUID") String userUUID);
+
+    void deleteByCalendar_Clinic_Id(Long clinicId);
 }

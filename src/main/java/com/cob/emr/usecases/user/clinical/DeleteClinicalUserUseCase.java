@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class DeleteClinicalUserUseCase {
@@ -24,5 +26,17 @@ public class DeleteClinicalUserUseCase {
                     clinic.removeClinicalUser(clinicalEMRUser);
                 });
         clinicalEMRUserRepository.delete(clinicalEMRUser);
+    }
+
+    @Transactional
+    public void deleteByClinic(Long clinicId) {
+        List<ClinicalEMRUser> clinicalEMRUsers = clinicalEMRUserRepository.findByClinic(clinicId).get();
+        clinicalEMRUsers.forEach(user -> {
+            Set<Clinic> copy = new HashSet<>(user.getClinics());
+            copy.forEach(clinic -> clinic.removeClinicalUser(user));
+        });
+        clinicalEMRUserRepository.deleteAllById(clinicalEMRUsers.stream()
+                .map(user -> user.getId())
+                .collect(Collectors.toList()));
     }
 }

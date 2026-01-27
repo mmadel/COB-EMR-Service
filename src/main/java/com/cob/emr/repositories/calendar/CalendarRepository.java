@@ -27,4 +27,6 @@ public interface CalendarRepository extends JpaRepository<CalendarEntity, Long> 
     List<CalendarEntity> listCalendars(@Param("clinicId") Long clinicId);
 
     Optional<List<CalendarEntity>> findByClinic_IdAndCreatedBy(Long clinicId , String uuid);
+
+    void deleteByClinic_Id(Long clinicId);
 }

@@ -21,4 +21,6 @@ public interface CalendarClinicRepository extends CrudRepository<CalendarClinicE
             "and cc.clinic.id =:clinicId " +
             "and cc.calendarEntity.id in :calendarIds")
     void unAttachCalendar(@Param("clinicId") Long clinicId , @Param("uuid") String uuid , @Param("calendarIds") List<Long> calendarIds);
+
+    void deleteByClinic_Id(Long clinicId);
 }

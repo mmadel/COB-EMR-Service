@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "Bash(./mvnw compile:*)"
+      "Bash(./mvnw compile:*)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(ls -la \"C:\\\\cob\\\\COB-EMR-Service\\\\src\\\\main\\\\java\\\\com\\\\cob\\\\emr\\\\usecases\\\\scheduler\"\" 2>&1 || echo \"Directory not found \")",
+      "Bash(ls -la \"C:\\\\cob\\\\COB-EMR-Service\\\\src\\\\main\\\\java\\\\com\\\\cob\\\\emr\\\\usecases\\\\referring\\\\provider\"\" 2>&1 || echo \"Directory not found \")",
+      "Bash(mvn compile:*)"
     ]
   }
 }
