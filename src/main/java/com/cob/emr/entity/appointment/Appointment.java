@@ -24,7 +24,7 @@ public class Appointment {
     private Long startDate;
     @Column
     private Long endDate;
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String note;
     @Column
     private String therapyUUID;
