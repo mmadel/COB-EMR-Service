@@ -25,4 +25,11 @@ public class ControllerExceptionHandler {
         log.error(controllerErrorResponse.getMessage());
         return new ResponseEntity(controllerErrorResponse, ex.getStatus() == null ? HttpStatus.INTERNAL_SERVER_ERROR : ex.getStatus());
     }
+
+    @ExceptionHandler(value = {IllegalArgumentException.class})
+    public ResponseEntity handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+        ControllerErrorResponse controllerErrorResponse = new ControllerErrorResponse(ex.getMessage(), HttpStatus.CONFLICT);
+        log.error(controllerErrorResponse.getMessage());
+        return new ResponseEntity(controllerErrorResponse, HttpStatus.CONFLICT);
+    }
 }

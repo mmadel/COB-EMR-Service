@@ -18,6 +18,8 @@ public class CreateReferringProviderUseCase {
     @Autowired
     OrganizationRepository organizationRepository;
     public void create(ReferringProviderModel model){
+        if(referringProviderRepository.existsByNpi(model.getNpi()))
+            throw new IllegalArgumentException("Referring provider with NPI " + model.getNpi() + " already exists");
         ReferringProvider referringProvider = mapper.map(model, ReferringProvider.class);
         Organization organization =organizationRepository.findById(model.getOrganizationId()).get();
         referringProvider.setOrganization(organization);

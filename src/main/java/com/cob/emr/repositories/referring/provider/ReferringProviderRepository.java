@@ -11,4 +11,6 @@ public interface ReferringProviderRepository extends PagingAndSortingRepository<
     Page<ReferringProvider> findByOrganization_Id(Pageable pageable, Long id);
 
     Optional<ReferringProvider> deleteByOrganization_Id(Long organizationId);
+
+    boolean existsByNpi(String npi);
 }
