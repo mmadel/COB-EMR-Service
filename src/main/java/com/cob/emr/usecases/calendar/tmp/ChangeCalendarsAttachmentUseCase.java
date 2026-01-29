@@ -23,7 +23,9 @@ public class ChangeCalendarsAttachmentUseCase {
             if (calendarAttribute.getUserAttachmentId() != null)
                 userCalendarAttachment = userCalendarAttachmentRepository.findById(calendarAttribute.getUserAttachmentId()).get();
             else
-                userCalendarAttachment = new UserCalendarAttachment();
+                userCalendarAttachment = userCalendarAttachmentRepository
+                        .findByCalendar_IdAndUser(calendarAttribute.getCalendarId(), model.getUuid())
+                        .orElse(new UserCalendarAttachment());
 
             userCalendarAttachment.setCalendar(calendarEntity);
             userCalendarAttachment.setUser(model.getUuid());
