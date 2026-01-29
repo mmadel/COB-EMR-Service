@@ -10,6 +10,7 @@ import java.util.List;
 public class AuditLogModel {
     private Long id;
     private Long clinicId;
+    private String clinicName;
     private String entityName;
     private Long entityId;
     private String action;

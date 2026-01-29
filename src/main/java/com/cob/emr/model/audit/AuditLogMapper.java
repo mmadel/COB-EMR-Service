@@ -35,6 +35,7 @@ public class AuditLogMapper {
         AuditLogModel model = new AuditLogModel();
         model.setId(entity.getId());
         model.setClinicId(entity.getClinicId());
+        model.setClinicName(resolveClinicName(entity.getClinicId(), resolverCache));
         model.setEntityName(entity.getEntityName());
         model.setEntityId(entity.getEntityId());
         model.setAction(entity.getAction());
@@ -89,6 +90,12 @@ public class AuditLogMapper {
             result.add(new AuditFieldChange("raw", null, json));
         }
         return result;
+    }
+
+    private String resolveClinicName(Long clinicId, AuditFieldResolver.ResolverCache cache) {
+        if (clinicId == null) return null;
+        Object resolved = fieldResolver.resolve("clinic", clinicId, cache);
+        return resolved != null ? resolved.toString() : null;
     }
 
     private String buildFullName(String first, String middle, String last) {
