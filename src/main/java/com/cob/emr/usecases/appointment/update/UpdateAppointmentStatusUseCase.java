@@ -15,7 +15,10 @@ public class UpdateAppointmentStatusUseCase {
 
     @Transactional
     public void update(SchedulerAppointment schedulerAppointment) {
-        appointmentRepository.updateAppointmentStatus(schedulerAppointment.getAppointmentStatus(), schedulerAppointment.getId());
+        Appointment appointment = appointmentRepository.findById(schedulerAppointment.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Appointment is not found id : " + schedulerAppointment.getId()));
+        appointment.setAppointmentStatus(schedulerAppointment.getAppointmentStatus());
+        appointmentRepository.save(appointment);
         deAttachFromSeries(schedulerAppointment.getId(), schedulerAppointment.getSeriesId());
     }
 
