@@ -3,6 +3,8 @@ package com.cob.emr.audit;
 import com.cob.emr.entity.audit.AuditLog;
 import com.cob.emr.repositories.audit.AuditLogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.Hibernate;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.event.spi.*;
 import org.hibernate.persister.entity.EntityPersister;
 import org.slf4j.Logger;
@@ -13,7 +15,7 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -37,19 +39,19 @@ public class HibernateAuditListener implements PostInsertEventListener, PostUpda
     @Override
     public void onPostInsert(PostInsertEvent event) {
         if (!isAudited(event.getEntity())) return;
-        persistAuditLog(event.getEntity(), "INSERT", event.getPersister(), event.getState(), null);
+        persistAuditLog(event.getEntity(), "INSERT", event.getPersister(), event.getState(), null, event.getSession());
     }
 
     @Override
     public void onPostUpdate(PostUpdateEvent event) {
         if (!isAudited(event.getEntity())) return;
-        persistAuditLog(event.getEntity(), "UPDATE", event.getPersister(), event.getState(), event.getOldState());
+        persistAuditLog(event.getEntity(), "UPDATE", event.getPersister(), event.getState(), event.getOldState(), event.getSession());
     }
 
     @Override
     public void onPostDelete(PostDeleteEvent event) {
         if (!isAudited(event.getEntity())) return;
-        persistAuditLog(event.getEntity(), "DELETE", event.getPersister(), event.getDeletedState(), null);
+        persistAuditLog(event.getEntity(), "DELETE", event.getPersister(), event.getDeletedState(), null, event.getSession());
     }
 
     @Override
@@ -62,24 +64,28 @@ public class HibernateAuditListener implements PostInsertEventListener, PostUpda
     }
 
     private void persistAuditLog(Object entity, String action, EntityPersister persister,
-                                 Object[] currentState, Object[] previousState) {
+                                 Object[] currentState, Object[] previousState,
+                                 SessionImplementor session) {
         try {
-            AuditLog log = new AuditLog();
-            log.setEntityName(entity.getClass().getSimpleName());
-            log.setEntityId(extractEntityId(entity));
-            log.setClinicId(extractClinicId(entity));
-            log.setAction(action);
-            log.setPerformedBy(extractPerformedBy());
-            log.setPerformedAt(System.currentTimeMillis());
-
             String[] propertyNames = persister.getPropertyNames();
+
+            AuditLog auditLog = new AuditLog();
+            auditLog.setEntityName(entity.getClass().getSimpleName());
+            auditLog.setEntityId(extractEntityId(entity));
+            auditLog.setClinicId(extractIdFromState(propertyNames, currentState, "clinic", session));
+            auditLog.setCalendarId(extractIdFromState(propertyNames, currentState, "calendar", session));
+            auditLog.setPatientId(extractIdFromState(propertyNames, currentState, "patient", session));
+            auditLog.setAction(action);
+            auditLog.setPerformedBy(extractPerformedBy());
+            auditLog.setPerformedAt(System.currentTimeMillis());
+
             if ("UPDATE".equals(action) && previousState != null) {
-                log.setChanges(buildDiffJson(propertyNames, previousState, currentState));
+                auditLog.setChanges(buildDiffJson(propertyNames, previousState, currentState));
             } else {
-                log.setChanges(buildStateJson(propertyNames, currentState));
+                auditLog.setChanges(buildStateJson(propertyNames, currentState));
             }
 
-            auditLogRepository.save(log);
+            auditLogRepository.save(auditLog);
         } catch (Exception e) {
             log.error("Audit failed for {} id={}: {}", entity.getClass().getSimpleName(), extractEntityId(entity), e.getMessage(), e);
         }
@@ -117,12 +123,16 @@ public class HibernateAuditListener implements PostInsertEventListener, PostUpda
         if (value == null) return null;
         if (value instanceof Enum) return ((Enum<?>) value).name();
         if (value instanceof String || value instanceof Number || value instanceof Boolean) return value;
-        // For entity relations, extract the ID
-        for (Field field : value.getClass().getDeclaredFields()) {
+        // For entity relations (including Hibernate proxies), extract the ID
+        // Use Hibernate.getClass() to get the real entity class, not the proxy subclass
+        Class<?> entityClass = Hibernate.getClass(value);
+        for (Field field : entityClass.getDeclaredFields()) {
             if (field.isAnnotationPresent(Id.class)) {
                 field.setAccessible(true);
                 try {
-                    return field.get(value);
+                    // Unproxy to access fields on the real entity instance
+                    Object unproxied = Hibernate.unproxy(value);
+                    return field.get(unproxied);
                 } catch (IllegalAccessException e) {
                     return value.toString();
                 }
@@ -132,11 +142,13 @@ public class HibernateAuditListener implements PostInsertEventListener, PostUpda
     }
 
     private Long extractEntityId(Object entity) {
-        for (Field field : entity.getClass().getDeclaredFields()) {
+        Class<?> entityClass = Hibernate.getClass(entity);
+        Object unproxied = Hibernate.unproxy(entity);
+        for (Field field : entityClass.getDeclaredFields()) {
             if (field.isAnnotationPresent(Id.class)) {
                 field.setAccessible(true);
                 try {
-                    Object value = field.get(entity);
+                    Object value = field.get(unproxied);
                     return value instanceof Long ? (Long) value : null;
                 } catch (IllegalAccessException e) {
                     return null;
@@ -146,23 +158,23 @@ public class HibernateAuditListener implements PostInsertEventListener, PostUpda
         return null;
     }
 
-    private Long extractClinicId(Object entity) {
-        for (Field field : entity.getClass().getDeclaredFields()) {
-            if ("clinic".equals(field.getName()) && field.isAnnotationPresent(JoinColumn.class)) {
-                field.setAccessible(true);
+    private Long extractIdFromState(String[] propertyNames, Object[] state,
+                                    String propertyName, SessionImplementor session) {
+        for (int i = 0; i < propertyNames.length; i++) {
+            if (propertyName.equals(propertyNames[i])) {
+                Object value = state[i];
+                if (value == null) return null;
                 try {
-                    Object clinic = field.get(entity);
-                    if (clinic == null) return null;
-                    for (Field idField : clinic.getClass().getDeclaredFields()) {
-                        if (idField.isAnnotationPresent(Id.class)) {
-                            idField.setAccessible(true);
-                            Object val = idField.get(clinic);
-                            return val instanceof Long ? (Long) val : null;
-                        }
-                    }
-                } catch (IllegalAccessException e) {
-                    return null;
+                    // Use Hibernate.getClass() to get the real entity class, not the proxy subclass
+                    String entityName = Hibernate.getClass(value).getName();
+                    Serializable id = session.getEntityPersister(entityName, value)
+                            .getIdentifier(value, session);
+                    if (id instanceof Long) return (Long) id;
+                    if (id instanceof Number) return ((Number) id).longValue();
+                } catch (Exception e) {
+                    log.warn("Could not extract {} id: {}", propertyName, e.getMessage());
                 }
+                return null;
             }
         }
         return null;

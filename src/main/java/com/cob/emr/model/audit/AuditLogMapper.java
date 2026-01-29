@@ -35,7 +35,11 @@ public class AuditLogMapper {
         AuditLogModel model = new AuditLogModel();
         model.setId(entity.getId());
         model.setClinicId(entity.getClinicId());
-        model.setClinicName(resolveClinicName(entity.getClinicId(), resolverCache));
+        model.setClinicName(resolveDisplayName("clinic", entity.getClinicId(), resolverCache));
+        model.setCalendarId(entity.getCalendarId());
+        model.setCalendarName(resolveDisplayName("calendar", entity.getCalendarId(), resolverCache));
+        model.setPatientId(entity.getPatientId());
+        model.setPatientName(resolveDisplayName("patient", entity.getPatientId(), resolverCache));
         model.setEntityName(entity.getEntityName());
         model.setEntityId(entity.getEntityId());
         model.setAction(entity.getAction());
@@ -92,9 +96,9 @@ public class AuditLogMapper {
         return result;
     }
 
-    private String resolveClinicName(Long clinicId, AuditFieldResolver.ResolverCache cache) {
-        if (clinicId == null) return null;
-        Object resolved = fieldResolver.resolve("clinic", clinicId, cache);
+    private String resolveDisplayName(String fieldName, Long id, AuditFieldResolver.ResolverCache cache) {
+        if (id == null) return null;
+        Object resolved = fieldResolver.resolve(fieldName, id, cache);
         return resolved != null ? resolved.toString() : null;
     }
 
