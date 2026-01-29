@@ -7,6 +7,7 @@ import com.cob.emr.model.appointment.SchedulerAppointment;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.appointment.AppointmentFinderService;
 import com.cob.emr.service.appointment.history.AppointmentHistoryFinderService;
+import com.cob.emr.usecases.appointment.DeleteAppointmentUseCase;
 import com.cob.emr.usecases.appointment.FindFullAppointmentUseCase;
 import com.cob.emr.usecases.appointment.cancelnoshow.UpdateAppointmentCancelNoShowUseCase;
 import com.cob.emr.usecases.appointment.create.CreateSchedulerAppointment;
@@ -45,6 +46,8 @@ public class AppointmentController {
     UpdateSingleSchedulerAppointmentUseCase updateSingleSchedulerAppointmentUseCase;
     @Autowired
     UpdateAppointmentStatusUseCase updateAppointmentStatusUseCase;
+    @Autowired
+    DeleteAppointmentUseCase deleteAppointmentUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody SchedulerAppointment model) {
@@ -126,5 +129,15 @@ public class AppointmentController {
     public ResponseEntity getAppointmentPatientCase(@PathVariable Long appointmentId) {
         return ResponseEntity.ok()
                 .body(findAppointmentPatientUseCase.findPatientCase(appointmentId));
+    }
+
+    @DeleteMapping("/delete/{appointmentId}/clinic/{clinicId}")
+    public ResponseEntity<Object> delete(@PathVariable Long appointmentId,
+                                          @PathVariable Long clinicId) {
+        deleteAppointmentUseCase.delete(appointmentId, clinicId);
+        return ResponseHandler.generateResponse(
+                "Successfully deleted appointment",
+                HttpStatus.OK,
+                appointmentId);
     }
 }

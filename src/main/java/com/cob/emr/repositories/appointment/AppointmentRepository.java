@@ -98,6 +98,8 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
                                                          @Param(value = "clinicId") long clinicId,
                                                          @Param(value = "patientCaseId") long patientCaseId, Pageable paging);
 
+    Optional<Appointment> findByIdAndClinic_Id(Long id, Long clinicId);
+
     Optional<List<Appointment>> findByPatient_Id(Long id);
 
     void deleteByClinic_Id(Long clinicId);
