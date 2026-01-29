@@ -102,6 +102,8 @@ public interface AppointmentRepository extends PagingAndSortingRepository<Appoin
 
     Optional<List<Appointment>> findByPatient_Id(Long id);
 
+    boolean existsByCalendar_Id(Long calendarId);
+
     void deleteByClinic_Id(Long clinicId);
 
     @Query("select a from Appointment a where a.clinic.id IN :clinicIds")

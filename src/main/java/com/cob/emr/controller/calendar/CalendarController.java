@@ -1,11 +1,13 @@
 package com.cob.emr.controller.calendar;
 
+import com.cob.emr.exception.business.CalendarException;
 import com.cob.emr.model.calendar.CalendarModel;
 import com.cob.emr.model.calendar.CalendarsUpdateModel;
 import com.cob.emr.usecases.calendar.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +30,8 @@ public class CalendarController {
     UpdateCalendarsUseCase updateCalendarsUseCase;
     @Autowired
     UpdateCalendarNameUSeCase updateCalendarNameUSeCase;
+    @Autowired
+    DeleteCalendarUseCase deleteCalendarUseCase;
 
     @PostMapping("/create")
     public ResponseEntity create(@RequestBody CalendarModel model) {
@@ -72,5 +76,11 @@ public class CalendarController {
     public ResponseEntity updateCalendar(@RequestBody CalendarModel model) {
         updateCalendarNameUSeCase.update(model);
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/delete/{calendarId}")
+    public ResponseEntity delete(@PathVariable Long calendarId) throws CalendarException {
+        deleteCalendarUseCase.delete(calendarId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
