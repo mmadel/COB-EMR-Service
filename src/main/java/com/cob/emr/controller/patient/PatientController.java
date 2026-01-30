@@ -3,6 +3,7 @@ package com.cob.emr.controller.patient;
 import com.cob.emr.exception.business.PatientCaseException;
 import com.cob.emr.exception.business.PatientException;
 import com.cob.emr.model.patient.PatientModel;
+import com.cob.emr.model.patient.PatientSearchModel;
 import com.cob.emr.model.patient.chart.PatientChartAccessibilityModelRequest;
 import com.cob.emr.response.ResponseHandler;
 import com.cob.emr.service.patient.creator.PatientCreatorService;
@@ -44,6 +45,12 @@ public class PatientController {
 
     @Autowired
     FindPatientByNameUseCase findPatientByNameUseCase;
+
+    @Autowired
+    SearchPatientUseCase searchPatientUseCase;
+
+    @Autowired
+    SearchPatientByNameUseCase searchPatientByNameUseCase;
 
     @PostMapping("/create")
     public ResponseEntity<Object> create(@RequestBody PatientModel model) {
@@ -101,6 +108,25 @@ public class PatientController {
     public ResponseEntity findPatientByName(@PathVariable("name") String name, @PathVariable("clinic-id") Long clinicId) {
         return ResponseEntity.ok()
                 .body(findPatientByNameUseCase.find(name, clinicId));
+    }
+
+    @GetMapping("/search/name/{name}/clinic-id/{clinic-id}")
+    public ResponseEntity<Object> searchPatientsByName(@PathVariable("name") String name,
+                                                       @PathVariable("clinic-id") Long clinicId) {
+        return ResponseHandler
+                .generateResponse("Successfully Search Patients!",
+                        HttpStatus.OK, null,
+                        searchPatientByNameUseCase.search(name, clinicId));
+    }
+
+    @PostMapping("/search/clinic-id/{clinic-id}/organization-id/{organization-id}")
+    public ResponseEntity<Object> searchPatients(@RequestBody PatientSearchModel searchModel,
+                                                 @PathVariable("clinic-id") Long clinicId,
+                                                 @PathVariable("organization-id") Long organizationId) {
+        return ResponseHandler
+                .generateResponse("Successfully Search Patients!",
+                        HttpStatus.OK, null,
+                        searchPatientUseCase.search(searchModel, clinicId, organizationId));
     }
 
 }

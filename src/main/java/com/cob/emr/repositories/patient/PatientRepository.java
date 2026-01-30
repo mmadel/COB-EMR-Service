@@ -25,4 +25,33 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
             "(LOWER(pe.firstName) LIKE CONCAT('%',:name,'%') OR LOWER(pe.middleName) LIKE CONCAT('%',:name,'%')  OR LOWER(pe.lastName) LIKE CONCAT('%',:name,'%')) " +
             "AND :clinic IN c" )
     List<Patient> findByName(@Param("name") String name , @Param("clinic") Clinic clinic);
+
+    @Query(value = "SELECT DISTINCT p.* FROM patient p " +
+            "LEFT JOIN patient_case pc ON pc.patient_id = p.id " +
+            "JOIN patient_clinic pcl ON pcl.patient_id = p.id " +
+            "JOIN clinic cl ON pcl.clinic_id = cl.id " +
+            "WHERE (:clinicId IS NULL OR pcl.clinic_id = :clinicId) " +
+            "AND (:organizationId IS NULL OR cl.organization_id = :organizationId) " +
+            "AND (:firstName IS NULL OR LOWER(p.first_name) LIKE LOWER(CONCAT('%', :firstName, '%'))) " +
+            "AND (:lastName IS NULL OR LOWER(p.last_name) LIKE LOWER(CONCAT('%', :lastName, '%'))) " +
+            "AND (:birthDate IS NULL OR p.birth_date = :birthDate) " +
+            "AND (:insuranceCompanyId IS NULL OR JSON_CONTAINS(p.patient_insurances, CONCAT('{\"insuranceCompany\":{\"id\":', :insuranceCompanyId, '}}')) = 1) " +
+            "AND (:therapistId IS NULL OR pc.therapist_id = :therapistId) " +
+            "AND (:phoneNumber IS NULL OR REPLACE(REPLACE(REPLACE(REPLACE(CAST(p.patient_contacts AS CHAR), '(', ''), ')', ''), '-', ''), ' ', '') LIKE CONCAT('%', REPLACE(REPLACE(REPLACE(REPLACE(:phoneNumber, '(', ''), ')', ''), '-', ''), ' ', ''), '%'))", nativeQuery = true)
+    List<Patient> searchPatients(@Param("clinicId") Long clinicId,
+                                @Param("organizationId") Long organizationId,
+                                @Param("firstName") String firstName,
+                                @Param("lastName") String lastName,
+                                @Param("birthDate") Long birthDate,
+                                @Param("insuranceCompanyId") Long insuranceCompanyId,
+                                @Param("therapistId") Long therapistId,
+                                @Param("phoneNumber") String phoneNumber);
+
+    @Query(value = "SELECT DISTINCT p.* FROM patient p " +
+            "JOIN patient_clinic pcl ON pcl.patient_id = p.id " +
+            "WHERE pcl.clinic_id = :clinicId " +
+            "AND (LOWER(p.first_name) LIKE LOWER(CONCAT('%', :name, '%')) " +
+            "OR LOWER(p.last_name) LIKE LOWER(CONCAT('%', :name, '%')))", nativeQuery = true)
+    List<Patient> searchByName(@Param("clinicId") Long clinicId,
+                               @Param("name") String name);
 }
