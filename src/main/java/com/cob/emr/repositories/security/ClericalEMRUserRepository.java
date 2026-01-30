@@ -25,4 +25,7 @@ public interface ClericalEMRUserRepository extends JpaRepository<ClericalEMRUser
     void deleteByUuid(String uuid);
     @Query("select user from ClericalEMRUser user JOIN  user.clinics c WHERE :clinicId IN  c.id")
     Optional<List<ClericalEMRUser>> findByClinic(@Param("clinicId") Long clinicId);
+
+    @Query("select distinct user from ClericalEMRUser user JOIN user.clinics c WHERE c.organization.id = :organizationId")
+    List<ClericalEMRUser> findByOrganization(@Param("organizationId") Long organizationId);
 }

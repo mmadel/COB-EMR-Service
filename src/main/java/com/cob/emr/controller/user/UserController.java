@@ -4,6 +4,7 @@ import com.cob.emr.Utils.CookiesUtils;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.user.LoggedInUser;
 import com.cob.emr.usecases.user.ConstructLoggedInUserUseCase;
+import com.cob.emr.usecases.user.FindAllOrganizationUsersUseCase;
 import com.cob.emr.usecases.user.FindUserByUUIDUseCase;
 import com.cob.emr.usecases.user.checking.CheckEmailUseCase;
 import com.cob.emr.usecases.user.checking.CheckUserNameUseCase;
@@ -27,11 +28,18 @@ public class UserController {
     @Autowired
     FindUserByUUIDUseCase findUserByUUIDUseCase;
     @Autowired
+    FindAllOrganizationUsersUseCase findAllOrganizationUsersUseCase;
+    @Autowired
     RemoveEMRRolesFromUserUseCase removeEMRRolesFromUserUseCase;
     @Autowired
     ConstructLoggedInUserUseCase constructLoggedInUserUseCase;
     @Autowired
     ObjectMapper objectMapper;
+
+    @GetMapping("/find/all/{organizationId}")
+    public ResponseEntity findAllOrganizationUsers(@PathVariable Long organizationId) {
+        return new ResponseEntity(findAllOrganizationUsersUseCase.find(organizationId), HttpStatus.OK);
+    }
 
     @GetMapping("/check/username/{username}")
     public ResponseEntity checkUserName(@PathVariable String username) throws UserException {
