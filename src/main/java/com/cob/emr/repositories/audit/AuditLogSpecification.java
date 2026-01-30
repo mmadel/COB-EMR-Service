@@ -28,7 +28,11 @@ public class AuditLogSpecification {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("performedAt"), startDateMillis));
             }
             if (endDateMillis != null) {
-                predicates.add(cb.lessThan(root.get("performedAt"), endDateMillis));
+                long effectiveEnd = endDateMillis;
+                if (startDateMillis != null && startDateMillis.equals(endDateMillis)) {
+                    effectiveEnd = endDateMillis + 86_400_000L;
+                }
+                predicates.add(cb.lessThan(root.get("performedAt"), effectiveEnd));
             }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
