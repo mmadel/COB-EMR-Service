@@ -37,7 +37,9 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
             "AND (:birthDate IS NULL OR p.birth_date = :birthDate) " +
             "AND (:insuranceCompanyId IS NULL OR JSON_CONTAINS(p.patient_insurances, CONCAT('{\"insuranceCompany\":{\"id\":', :insuranceCompanyId, '}}')) = 1) " +
             "AND (:therapistId IS NULL OR pc.therapist_id = :therapistId) " +
-            "AND (:phoneNumber IS NULL OR REPLACE(REPLACE(REPLACE(REPLACE(CAST(p.patient_contacts AS CHAR), '(', ''), ')', ''), '-', ''), ' ', '') LIKE CONCAT('%', REPLACE(REPLACE(REPLACE(REPLACE(:phoneNumber, '(', ''), ')', ''), '-', ''), ' ', ''), '%'))", nativeQuery = true)
+            "AND (:phoneNumber IS NULL OR REPLACE(REPLACE(REPLACE(REPLACE(CAST(p.patient_contacts AS CHAR), '(', ''), ')', ''), '-', ''), ' ', '') LIKE CONCAT('%', REPLACE(REPLACE(REPLACE(REPLACE(:phoneNumber, '(', ''), ')', ''), '-', ''), ' ', ''), '%')) " +
+            "AND (:patientStatus IS NULL OR p.patient_status = :patientStatus) " +
+            "AND (:emrId IS NULL OR p.emr_id = :emrId)", nativeQuery = true)
     List<Patient> searchPatients(@Param("clinicId") Long clinicId,
                                 @Param("organizationId") Long organizationId,
                                 @Param("firstName") String firstName,
@@ -45,7 +47,9 @@ public interface PatientRepository extends PagingAndSortingRepository<Patient, L
                                 @Param("birthDate") Long birthDate,
                                 @Param("insuranceCompanyId") Long insuranceCompanyId,
                                 @Param("therapistId") Long therapistId,
-                                @Param("phoneNumber") String phoneNumber);
+                                @Param("phoneNumber") String phoneNumber,
+                                @Param("patientStatus") String patientStatus,
+                                @Param("emrId") String emrId);
 
     @Query(value = "SELECT DISTINCT p.* FROM patient p " +
             "JOIN patient_clinic pcl ON pcl.patient_id = p.id " +

@@ -1,5 +1,6 @@
 package com.cob.emr.model.patient;
 
+import com.cob.emr.enums.PatientStatus;
 import com.cob.emr.enums.SearchType;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +15,6 @@ public class PatientSearchModel {
     private Long therapistId;
     private String phoneNumber;
     private SearchType searchType;
+    private PatientStatus patientStatus;
+    private String emrId;
 }

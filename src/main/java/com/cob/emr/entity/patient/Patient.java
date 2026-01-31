@@ -19,6 +19,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Entity(name = "patient")
 @TypeDefs({
@@ -73,6 +74,13 @@ public class Patient {
     @Column(name = "patient_id_effective_to")
     private Long effectiveToDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "patient_status")
+    private PatientStatus patientStatus;
+
+    @Column(name = "emr_id", unique = true, updatable = false)
+    private String emrId;
+
     @Column(name = "patient_addresses", columnDefinition = "json")
     @Type(type = "json")
     private List<AddressDependencyModel> addresses;
@@ -125,6 +133,12 @@ public class Patient {
     public void generateUuid() {
         if (uuid == null) {
             uuid = UUID.randomUUID().toString();
+        }
+        if (emrId == null) {
+            emrId = String.format("%08d", ThreadLocalRandom.current().nextInt(0, 100000000));
+        }
+        if (patientStatus == null) {
+            patientStatus = PatientStatus.Active;
         }
     }
 

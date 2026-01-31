@@ -41,7 +41,7 @@ public class UpdatePatientUseCase {
         target.setSuffix(source.getSuffix());
         target.setEmployerName(source.getEmployerName());
         target.setTitle(source.getTitle());
-
+        target.setPatientStatus(source.getPatientStatus());
     }
 
     private void fillPatientIdentificationInformation(PatientModel source, Patient target) {

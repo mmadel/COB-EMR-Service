@@ -28,6 +28,9 @@ public class SearchPatientUseCase {
         } else {
             effectiveClinicId = clinicId;
         }
+        String patientStatus = searchModel.getPatientStatus() != null
+                ? searchModel.getPatientStatus().name()
+                : null;
         List<Patient> patients = patientRepository.searchPatients(
                 effectiveClinicId,
                 effectiveOrganizationId,
@@ -36,7 +39,9 @@ public class SearchPatientUseCase {
                 searchModel.getDateOfBirth(),
                 searchModel.getInsuranceCompanyId(),
                 searchModel.getTherapistId(),
-                searchModel.getPhoneNumber()
+                searchModel.getPhoneNumber(),
+                patientStatus,
+                searchModel.getEmrId()
         );
         List<PatientModel> records = patients.stream().map(patient -> {
                     PatientModel model = mapper.map(patient, PatientModel.class);

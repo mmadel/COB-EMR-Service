@@ -64,6 +64,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
         long total = (pages).getTotalElements();
         List<PatientModel> records = pages.stream().map(patient -> {
                     PatientModel model = mapper.map(patient, PatientModel.class);
+                    model.setPatientStatus(patient.getPatientStatus());
+                    model.setEmrId(patient.getEmrId());
                     model.setClinicsId(patient.getClinics()
                             .stream()
                             .map(clinic -> clinic.getId()).collect(Collectors.toList()));
@@ -112,6 +114,8 @@ public class PatientFinderServiceImpl implements PatientFinderService {
         Optional<Patient> patient = patientRepository.findByIdAndClinicsIn(patientId, clinics).stream().findFirst();
         if (patient.isPresent()) {
             PatientModel model = mapper.map(patient.get(), PatientModel.class);
+            model.setPatientStatus(patient.get().getPatientStatus());
+            model.setEmrId(patient.get().getEmrId());
             model.setCases(patientCaseRepository
                     .findByPatient_Id(patientId)
                     .stream()
