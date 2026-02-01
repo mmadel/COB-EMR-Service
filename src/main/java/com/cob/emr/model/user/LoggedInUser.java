@@ -1,5 +1,6 @@
 package com.cob.emr.model.user;
 
+import com.cob.emr.enums.DoctorStatus;
 import com.cob.emr.model.clinic.ClinicModel;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,4 +21,5 @@ public class LoggedInUser {
     private List<EMRUseRoleScope> userRoleScope;
     private List<ClinicModel> clinics;
     private ProviderInfo providerInfo;
+    private DoctorStatus doctorStatus;
 }

@@ -1,5 +1,6 @@
 package com.cob.emr.model.user;
 
+import com.cob.emr.enums.DoctorStatus;
 import com.cob.emr.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,5 +21,6 @@ public class EMRUser {
     private UserType userType;
     private List<EMRUseRoleScope> roleScope;
     private ProviderInfo providerInfo;
+    private DoctorStatus doctorStatus;
     private List<Long> clinicIds = new ArrayList<>();
 }

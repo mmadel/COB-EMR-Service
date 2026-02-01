@@ -61,6 +61,7 @@ public class FindUserByUUIDUseCase {
         emrUser.setUuid(user.getUuid());
         emrUser.setRoleScope(user.getRoleScope());
         emrUser.setUserType(UserType.Clinical);
+        emrUser.setDoctorStatus(user.getDoctorStatus());
         emrUser.setProviderInfo(ProviderInfo.builder()
                 .npi(user.getNpi())
                 .credential(user.getCredential())

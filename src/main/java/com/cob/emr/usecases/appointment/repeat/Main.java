@@ -11,33 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Main {
     public static void main(String[] args) {
-
-//        File htmlFile = new File("C:\\Users\\HP\\Desktop\\move_shild\\rom.html");
-//        if (!htmlFile.exists()) {
-//            System.err.println("File not found: " + args[0]);
-//            System.exit(1);
-//        }
-//
-//        try {
-//            Map<String, Map<String, String[]>> result = parseMovementOptions(htmlFile);
-//            Gson gson = new Gson();
-//            ObjectMapper objectMapper = new ObjectMapper();
-//
-//            // Convert the map to JSON string
-//            String json = objectMapper.writeValueAsString(result);
-//
-//            // Print the resulting JSON
-//            System.out.println(json);
-//
-//
-//
-//        } catch (IOException e) {
-//            System.err.println("Error reading or parsing the file: " + e.getMessage());
-//            System.exit(1);
-//        }
+        System.out.println(String.format("%08d", ThreadLocalRandom.current().nextInt(0, 100000000)));
     }
     public static Map<String, Map<String, String[]>> parseMovementOptions(File htmlFile) throws IOException {
         // Parse the HTML file with Jsoup

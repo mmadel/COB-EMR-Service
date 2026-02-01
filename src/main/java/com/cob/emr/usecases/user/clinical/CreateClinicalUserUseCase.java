@@ -2,6 +2,7 @@ package com.cob.emr.usecases.user.clinical;
 
 import com.cob.emr.entity.organization.Organization;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
+import com.cob.emr.enums.DoctorStatus;
 import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.organization.OrganizationRepository;
@@ -25,6 +26,7 @@ public class CreateClinicalUserUseCase {
 
     public void create(ClinicalEMRUserModel model) {
         ClinicalEMRUser clinicalEMRUser = mapper.map(model, ClinicalEMRUser.class);
+        clinicalEMRUser.setDoctorStatus(DoctorStatus.DOCTOR_PENDING);
         model.getClinicIds()
                 .stream()
                 .map(clinicId -> clinicRepository.findById(clinicId).get())

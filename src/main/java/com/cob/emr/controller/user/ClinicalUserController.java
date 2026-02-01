@@ -45,6 +45,8 @@ public class ClinicalUserController {
     UpdateClinicalUserUseCase updateClinicalUserUseCase;
     @Autowired
     FindClinicalUserWithFinalizationAuthUSeCase findClinicalUserWithFinalizationAuthUSeCase;
+    @Autowired
+    ActivateClinicalUserUseCase activateClinicalUserUseCase;
 
     @PostMapping("/create")
     public ResponseEntity createClinicalUser(@RequestBody ClinicalEMRUserModel model) throws UserKeyCloakException, NoSuchPaddingException, UnsupportedEncodingException, IllegalBlockSizeException, UserException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
@@ -97,6 +99,12 @@ public class ClinicalUserController {
     public ResponseEntity findAuthProviderToFinalize(@PathVariable Long clinic, @PathVariable String user) throws UserException {
         return ResponseEntity.ok()
                 .body(findClinicalUserWithFinalizationAuthUSeCase.find(clinic,user));
+    }
+
+    @PutMapping("/activate/uuid/{uuid}")
+    public ResponseEntity activateClinicalUser(@PathVariable("uuid") String uuid) throws UserException {
+        activateClinicalUserUseCase.activate(uuid);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

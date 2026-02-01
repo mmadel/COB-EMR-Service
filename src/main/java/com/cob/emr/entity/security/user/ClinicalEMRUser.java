@@ -1,6 +1,7 @@
 package com.cob.emr.entity.security.user;
 
 import com.cob.emr.entity.clinic.Clinic;
+import com.cob.emr.enums.DoctorStatus;
 import com.cob.emr.model.user.EMRUseRoleScope;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.Getter;
@@ -34,6 +35,10 @@ public class ClinicalEMRUser extends EMRUser {
     private String speciality;
     @Column(name = "credential")
     private String credential;
+
+    @Column(name = "doctor_status")
+    @Enumerated(EnumType.STRING)
+    private DoctorStatus doctorStatus;
 
     @Column(name = "role_scope", columnDefinition = "json")
     @Type(type = "json")
