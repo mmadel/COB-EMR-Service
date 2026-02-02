@@ -36,6 +36,7 @@ public class FindAllOrganizationUsersUseCase {
         model.setUserType("clinical");
         model.setId(user.getId());
         model.setUuid(user.getUuid());
+        model.setStatus(user.getStatus());
         model.setClinicIds(user.getClinics().stream()
                 .map(Clinic::getId)
                 .collect(Collectors.toList()));
@@ -49,6 +50,7 @@ public class FindAllOrganizationUsersUseCase {
         model.setUserType("clerical");
         model.setId(user.getId());
         model.setUuid(user.getUuid());
+        model.setStatus(user.getStatus());
         model.setClinicIds(user.getClinics().stream()
                 .map(Clinic::getId)
                 .collect(Collectors.toList()));

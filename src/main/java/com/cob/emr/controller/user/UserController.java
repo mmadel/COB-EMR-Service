@@ -3,9 +3,11 @@ package com.cob.emr.controller.user;
 import com.cob.emr.Utils.CookiesUtils;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.user.LoggedInUser;
+import com.cob.emr.enums.UserStatus;
 import com.cob.emr.usecases.user.ConstructLoggedInUserUseCase;
 import com.cob.emr.usecases.user.FindAllOrganizationUsersUseCase;
 import com.cob.emr.usecases.user.FindUserByUUIDUseCase;
+import com.cob.emr.usecases.user.UpdateUserStatusUseCase;
 import com.cob.emr.usecases.user.checking.CheckEmailUseCase;
 import com.cob.emr.usecases.user.checking.CheckUserNameUseCase;
 import com.cob.emr.usecases.user.keycloak.RemoveEMRRolesFromUserUseCase;
@@ -31,6 +33,8 @@ public class UserController {
     FindAllOrganizationUsersUseCase findAllOrganizationUsersUseCase;
     @Autowired
     RemoveEMRRolesFromUserUseCase removeEMRRolesFromUserUseCase;
+    @Autowired
+    UpdateUserStatusUseCase updateUserStatusUseCase;
     @Autowired
     ConstructLoggedInUserUseCase constructLoggedInUserUseCase;
     @Autowired
@@ -60,6 +64,13 @@ public class UserController {
     @GetMapping("/remove/roles/{uuid}")
     public ResponseEntity remove(@PathVariable String uuid) throws UserException {
         removeEMRRolesFromUserUseCase.removeAll(uuid);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @PutMapping("/update/status/uuid/{uuid}")
+    public ResponseEntity updateUserStatus(@PathVariable String uuid,
+                                           @RequestParam("status") UserStatus status) throws UserException {
+        updateUserStatusUseCase.update(uuid, status);
         return new ResponseEntity(HttpStatus.OK);
     }
 

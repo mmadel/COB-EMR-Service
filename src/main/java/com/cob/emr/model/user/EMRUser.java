@@ -1,6 +1,7 @@
 package com.cob.emr.model.user;
 
 import com.cob.emr.enums.DoctorStatus;
+import com.cob.emr.enums.UserStatus;
 import com.cob.emr.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class EMRUser {
     private String phone;
     private String uuid;
     private UserType userType;
+    private UserStatus status;
     private List<EMRUseRoleScope> roleScope;
     private ProviderInfo providerInfo;
     private DoctorStatus doctorStatus;

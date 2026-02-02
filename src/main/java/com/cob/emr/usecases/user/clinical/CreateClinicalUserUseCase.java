@@ -5,6 +5,7 @@ import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.entity.signature.DoctorSignatureToken;
 import com.cob.emr.enums.DoctorStatus;
 import com.cob.emr.enums.SignatureAuditEvent;
+import com.cob.emr.enums.UserStatus;
 import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.organization.OrganizationRepository;
@@ -39,6 +40,7 @@ public class CreateClinicalUserUseCase {
     public Long create(ClinicalEMRUserModel model) {
         ClinicalEMRUser clinicalEMRUser = mapper.map(model, ClinicalEMRUser.class);
         clinicalEMRUser.setDoctorStatus(DoctorStatus.DOCTOR_PENDING);
+        clinicalEMRUser.setStatus(UserStatus.ACTIVE);
         model.getClinicIds()
                 .stream()
                 .map(clinicId -> clinicRepository.findById(clinicId).get())

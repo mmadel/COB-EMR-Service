@@ -61,6 +61,7 @@ public class FindUserByUUIDUseCase {
         emrUser.setUuid(user.getUuid());
         emrUser.setRoleScope(user.getRoleScope());
         emrUser.setUserType(UserType.Clinical);
+        emrUser.setStatus(user.getStatus());
         emrUser.setDoctorStatus(user.getDoctorStatus());
         emrUser.setProviderInfo(ProviderInfo.builder()
                 .npi(user.getNpi())
@@ -81,6 +82,7 @@ public class FindUserByUUIDUseCase {
         emrUser.setUuid(user.getUuid());
         emrUser.setRoleScope(user.getRoleScope());
         emrUser.setUserType(UserType.Clerical);
+        emrUser.setStatus(user.getStatus());
         return emrUser;
     }
 

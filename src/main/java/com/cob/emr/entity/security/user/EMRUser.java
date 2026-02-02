@@ -1,10 +1,10 @@
 package com.cob.emr.entity.security.user;
 
+import com.cob.emr.enums.UserStatus;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 @Getter
@@ -24,4 +24,8 @@ public abstract class EMRUser {
     private String phone;
     @Column(name = "uuid")
     private String uuid;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserStatus status = UserStatus.ACTIVE;
 }
