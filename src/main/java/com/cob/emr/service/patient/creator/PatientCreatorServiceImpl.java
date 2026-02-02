@@ -61,13 +61,15 @@ public class PatientCreatorServiceImpl implements PatientCreatorService {
 
     private void persistPatientCases(Patient patient, List<PatientCaseModel> models) {
         Set<PatientCase> patientCases = new HashSet<>();
-        models.forEach(patientCaseModel -> {
+        for (int i = 0; i < models.size(); i++) {
+            PatientCaseModel patientCaseModel = models.get(i);
             PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
             ClinicalEMRUser clinicalEMRUser = clinicalEMRUserRepository.findById(patientCaseModel.getTherapist()).get();
             patientCase.setClinicalEMRUser(clinicalEMRUser);
             patientCase.setPatient(patient);
+            patientCase.setOrder(i);
             patientCases.add(patientCase);
-        });
+        }
         patient.setCases(patientCases);
     }
 }

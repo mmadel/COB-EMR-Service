@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -23,9 +24,30 @@ public class PatientCaseUpdaterService {
     public void updatePatientCases(Patient original, List<PatientCaseModel> patientCaseModels) {
         delete(original.getId(), patientCaseModels);
 
+        assignCaseOrders(patientCaseModels);
+
         update(original, patientCaseModels);
 
         persist(original, patientCaseModels);
+    }
+
+    private void assignCaseOrders(List<PatientCaseModel> patientCaseModels) {
+        List<PatientCaseModel> newCases = patientCaseModels.stream()
+                .filter(m -> m.getId() == null)
+                .collect(Collectors.toList());
+        List<PatientCaseModel> existingCases = patientCaseModels.stream()
+                .filter(m -> m.getId() != null)
+                .sorted(Comparator.comparingInt(m -> m.getOrder() != null ? m.getOrder() : Integer.MAX_VALUE))
+                .collect(Collectors.toList());
+
+        if (!newCases.isEmpty()) {
+            for (int i = 0; i < newCases.size(); i++) {
+                newCases.get(i).setOrder(i);
+            }
+            for (int i = 0; i < existingCases.size(); i++) {
+                existingCases.get(i).setOrder(newCases.size() + i);
+            }
+        }
     }
 
     private void delete(Long patientId, List<PatientCaseModel> submittedPatientCases) {

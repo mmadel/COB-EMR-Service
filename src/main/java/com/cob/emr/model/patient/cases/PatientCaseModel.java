@@ -25,4 +25,5 @@ public class PatientCaseModel {
     private PatientCaseAuthorizationData authorizationData;
     private String uuid;
     private String additionalInfo;
+    private Integer order;
 }

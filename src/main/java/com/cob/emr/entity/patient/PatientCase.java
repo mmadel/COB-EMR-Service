@@ -65,6 +65,9 @@ public class PatientCase {
     @Column(name = "additional_info", length = 700)
     private String additionalInfo	;
 
+    @Column(name = "`order`")
+    private Integer order;
+
     @PrePersist
     public void generateUuid() {
         if (uuid == null) {

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -45,12 +46,21 @@ public class UpdatePatientCaseUseCase {
 
         List<PatientCaseModel> addedItems = findAdded(model.getCases());
         if (!addedItems.isEmpty()) {
-            addedItems.forEach(patientCaseModel -> {
-                    PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
+            List<PatientCase> existingCases = patient.getCases().stream()
+                    .sorted(Comparator.comparingInt(c -> c.getOrder() != null ? c.getOrder() : Integer.MAX_VALUE))
+                    .collect(Collectors.toList());
+            for (int i = 0; i < existingCases.size(); i++) {
+                existingCases.get(i).setOrder(addedItems.size() + i);
+            }
+
+            for (int i = 0; i < addedItems.size(); i++) {
+                PatientCaseModel patientCaseModel = addedItems.get(i);
+                PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
                 patientCase.setClinicalEMRUser(clinicalEMRUserRepository.findById(patientCaseModel.getTherapist())
-                        .orElseThrow(() -> new IllegalArgumentException("Therapist Not Found for id " +patientCaseModel.getTherapist() )));
+                        .orElseThrow(() -> new IllegalArgumentException("Therapist Not Found for id " + patientCaseModel.getTherapist())));
+                patientCase.setOrder(i);
                 patient.addCase(patientCase);
-            });
+            }
         }
 
         List<Long> deletedItems = findDeleted(updated, original);
