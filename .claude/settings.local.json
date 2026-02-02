@@ -10,7 +10,9 @@
       "Bash(grep:*)",
       "Bash(git -C \"C:\\\\cob\\\\COB-EMR-Service\" log --oneline -20)",
       "Bash(ls \"C:\\\\cob\\\\COB-EMR-Service\\\\src\\\\main\\\\resources\\\\db\\\\migration\"\" 2>/dev/null || echo \"Directory does not exist \")",
-      "Bash(mvn clean compile:*)"
+      "Bash(mvn clean compile:*)",
+      "Bash(ls -la \"C:\\\\cob\\\\COB-EMR-Service\\\\src\\\\main\\\\java\\\\com\\\\cob\\\\emr\\\\enums\"\" 2>&1 || echo \"Directory does not exist \")",
+      "Bash(mysql:*)"
     ]
   }
 }

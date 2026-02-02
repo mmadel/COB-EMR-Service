@@ -17,6 +17,7 @@ public class EMRUser {
     private String lastName;
     private String password;
     private String email;
+    private String phone;
     private String uuid;
     private UserType userType;
     private List<EMRUseRoleScope> roleScope;

@@ -20,6 +20,8 @@ public abstract class EMRUser {
     private String lastName;
     @Column(name = "email")
     private String email;
+    @Column(name = "phone")
+    private String phone;
     @Column(name = "uuid")
     private String uuid;
 }

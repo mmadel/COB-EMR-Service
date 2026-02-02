@@ -7,6 +7,8 @@ import com.cob.emr.model.user.ClinicalEMRUserModel;
 import com.cob.emr.repositories.clinic.ClinicRepository;
 import com.cob.emr.repositories.organization.OrganizationRepository;
 import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
+import com.cob.emr.usecases.signature.SignatureEmailService;
+import com.cob.emr.usecases.signature.SignatureTokenService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +25,12 @@ public class CreateClinicalUserUseCase {
     ClinicalEMRUserRepository clinicalEMRUserRepository;
     @Autowired
     OrganizationRepository organizationRepository;
+    @Autowired
+    SignatureTokenService signatureTokenService;
+    @Autowired
+    SignatureEmailService signatureEmailService;
 
-    public void create(ClinicalEMRUserModel model) {
+    public Long create(ClinicalEMRUserModel model) {
         ClinicalEMRUser clinicalEMRUser = mapper.map(model, ClinicalEMRUser.class);
         clinicalEMRUser.setDoctorStatus(DoctorStatus.DOCTOR_PENDING);
         model.getClinicIds()
@@ -32,6 +38,9 @@ public class CreateClinicalUserUseCase {
                 .map(clinicId -> clinicRepository.findById(clinicId).get())
                 .collect(Collectors.toSet())
                 .forEach(clinic -> clinicalEMRUser.addClinic(clinic));
-        clinicalEMRUserRepository.save(clinicalEMRUser);
+        ClinicalEMRUser savedEntity = clinicalEMRUserRepository.save(clinicalEMRUser);
+        String token = signatureTokenService.generateToken(savedEntity);
+        signatureEmailService.sendSignatureLink(savedEntity.getEmail(), savedEntity.getFirstName() + " " + savedEntity.getLastName(), token);
+        return savedEntity.getId();
     }
 }
