@@ -12,6 +12,7 @@ public class UserException extends EMRException{
     public static final String INVALID_ROLE = Category.Business.value() + getPrefix() +"_06";
     public static final String EMAIL_IS_EXISTS = Category.Business.value() + getPrefix() +"_07";
     public static final String DOCTOR_ACCOUNT_PENDING = Category.Business.value() + getPrefix() +"_08";
+    public static final String USER_ASSIGNED_TO_PATIENT_CASE = Category.Business.value() + getPrefix() +"_09";
 
     public UserException(String code) {
         super(code);

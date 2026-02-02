@@ -14,4 +14,6 @@ public interface PatientCaseRepository extends PagingAndSortingRepository<Patien
 
     Optional<PatientCase> findByIdAndPatient_Id(Long id , Long patientId);
     Optional<PatientCase> findByUuid(String uuid);
+
+    boolean existsByClinicalEMRUser_Id(Long therapistId);
 }

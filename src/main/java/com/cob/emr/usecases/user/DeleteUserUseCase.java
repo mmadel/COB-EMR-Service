@@ -8,6 +8,7 @@ import com.cob.emr.entity.signature.DoctorSignatureToken;
 import com.cob.emr.exception.business.UserException;
 import com.cob.emr.exception.business.UserKeyCloakException;
 import com.cob.emr.repositories.audit.SignatureAuditLogRepository;
+import com.cob.emr.repositories.patient.cases.PatientCaseRepository;
 import com.cob.emr.repositories.security.AdministratorUserRepository;
 import com.cob.emr.repositories.security.ClericalEMRUserRepository;
 import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
@@ -47,6 +48,8 @@ public class DeleteUserUseCase {
     SignatureCaptureMetadataRepository signatureCaptureMetadataRepository;
     @Autowired
     SignatureAuditLogRepository signatureAuditLogRepository;
+    @Autowired
+    PatientCaseRepository patientCaseRepository;
 
     @Transactional(rollbackOn = {UserKeyCloakException.class, UserException.class})
     public void delete(String uuid) throws UserException {
@@ -81,7 +84,10 @@ public class DeleteUserUseCase {
         }
     }
 
-    private void deleteClinicalUser(ClinicalEMRUser clinicalUser) {
+    private void deleteClinicalUser(ClinicalEMRUser clinicalUser) throws UserException {
+        if (patientCaseRepository.existsByClinicalEMRUser_Id(clinicalUser.getId()))
+            throw new UserException(HttpStatus.CONFLICT, UserException.USER_ASSIGNED_TO_PATIENT_CASE, new Object[]{clinicalUser.getId()});
+
         List<DoctorSignatureToken> tokens = doctorSignatureTokenRepository.findByDoctor(clinicalUser);
         for (DoctorSignatureToken token : tokens) {
             doctorSignatureRepository.deleteBySignatureToken(token);

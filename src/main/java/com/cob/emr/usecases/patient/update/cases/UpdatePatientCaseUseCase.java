@@ -46,7 +46,7 @@ public class UpdatePatientCaseUseCase {
         List<PatientCaseModel> addedItems = findAdded(model.getCases());
         if (!addedItems.isEmpty()) {
             addedItems.forEach(patientCaseModel -> {
-                PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
+                    PatientCase patientCase = mapper.map(patientCaseModel, PatientCase.class);
                 patientCase.setClinicalEMRUser(clinicalEMRUserRepository.findById(patientCaseModel.getTherapist())
                         .orElseThrow(() -> new IllegalArgumentException("Therapist Not Found for id " +patientCaseModel.getTherapist() )));
                 patient.addCase(patientCase);
