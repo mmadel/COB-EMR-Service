@@ -1,6 +1,7 @@
 package com.cob.emr.security;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -9,17 +10,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.oauth2.server.resource.authentication.DelegatingJwtGrantedAuthoritiesConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
+import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfiguration {
-    //    @Autowired
-//    private RestAuthenticationEntryPoint restAuthenticationEntryPoint;
-//    @Autowired
-//    @Qualifier("handlerRestAccessDenied")
-//    RestAccessDeniedHandler restAccessDeniedHandler;
+
+    @Autowired
+    private UserStatusFilter userStatusFilter;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
@@ -42,7 +42,8 @@ public class SecurityConfiguration {
                                         jwtToken -> new JwtAuthenticationToken(jwtToken, authoritiesConverter.convert(jwtToken))
                                 )
                         )
-                );
+                )
+                .addFilterAfter(userStatusFilter, BearerTokenAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
