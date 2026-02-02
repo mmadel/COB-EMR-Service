@@ -3,16 +3,19 @@ package com.cob.emr.usecases.signature;
 import com.cob.emr.entity.security.user.ClinicalEMRUser;
 import com.cob.emr.entity.signature.DoctorSignatureToken;
 import com.cob.emr.entity.signature.SignatureOtp;
+import com.cob.emr.enums.SignatureAuditEvent;
 import com.cob.emr.exception.business.SignatureTokenException;
 import com.cob.emr.repositories.security.ClinicalEMRUserRepository;
 import com.cob.emr.repositories.signature.DoctorSignatureTokenRepository;
 import com.cob.emr.repositories.signature.SignatureOtpRepository;
+import com.cob.emr.usecases.audit.SignatureAuditService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Optional;
 
 @Component
@@ -29,10 +32,15 @@ public class SendSignatureOtpUseCase {
     SignatureOtpRepository signatureOtpRepository;
     @Autowired
     OtpSmsService otpSmsService;
+    @Autowired
+    SignatureAuditService signatureAuditService;
 
     public void send(String uuid) throws SignatureTokenException {
         Optional<ClinicalEMRUser> optionalUser = clinicalEMRUserRepository.findByUUID(uuid);
         if (optionalUser.isEmpty()) {
+            signatureAuditService.logFailure(SignatureAuditEvent.OTP_SEND_FAILED,
+                    null, null, SignatureTokenException.TOKEN_NOT_FOUND,
+                    Map.of("reason", "Doctor not found", "uuid", uuid));
             throw new SignatureTokenException(HttpStatus.NOT_FOUND,
                     SignatureTokenException.TOKEN_NOT_FOUND, null);
         }
@@ -41,12 +49,19 @@ public class SendSignatureOtpUseCase {
         Optional<DoctorSignatureToken> optionalToken =
                 doctorSignatureTokenRepository.findTopByDoctorAndUsedFalseOrderByCreatedAtDesc(doctor);
         if (optionalToken.isEmpty()) {
+            signatureAuditService.logFailure(SignatureAuditEvent.OTP_SEND_FAILED,
+                    doctor.getId(), null, SignatureTokenException.TOKEN_NOT_FOUND,
+                    Map.of("reason", "No active token found"));
             throw new SignatureTokenException(HttpStatus.NOT_FOUND,
                     SignatureTokenException.TOKEN_NOT_FOUND, null);
         }
 
         DoctorSignatureToken signatureToken = optionalToken.get();
         if (signatureToken.getExpiresAt().isBefore(LocalDateTime.now())) {
+            signatureAuditService.logFailure(SignatureAuditEvent.TOKEN_EXPIRED,
+                    doctor.getId(), signatureToken.getId(),
+                    SignatureTokenException.TOKEN_EXPIRED,
+                    Map.of("expiresAt", signatureToken.getExpiresAt().toString()));
             throw new SignatureTokenException(HttpStatus.GONE,
                     SignatureTokenException.TOKEN_EXPIRED, null);
         }
@@ -63,6 +78,13 @@ public class SendSignatureOtpUseCase {
 
         String doctorName = doctor.getFirstName() + " " + doctor.getLastName();
         otpSmsService.sendOtp(phone, code, doctorName);
+
+        String maskedPhone = phone.length() > 4
+                ? "***" + phone.substring(phone.length() - 4)
+                : "***";
+        signatureAuditService.logSuccess(SignatureAuditEvent.OTP_SENT,
+                doctor.getId(), signatureToken.getId(),
+                Map.of("phone", maskedPhone));
     }
 
     private String generateOtpCode() {

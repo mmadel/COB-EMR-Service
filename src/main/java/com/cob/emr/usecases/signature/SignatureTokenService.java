@@ -14,13 +14,12 @@ public class SignatureTokenService {
     @Autowired
     DoctorSignatureTokenRepository doctorSignatureTokenRepository;
 
-    public String generateToken(ClinicalEMRUser doctor) {
+    public DoctorSignatureToken generateToken(ClinicalEMRUser doctor) {
         String token = UUID.randomUUID().toString();
         DoctorSignatureToken signatureToken = new DoctorSignatureToken();
         signatureToken.setToken(token);
         signatureToken.setDoctor(doctor);
         signatureToken.setExpiresAt(LocalDateTime.now().plusDays(7));
-        doctorSignatureTokenRepository.save(signatureToken);
-        return token;
+        return doctorSignatureTokenRepository.save(signatureToken);
     }
 }

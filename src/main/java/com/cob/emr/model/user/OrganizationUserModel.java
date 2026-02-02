@@ -9,6 +9,8 @@ import java.util.List;
 @Getter
 public class OrganizationUserModel {
     private String userName;
+    private String email;
+    private String userType;
     private Long id;
     private String uuid;
     private List<Long> clinicIds;

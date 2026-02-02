@@ -32,6 +32,8 @@ public class FindAllOrganizationUsersUseCase {
     private OrganizationUserModel mapClinicalUser(ClinicalEMRUser user) {
         OrganizationUserModel model = new OrganizationUserModel();
         model.setUserName(user.getAccountName());
+        model.setEmail(user.getEmail());
+        model.setUserType("clinical");
         model.setId(user.getId());
         model.setUuid(user.getUuid());
         model.setClinicIds(user.getClinics().stream()
@@ -43,6 +45,8 @@ public class FindAllOrganizationUsersUseCase {
     private OrganizationUserModel mapClericalUser(ClericalEMRUser user) {
         OrganizationUserModel model = new OrganizationUserModel();
         model.setUserName(user.getAccountName());
+        model.setEmail(user.getEmail());
+        model.setUserType("clerical");
         model.setId(user.getId());
         model.setUuid(user.getUuid());
         model.setClinicIds(user.getClinics().stream()
