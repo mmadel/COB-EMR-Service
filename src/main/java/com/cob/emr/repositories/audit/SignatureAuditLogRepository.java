@@ -2,6 +2,7 @@ package com.cob.emr.repositories.audit;
 
 import com.cob.emr.entity.audit.SignatureAuditLog;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,4 +13,7 @@ public interface SignatureAuditLogRepository extends JpaRepository<SignatureAudi
     List<SignatureAuditLog> findByDoctorIdOrderByPerformedAtDesc(Long doctorId);
 
     List<SignatureAuditLog> findByTokenIdOrderByPerformedAtDesc(Long tokenId);
+
+    @Modifying
+    void deleteByDoctorId(Long doctorId);
 }

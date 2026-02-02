@@ -5,6 +5,7 @@ import com.cob.emr.exception.business.UserException;
 import com.cob.emr.model.user.LoggedInUser;
 import com.cob.emr.enums.UserStatus;
 import com.cob.emr.usecases.user.ConstructLoggedInUserUseCase;
+import com.cob.emr.usecases.user.DeleteUserUseCase;
 import com.cob.emr.usecases.user.FindAllOrganizationUsersUseCase;
 import com.cob.emr.usecases.user.FindUserByUUIDUseCase;
 import com.cob.emr.usecases.user.UpdateUserStatusUseCase;
@@ -35,6 +36,8 @@ public class UserController {
     RemoveEMRRolesFromUserUseCase removeEMRRolesFromUserUseCase;
     @Autowired
     UpdateUserStatusUseCase updateUserStatusUseCase;
+    @Autowired
+    DeleteUserUseCase deleteUserUseCase;
     @Autowired
     ConstructLoggedInUserUseCase constructLoggedInUserUseCase;
     @Autowired
@@ -71,6 +74,12 @@ public class UserController {
     public ResponseEntity updateUserStatus(@PathVariable String uuid,
                                            @RequestParam("status") UserStatus status) throws UserException {
         updateUserStatusUseCase.update(uuid, status);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/uuid/{uuid}")
+    public ResponseEntity deleteUser(@PathVariable String uuid) throws UserException {
+        deleteUserUseCase.delete(uuid);
         return new ResponseEntity(HttpStatus.OK);
     }
 
