@@ -68,6 +68,9 @@ public class PatientCase {
     @Column(name = "`order`")
     private Integer order;
 
+    @OneToMany(mappedBy = "patientCase", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PatientCasePayment> payments;
+
     @PrePersist
     public void generateUuid() {
         if (uuid == null) {

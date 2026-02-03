@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 
 public class PatientCaseException extends EMRException {
     public static final String CASE_ASSIGN_TO_APPOINTMENT = Category.Business.value() + getPrefix() +"_00";
+    public static final String CASE_NOT_FOUND = Category.Business.value() + getPrefix() + "_01";
     public PatientCaseException(String code) {
         super(code);
     }
