@@ -107,4 +107,9 @@ public class ClinicalUserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @GetMapping("/find-all/organizationId/{organizationId}")
+    public ResponseEntity<Object> findByOrganization(@PathVariable Long organizationId) {
+        return new ResponseEntity<>(findClinicalUsersByClinicUseCase.findByOrganization(organizationId), HttpStatus.OK);
+    }
+
 }

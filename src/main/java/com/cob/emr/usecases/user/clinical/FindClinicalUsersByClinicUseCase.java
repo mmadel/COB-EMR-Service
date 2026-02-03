@@ -75,4 +75,10 @@ public class FindClinicalUsersByClinicUseCase {
                 .map(clinicalEMRUser -> mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class))
                 .collect(Collectors.toList());
     }
+
+    public List<ClinicalEMRUserModel> findByOrganization(Long organizationId) {
+        return clinicalEMRUserRepository.findByOrganization(organizationId).stream()
+                .map(clinicalEMRUser -> mapper.map(clinicalEMRUser, ClinicalEMRUserModel.class))
+                .collect(Collectors.toList());
+    }
 }
