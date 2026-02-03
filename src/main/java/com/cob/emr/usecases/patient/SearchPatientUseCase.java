@@ -1,9 +1,11 @@
 package com.cob.emr.usecases.patient;
 
 import com.cob.emr.entity.patient.Patient;
+import com.cob.emr.entity.patient.PatientCase;
 import com.cob.emr.enums.SearchType;
 import com.cob.emr.model.patient.PatientModel;
 import com.cob.emr.model.patient.PatientSearchModel;
+import com.cob.emr.model.patient.cases.PatientCaseModel;
 import com.cob.emr.model.response.PatientResponse;
 import com.cob.emr.repositories.patient.PatientRepository;
 import org.modelmapper.ModelMapper;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -48,6 +51,7 @@ public class SearchPatientUseCase {
                     model.setClinicsId(patient.getClinics()
                             .stream()
                             .map(clinic -> clinic.getId()).collect(Collectors.toList()));
+                    enrichTherapistData(patient, model);
                     return model;
                 })
                 .collect(Collectors.toList());
@@ -56,5 +60,22 @@ public class SearchPatientUseCase {
                 .number_of_matching_records(records.size())
                 .records(records)
                 .build();
+    }
+
+    private void enrichTherapistData(Patient patient, PatientModel model) {
+        if (patient.getCases() == null || model.getCases() == null) return;
+
+        Map<Long, PatientCase> caseEntityMap = patient.getCases().stream()
+                .collect(Collectors.toMap(PatientCase::getId, pc -> pc));
+
+        for (PatientCaseModel caseModel : model.getCases()) {
+            if (caseModel.getId() == null) continue;
+
+            PatientCase caseEntity = caseEntityMap.get(caseModel.getId());
+            if (caseEntity != null && caseEntity.getClinicalEMRUser() != null) {
+                caseModel.setTherapist(caseEntity.getClinicalEMRUser().getId());
+                caseModel.setTherapistUUID(caseEntity.getClinicalEMRUser().getUuid());
+            }
+        }
     }
 }

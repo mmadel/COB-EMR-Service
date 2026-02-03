@@ -44,6 +44,9 @@ public class UpdatePatientCaseUseCase {
                 .map(patientCase -> patientCase.getId())
                 .collect(Collectors.toList());
 
+        List<PatientCaseModel> existingItems = findExisting(model.getCases());
+        updateExistingCases(existingItems, patient);
+
         List<PatientCaseModel> addedItems = findAdded(model.getCases());
         if (!addedItems.isEmpty()) {
             List<PatientCase> existingCases = patient.getCases().stream()
@@ -81,9 +84,36 @@ public class UpdatePatientCaseUseCase {
                 .filter(item -> item.getId() == null)
                 .collect(Collectors.toList());
     }
-    private void getClinicalEMRUser(Long id){
 
+    private List<PatientCaseModel> findExisting(List<PatientCaseModel> cases) {
+        return cases.stream()
+                .filter(item -> item.getId() != null)
+                .collect(Collectors.toList());
     }
+
+    private void updateExistingCases(List<PatientCaseModel> existingItems, Patient patient) {
+        for (PatientCaseModel caseModel : existingItems) {
+            patient.getCases().stream()
+                    .filter(pc -> pc.getId().equals(caseModel.getId()))
+                    .findFirst()
+                    .ifPresent(patientCase -> {
+                        patientCase.setTitle(caseModel.getTitle());
+                        patientCase.setPlaceOfService(caseModel.getPlaceOfService());
+                        patientCase.setInjuryCase(caseModel.getInjuryCase());
+                        patientCase.setCaseInsuranceInformation(caseModel.getCaseInsuranceInformation());
+                        patientCase.setCaseDiagnosis(caseModel.getCaseDiagnosis());
+                        patientCase.setReferralCase(caseModel.getReferralCase());
+                        patientCase.setCaseOtherInformation(caseModel.getCaseOtherInformation());
+                        patientCase.setAdditionalInfo(caseModel.getAdditionalInfo());
+                        patientCase.setOrder(caseModel.getOrder());
+                        if (caseModel.getTherapist() != null) {
+                            patientCase.setClinicalEMRUser(clinicalEMRUserRepository.findById(caseModel.getTherapist())
+                                    .orElse(null));
+                        }
+                    });
+        }
+    }
+
     protected List<Long> findDeleted(List<Long> updated, List<Long> original) {
         return original.stream()
                 .filter(item -> !updated.contains(item))
