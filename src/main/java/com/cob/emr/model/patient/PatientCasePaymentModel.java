@@ -14,10 +14,11 @@ public class PatientCasePaymentModel {
     private String uuid;
     private LocalDate dateOfTransaction;
     private String paymentMethod;
-    private String providerId;
+    private Long providerId;
     private LocalDate dateOfService;
     private ChargeType chargeType;
     private BigDecimal amountDue;
     private String description;
+    private Boolean paid;
     private Long patientCaseId;
 }

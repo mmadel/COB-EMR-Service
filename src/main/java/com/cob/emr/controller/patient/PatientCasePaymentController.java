@@ -32,6 +32,11 @@ public class PatientCasePaymentController {
         return new ResponseEntity<>(findPatientCasePaymentUseCase.findByPatientCase(caseId), HttpStatus.OK);
     }
 
+    @GetMapping("/find/unpaid/caseId/{caseId}")
+    public ResponseEntity<Object> findUnpaidByPatientCase(@PathVariable Long caseId) {
+        return new ResponseEntity<>(findPatientCasePaymentUseCase.findUnpaidByPatientCase(caseId), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deletePatientCasePaymentUseCase.delete(id);

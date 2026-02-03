@@ -45,6 +45,9 @@ public class PatientCasePayment {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "paid")
+    private Boolean paid;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "patient_case_id")
     private PatientCase patientCase;

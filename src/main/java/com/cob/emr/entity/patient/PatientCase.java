@@ -68,6 +68,9 @@ public class PatientCase {
     @Column(name = "`order`")
     private Integer order;
 
+    @Column(name = "chart_note", columnDefinition = "TEXT")
+    private String chartNote;
+
     @OneToMany(mappedBy = "patientCase", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PatientCasePayment> payments;
 

@@ -41,4 +41,7 @@ public interface ClinicalEMRUserRepository extends JpaRepository<ClinicalEMRUser
     @Query("select distinct user from ClinicalEMRUser user JOIN user.clinics c WHERE c.organization.id = :organizationId")
     List<ClinicalEMRUser> findByOrganization(@Param("organizationId") Long organizationId);
 
+    @Query("select user from ClinicalEMRUser user where user.id = :id")
+    Optional<ClinicalEMRUser> findClinicalUserById(@Param("id") Long id);
+
 }

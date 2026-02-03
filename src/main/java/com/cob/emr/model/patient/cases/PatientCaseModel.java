@@ -26,4 +26,5 @@ public class PatientCaseModel {
     private String uuid;
     private String additionalInfo;
     private Integer order;
+    private String chartNote;
 }

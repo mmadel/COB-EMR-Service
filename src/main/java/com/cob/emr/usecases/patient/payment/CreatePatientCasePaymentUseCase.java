@@ -37,7 +37,7 @@ public class CreatePatientCasePaymentUseCase {
                     PatientCasePayment payment = mapper.map(model, PatientCasePayment.class);
                     payment.setPatientCase(patientCase);
                     if (model.getProviderId() != null) {
-                        clinicalEMRUserRepository.findById(model.getProviderId())
+                        clinicalEMRUserRepository.findClinicalUserById(model.getProviderId())
                                 .ifPresent(payment::setProvider);
                     }
                     return payment;
@@ -51,7 +51,7 @@ public class CreatePatientCasePaymentUseCase {
                     PatientCasePaymentModel savedModel = mapper.map(payment, PatientCasePaymentModel.class);
                     savedModel.setPatientCaseId(patientCaseId);
                     if (payment.getProvider() != null) {
-                        savedModel.setProviderId(payment.getProvider().getUuid());
+                        savedModel.setProviderId(payment.getProvider().getId());
                     }
                     return savedModel;
                 })
